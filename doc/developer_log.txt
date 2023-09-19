@@ -4,7 +4,18 @@
 3. 按 android studio 的 stop desktop module 會 return Execution failed,
    按 exe 的 x 就會正常結束...
 
+a. 每次新抓 git 都要重設 RUN -> Edit Configuration -> + -> Application
+   Name : desktop
+   Build and Run
+     - jbr-17
+     - module = project.desktop.main
+     - Main Class = project.DesktopLauncher
 
+b. 至少消掉了 JOYBOMB/gohomelee 改成 gohome 了, 爽~~
+c. https://blog.csdn.net/weixin_34405332/article/details/91729068
+   1. 使用 Hiero 工具要留 padding , 才不會切到別的字
+   2. 更改算法為 Linear : bitmapFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear)
+   3. 座標要是 int ....
 
 
 

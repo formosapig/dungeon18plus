@@ -26,6 +26,8 @@ public class G {
     // blockee size.
     public static final int BLOCKEE_SIZE = 48;
 
+    // test title menu
+    public static final boolean FULL_TITLE_MENU = true;
 
 
 
