@@ -1,6 +1,35 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public abstract class QQView {
+
+    /*
+        click event...
+     */
+    public QQView hit(float x, float y) {
+        float shiftX = x - this.x;
+        float shiftY = y - this.y;
+        if (shiftX >= 0 && shiftX <= width && shiftY >= 0 && shiftY <= height)
+            return this;
+        else
+            return null;
+    }
+
+    public boolean touchDown(float x, float y) {
+        return false;
+    }
+
+    public boolean touchUp(float x, float y) {
+        return false;
+    }
+
+
+    /*
+        called by QQScreen
+     */
+    public void act(float delta) {};
+    public void draw(SpriteBatch batch) {};
 
     protected float x;
     protected float y;

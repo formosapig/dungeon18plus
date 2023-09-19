@@ -20,7 +20,7 @@ public class Main extends QQGameMachine {
         initial(G.WIDTH, G.HEIGHT);
 
         // add states....
-        addState(STATE_TITLE, new TitleScreen());
+        addState(STATE_TITLE, new TitleScreen(viewport));
 
 
         // enter title (default state)

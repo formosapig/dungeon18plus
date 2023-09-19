@@ -1,11 +1,9 @@
 package com.qqhouse.ui;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -23,7 +21,7 @@ public abstract class QQGameMachine implements ApplicationListener {
 
     private SpriteBatch batch;
     private OrthographicCamera camera;
-    private Viewport viewport;
+    protected Viewport viewport;
     //public QQGameMachine(int width, int height) {
     //    batch = new SpriteBatch();
     //    camera = new OrthographicCamera();
@@ -43,9 +41,6 @@ public abstract class QQGameMachine implements ApplicationListener {
 
         // insert empty screen...
         mScreens = new HashMap<Integer, QQScreen>();
-        mScreens.put(EMPTY_STATE, QQScreen.EMPTY);
-        mState = EMPTY_STATE;
-        mCurrentScreen = QQScreen.EMPTY;
     }
 
     /*
@@ -60,36 +55,26 @@ public abstract class QQGameMachine implements ApplicationListener {
             Gdx.app.error("Game Engine", "duplicate state.");
             return;
         }
-        if (null == screen) {
-            Gdx.app.error("Game Engine", "screen can't be null.");
-            return;
-        }
         mScreens.put(state, screen);
     }
-
-    // state with EMPTY Screen
-    protected void addState(int state) {
-        if (mScreens.containsKey(state)) {
-            Gdx.app.error("Game Engine", "duplicate state.");
-            return;
-        }
-        mScreens.put(state, QQScreen.EMPTY);
-    }
-
 
     // change current state to target state
     public void changeState(int targetState) {
         // current state onLeave
         Gdx.input.setInputProcessor(null);
-        mCurrentScreen.onLeave();
+        if (null != mCurrentScreen) {
+            mCurrentScreen.onLeave();
+        }
 
         // change state
         mState = targetState;
         mCurrentScreen = mScreens.get(mState);
 
         // current state onEnter
-        mCurrentScreen.onEnter();
-        Gdx.input.setInputProcessor(mCurrentScreen);
+        if (null != mCurrentScreen) {
+            mCurrentScreen.onEnter();
+            Gdx.input.setInputProcessor(mCurrentScreen);
+        }
     }
 
 

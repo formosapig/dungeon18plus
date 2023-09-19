@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.qqhouse.ui.QQView;
 
 public class TitleMenuView extends QQView {
@@ -19,7 +20,23 @@ public class TitleMenuView extends QQView {
         npBackground = new NinePatch(new Texture(Gdx.files.internal("btn\\" + background + ".png")), 4, 4, 4, 4);
     }
 
+    @Override
+    public boolean touchDown(float x, float y) {
+        Gdx.app.error("TEST", "touchDown : " + this.menu);
+        return true;
+    }
+
+    @Override
+    public boolean touchUp(float x, float y) {
+        Gdx.app.error("TEST", "touchUp : " + this.menu);
+        return true;
+    }
+
     public void draw(SpriteBatch batch) {
+        // draw gradient (漸層)
+        ShapeRenderer render;
+
+
         // draw background
         npBackground.draw(batch, x, y, width, height);
         // draw blockee
