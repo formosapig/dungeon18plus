@@ -1,0 +1,27 @@
+package com.qqhouse.dungeon18plus.struct.campaign;
+
+import com.qqhouse.dungeon18plus.core.UltimateSkill;
+import com.qqhouse.dungeon18plus.struct.Operation2;
+
+public final class UniqueSkillData {
+
+	// need this.
+	public final UltimateSkill skill;
+	public final int coolDown;
+	public final Operation2[] operations;
+	
+	// auto trigger.
+	public final boolean auto;
+	
+	// can use or not. TODO I don't like to put this filed here.
+	public boolean isMastery;
+	public int mastery;
+	
+	public UniqueSkillData(UltimateSkill skill, int coolDown, boolean auto, Operation2... operations) {
+		this.skill = skill;
+		this.coolDown = coolDown;
+		this.auto = auto;
+		this.operations = operations;
+	}
+
+}

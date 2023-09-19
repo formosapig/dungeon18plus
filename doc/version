@@ -1,0 +1,112 @@
+version code : ? (1.6.2....?)
+1. add one battle buffer special potion, email me to ask promo code (9 random potion)
+2. fairy no long gain star from zako, she can only gain star from collect cursed crystal. (she has new feat : endless purse)
+3. Ring of Life will "NOT" recover Skeleton King's Life any more.
+4. Mastery equipment will marked with star sign. (In Colosseum Mode)
+5. equipment list now show all equipment you can find in dungeon mode.....
+6. fix bug. When you open hero info and press back, it will close hero info instead of exit dungeon / colosseum mode.
+7. Trap will cause 10 ~ 1000 damage randomly to disarm it. (Damage will changed by each turn.)
+
+version code : 34 (1.6.2) [2019/3/7]
+1. fix language bug.
+2. remove ads.
+3. support promo code.
+4. minor bug fix.
+
+version code : 30
+1. shortcut enabled by default setting.
+2. add attribute of equipment in shop.
+3. add release note.
+4. remove colosseum divider.
+5. add fairy, knights. (premium version) can buy premium version now.
+6. add yggdrasil series (premium version)
+7. correct ring of speed's description.
+8. remove zhCN (簡體中文版).
+
+*. 血量減少玩起來好玩一點. (需要動腦，不能無腦的壓過去)
+*. Add potion from Ragnarok Mode ?
+*. new save data format. think more data your want to use.
+*. English version's layout, (Record and name overlap)
+*. boss 漸漸變強
+*. 加多一點的  Giant 以及各種變化,不然好無聊的.
+*. 加入 mastery 系統, 如果想練,就多一點東西練.
+*. 加入 new Attribute ,不然很麻煩. (包含 magic 以及 attack num 的參數吧)
+*. monster knowledge, show monster attribute if defeated.
+*. iab to remove ads.
+*. 新的地下城模式還需要再修,要加一些 buffer 例如 fairy 給藥水,要用的時候才使用.這樣才不會很容易就卡死.
+
+version code : 29
+used. (先送一份上去開啟 iap 測試, 佔了號了)
+另外 Loot.WOODEN_SHIELD 的 code 被亂改了,會導致當掉,還好後來又發現.
+
+version code : 28
+1. EventType, HeroClass Enum 化.
+2. 全域檢查 Enum code.
+3. 只有戰鬥事件才 + turn (dungeon mode).
+4. 加入 in app billing. payload 及 key 都寫好了,很棒喔!
+5. track EventHelp 分別為 dungeon 及 colosseum, 精確追縱 ( Event and Loot track )
+6. Track AttributeUp (Dungeon/Colosseum HeroClass AttributeUp)
+7. Track load saved game.
+8. Track Tutorial mode step (step1 ~ step7).
+9. 繼承紀錄OK.
+
+version code : 27
+1. use new android support v4.
+2. use new build tools.
+3. fix some device can not play.
+
+version code : 26
+1. add google analytics.
+2. user new google play service lib (with ads)
+
+version code : 25
+1. used. sad.
+
+Version Code : 24
+1. fix select second hero and crash.
+
+Version Code : 23
+1. 修正教學模式中,使用鑰匙後無法進入下一步.
+
+Version Code : 22
+1. 玩家最後一格不放角色時會當掉,因為我檢查時,只檢查格子是否為可以設定角色,沒想到應該檢查有沒有角色才對.
+
+Version Code : 21
+1. 玩家打鋼鐵巨人時會當掉,因為我沒有打到鋼鐵巨人,所以沒測到.
+
+version code : 20
+version name : 1.6
+
+1. add ads libs and ads layout.
+
+2. singleton 綁在 myapplication 中, 資料才不會丟失.
+    * 需要將 Game Data 綁起來.
+
+3. add assets/fonts/bp.otf (should use new fonts) 需要使用一些特別的 TextView
+
+4. defense 的 color 改成淡藍色, 換新的英雄圖示.
+
+5. Ragnarok mode, 使用競技場英雄,直接一隻一隻打, 打到全部的英雄都用完了為止.
+  ** Black Slime / Skeleton Fighter / Steel Cyclops.
+  ** event
+    ===== 這種 Giant 一開始很難打,打掉 20% 的血後才開始好打,但如果用了太長的時間才打掉 20% 的血,之後變很難打.
+    *** when life < 80%   => defense - 100 ( always check. )
+    *** when time > 1000  => attack + 500 ( once check. )
+    ===== 這種 Giant 會滿血一次
+    *** when life < 50%   => life + 50000 ( always check. )
+    ===== 這種 Giant 若你的攻擊越強,它會跟著變強,但變強三次為限
+    *** when damage > 500 => attack + 20 ( always check. )
+    *** when damage > 500 => attack + 20 ( always check. )
+    *** when damage > 500 => attack + 20 ( always check. )
+
+  ( Black Slime[boss] 及 Red Slime[zako] )
+
+6. 使用 DataPart 的概念作新的存檔系統.
+   <TAG> <SIZE> <DATA> <~ 一個 Data Part.
+   * 支援版本更新喔!
+
+extra
+
+* add class crusader.
+* add Colosseum Only Legion Yellow Fighter, Red Fighter, Blue Fighter, Green Fighter.
+* 岐路亡羊!注意!注意!
