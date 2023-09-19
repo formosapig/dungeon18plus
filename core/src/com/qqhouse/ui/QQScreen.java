@@ -8,6 +8,12 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 public abstract class QQScreen extends InputAdapter {
 
     // use gesture detector to detect gesture....
+    @Override
+    public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+        // detect touch down.
+        return false;
+    }
+
 
     // empty screen with do nothing...
     public static final QQScreen EMPTY = new QQScreen() {
