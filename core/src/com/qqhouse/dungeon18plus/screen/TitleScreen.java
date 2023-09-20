@@ -1,14 +1,23 @@
 package com.qqhouse.dungeon18plus.screen;
 
+import static com.qqhouse.dungeon18plus.core.GameAlignment.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.ImageResolver;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.core.GameAlignment;
 import com.qqhouse.dungeon18plus.view.TitleMenuView;
+import com.qqhouse.ui.QQClickListener;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
@@ -28,32 +37,103 @@ public class TitleScreen extends QQScreen {
     @Override
     public void onEnter() {
 
+        // language bundle
+        lanBundle = I18NBundle.createBundle(Gdx.files.internal("i18n/dungeon18plus"));
+
+        // bitmap font...
+        font = new BitmapFont();
+
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/NotoSansTC-Regular.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 28; // font size
+        parameter.color = new Color(0x9E8064FF);
+        parameter.characters = FreeTypeFontGenerator.DEFAULT_CHARS + "地下城巫師塔圓形競技場荒原魔王城圖書館";
+        font = generator.generateFont(parameter);
+        generator.dispose(); // avoid memory leaks, important
+        // 加了這行, 字體變漂亮了... 在手機上的效果無法確定....
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
         menus = new ArrayList<QQView>();
 
         // Dungeon : default.
         float menu_width = 240;
         float menu_height = 64;
-        float menu_margin = 4;
-        menus.add(new TitleMenuView("skeleton_fighter", "地下城"/*"Dungeon"*/, "boss").size(menu_width, menu_height));
+        float menu_margin = 6;
+        menus.add(new TitleMenuView(this, NORMAL.key)
+                .setResource("dungeon", "skeleton_fighter")
+                .qqListener(clickListener, TITLE_INDEX_DUNGEON)
+                .size(menu_width, menu_height));
         // Tower : collect five hero class.
-        menus.add(new TitleMenuView("fire_sorcerer", "巫師塔"/*"Tower"*/, "boss").size(menu_width, menu_height));
+        menus.add(new TitleMenuView(this, LAWFUL.key)
+                .setResource("tower", "fire_sorcerer")
+                .qqListener(clickListener, TITLE_INDEX_TOWER)
+                //.defaultDisable()
+                .size(menu_width, menu_height));
         // Colosseum : defeat skeleton fighter in the dungeon.
-        menus.add(new TitleMenuView("arena", "圓形競技場"/*"Colosseum"*/, "boss").size(menu_width, menu_height));
+        menus.add(new TitleMenuView(this, NEUTRAL.key)
+                .setResource("colosseum", "arena")
+                .qqListener(clickListener, TITLE_INDEX_COLOSSEUM)
+                //.defaultDisable()
+                .size(menu_width, menu_height));
         // Wilderness : see sword master in the colosseum.
-        menus.add(new TitleMenuView("steel_cyclops", "荒原"/*"Wilderness"*/, "boss").size(menu_width, menu_height));
+        menus.add(new TitleMenuView(this, SPECIAL.key)
+                .setResource("wilderness", "steel_cyclops")
+                .qqListener(clickListener, TITLE_INDEX_WILDERNESS)
+                //.defaultDisable()
+                .size(menu_width, menu_height));
         // Castle : defeat demon in wilderness
-        menus.add(new TitleMenuView("skeleton_king", "魔王城"/*"Castle"*/, "boss").size(menu_width, menu_height));
+        menus.add(new TitleMenuView(this, CHAOTIC.key)
+                .setResource("castle", "skeleton_king")
+                .qqListener(clickListener, TITLE_INDEX_CASTLE)
+                //.defaultDisable()
+                .size(menu_width, menu_height));
         // Library : default
-        menus.add(new TitleMenuView("merchant", "圖書館"/*"Library"*/, "boss").size(menu_width, menu_height));
+        menus.add(new TitleMenuView(this, LAWFUL.key)
+                .setResource("library", "merchant")
+                .qqListener(clickListener, TITLE_INDEX_LIBRARY)
+                .size(menu_width, menu_height));
 
         float margin_x = (G.WIDTH - menu_width) / 2;
         float margin_y = (G.HEIGHT - (menu_height * menus.size()) - (menu_margin * (menus.size() - 1))) / 2;
         float startY = G.HEIGHT - margin_y - menu_height;
 
         for (int i = 0; i < menus.size(); ++i) {
-            addView(menus.get(i), margin_x, startY - (menu_height + menu_margin) * i);
+            menus.get(i).setPosition(margin_x, startY - (menu_height + menu_margin) * i);
         }
     }
+
+    private static final int TITLE_INDEX_DUNGEON    = 0;
+    private static final int TITLE_INDEX_TOWER      = 1;
+    private static final int TITLE_INDEX_COLOSSEUM  = 2;
+    private static final int TITLE_INDEX_WILDERNESS = 3;
+    private static final int TITLE_INDEX_CASTLE     = 4;
+    private static final int TITLE_INDEX_LIBRARY    = 5;
+
+    private QQClickListener clickListener = new QQClickListener() {
+        @Override
+        public void onClick(int index) {
+            switch (index) {
+                case TITLE_INDEX_DUNGEON:
+                    Gdx.app.error("TEST", "click dungeon.");
+                    break;
+                case TITLE_INDEX_TOWER:
+                    Gdx.app.error("TEST", "click tower.");
+                    break;
+                case TITLE_INDEX_COLOSSEUM:
+                    Gdx.app.error("TEST", "click colosseum.");
+                    break;
+                case TITLE_INDEX_WILDERNESS:
+                    Gdx.app.error("TEST", "click wilderness.");
+                    break;
+                case TITLE_INDEX_CASTLE:
+                    Gdx.app.error("TEST", "click castle.");
+                    break;
+                case TITLE_INDEX_LIBRARY:
+                    Gdx.app.error("TEST", "click library.");
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onLeave() {
@@ -61,5 +141,6 @@ public class TitleScreen extends QQScreen {
             removeView(view);
             view.dispose();
         }
+        font.dispose();
     }
 }

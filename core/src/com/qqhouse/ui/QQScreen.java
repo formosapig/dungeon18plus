@@ -3,9 +3,11 @@ package com.qqhouse.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -126,4 +128,19 @@ public abstract class QQScreen extends InputAdapter {
     public void pause() {}
 
     public void resume() {}
+
+    /*
+        resource
+     */
+    protected I18NBundle lanBundle;
+    public I18NBundle getLanguageBundle() {
+        return lanBundle;
+    }
+
+    protected BitmapFont font;
+
+    public BitmapFont getFont() {
+        return font;
+    }
+
 }

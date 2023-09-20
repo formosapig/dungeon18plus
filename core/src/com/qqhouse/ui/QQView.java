@@ -1,12 +1,20 @@
 package com.qqhouse.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public abstract class QQView {
 
     /*
-        click event...
+        with screen
      */
+    public QQView(QQScreen master) {
+        this.master = master;
+        master.addView(this);
+    }
+
+    protected QQScreen master;
+
     public QQView hit(float x, float y) {
         float shiftX = x - this.x;
         float shiftY = y - this.y;
