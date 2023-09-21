@@ -4,20 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
-public class QQButton extends QQView {
+public abstract class QQButton extends QQView {
 
     public QQButton(QQScreen master, String buttonKey) {
         super(master);
-        pressed = false;
-        disable = false;
         String resBase = "button/" + buttonKey;
-        btnNormal = new NinePatch(new Texture(Gdx.files.internal(resBase + "_up.png")), 4, 4, 4, 4);
-        btnNormal.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        btnPressed = new NinePatch(new Texture(Gdx.files.internal(resBase + "_down.png")), 4, 4, 4, 4);
-        btnPressed.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        btnDisable = new NinePatch(new Texture(Gdx.files.internal("button/disable.png")), 4, 4, 4, 4);
-        btnDisable.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        bgNormal = new NinePatch(new Texture(Gdx.files.internal(resBase + "_up.png")), 4, 4, 4, 4);
+        bgNormal.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        bgPressed = new NinePatch(new Texture(Gdx.files.internal(resBase + "_down.png")), 4, 4, 4, 4);
+        bgPressed.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        bgDisable = new NinePatch(new Texture(Gdx.files.internal("button/disable.png")), 4, 4, 4, 4);
+        bgDisable.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
     /*
@@ -25,32 +24,26 @@ public class QQButton extends QQView {
      */
     private QQClickListener clickListener;
     private int index;
-    private boolean pressed;
-    private boolean disable;
-    private final NinePatch btnNormal;
-    private final NinePatch btnPressed;
-    private final NinePatch btnDisable;
-
 
     public void addQQClickListener(QQClickListener listener, int index) {
         this.clickListener = listener;
         this.index = index;
     }
 
-    public void setDisable(boolean disable) {
-        this.disable = disable;
+    public void setEnable(boolean enable) {
+        this.enable = enable;
     }
 
     @Override
     public boolean touchDown(float x, float y) {
-        if (!disable)
+        if (enable && touchable)
             pressed = true;
         return false;
     }
 
     @Override
     public boolean touchUp(float x, float y) {
-        if (disable)
+        if (!enable || !touchable)
             return false;
         if (pressed) {
             pressed = false;
@@ -63,28 +56,15 @@ public class QQButton extends QQView {
     }
 
     @Override
-    public void draw(SpriteBatch batch) {
-        // draw background ... must called first...
-        if (disable)
-            btnDisable.draw(batch, x, y, width, height);
-        else {
-            if (pressed)
-                btnPressed.draw(batch, x, y, width, height);
-            else
-                btnNormal.draw(batch, x, y, width, height);
-        }
-    }
-
-    @Override
     public void dispose() {
-        btnNormal.getTexture().dispose();
-        btnPressed.getTexture().dispose();
-        btnDisable.getTexture().dispose();
+        bgNormal.getTexture().dispose();
+        bgPressed.getTexture().dispose();
+        bgDisable.getTexture().dispose();
     }
 
     // chain function
-    public QQButton defaultDisable() {
-        this.setDisable(true);
+    public QQButton disable() {
+        enable = false;
         return this;
     }
 

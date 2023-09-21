@@ -1,9 +1,18 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import java.util.Iterator;
+
 public abstract class QQView {
+
+    protected interface ChildrenVisitor {
+        public void visitDraw(SpriteBatch batch);
+    }
+    protected ChildrenVisitor visitor = null;
 
     /*
         with screen
@@ -37,7 +46,41 @@ public abstract class QQView {
         called by QQScreen
      */
     public void act(float delta) {};
-    public void draw(SpriteBatch batch) {};
+
+    /*
+        background series...
+     */
+    protected boolean pressed = false;
+    protected boolean enable = true;
+    protected boolean touchable = true;
+    protected NinePatch bgNormal = null;
+    protected NinePatch bgPressed = null;
+    protected NinePatch bgDisable = null;
+
+    protected void drawBackground(SpriteBatch batch) {
+        if (!enable && null != bgDisable) {
+            bgDisable.draw(batch, x, y, width, height);
+            return;
+        }
+        if (pressed && null != bgPressed) {
+            bgPressed.draw(batch, x, y, width, height);
+            return;
+        }
+        if (null != bgNormal)
+            bgNormal.draw(batch, x, y, width, height);
+    }
+
+    protected void drawForeground(SpriteBatch batch) {}
+
+    public final void draw(SpriteBatch batch) {
+        drawBackground(batch);
+        drawForeground(batch);
+        if (null != visitor) {
+            visitor.visitDraw(batch);
+        }
+    }
+
+
 
     protected float x;
     protected float y;
