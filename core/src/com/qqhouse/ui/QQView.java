@@ -80,8 +80,6 @@ public abstract class QQView {
         }
     }
 
-
-
     protected float x;
     protected float y;
     protected float width;
@@ -96,6 +94,25 @@ public abstract class QQView {
         this.width = width;
         this.height = height;
     }
+
+    /*
+        padding. top, bottom, left, right
+     */
+    protected float topPadding, bottomPadding, leftPadding, rightPadding;
+    public void setPadding(float top, float bottom, float left, float right) {
+        topPadding = top;
+        bottomPadding = bottom;
+        leftPadding = left;
+        rightPadding = right;
+    }
+
+    public void setPadding(float all) {
+        topPadding = all;
+        bottomPadding = all;
+        leftPadding = all;
+        rightPadding = all;
+    }
+
 
     abstract public void dispose();
 
@@ -112,6 +129,14 @@ public abstract class QQView {
     public QQView size(float width, float height) {
         this.width = width;
         this.height = height;
+        return this;
+    }
+
+    public QQView padding(float all) {
+        topPadding = all;
+        bottomPadding = all;
+        leftPadding = all;
+        rightPadding = all;
         return this;
     }
 

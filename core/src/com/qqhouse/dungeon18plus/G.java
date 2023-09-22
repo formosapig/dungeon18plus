@@ -30,8 +30,13 @@ public class G {
     public static final boolean FULL_TITLE_MENU = true;
 
 
-
-
+    // title menu
+    public static final int TITLE_DUNGEON    = 0;
+    public static final int TITLE_TOWER      = 1;
+    public static final int TITLE_COLOSSEUM  = 2;
+    public static final int TITLE_WILDERNESS = 3;
+    public static final int TITLE_CASTLE     = 4;
+    public static final int TITLE_LIBRARY    = 5;
 
     // debug flag
     public static final class Debug {

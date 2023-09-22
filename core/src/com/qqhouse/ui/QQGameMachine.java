@@ -83,6 +83,8 @@ public abstract class QQGameMachine implements ApplicationListener {
         return mState;
     }
 
+    public QQScreen getScreen() { return mCurrentScreen; }
+
     /*
         Application Listener
      */

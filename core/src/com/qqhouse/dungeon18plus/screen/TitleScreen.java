@@ -26,12 +26,18 @@ import java.util.List;
 
 public class TitleScreen extends QQScreen {
 
+    public interface TitleCallback {
+        public void onTitle(int titleMenu);
+    }
+
     private Texture txrDungeon, txrColosseum;
     private NinePatch npBG;
     private ArrayList<QQView> menus;
+    private TitleCallback callback;
 
-    public TitleScreen(Viewport viewport) {
+    public TitleScreen(Viewport viewport, TitleCallback callback) {
         super(viewport);
+        this.callback = callback;
     }
 
     @Override
@@ -61,36 +67,36 @@ public class TitleScreen extends QQScreen {
         float menu_margin = 6;
         menus.add(new TitleMenuView(this, NORMAL.key)
                 .setResource("dungeon", "skeleton_fighter")
-                .qqListener(clickListener, TITLE_INDEX_DUNGEON)
+                .qqListener(clickListener, G.TITLE_DUNGEON)
                 .size(menu_width, menu_height));
         // Tower : collect five hero class.
         menus.add(new TitleMenuView(this, LAWFUL.key)
                 .setResource("tower", "fire_sorcerer")
-                .qqListener(clickListener, TITLE_INDEX_TOWER)
+                .qqListener(clickListener, G.TITLE_TOWER)
                 //.defaultDisable()
                 .size(menu_width, menu_height));
         // Colosseum : defeat skeleton fighter in the dungeon.
         menus.add(new TitleMenuView(this, NEUTRAL.key)
                 .setResource("colosseum", "arena")
-                .qqListener(clickListener, TITLE_INDEX_COLOSSEUM)
+                .qqListener(clickListener, G.TITLE_COLOSSEUM)
                 //.defaultDisable()
                 .size(menu_width, menu_height));
         // Wilderness : see sword master in the colosseum.
         menus.add(new TitleMenuView(this, SPECIAL.key)
                 .setResource("wilderness", "steel_cyclops")
-                .qqListener(clickListener, TITLE_INDEX_WILDERNESS)
+                .qqListener(clickListener, G.TITLE_WILDERNESS)
                 //.defaultDisable()
                 .size(menu_width, menu_height));
         // Castle : defeat demon in wilderness
         menus.add(new TitleMenuView(this, CHAOTIC.key)
                 .setResource("castle", "skeleton_king")
-                .qqListener(clickListener, TITLE_INDEX_CASTLE)
+                .qqListener(clickListener, G.TITLE_CASTLE)
                 //.defaultDisable()
                 .size(menu_width, menu_height));
         // Library : default
         menus.add(new TitleMenuView(this, LAWFUL.key)
                 .setResource("library", "merchant")
-                .qqListener(clickListener, TITLE_INDEX_LIBRARY)
+                .qqListener(clickListener, G.TITLE_LIBRARY)
                 .size(menu_width, menu_height));
 
         float margin_x = (G.WIDTH - menu_width) / 2;
@@ -102,36 +108,10 @@ public class TitleScreen extends QQScreen {
         }
     }
 
-    private static final int TITLE_INDEX_DUNGEON    = 0;
-    private static final int TITLE_INDEX_TOWER      = 1;
-    private static final int TITLE_INDEX_COLOSSEUM  = 2;
-    private static final int TITLE_INDEX_WILDERNESS = 3;
-    private static final int TITLE_INDEX_CASTLE     = 4;
-    private static final int TITLE_INDEX_LIBRARY    = 5;
-
     private QQClickListener clickListener = new QQClickListener() {
         @Override
         public void onClick(int index) {
-            switch (index) {
-                case TITLE_INDEX_DUNGEON:
-                    Gdx.app.error("TEST", "click dungeon.");
-                    break;
-                case TITLE_INDEX_TOWER:
-                    Gdx.app.error("TEST", "click tower.");
-                    break;
-                case TITLE_INDEX_COLOSSEUM:
-                    Gdx.app.error("TEST", "click colosseum.");
-                    break;
-                case TITLE_INDEX_WILDERNESS:
-                    Gdx.app.error("TEST", "click wilderness.");
-                    break;
-                case TITLE_INDEX_CASTLE:
-                    Gdx.app.error("TEST", "click castle.");
-                    break;
-                case TITLE_INDEX_LIBRARY:
-                    Gdx.app.error("TEST", "click library.");
-                    break;
-            }
+            callback.onTitle(index);
         }
     };
 
