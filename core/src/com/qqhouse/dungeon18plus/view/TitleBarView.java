@@ -1,6 +1,7 @@
 package com.qqhouse.dungeon18plus.view;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
@@ -15,11 +16,13 @@ import com.qqhouse.ui.QQView;
 public class TitleBarView extends QQView {
 
     private Texture icon; // fixed size = 32 x 32
+    private BitmapFont font; // font to draw...
     private String title; // info.
 
-    public TitleBarView(QQScreen master, Texture icon, String title) {
+    public TitleBarView(QQScreen master, Texture icon, BitmapFont font, String title) {
         super(master);
         this.icon = icon;
+        this.font = font;
         this.title = title;
     }
 
@@ -31,7 +34,7 @@ public class TitleBarView extends QQView {
         }
 
         // print title in central...
-
+        font.draw(batch, title, x + leftPadding + 32 + 4, y + bottomPadding + (32 + 18) / 2);
 
 
     }

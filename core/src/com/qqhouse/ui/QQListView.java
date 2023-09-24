@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /*
@@ -39,6 +40,9 @@ public class QQListView extends QQView implements QQView.ChildrenVisitor {
 
     @Override
     public void dispose() {
-
+        for (int i = 0, s = adapter.count(); i < s; ++i) {
+            QQView view = adapter.getView(i);
+            view.dispose();
+        }
     }
 }

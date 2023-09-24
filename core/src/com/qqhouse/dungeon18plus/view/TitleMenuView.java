@@ -3,6 +3,7 @@ package com.qqhouse.dungeon18plus.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.qqhouse.ui.QQButton;
@@ -10,6 +11,7 @@ import com.qqhouse.ui.QQScreen;
 
 public class TitleMenuView extends QQButton {
 
+    private BitmapFont font;
     private String key;
     private Texture txrBlockee;
     private String menuStr;
@@ -19,7 +21,8 @@ public class TitleMenuView extends QQButton {
         super(master, buttonKey);
     }
 
-    public TitleMenuView setResource(String key, String blockeeKey) {
+    public TitleMenuView setResource(BitmapFont font, String key, String blockeeKey) {
+        this.font = font;
         this.key = key;
 
         txrBlockee = new Texture(Gdx.files.internal("blockee\\" + blockeeKey + ".png"));
@@ -29,7 +32,7 @@ public class TitleMenuView extends QQButton {
         menuStr = master.getLanguageBundle().get(key);
 
         GlyphLayout glyphLayout = new GlyphLayout();
-        glyphLayout.setText(master.getFont(), menuStr);
+        glyphLayout.setText(font, menuStr);
 
         menuShiftX = 60 + (172 - glyphLayout.width) / 2;
         menuShiftY = 8 + 48 / 2 + glyphLayout.height / 2; // good!
@@ -47,7 +50,8 @@ public class TitleMenuView extends QQButton {
 
         //batch.setColor(1,1,1,1);//c.r, c.g, c.b, 1);
         // draw font...
-        master.getFont().draw(batch, menuStr, (int)(menuShiftX + x), (int)(menuShiftY + y));
+        //master.getFont().getData().setScale(0.71f, 0.5f);
+        font.draw(batch, menuStr, (int)(menuShiftX + x), (int)(menuShiftY + y));
         //batch.draw();
     }
 
@@ -55,6 +59,7 @@ public class TitleMenuView extends QQButton {
     @Override
     public void dispose() {
         txrBlockee.dispose();
+        // button...?
         super.dispose();
     }
 }

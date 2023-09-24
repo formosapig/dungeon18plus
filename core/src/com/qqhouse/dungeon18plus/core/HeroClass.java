@@ -20,7 +20,7 @@ public enum HeroClass {
 	
 	// novice
 	NOVICE(0x038E37D6, // code
-		"blockee_novice", // icon
+		"novice", // icon
 		"novice", // name
 		"novice_help", // help
 		new Item[] {WOODEN_DAGGER, WOODEN_SWORD, HOLY_SWORD, WOODEN_STAFF, WOODEN_SHIELD, HOLY_SHIELD, WOODEN_RING, WHITE_RING, RING_OF_GODDESS}, // mastery equipment
@@ -33,7 +33,7 @@ public enum HeroClass {
 	
 	// normal mHero
 	BARBARIAN(0xD415E422, // code
-		"blockee_barbarian", // icon
+		"barbarian", // icon
 		"barbarian", // name
 		"barbarian_help", // help
 		new Item[] {WOODEN_SWORD, IRON_SWORD, WOODEN_STAFF, MITHRIL_STAFF, IRON_SHIELD, IRON_RING, YELLOW_RING, IRON_BOOTS}, // mastery equipment

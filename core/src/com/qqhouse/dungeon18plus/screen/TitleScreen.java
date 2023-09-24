@@ -34,6 +34,7 @@ public class TitleScreen extends QQScreen {
     private NinePatch npBG;
     private ArrayList<QQView> menus;
     private TitleCallback callback;
+    private BitmapFont font;
 
     public TitleScreen(Viewport viewport, TitleCallback callback) {
         super(viewport);
@@ -47,17 +48,7 @@ public class TitleScreen extends QQScreen {
         lanBundle = I18NBundle.createBundle(Gdx.files.internal("i18n/dungeon18plus"));
 
         // bitmap font...
-        font = new BitmapFont();
-
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/NotoSansTC-Regular.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 28; // font size
-        parameter.color = new Color(0x9E8064FF);
-        parameter.characters = FreeTypeFontGenerator.DEFAULT_CHARS + "地下城巫師塔圓形競技場荒原魔王城圖書館";
-        font = generator.generateFont(parameter);
-        generator.dispose(); // avoid memory leaks, important
-        // 加了這行, 字體變漂亮了... 在手機上的效果無法確定....
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font = createFont(28, new Color(0x9E8064FF), "地下城巫師塔圓形競技場荒原魔王城圖書館");
 
         menus = new ArrayList<QQView>();
 
@@ -66,36 +57,36 @@ public class TitleScreen extends QQScreen {
         float menu_height = 64;
         float menu_margin = 6;
         menus.add(new TitleMenuView(this, NORMAL.key)
-                .setResource("dungeon", "skeleton_fighter")
+                .setResource(font, "dungeon", "skeleton_fighter")
                 .qqListener(clickListener, G.TITLE_DUNGEON)
                 .size(menu_width, menu_height));
         // Tower : collect five hero class.
         menus.add(new TitleMenuView(this, LAWFUL.key)
-                .setResource("tower", "fire_sorcerer")
+                .setResource(font, "tower", "fire_sorcerer")
                 .qqListener(clickListener, G.TITLE_TOWER)
                 //.defaultDisable()
                 .size(menu_width, menu_height));
         // Colosseum : defeat skeleton fighter in the dungeon.
         menus.add(new TitleMenuView(this, NEUTRAL.key)
-                .setResource("colosseum", "arena")
+                .setResource(font, "colosseum", "arena")
                 .qqListener(clickListener, G.TITLE_COLOSSEUM)
                 //.defaultDisable()
                 .size(menu_width, menu_height));
         // Wilderness : see sword master in the colosseum.
         menus.add(new TitleMenuView(this, SPECIAL.key)
-                .setResource("wilderness", "steel_cyclops")
+                .setResource(font, "wilderness", "steel_cyclops")
                 .qqListener(clickListener, G.TITLE_WILDERNESS)
                 //.defaultDisable()
                 .size(menu_width, menu_height));
         // Castle : defeat demon in wilderness
         menus.add(new TitleMenuView(this, CHAOTIC.key)
-                .setResource("castle", "skeleton_king")
+                .setResource(font, "castle", "skeleton_king")
                 .qqListener(clickListener, G.TITLE_CASTLE)
                 //.defaultDisable()
                 .size(menu_width, menu_height));
         // Library : default
         menus.add(new TitleMenuView(this, LAWFUL.key)
-                .setResource("library", "merchant")
+                .setResource(font, "library", "merchant")
                 .qqListener(clickListener, G.TITLE_LIBRARY)
                 .size(menu_width, menu_height));
 

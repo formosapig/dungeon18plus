@@ -10,7 +10,7 @@ import java.util.Iterator;
 public abstract class QQView {
 
     protected interface ChildrenVisitor {
-        public void visitDraw(SpriteBatch batch);
+        abstract void visitDraw(SpriteBatch batch);
     }
     protected ChildrenVisitor visitor = null;
 
@@ -75,8 +75,9 @@ public abstract class QQView {
     public final void draw(SpriteBatch batch) {
         drawBackground(batch);
         drawForeground(batch);
-        if (null != visitor) {
-            visitor.visitDraw(batch);
+        if (this instanceof ChildrenVisitor) {
+        //if (null != visitor) {
+            ((ChildrenVisitor)this).visitDraw(batch);
         }
     }
 
