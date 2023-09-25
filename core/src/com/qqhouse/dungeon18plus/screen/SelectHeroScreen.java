@@ -4,11 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.G;
 import com.qqhouse.dungeon18plus.core.HeroClass;
-import com.qqhouse.dungeon18plus.view.HeroProfileView;
+import com.qqhouse.dungeon18plus.view.PreviewView;
 import com.qqhouse.dungeon18plus.view.TitleBarView;
 import com.qqhouse.ui.QQListView;
 import com.qqhouse.ui.QQScreen;
@@ -25,7 +24,7 @@ public class SelectHeroScreen extends QQScreen implements QQListView.Adapter {
     private BitmapFont font;
     private QQListView list;
     private ArrayList<HeroClass> tmp;
-    private ArrayList<HeroProfileView> views;
+    private ArrayList<PreviewView> views;
     private BitmapFont fntName;
     private BitmapFont fntDesc;
 
@@ -54,12 +53,12 @@ public class SelectHeroScreen extends QQScreen implements QQListView.Adapter {
         fntName = createFont(24, Color.BROWN, "");
         fntDesc = createFont(16, Color.WHITE, "");
 
-        views = new ArrayList<HeroProfileView>();
+        views = new ArrayList<PreviewView>();
 
         // add hero profile view...
         for (int i = 0, s = tmp.size(); i < s; ++i) {
             HeroClass hero = tmp.get(i);
-            HeroProfileView view = new HeroProfileView(this,
+            PreviewView view = new PreviewView(this,
                     new Texture(Gdx.files.internal("blockee//" + hero.icon + ".png")),
                     fntName,
                     "Novice",

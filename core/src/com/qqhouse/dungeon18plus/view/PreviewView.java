@@ -3,18 +3,26 @@ package com.qqhouse.dungeon18plus.view;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
-public class HeroProfileView extends QQView {
+public class PreviewView extends QQView {
 
     private Texture icon;
     private BitmapFont fntName, fntDesc;
     private String name, desc;
 
+    /*
+        Icon : blockee icon
+        Level : blockee level (if needs), at upper left of icon.
+        Name : horizontal central, next to icon.
+        Score / round : at upper right, may overlap name field.
+        help : description of hero class, multi line, max lines = 3...
+     */
 
-    public HeroProfileView(QQScreen master, Texture icon, BitmapFont fntName, String name, BitmapFont fntDesc, String desc) {
+
+
+    public PreviewView(QQScreen master, Texture icon, BitmapFont fntName, String name, BitmapFont fntDesc, String desc) {
         super(master);
         this.icon = icon;
         this.fntName = fntName;
