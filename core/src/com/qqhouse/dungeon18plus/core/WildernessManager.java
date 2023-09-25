@@ -96,7 +96,7 @@ public class WildernessManager {
 			hero.heroFrom = heroFrom++;
 			hero.action = veteran.equipment.skill.get(veteran.mastery);
 			hero.ourGuard = legionGuard;
-			hero.icon = hero.heroClass.icon;
+			hero.icon = hero.heroClass.key;
 			hero.bg = hero.heroClass.getBackgroundRes();
 			// add mHero
 			legions.add(hero);
@@ -745,10 +745,10 @@ public class WildernessManager {
 				if (drop.isMoneyBag()) {
 					final int gold = drop.getGoldenCoin();
 					hcRecord.coin += gold;
-					addBattleResult(legion.heroClass.icon, Operation.GOLDEN_COIN, gold);
+					addBattleResult(legion.heroClass.key, Operation.GOLDEN_COIN, gold);
 				} else {
 					hcRecord.addSoul(drop);
-					addBattleResult(legion.heroClass.icon, Operation.GIANT_SOUL, drop.code);
+					addBattleResult(legion.heroClass.key, Operation.GIANT_SOUL, drop.code);
 				}
 			}
 		}
@@ -774,7 +774,7 @@ public class WildernessManager {
 		while (itr.hasNext()) {
 			Veteran veteran = itr.next();
 			if (0 >= veteran.round) {
-				addBattleResult(veteran.heroClass.icon, Operation.DEATH, 1);
+				addBattleResult(veteran.heroClass.key, Operation.DEATH, 1);
 				itr.remove();
 			}
 		}

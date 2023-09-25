@@ -14,7 +14,7 @@ public class VariedHero extends BattleEvent {
 
     @Override
     public String getIcon() {
-        return mHeroClass.icon;
+        return mHeroClass.key;
     }
 
     @Override

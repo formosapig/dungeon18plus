@@ -59,7 +59,7 @@ public class SelectHeroScreen extends QQScreen implements QQListView.Adapter {
         for (int i = 0, s = tmp.size(); i < s; ++i) {
             HeroClass hero = tmp.get(i);
             PreviewView view = new PreviewView(this,
-                    new Texture(Gdx.files.internal("blockee//" + hero.icon + ".png")),
+                    new Texture(Gdx.files.internal("blockee//" + hero.key + ".png")),
                     fntName,
                     "Novice",
                     fntDesc,
