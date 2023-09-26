@@ -1,8 +1,10 @@
 package com.qqhouse.dungeon18plus;
 
 import com.badlogic.gdx.Gdx;
+import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
+import com.qqhouse.io.QQSaveGame;
 import com.qqhouse.ui.QQGameMachine;
 import com.qqhouse.ui.QQScreen;
 
@@ -20,6 +22,11 @@ public class Main extends QQGameMachine implements TitleScreen.TitleCallback {
     @Override
     public void create() {
         initial(G.WIDTH, G.HEIGHT);
+
+        // save game
+        saveGame = new SaveGame(G.SAVE_FILE);
+        saveGame.load();
+
 
         // add states....
         addState(STATE_TITLE, new TitleScreen(viewport, this));

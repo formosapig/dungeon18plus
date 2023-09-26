@@ -38,6 +38,14 @@ public class G {
     public static final int TITLE_CASTLE     = 4;
     public static final int TITLE_LIBRARY    = 5;
 
+    // version name ?
+    public static final String VER = "2.0.0";
+    public static final String SAVE_FILE = "d18p2";
+
+
+
+
+
     // debug flag
     public static final class Debug {
         // debug tag

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.qqhouse.io.QQSaveGame;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,7 @@ public abstract class QQGameMachine implements ApplicationListener {
     private SpriteBatch batch;
     private OrthographicCamera camera;
     protected Viewport viewport;
+    protected QQSaveGame saveGame;
     //public QQGameMachine(int width, int height) {
     //    batch = new SpriteBatch();
     //    camera = new OrthographicCamera();
@@ -112,11 +114,13 @@ public abstract class QQGameMachine implements ApplicationListener {
     @Override
     public void pause() {
         mCurrentScreen.pause();
+        saveGame.save();
     }
 
     @Override
     public void resume() {
         mCurrentScreen.resume();
+        saveGame.load();
     }
 
     @Override
