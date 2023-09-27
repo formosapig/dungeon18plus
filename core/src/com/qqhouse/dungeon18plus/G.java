@@ -13,7 +13,6 @@ import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.core.Soul;
 import com.qqhouse.dungeon18plus.core.UltimateSkill;
-import com.qqhouse.dungeon18plus.gamedata.GameData;
 import com.qqhouse.dungeon18plus.struct.campaign.UniqueSkillData;
 
 public class G {
@@ -29,7 +28,6 @@ public class G {
     // test title menu
     public static final boolean FULL_TITLE_MENU = true;
 
-
     // title menu
     public static final int TITLE_DUNGEON    = 0;
     public static final int TITLE_TOWER      = 1;
@@ -42,7 +40,12 @@ public class G {
     public static final String VER = "2.0.0";
     public static final String SAVE_FILE = "d18p2";
 
-
+    // game mode, used in HeroClassRecord.flag
+    public static final int GAME_MODE_DUNGEON       = 1<<1;
+    public static final int GAME_MODE_TOWER         = 1<<2;
+    public static final int GAME_MODE_COLOSSEUM     = 1<<3;
+    public static final int GAME_MODE_WILDERNESS    = 1<<4;
+    public static final int GAME_MODE_CASTLE        = 1<<5;
 
 
 
@@ -174,7 +177,7 @@ public class G {
         }
 
         // bundle data to application's life cycle.
-        if (!GameData.getInstance().validDungeonId()) {
+        //if (!GameData.getInstance().validDungeonId()) {
             // get ADID and setup dungeon id
             // get advertise id
             /*
@@ -194,9 +197,9 @@ public class G {
                 }
             });
             */
-        }
+        //}
 
-        GameData.getInstance();
+        //GameData.getInstance();
 
         if (G.Debug.TEST_ENUM) {
             checkAllEnum();

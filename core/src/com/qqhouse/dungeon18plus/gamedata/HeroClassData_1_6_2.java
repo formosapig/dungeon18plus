@@ -3,7 +3,7 @@ package com.qqhouse.dungeon18plus.gamedata;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.core.Soul;
-import com.qqhouse.dungeon18plus.gamedata.DataCore.DataPart;
+import com.qqhouse.io.QQSaveGame;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.struct.SoulCount;
@@ -11,7 +11,7 @@ import com.qqhouse.dungeon18plus.struct.SoulCount;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
-class HeroClassData_1_6_2 extends DataPart {
+class HeroClassData_1_6_2 extends QQSaveGame.DataPart {
 	
 	final ArrayList<HeroClassRecord> records;
 	
@@ -21,7 +21,7 @@ class HeroClassData_1_6_2 extends DataPart {
 	}
 	
 	@Override
-	byte[] write() {
+	public byte[] write() {
 		// 20 mHero class x 48 each * 4 bytes.
 		ByteBuffer buffer = ByteBuffer.allocate(4096);
 		for (HeroClassRecord record : records) {
@@ -59,7 +59,7 @@ class HeroClassData_1_6_2 extends DataPart {
 	}
 
 	@Override
-	void read(byte[] data) {
+	public void read(byte[] data) {
 		ByteBuffer buffer = ByteBuffer.wrap(data);
 		records.clear();
 		while (buffer.hasRemaining()) {

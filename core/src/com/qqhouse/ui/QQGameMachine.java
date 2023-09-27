@@ -23,7 +23,7 @@ public abstract class QQGameMachine implements ApplicationListener {
     private SpriteBatch batch;
     private OrthographicCamera camera;
     protected Viewport viewport;
-    protected QQSaveGame saveGame;
+    protected QQSaveGame savedGame;
     //public QQGameMachine(int width, int height) {
     //    batch = new SpriteBatch();
     //    camera = new OrthographicCamera();
@@ -114,13 +114,13 @@ public abstract class QQGameMachine implements ApplicationListener {
     @Override
     public void pause() {
         mCurrentScreen.pause();
-        saveGame.save();
+        savedGame.save();
     }
 
     @Override
     public void resume() {
         mCurrentScreen.resume();
-        saveGame.load();
+        savedGame.load();
     }
 
     @Override

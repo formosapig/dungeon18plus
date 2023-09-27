@@ -2,7 +2,7 @@ package com.qqhouse.dungeon18plus.gamedata;
 
 import com.qqhouse.dungeon18plus.G;
 import com.qqhouse.dungeon18plus.core.Help;
-import com.qqhouse.dungeon18plus.gamedata.DataCore.DataPart;
+import com.qqhouse.io.QQSaveGame;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * 
  * format : help.code x n
  */
-class HelpData_1_6_2 extends DataPart {
+class HelpData_1_6_2 extends QQSaveGame.DataPart {
 
 	final ArrayList<Help> understand;
 	 
@@ -22,7 +22,7 @@ class HelpData_1_6_2 extends DataPart {
 	}
 	
 	@Override
-	byte[] write() {
+	public byte[] write() {
 		ByteBuffer buffer = ByteBuffer.allocate(512);
 		for (Help h : understand)
 			buffer.putInt(h.code);
@@ -30,7 +30,7 @@ class HelpData_1_6_2 extends DataPart {
 	}
 
 	@Override
-	void read(byte[] data) {
+	public void read(byte[] data) {
 		ByteBuffer buffer = ByteBuffer.wrap(data);
 		understand.clear();
 		while (buffer.hasRemaining())
@@ -38,7 +38,7 @@ class HelpData_1_6_2 extends DataPart {
 	}
 
 	@Override
-	void afterRead() {
+	public void afterRead() {
 		if (G.Debug.TEST_HELP) {
             understand.clear();
         }

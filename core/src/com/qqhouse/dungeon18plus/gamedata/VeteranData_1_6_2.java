@@ -2,8 +2,8 @@ package com.qqhouse.dungeon18plus.gamedata;
 
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.core.Item;
-import com.qqhouse.dungeon18plus.gamedata.DataCore.DataPart;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
+import com.qqhouse.io.QQSaveGame;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * size : 12 x 20 x 4 = 960 (veteran in barrack)
  *        12 x 16 x 4 = 768 (legions.)
  */
-class VeteranData_1_6_2 extends DataPart {
+class VeteranData_1_6_2 extends QQSaveGame.DataPart {
 
 	final ArrayList<Veteran> barrack;
 	final ArrayList<Veteran> legion;
@@ -26,7 +26,7 @@ class VeteranData_1_6_2 extends DataPart {
 	}
 	
 	@Override
-	byte[] write() {
+	public byte[] write() {
 		ByteBuffer buffer = ByteBuffer.allocate(1024 * 8);	// 32 x 32
 		// write barrack data
 		int size = barrack.size();
@@ -64,7 +64,7 @@ class VeteranData_1_6_2 extends DataPart {
     }
 
 	@Override
-	void read(byte[] data) {
+	public void read(byte[] data) {
 		ByteBuffer buffer = ByteBuffer.wrap(data);
 		// read barrack data.
 		barrack.clear();

@@ -13,15 +13,15 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 
 public abstract class QQScreen extends InputAdapter {
 
-
-
-
+    protected final SaveGame savedGame;
     private Viewport viewport;
 
-    public QQScreen(Viewport viewport) {
+    public QQScreen(SaveGame savedGame, Viewport viewport) {
+        this.savedGame = savedGame;
         this.viewport = viewport;
         childrenView = new SnapshotArray<>(true, 4, QQView.class);
     }

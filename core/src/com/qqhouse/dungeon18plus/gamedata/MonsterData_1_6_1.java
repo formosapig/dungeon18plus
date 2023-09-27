@@ -1,8 +1,8 @@
 package com.qqhouse.dungeon18plus.gamedata;
 
 import com.qqhouse.dungeon18plus.core.EventType;
-import com.qqhouse.dungeon18plus.gamedata.DataCore.DataPart;
 import com.qqhouse.dungeon18plus.struct.Monster;
+import com.qqhouse.io.QQSaveGame;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * 
  * format : [ type.code , level ] x n
  */
-class MonsterData_1_6_1 extends DataPart {
+class MonsterData_1_6_1 extends QQSaveGame.DataPart {
 
 	final ArrayList<Monster> monsters;
 
@@ -22,7 +22,7 @@ class MonsterData_1_6_1 extends DataPart {
 	}
 
 	@Override
-	byte[] write() {
+	public byte[] write() {
 		ByteBuffer buffer = ByteBuffer.allocate(4096); // 8 * 512
 		for (Monster monster : monsters) {
 		    buffer.putInt(monster.type.code);
@@ -32,7 +32,7 @@ class MonsterData_1_6_1 extends DataPart {
 	}
 
 	@Override
-	void read(byte[] data) {
+	public void read(byte[] data) {
 		ByteBuffer buffer = ByteBuffer.wrap(data);
 		monsters.clear();
 		while (buffer.hasRemaining()) {

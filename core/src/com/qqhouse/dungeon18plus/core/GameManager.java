@@ -2,7 +2,6 @@ package com.qqhouse.dungeon18plus.core;
 
 
 import com.qqhouse.dungeon18plus.G;
-import com.qqhouse.dungeon18plus.gamedata.GameData;
 import com.qqhouse.dungeon18plus.struct.Ability;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
 import com.qqhouse.dungeon18plus.struct.EventResult;
@@ -119,7 +118,7 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
     // for special potion only ...
     protected void setupActionSlotOfSpecialItem() {
         for (int i = 0; i < specialLoots.length; ++i) {
-            int count = GameData.getInstance().getSpecialItemCount(specialLoots[i]);
+            int count = 0;//GameData.getInstance().getSpecialItemCount(specialLoots[i]);
             if (count > 0) {
                 mActionSlots.add(new ActionSlot(specialActions[i], count));
             }
@@ -130,7 +129,7 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
     private void drinkSpecialPotion(Action act) {
         for (int i = 0; i < specialActions.length; ++i) {
             if (act == specialActions[i]) {
-                GameData.getInstance().setSpecialItem(specialLoots[i], -1);
+                //GameData.getInstance().setSpecialItem(specialLoots[i], -1);
             }
         }
     }

@@ -1,7 +1,6 @@
 package com.qqhouse.dungeon18plus.core;
 
 import com.qqhouse.dungeon18plus.G;
-import com.qqhouse.dungeon18plus.gamedata.GameData;
 import com.qqhouse.dungeon18plus.struct.Ability;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.EventInfo;
@@ -42,7 +41,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
     public ColosseumManager(HeroClass heroClass) {
 		
 		// class record
-		HeroClassRecord record = GameData.getInstance().getHeroClassRecord(heroClass);
+		HeroClassRecord record = null;//GameData.getInstance().getHeroClassRecord(heroClass);
 
 		// create Hero
         mHero = new ColosseumHero();
@@ -63,7 +62,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 
 		// initial shops
 		mShopItems.clear();
-		mShopItems.addAll(GameData.getInstance().getEquipmentData());
+		//mShopItems.addAll(GameData.getInstance().getEquipmentData());
 		if (G.isPremium) {
 			mShopItems.add(Item.YGGDRASIL_DAGGER);
 			mShopItems.add(Item.YGGDRASIL_SWORD);
@@ -194,33 +193,33 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 			// unlock knights.
 			if (evt.isKnight()) {
 				//GameData.getInstance().heroClassData.addColosseum(evt.heroClass, 0);
-				HeroClassRecord record = GameData.getInstance().getHeroClassRecord(mHero.heroClass);
+				//HeroClassRecord record = GameData.getInstance().getHeroClassRecord(mHero.heroClass);
 
 				switch(evt.getHeroClass()) {
                     case EARTH_KNIGHT: {
-                        if (G.HERO_MAX_MIRROR > record.yellowMirror) {
-                            record.yellowMirror++;
-                        }
-                        GameData.getInstance().unlockColosseum(HeroClass.EARTH_KNIGHT);
+                        //if (G.HERO_MAX_MIRROR > record.yellowMirror) {
+                        //    record.yellowMirror++;
+                        //}
+                        //GameData.getInstance().unlockColosseum(HeroClass.EARTH_KNIGHT);
                     }
                     break;
                     case FIRE_KNIGHT: {
-                        if (G.HERO_MAX_MIRROR > record.redMirror) {
-                            record.redMirror++;
-                        }
+                        //if (G.HERO_MAX_MIRROR > record.redMirror) {
+                        //    record.redMirror++;
+                        //}
                     }
                     break;
                     case WATER_KNIGHT: {
-                        if (G.HERO_MAX_MIRROR > record.blueMirror) {
-                            record.blueMirror++;
-                        }
+                        //if (G.HERO_MAX_MIRROR > record.blueMirror) {
+                        //    record.blueMirror++;
+                        //}
                     }
                     break;
 				    case WIND_KNIGHT: {
-                        if (G.HERO_MAX_MIRROR > record.greenMirror) {
-                            record.greenMirror++;
-                        }
-                        GameData.getInstance().unlockColosseum(HeroClass.WIND_KNIGHT);
+                        //if (G.HERO_MAX_MIRROR > record.greenMirror) {
+                        //    record.greenMirror++;
+                        //}
+                        //GameData.getInstance().unlockColosseum(HeroClass.WIND_KNIGHT);
                     }
                     break;
 
@@ -229,8 +228,8 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 			
 		} else if (evt.type.endGame()) {
 			// end , record max turn
-			HeroClassRecord record = GameData.getInstance().getHeroClassRecord(mHero.heroClass);
-			record.updateRound(mHero.round);
+			//HeroClassRecord record = GameData.getInstance().getHeroClassRecord(mHero.heroClass);
+			//record.updateRound(mHero.round);
 			return G.result.lose;
 		}
 		
@@ -366,9 +365,9 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 
 		// save equipment to backpack
 		if (loot.isEquipment()) {
-			final int mastery = GameData.getInstance().getHeroClassRecord(mHero.heroClass).getMastery(loot);
-			backpack.add(new EquipmentMastery(loot,
-				G.MASTERY_NOT_FOUND == mastery ? addMastery() : mastery / 2));
+			//final int mastery = GameData.getInstance().getHeroClassRecord(mHero.heroClass).getMastery(loot);
+			//backpack.add(new EquipmentMastery(loot,
+			//	G.MASTERY_NOT_FOUND == mastery ? addMastery() : mastery / 2));
 			Collections.sort(backpack);
 		}
 		

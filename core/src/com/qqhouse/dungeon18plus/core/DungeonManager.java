@@ -1,7 +1,6 @@
 package com.qqhouse.dungeon18plus.core;
 
 import com.qqhouse.dungeon18plus.G;
-import com.qqhouse.dungeon18plus.gamedata.GameData;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.hero.DungeonHero;
 import com.qqhouse.dungeon18plus.struct.event.BattleEvent;
@@ -77,7 +76,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     public DungeonManager(HeroClass heroClass) {
         
         // class record
-        HeroClassRecord record = GameData.getInstance().getHeroClassRecord(heroClass);
+        HeroClassRecord record = null;//GameData.getInstance().getHeroClassRecord(heroClass);
 
         // create Hero
         mHero = new DungeonHero();
@@ -120,7 +119,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         
         // initial shop items
         mShopItems.clear();
-        mShopItems.addAll(GameData.getInstance().getEquipmentData());
+        //mShopItems.addAll(GameData.getInstance().getEquipmentData());
         // default shop item
         Item[] defaultShopItem = {Item.WOODEN_SWORD, Item.WOODEN_SHIELD, Item.WOODEN_RING, Item.IRON_SWORD, Item.IRON_SHIELD, Item.IRON_BOOTS, Item.IRON_RING};
         for (Item loot : defaultShopItem)
@@ -265,13 +264,13 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         
         // XXX 0328 以後再改成打倒 Boss 後也可能出現老英雄.
         rate = Feat.HOLY_ONE.in(mHero.feats) ? 10 : 5;
-        for (Veteran old : GameData.getInstance().getBarrackData()) {
-            if (mRandom.nextInt(100) < rate && !old.heroClass.isKnight()) {
-                VariedHero oldHero = new VariedHero(EventType.VETERAN, old.heroClass).setAbility(old);
-                int pos = mRandom.nextInt(mAllEvent.size());
-                mAllEvent.add(pos, oldHero);
-            }
-        }
+        //for (Veteran old : GameData.getInstance().getBarrackData()) {
+          //  if (mRandom.nextInt(100) < rate && !old.heroClass.isKnight()) {
+            //    VariedHero oldHero = new VariedHero(EventType.VETERAN, old.heroClass).setAbility(old);
+              //  int pos = mRandom.nextInt(mAllEvent.size());
+              //  mAllEvent.add(pos, oldHero);
+        //    }
+        //}
 
         initialBoss();
 
@@ -288,8 +287,8 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         allZako.add(EventType.SKELETON);
         allZako.add(EventType.CYCLOPS);
         // black slime
-        if (GameData.getInstance().isGiantDefeated(GiantRace.BLACK_SLIME))
-            allZako.add(EventType.BLACK_SLIME);
+        //if (GameData.getInstance().isGiantDefeated(GiantRace.BLACK_SLIME))
+        //    allZako.add(EventType.BLACK_SLIME);
         Collections.shuffle(allZako);
         
         // decide zako type, fixed.
@@ -357,16 +356,16 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
             // bring squleton or skeleton fighter
             if (type == EventType.SKELETON_KING) {
-                if (GameData.getInstance().isGiantDefeated(GiantRace.SKELETON_FIGHTER) && mRandom.nextBoolean()) {
-                    DungeonMonster fighter = new DungeonMonster(EventType.SKELETON_FIGHTER, mRandom.nextInt(G.ZAKO_LEVEL_MAX) + 1)
-                            .setLoot(getSkeletonFighterDrop());
-                    mAllEvent.add(fighter);
-                } else {
-                    DungeonMonster squleton = new DungeonMonster(EventType.SQULETON, mRandom.nextInt(20) + 1)
-                            .setLoot(getSquletonDrop());
-                mAllEvent.add(squleton);
+                //if (GameData.getInstance().isGiantDefeated(GiantRace.SKELETON_FIGHTER) && mRandom.nextBoolean()) {
+                //    DungeonMonster fighter = new DungeonMonster(EventType.SKELETON_FIGHTER, mRandom.nextInt(G.ZAKO_LEVEL_MAX) + 1)
+                //            .setLoot(getSkeletonFighterDrop());
+                //    mAllEvent.add(fighter);
+                //} else {
+                //    DungeonMonster squleton = new DungeonMonster(EventType.SQULETON, mRandom.nextInt(20) + 1)
+                //            .setLoot(getSquletonDrop());
+                //mAllEvent.add(squleton);
+            //}
             }
-        }
         }
         
     }
@@ -383,8 +382,8 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         mBossList.add(EventType.WAILING_WALL);
         mBossList.add(EventType.DEMON);
         // steel cyclops
-        if (GameData.getInstance().isGiantDefeated(GiantRace.STEEL_CYCLOPS))
-            mBossList.add(EventType.STEEL_CYCLOPS);
+        //if (GameData.getInstance().isGiantDefeated(GiantRace.STEEL_CYCLOPS))
+        //    mBossList.add(EventType.STEEL_CYCLOPS);
         Collections.shuffle(mBossList);
         mBossList.add(EventType.SKELETON_KING);
         
@@ -576,7 +575,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             
             // record killed monster
             if (evt instanceof DungeonMonster) {
-                GameData.getInstance().addMonster(new Monster(evt.type, evt.getLevel()));
+                //GameData.getInstance().addMonster(new Monster(evt.type, evt.getLevel()));
             }
 
         }
@@ -617,7 +616,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
         int eventAdded = fillEvent();
         
-        HeroClassRecord classData = GameData.getInstance().getHeroClassRecord(mHero.heroClass);
+        HeroClassRecord classData = null;//GameData.getInstance().getHeroClassRecord(mHero.heroClass);
         
         if (EventType.WIN_NORMAL == evt.type || EventType.WIN_GOLDEN == evt.type) {
             // record high level
@@ -629,7 +628,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 totalScore += kill.score;
             classData.updateScore(totalScore);
             
-            GameData.getInstance().addScoreHero(new ScoreHero(mHero, totalScore));
+            //GameData.getInstance().addScoreHero(new ScoreHero(mHero, totalScore));
             
 //            // remove killed past
 //            if ((mHero.feats & Game.feat.darkPresence) > 0 && !mPastKilled.isEmpty()) {
@@ -639,7 +638,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 //            }
             if (EventType.WIN_GOLDEN == evt.type) {
                 // enable skeleton king in dungeon mode
-                GameData.getInstance().getHeroClassRecord(HeroClass.SKELETON_KING).unlockDungeon();
+                //GameData.getInstance().getHeroClassRecord(HeroClass.SKELETON_KING).unlockDungeon();
                 //GameData.getInstance().addHeroClass(HeroClass.SKELETON_KING, false);
                 
                 // enable colosseum for mHero class (exclude skeleton king)
@@ -992,7 +991,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         }
 
         // add to equipment catalog, will check in quipmentData
-        GameData.getInstance().addEquipment(loot);
+        //GameData.getInstance().addEquipment(loot);
     }
     
     private void learning(HeroClass pastClass) {
@@ -1108,7 +1107,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
         if (Item.NONE != evt.loot) {
             mEventInfo.loot = evt.loot;
-            mEventInfo.isUnknown = evt.loot.isEquipment() && evt.loot.isNotPremium() && !GameData.getInstance().hasEquipment(evt.loot);
+            //mEventInfo.isUnknown = evt.loot.isEquipment() && evt.loot.isNotPremium() && !GameData.getInstance().hasEquipment(evt.loot);
             if (Item.KEY == evt.loot)
                 mEventInfo.lootKey = 1;
             else if (Item.COPPER_COIN == evt.loot)

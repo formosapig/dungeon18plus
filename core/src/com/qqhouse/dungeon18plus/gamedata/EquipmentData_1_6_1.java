@@ -1,7 +1,7 @@
 package com.qqhouse.dungeon18plus.gamedata;
 
 import com.qqhouse.dungeon18plus.core.Item;
-import com.qqhouse.dungeon18plus.gamedata.DataCore.DataPart;
+import com.qqhouse.io.QQSaveGame;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * 
  * format : loot.code x n
  */
-class EquipmentData_1_6_1 extends DataPart {
+class EquipmentData_1_6_1 extends QQSaveGame.DataPart {
 
 	final ArrayList<Item> equipments;
 	
@@ -21,7 +21,7 @@ class EquipmentData_1_6_1 extends DataPart {
 	}
 	
 	@Override
-	byte[] write() {
+	public byte[] write() {
 		ByteBuffer buffer = ByteBuffer.allocate(512);	// 128 equipments.
 		for (Item equip : equipments)
 			buffer.putInt(equip.code);
@@ -29,7 +29,7 @@ class EquipmentData_1_6_1 extends DataPart {
 	}
 
 	@Override
-	void read(byte[] data) {
+	public void read(byte[] data) {
 		ByteBuffer buffer = ByteBuffer.wrap(data);
 		equipments.clear();
 		while (buffer.hasRemaining())

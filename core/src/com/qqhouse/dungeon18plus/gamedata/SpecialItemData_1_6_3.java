@@ -1,8 +1,10 @@
 package com.qqhouse.dungeon18plus.gamedata;
 
+import com.qqhouse.io.QQSaveGame;
+
 import java.nio.ByteBuffer;
 
-class SpecialItemData_1_6_3 extends DataCore.DataPart {
+class SpecialItemData_1_6_3 extends QQSaveGame.DataPart {
 
     /*
      * loot code, count pair.
@@ -11,12 +13,12 @@ class SpecialItemData_1_6_3 extends DataCore.DataPart {
     /*final intArray specialItems;*/
 
     SpecialItemData_1_6_3() {
-        super(0x52E99F1D);
+        super(0x1405D51A);
         //specialItems = new SparseIntArray();
     }
 
     @Override
-    byte[] write() {
+    public byte[] write() {
         ByteBuffer buffer = ByteBuffer.allocate(256);	// 8 bytes * 32 種 ...
         //for (int i = 0, s = specialItems.size(); i < s; ++i) {
         //    buffer.putInt(specialItems.keyAt(i));
@@ -26,7 +28,7 @@ class SpecialItemData_1_6_3 extends DataCore.DataPart {
     }
 
     @Override
-    void read(byte[] data) {
+    public void read(byte[] data) {
         ByteBuffer buffer = ByteBuffer.wrap(data);
         //specialItems.clear();
         while (buffer.hasRemaining()) {

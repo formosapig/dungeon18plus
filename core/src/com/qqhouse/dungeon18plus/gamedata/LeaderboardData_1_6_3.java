@@ -1,8 +1,8 @@
 package com.qqhouse.dungeon18plus.gamedata;
 
 import com.qqhouse.dungeon18plus.core.HeroClass;
-import com.qqhouse.dungeon18plus.gamedata.DataCore.DataPart;
 import com.qqhouse.dungeon18plus.struct.hero.ScoreHero;
+import com.qqhouse.io.QQSaveGame;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /*
  * prepare for blue tooth version ...
  */
-class LeaderboardData_1_6_3 extends DataPart {
+class LeaderboardData_1_6_3 extends QQSaveGame.DataPart {
 
 	final ArrayList<ScoreHero> heroes;
 	
@@ -20,7 +20,7 @@ class LeaderboardData_1_6_3 extends DataPart {
 	}
 	
 	@Override
-	byte[] write() {
+	public byte[] write() {
 		ByteBuffer buffer = ByteBuffer.allocate(1024);	// 32 * 32
 		for (ScoreHero hero : heroes) {
             // this
@@ -42,7 +42,7 @@ class LeaderboardData_1_6_3 extends DataPart {
 	}
 
 	@Override
-	void read(byte[] data) {
+	public void read(byte[] data) {
 		ByteBuffer buffer = ByteBuffer.wrap(data);
 		heroes.clear();
 		while (buffer.hasRemaining()) {

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class SelectHeroScreen extends QQScreen implements QQListView.Adapter {
     public SelectHeroScreen(Viewport viewport) {
-        super(viewport);
+        super(null, viewport);
     }
 
     // resource

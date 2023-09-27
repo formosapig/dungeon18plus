@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.core;
 
-import com.qqhouse.dungeon18plus.gamedata.GameData;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 
 import java.util.ArrayList;
@@ -17,10 +16,10 @@ public class LegionManager {
 	public LegionManager() {
 		
 		// read legion data from GameData....
-		legion = GameData.getInstance().getLegionData();
+		legion = null;//GameData.getInstance().getLegionData();
 		
 		// read veteran data from GameData...
-		barrack = GameData.getInstance().getBarrackData();
+		barrack = null;//GameData.getInstance().getBarrackData();
 		
 	}
 

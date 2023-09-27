@@ -24,12 +24,12 @@ public class Main extends QQGameMachine implements TitleScreen.TitleCallback {
         initial(G.WIDTH, G.HEIGHT);
 
         // save game
-        saveGame = new SaveGame(G.SAVE_FILE);
-        saveGame.load();
+        savedGame = new SaveGame(G.SAVE_FILE);
+        savedGame.load();
 
 
         // add states....
-        addState(STATE_TITLE, new TitleScreen(viewport, this));
+        addState(STATE_TITLE, new TitleScreen((SaveGame) savedGame, viewport, this));
         addState(STATE_SELECT_HERO, new SelectHeroScreen(viewport));
 
 

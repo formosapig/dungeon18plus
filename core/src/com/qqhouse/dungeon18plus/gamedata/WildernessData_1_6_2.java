@@ -3,9 +3,9 @@ package com.qqhouse.dungeon18plus.gamedata;
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.Soul;
 import com.qqhouse.dungeon18plus.core.UltimateSkill;
-import com.qqhouse.dungeon18plus.gamedata.DataCore.DataPart;
 import com.qqhouse.dungeon18plus.struct.GiantRecord;
 import com.qqhouse.dungeon18plus.struct.SoulCount;
+import com.qqhouse.io.QQSaveGame;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * format : [giant code]  
  *  
  */
-class WildernessData_1_6_2 extends DataPart {
+class WildernessData_1_6_2 extends QQSaveGame.DataPart {
 
 	final ArrayList<GiantRecord> giants;
 	
@@ -26,7 +26,7 @@ class WildernessData_1_6_2 extends DataPart {
 	}
 	
 	@Override
-	byte[] write() {
+	public byte[] write() {
 		ByteBuffer buffer = ByteBuffer.allocate(2048);
 		for (GiantRecord giant : giants) {
             buffer.putInt(giant.race.code);
@@ -50,7 +50,7 @@ class WildernessData_1_6_2 extends DataPart {
 	}
 
 	@Override
-	void read(byte[] data) {
+	public void read(byte[] data) {
 		ByteBuffer buffer = ByteBuffer.wrap(data);
 		giants.clear();
 		while (buffer.hasRemaining()) {

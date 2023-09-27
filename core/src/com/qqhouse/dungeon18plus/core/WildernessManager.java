@@ -1,7 +1,6 @@
 package com.qqhouse.dungeon18plus.core;
 
 import com.qqhouse.dungeon18plus.G;
-import com.qqhouse.dungeon18plus.gamedata.GameData;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignAction;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignResult;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignScore;
@@ -90,7 +89,7 @@ public class WildernessManager {
 		
 		// mHero from
 		int heroFrom = 0;
-		for (Veteran veteran : GameData.getInstance().getLegionData()) {
+		/*for (Veteran veteran : GameData.getInstance().getLegionData()) {
 			Legion hero = new Legion(veteran);
 			// mHero from
 			hero.heroFrom = heroFrom++;
@@ -100,7 +99,7 @@ public class WildernessManager {
 			hero.bg = hero.heroClass.getBackgroundRes();
 			// add mHero
 			legions.add(hero);
-		}
+		}*/
 		
 		state = INITIAL;
 		
@@ -570,7 +569,7 @@ public class WildernessManager {
 	
 	private void heroLoseLife(Legion hero) {
 		//if (!mHero.alive)
-		hero.round = GameData.getInstance().veteranLoseLife(hero.heroFrom);
+		//hero.round = GameData.getInstance().veteranLoseLife(hero.heroFrom);
 		// kill legion count.
 		mKillLegionCount++;
 	}
@@ -608,7 +607,7 @@ public class WildernessManager {
 		for (Campaigner ir : giants) {
 			Giant giant = (Giant) ir;
 
-			GiantRecord record = GameData.getInstance().getGiantRecord(giant.race);
+			GiantRecord record = null;//GameData.getInstance().getGiantRecord(giant.race);
 			
 			// giant experience.
 			getGiantExperience(record, 1);
@@ -648,7 +647,7 @@ public class WildernessManager {
 		for (Campaigner ir : giants) {
 			Giant giant = (Giant) ir;
 			
-			GiantRecord record = GameData.getInstance().getGiantRecord(giant.race);
+			GiantRecord record = null;//GameData.getInstance().getGiantRecord(giant.race);
 
 			// giant experience
 			getGiantExperience(record, 3);
@@ -689,7 +688,7 @@ public class WildernessManager {
 		// exp +1
 		for (Campaigner ir : giants) {
 			Giant giant = (Giant) ir;
-			GiantRecord record = GameData.getInstance().getGiantRecord(giant.race);
+			GiantRecord record = null;//GameData.getInstance().getGiantRecord(giant.race);
 			record.addExperience(1);
 		}
 		
@@ -741,7 +740,7 @@ public class WildernessManager {
 				// giant drop record add.
 				record.addSoul(drop);
 				// mHero get soul / coin
-				HeroClassRecord hcRecord = GameData.getInstance().getHeroClassRecord(legion.heroClass);
+				HeroClassRecord hcRecord = null;//GameData.getInstance().getHeroClassRecord(legion.heroClass);
 				if (drop.isMoneyBag()) {
 					final int gold = drop.getGoldenCoin();
 					hcRecord.coin += gold;
@@ -769,7 +768,7 @@ public class WildernessManager {
 	}
 	
 	private void legionRIP() {
-		ArrayList<Veteran> legionData = GameData.getInstance().getLegionData();
+		ArrayList<Veteran> legionData = null;//GameData.getInstance().getLegionData();
 		Iterator<Veteran> itr = legionData.iterator();
 		while (itr.hasNext()) {
 			Veteran veteran = itr.next();
@@ -781,7 +780,7 @@ public class WildernessManager {
 		// add kill count
 		for (Campaigner ir : giants) {
 			Giant giant = (Giant) ir;
-			GiantRecord record = GameData.getInstance().getGiantRecord(giant.race);
+			GiantRecord record = null;//GameData.getInstance().getGiantRecord(giant.race);
 			record.addKillCount(mKillLegionCount);
 		}
 		

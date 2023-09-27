@@ -19,7 +19,7 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 	// basic
 	public HeroClass heroClass;
 	
-	// flag
+	// flag reference to G.GAME_MODE_XXXXX and so on...
 	public int flag;
 	
 	// dungeon
@@ -189,7 +189,15 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 		else
 			return (flag & FLAG_DUNGEON) != 0;
 	}
-	
+
+	public void setFlag(int flag) {
+		this.flag |= flag;
+	}
+
+	public boolean checkFlag(int flag) {
+		return (this.flag & flag) != 0;
+	}
+
 	@Override
 	public boolean equals(Object other) {
 		if (other == null) return false;

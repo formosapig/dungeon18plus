@@ -1,7 +1,6 @@
 package com.qqhouse.dungeon18plus.core;
 
 import com.qqhouse.dungeon18plus.G;
-import com.qqhouse.dungeon18plus.gamedata.GameData;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignAction;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignResult;
 import com.qqhouse.dungeon18plus.struct.GiantRecord;
@@ -73,7 +72,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		
 		// mHero from
 		int heroFrom = 0;
-		for (Veteran veteran : GameData.getInstance().getLegionData()) {
+		/*for (Veteran veteran : GameData.getInstance().getLegionData()) {
 			Legion hero = new Legion(veteran);
 			// mHero from
 			hero.heroFrom = heroFrom++;
@@ -83,7 +82,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 			hero.bg = hero.heroClass.getBackgroundRes();
 			// add mHero
 			homeTeam.add(hero);
-		}
+		}*/
 		
 		state = INITIAL;
 		
@@ -529,7 +528,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 	
 	private void heroLoseLife(Legion hero) {
 		//if (!mHero.alive)
-		hero.round = GameData.getInstance().veteranLoseLife(hero.heroFrom);
+		//hero.round = GameData.getInstance().veteranLoseLife(hero.heroFrom);
 	}
 	
 	/*
@@ -551,10 +550,10 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		for (Campaigner ir : awayTeam) {
 			Giant giant = (Giant) ir;
 
-			GiantRecord record = GameData.getInstance().getGiantRecord(giant.race);
+			//GiantRecord record = GameData.getInstance().getGiantRecord(giant.race);
 			
 			// giant experience.
-			getGiantExperience(record, 1);
+			//getGiantExperience(record, 1);
 			
 		}
 		
@@ -583,17 +582,17 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		for (Campaigner ir : awayTeam) {
 			Giant giant = (Giant) ir;
 			
-			GiantRecord record = GameData.getInstance().getGiantRecord(giant.race);
+			//GiantRecord record = GameData.getInstance().getGiantRecord(giant.race);
 
 			// giant experience
-			getGiantExperience(record, 3);
+			//getGiantExperience(record, 3);
 			
 			// get soul
-			getAndRecordGiantSoul(record);
+			//getAndRecordGiantSoul(record);
 			
 			
 			// record defeat
-			record.defeat(time);
+			//record.defeat(time);
 		}
 		flushBattleResult();
 		
@@ -617,8 +616,8 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		// exp +1
 		for (Campaigner ir : awayTeam) {
 			Giant giant = (Giant) ir;
-			GiantRecord record = GameData.getInstance().getGiantRecord(giant.race);
-			record.addExperience(1);
+			//GiantRecord record = GameData.getInstance().getGiantRecord(giant.race);
+			//record.addExperience(1);
 		}
 		
 		// r.i.p.
@@ -657,13 +656,13 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 				// giant drop record add.
 				record.addSoul(drop);
 				// mHero get soul / coin
-				HeroClassRecord hcRecord = GameData.getInstance().getHeroClassRecord(legion.heroClass);
+				//HeroClassRecord hcRecord = GameData.getInstance().getHeroClassRecord(legion.heroClass);
 				if (drop.isMoneyBag()) {
 					final int gold = drop.getGoldenCoin();
-					hcRecord.coin += gold;
+					//hcRecord.coin += gold;
 					addBattleResult(legion.heroClass.key, Operation.GOLDEN_COIN, gold);
 				} else {
-					hcRecord.addSoul(drop);
+					//hcRecord.addSoul(drop);
 					addBattleResult(legion.heroClass.key, Operation.GIANT_SOUL, drop.code);
 				}
 			}
@@ -685,19 +684,19 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 	}
 	
 	private void legionRIP() {
-		ArrayList<Veteran> legionData = GameData.getInstance().getLegionData();
-		Iterator<Veteran> itr = legionData.iterator();
-		while (itr.hasNext()) {
-			Veteran veteran = itr.next();
-			if (0 >= veteran.round) {
-				addBattleResult(veteran.heroClass.key, Operation.DEATH, 1);
-				itr.remove();
-			}
-		}
+		//ArrayList<Veteran> legionData = GameData.getInstance().getLegionData();
+		//Iterator<Veteran> itr = legionData.iterator();
+		//while (itr.hasNext()) {
+		//	Veteran veteran = itr.next();
+		//	if (0 >= veteran.round) {
+		//		addBattleResult(veteran.heroClass.key, Operation.DEATH, 1);
+		//		itr.remove();
+		//	}
+		//}
 		// add kill count
 		for (Campaigner ir : awayTeam) {
 			Giant giant = (Giant) ir;
-			GiantRecord record = GameData.getInstance().getGiantRecord(giant.race);
+			//GiantRecord record = GameData.getInstance().getGiantRecord(giant.race);
 		}
 		
 		

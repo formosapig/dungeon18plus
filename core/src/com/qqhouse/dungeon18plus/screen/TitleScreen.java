@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.G;
 import com.qqhouse.dungeon18plus.core.GameAlignment;
+import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.TitleMenuView;
 import com.qqhouse.ui.QQClickListener;
 import com.qqhouse.ui.QQScreen;
@@ -36,8 +37,8 @@ public class TitleScreen extends QQScreen {
     private TitleCallback callback;
     private BitmapFont font;
 
-    public TitleScreen(Viewport viewport, TitleCallback callback) {
-        super(viewport);
+    public TitleScreen(SaveGame savedGame, Viewport viewport, TitleCallback callback) {
+        super(savedGame, viewport);
         this.callback = callback;
     }
 
@@ -60,30 +61,43 @@ public class TitleScreen extends QQScreen {
                 .setResource(font, "dungeon", "skeleton_fighter")
                 .qqListener(clickListener, G.TITLE_DUNGEON)
                 .size(menu_width, menu_height));
+
         // Tower : collect five hero class.
-        menus.add(new TitleMenuView(this, LAWFUL.key)
-                .setResource(font, "tower", "fire_sorcerer")
-                .qqListener(clickListener, G.TITLE_TOWER)
-                //.defaultDisable()
-                .size(menu_width, menu_height));
+        if (savedGame.isGameModeUnlocked(G.GAME_MODE_TOWER)) {
+            menus.add(new TitleMenuView(this, LAWFUL.key)
+                    .setResource(font, "tower", "fire_sorcerer")
+                    .qqListener(clickListener, G.TITLE_TOWER)
+                    //.defaultDisable()
+                    .size(menu_width, menu_height));
+        }
+
         // Colosseum : defeat skeleton fighter in the dungeon.
-        menus.add(new TitleMenuView(this, NEUTRAL.key)
-                .setResource(font, "colosseum", "arena")
-                .qqListener(clickListener, G.TITLE_COLOSSEUM)
-                //.defaultDisable()
-                .size(menu_width, menu_height));
+        if (savedGame.isGameModeUnlocked(G.GAME_MODE_COLOSSEUM)) {
+            menus.add(new TitleMenuView(this, NEUTRAL.key)
+                    .setResource(font, "colosseum", "arena")
+                    .qqListener(clickListener, G.TITLE_COLOSSEUM)
+                    //.defaultDisable()
+                    .size(menu_width, menu_height));
+        }
+
         // Wilderness : see sword master in the colosseum.
-        menus.add(new TitleMenuView(this, SPECIAL.key)
-                .setResource(font, "wilderness", "steel_cyclops")
-                .qqListener(clickListener, G.TITLE_WILDERNESS)
-                //.defaultDisable()
-                .size(menu_width, menu_height));
+        if (savedGame.isGameModeUnlocked(G.GAME_MODE_WILDERNESS)) {
+            menus.add(new TitleMenuView(this, SPECIAL.key)
+                    .setResource(font, "wilderness", "steel_cyclops")
+                    .qqListener(clickListener, G.TITLE_WILDERNESS)
+                    //.defaultDisable()
+                    .size(menu_width, menu_height));
+        }
+
         // Castle : defeat demon in wilderness
-        menus.add(new TitleMenuView(this, CHAOTIC.key)
-                .setResource(font, "castle", "skeleton_king")
-                .qqListener(clickListener, G.TITLE_CASTLE)
-                //.defaultDisable()
-                .size(menu_width, menu_height));
+        if (savedGame.isGameModeUnlocked(G.GAME_MODE_CASTLE)) {
+            menus.add(new TitleMenuView(this, CHAOTIC.key)
+                    .setResource(font, "castle", "skeleton_king")
+                    .qqListener(clickListener, G.TITLE_CASTLE)
+                    //.defaultDisable()
+                    .size(menu_width, menu_height));
+        }
+
         // Library : default
         menus.add(new TitleMenuView(this, LAWFUL.key)
                 .setResource(font, "library", "merchant")
