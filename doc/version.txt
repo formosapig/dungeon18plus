@@ -1,3 +1,10 @@
+version code : 48 (2.0.0) [2023/?/?]
+1. Because I am 48 years old.
+2. Remake all game with libgdx engine.
+3. iOS version is supported.
+
+
+
 version code : ? (1.6.2....?)
 1. add one battle buffer special potion, email me to ask promo code (9 random potion)
 2. fairy no long gain star from zako, she can only gain star from collect cursed crystal. (she has new feat : endless purse)
