@@ -43,6 +43,7 @@ public abstract class QQButton extends QQView {
 
     @Override
     public boolean touchUp(float x, float y) {
+        Gdx.app.error("TEST", "touch up : " + this);
         if (!enable || !touchable)
             return false;
         if (pressed) {

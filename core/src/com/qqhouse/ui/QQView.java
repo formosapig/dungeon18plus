@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,6 +26,7 @@ public abstract class QQView {
     protected QQScreen master;
 
     public QQView hit(float x, float y) {
+        Gdx.app.error("TEST", "hit : " + this);
         float shiftX = x - this.x;
         float shiftY = y - this.y;
         if (shiftX >= 0 && shiftX <= width && shiftY >= 0 && shiftY <= height)
@@ -96,6 +98,11 @@ public abstract class QQView {
         this.height = height;
     }
 
+    public float getX() {return x;}
+    public float getY() {return y;}
+    public float getWidth() {return width;}
+    public float getHeight() {return height;}
+
     /*
         padding. top, bottom, left, right
      */
@@ -128,8 +135,7 @@ public abstract class QQView {
     }
 
     public QQView size(float width, float height) {
-        this.width = width;
-        this.height = height;
+        this.setSize(width, height);
         return this;
     }
 

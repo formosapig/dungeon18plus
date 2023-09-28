@@ -31,8 +31,6 @@ public class TitleScreen extends QQScreen {
         public void onTitle(int titleMenu);
     }
 
-    private Texture txrDungeon, txrColosseum;
-    private NinePatch npBG;
     private ArrayList<QQView> menus;
     private TitleCallback callback;
     private BitmapFont font;
@@ -57,7 +55,7 @@ public class TitleScreen extends QQScreen {
         float menu_width = 240;
         float menu_height = 64;
         float menu_margin = 6;
-        menus.add(new TitleMenuView(this, NORMAL.key)
+        menus.add(new TitleMenuView(this, ORDINARY.key)
                 .setResource(font, "dungeon", "skeleton_fighter")
                 .qqListener(clickListener, G.TITLE_DUNGEON)
                 .size(menu_width, menu_height));

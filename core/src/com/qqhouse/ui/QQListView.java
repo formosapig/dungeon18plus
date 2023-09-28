@@ -3,6 +3,8 @@ package com.qqhouse.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.ArrayList;
+
 /*
   * 像是 android 的 listview 一樣, 需要 adapter
   * 先做 vertical 的, 就是垂直的 list view.
@@ -14,34 +16,48 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 */
 public class QQListView extends QQView implements QQView.ChildrenVisitor {
 
-    public interface Adapter {
-        public int count();
-        public QQView getView(int index);
-    }
-
     public QQListView(QQScreen master) {
         super(master);
+        childrenView = new ArrayList<QQView>();
+        calculateAnchorY = true;
+        anchorY = 0;
     }
 
-    private Adapter adapter;
-    public void setAdapter(Adapter adapter) {
-        this.adapter = adapter;
+    private final ArrayList<QQView> childrenView;
+    private boolean calculateAnchorY;
+    private float anchorY;
+
+    /*
+        add child view...
+     */
+    public void addView(QQView view) {
+        childrenView.add(view);
+        rearrangeChildren();
     }
 
+    private void rearrangeChildren() {
+        float anchorY = y + height - topPadding;
 
+        for (int i = 0, s = childrenView.size(); i < s; ++i) {
+            QQView view = childrenView.get(i);
+            float posY = anchorY - view.height;
+
+            view.setPosition(x + leftPadding, posY);
+
+            anchorY = posY - 4;
+        }
+    }
 
     @Override
     public void visitDraw(SpriteBatch batch) {
-        for (int i = 0, s = adapter.count(); i < s; ++i) {
-            QQView view = adapter.getView(i);
+        for (QQView view : childrenView) {
             view.draw(batch);
         }
     }
 
     @Override
     public void dispose() {
-        for (int i = 0, s = adapter.count(); i < s; ++i) {
-            QQView view = adapter.getView(i);
+        for (QQView view : childrenView) {
             view.dispose();
         }
     }

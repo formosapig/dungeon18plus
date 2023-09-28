@@ -9,36 +9,35 @@ import com.qqhouse.dungeon18plus.G;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.view.PreviewView;
 import com.qqhouse.dungeon18plus.view.TitleBarView;
+import com.qqhouse.ui.QQClickListener;
 import com.qqhouse.ui.QQListView;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
 
-public class SelectHeroScreen extends QQScreen implements QQListView.Adapter {
+public class SelectHeroScreen extends QQScreen implements QQClickListener {
     public SelectHeroScreen(Viewport viewport) {
         super(null, viewport);
     }
 
-    // resource
-    private BitmapFont font;
-    private QQListView list;
-    private ArrayList<HeroClass> tmp;
-    private ArrayList<PreviewView> views;
+    // resource kept
+    private BitmapFont fntTitle;
     private BitmapFont fntName;
     private BitmapFont fntDesc;
+    private QQListView list;
 
     @Override
     public void onEnter() {
         // initial font.
         // bitmap font...
-        font = createFont(18, Color.WHITE, "請選擇英雄");
+        fntTitle = createFont(18, Color.WHITE, "請選擇英雄");
 
         // one title view ..., just print select hero ?
         TitleBarView title = new TitleBarView(
                 this,
                 new Texture(Gdx.files.internal("blockee/fairy.png")),
-                font,
+                fntTitle,
                 "Select Hero : ");
 
         //addView(title);
@@ -46,19 +45,25 @@ public class SelectHeroScreen extends QQScreen implements QQListView.Adapter {
         title.setSize(G.WIDTH, 48);
         title.setPosition(0, G.HEIGHT - 48);
 
-        tmp = new ArrayList<HeroClass>();
+        ArrayList<HeroClass> tmp = new ArrayList<>();
         tmp.add(HeroClass.NOVICE);
         tmp.add(HeroClass.BARBARIAN);
+        tmp.add(HeroClass.BERSERKER);
 
         fntName = createFont(24, Color.BROWN, "");
         fntDesc = createFont(16, Color.WHITE, "");
 
-        views = new ArrayList<PreviewView>();
+        // list view of hero preview view
+        list = (QQListView) new QQListView(this)
+                .size(G.WIDTH, G.HEIGHT - title.getHeight() - 4).
+                position(0, 0).
+                padding(4);
+        addView(list);
 
-        // add hero profile view...
         for (int i = 0, s = tmp.size(); i < s; ++i) {
             HeroClass hero = tmp.get(i);
             PreviewView view = new PreviewView(this,
+                    hero.alignment.key, // Alignment decides background.
                     new Texture(Gdx.files.internal("blockee//" + hero.key + ".png")),
                     fntName,
                     "Novice",
@@ -66,32 +71,26 @@ public class SelectHeroScreen extends QQScreen implements QQListView.Adapter {
                     "this is novices....");
             view.setPadding(8);
             view.setSize(G.WIDTH, 60);
-            views.add(view);
+            view.addQQClickListener(this, hero.code);
+            list.addView(view);
         }
-
-        // one list view ...
-        list = new QQListView(this);
-        list.setAdapter(this);
-        list.setPosition(0, 0);
-        list.setSize(G.WIDTH, G.HEIGHT - 48 - 4);
-
     }
 
     @Override
     public void onLeave() {
+
         list.dispose();
+        fntTitle.dispose();
+        fntName.dispose();
+        fntDesc.dispose();
+
     }
 
     /*
-        QQListView's adapter
+        click to select hero class...
      */
     @Override
-    public int count() {
-        return views.size();
-    }
+    public void onClick(int index) {
 
-    @Override
-    public QQView getView(int index) {
-        return views.get(index);
     }
 }

@@ -3,10 +3,11 @@ package com.qqhouse.dungeon18plus.view;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
-public class PreviewView extends QQView {
+public class PreviewView extends QQButton {
 
     private Texture icon;
     private BitmapFont fntName, fntDesc;
@@ -22,8 +23,8 @@ public class PreviewView extends QQView {
 
 
 
-    public PreviewView(QQScreen master, Texture icon, BitmapFont fntName, String name, BitmapFont fntDesc, String desc) {
-        super(master);
+    public PreviewView(QQScreen master, String btnKey, Texture icon, BitmapFont fntName, String name, BitmapFont fntDesc, String desc) {
+        super(master, btnKey);
         this.icon = icon;
         this.fntName = fntName;
         this.name = name;
