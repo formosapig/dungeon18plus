@@ -142,6 +142,25 @@ public abstract class QQScreen extends InputAdapter {
     }
 
     // font should controlled by screen instance.
+    protected BitmapFont createFont(String fontName, int fontSize, Color color, String fontCharacters) {
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font//" + fontName));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = fontSize; // default = 16
+        parameter.color = color;//new Color(0x9E8064FF);
+        parameter.characters = FreeTypeFontGenerator.DEFAULT_CHARS + fontCharacters;// default = a~z A~Z 1~9, 0, some normal character
+        // 在 parameter 內設 filter, 可以取代 font.getRegion().getTexture().setFilter ...
+        parameter.magFilter = Texture.TextureFilter.Linear;
+        parameter.minFilter = Texture.TextureFilter.Linear;
+        BitmapFont font = generator.generateFont(parameter);
+        generator.dispose(); // avoid memory leaks, important
+        // 加了這行, 字體變漂亮了... 在手機上的效果無法確定....
+        //font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Gdx.app.error("TEST", "fontSize     = " + fontSize);
+        Gdx.app.error("TEST", "- CapHeight  = " + font.getCapHeight());
+        Gdx.app.error("TEST", "- LineHeight = " + font.getLineHeight());
+
+        return font;
+    }
     protected BitmapFont createFont(int fontSize, Color color, String fontCharacters) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/NotoSansTC-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -155,6 +174,10 @@ public abstract class QQScreen extends InputAdapter {
         generator.dispose(); // avoid memory leaks, important
         // 加了這行, 字體變漂亮了... 在手機上的效果無法確定....
         //font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Gdx.app.error("TEST", "fontSize     = " + fontSize);
+        Gdx.app.error("TEST", "- CapHeight  = " + font.getCapHeight());
+        Gdx.app.error("TEST", "- LineHeight = " + font.getLineHeight());
+
         return font;
     }
 }

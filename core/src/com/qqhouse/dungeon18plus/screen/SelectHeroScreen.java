@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.G;
 import com.qqhouse.dungeon18plus.core.HeroClass;
@@ -29,6 +30,9 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
 
     @Override
     public void onEnter() {
+
+        // initial language bundle.
+        lanBundle = I18NBundle.createBundle(Gdx.files.internal("i18n/dungeon18plus"));
         // initial font.
         // bitmap font...
         fntTitle = createFont(18, Color.WHITE, "請選擇英雄");
@@ -49,9 +53,15 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
         tmp.add(HeroClass.NOVICE);
         tmp.add(HeroClass.BARBARIAN);
         tmp.add(HeroClass.BERSERKER);
+        tmp.add(HeroClass.DRAGOON);
+        tmp.add(HeroClass.THIEF);
+        tmp.add(HeroClass.ASSASSIN);
+        tmp.add(HeroClass.CRUSADER);
+        tmp.add(HeroClass.FAIRY);
+        tmp.add(HeroClass.SKELETON_KING);
 
-        fntName = createFont(24, Color.BROWN, "");
-        fntDesc = createFont(16, Color.WHITE, "");
+        fntName = createFont("NotoSansTC-Bold.ttf", 20, new Color(0x9E8064FF), "");
+        fntDesc = createFont(14, Color.WHITE, "");
 
         // list view of hero preview view
         list = (QQListView) new QQListView(this)
@@ -66,11 +76,11 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
                     hero.alignment.key, // Alignment decides background.
                     new Texture(Gdx.files.internal("blockee//" + hero.key + ".png")),
                     fntName,
-                    "Novice",
+                    lanBundle.get(hero.key),
                     fntDesc,
-                    "this is novices....");
+                    lanBundle.get(hero.key+"_help"));
             view.setPadding(8);
-            view.setSize(G.WIDTH, 60);
+            view.setSize(QQView.FILL_PARENT, QQView.WRAP_CONTENT);
             view.addQQClickListener(this, hero.code);
             list.addView(view);
         }

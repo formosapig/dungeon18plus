@@ -15,6 +15,10 @@ public abstract class QQView {
     }
     protected ChildrenVisitor visitor = null;
 
+    public static final int WRAP_CONTENT = -1;  // 保有 view 的 size
+    public static final int FILL_PARENT  = -2;  // 最大的填充 parent 的 size
+
+
     /*
         with screen
      */
@@ -95,8 +99,18 @@ public abstract class QQView {
 
     public void setSize(float width, float height) {
         this.width = width;
+        if (width == QQView.WRAP_CONTENT) {
+            calculateContentWidth();
+        }
         this.height = height;
+        if (height == QQView.WRAP_CONTENT) {
+            calculateContentHeight();
+        }
     }
+
+    protected void calculateContentWidth() {}
+    protected void calculateContentHeight() {}
+
 
     public float getX() {return x;}
     public float getY() {return y;}

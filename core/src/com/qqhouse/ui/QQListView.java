@@ -31,6 +31,13 @@ public class QQListView extends QQView implements QQView.ChildrenVisitor {
         add child view...
      */
     public void addView(QQView view) {
+        // when add to parent, recalculate size....
+        if (view.width == QQView.FILL_PARENT) {
+            view.setSize(this.width - leftPadding - rightPadding, view.height);
+        }
+        if (view.height == QQView.FILL_PARENT) {
+            view.setSize(view.width, this.height - topPadding - bottomPadding);
+        }
         childrenView.add(view);
         rearrangeChildren();
     }

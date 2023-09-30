@@ -79,7 +79,7 @@ public enum HeroClass {
 	// special mHero
 	ASSASSIN(0x1C5EA8F8, // code
 		"assassin",      // key
-        LAWFUL,          // 暗殺者出人意料之外的是守序陣營
+        LAWFUL,         // 暗殺者是混亂陣營/守序陣營????
 		new Item[] {WOODEN_DAGGER, IRON_DAGGER, SHADOW_DAGGER, SKULL_SWORD, SKULL_SHIELD, BLACK_RING, SKULL_RING, MITHRIL_BOOTS}, // mastery equipment
 		new Action[] {Action.BLOOD_ATTACK, Action.BLOOD_DEFENSE, Action.MORE_SPEED_UP}, // action
 		Feat.combine(EXPERIENCE, PURIFICATION, EVASION, LIFE_LEECH), // feat
