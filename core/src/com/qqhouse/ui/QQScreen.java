@@ -65,11 +65,19 @@ public abstract class QQScreen extends InputAdapter {
     public boolean touchDragged (int screenX, int screenY, int pointer) {
         //Gdx.app.error("TEST", "touchDragged : " + screenX + "," + screenY);
         Vector2 screenPos = screenToStageCoordinates(new Vector2(screenX, screenY));
+        //Gdx.app.error("TEST", "touchDragged : " + screenPos.x + "," + screenPos.y);
+
+        // tell all child dragged ....
+
+        QQView[] views = childrenView.items;
+        for (int i = 0, n = childrenView.size; i < n; ++i) {
+            views[i].touchDragged(screenPos.x, screenPos.y);
+        }
         return false;
     }
 
     public boolean touchUp (int screenX, int screenY, int pointer, int button) {
-        Gdx.app.error("TEST", "touch up : " + this);
+        //Gdx.app.error("TEST", "touch up : " + this);
         Vector2 screenPos = screenToStageCoordinates(new Vector2(screenX, screenY));
 
         QQView[] views = childrenView.items;

@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.G;
@@ -63,6 +65,9 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
         fntName = createFont("NotoSansTC-Bold.ttf", 20, new Color(0x9E8064FF), "");
         fntDesc = createFont(14, Color.WHITE, "");
 
+
+        //ScrollPane
+
         // list view of hero preview view
         list = (QQListView) new QQListView(this)
                 .size(G.WIDTH, G.HEIGHT - title.getHeight() - 4).
@@ -100,7 +105,8 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
         click to select hero class...
      */
     @Override
-    public void onClick(int index) {
-
+    public void onClick(int code) {
+        Gdx.app.error("TEST", "click");
+        Gdx.app.error("TEST", "click " + HeroClass.find(code));
     }
 }

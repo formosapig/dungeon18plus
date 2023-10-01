@@ -36,14 +36,15 @@ public abstract class QQButton extends QQView {
 
     @Override
     public boolean touchDown(float x, float y) {
-        if (enable && touchable)
+        if (enable && touchable) {
             pressed = true;
+        }
         return false;
     }
 
     @Override
     public boolean touchUp(float x, float y) {
-        Gdx.app.error("TEST", "touch up : " + this);
+        //Gdx.app.error("TEST", "touch up : " + this);
         if (!enable || !touchable)
             return false;
         if (pressed) {
@@ -52,6 +53,14 @@ public abstract class QQButton extends QQView {
                 clickListener.onClick(index);
             }
             return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(float x, float y) {
+        if (pressed && null == hit(x, y)) {
+            pressed = false;
         }
         return false;
     }

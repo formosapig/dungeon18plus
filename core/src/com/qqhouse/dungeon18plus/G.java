@@ -19,7 +19,7 @@ public class G {
 
     // UI Setting
     public static final int WIDTH = 360; // in pixel
-    public static final int HEIGHT = 800; // in pixel
+    public static final int HEIGHT = 640; // in pixel
     public static final int UI_MARGIN = 4; // in pixel
 
     // blockee size.

@@ -30,7 +30,6 @@ public abstract class QQView {
     protected QQScreen master;
 
     public QQView hit(float x, float y) {
-        Gdx.app.error("TEST", "hit : " + this);
         float shiftX = x - this.x;
         float shiftY = y - this.y;
         if (shiftX >= 0 && shiftX <= width && shiftY >= 0 && shiftY <= height)
@@ -47,6 +46,7 @@ public abstract class QQView {
         return false;
     }
 
+    public boolean touchDragged(float x, float y) {return false;}
 
     /*
         called by QQScreen

@@ -2,6 +2,7 @@ package com.qqhouse.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
@@ -68,4 +69,67 @@ public class QQListView extends QQView implements QQView.ChildrenVisitor {
             view.dispose();
         }
     }
+
+    /*
+        touch down event.
+        1. list view will keep touch down event.
+        2. transfer event to child, like button needs touch down event to change background.
+     */
+    private Vector2 touchDownPos = new Vector2();
+    @Override
+    public boolean touchDown(float x, float y) {
+        // 1. keep touch down position for scroll
+        touchDownPos = new Vector2(x, y);
+
+        // 2. walk through all child and find out hit one, send touch down to it.
+        QQView target = null;
+        for (QQView child : childrenView) {
+            target = child.hit(x, y);
+            if (null != target) {
+                return target.touchDown(x, y);
+            }
+        }
+        return false;
+    }
+
+    /*
+        touch up event.
+        1. list view will trace this event to cancel scroll mode. reset scrollPos to zero ?
+        2. walk through all child and find out hit one, send touch up to it.
+     */
+    @Override
+    public boolean touchUp(float x, float y) {
+        // 1. trace this event to exit scroll mode ...
+        touchDownPos = null; // ??
+
+        // 2. tell child touch up
+        QQView target = null;
+        for (QQView child : childrenView) {
+            target = child.hit(x, y);
+            if (null != target) {
+                return target.touchUp(x, y);
+            }
+        }
+
+        return false;
+    }
+    /*
+        touch dragged event.
+        1. do scroll by dragged distance ....
+        2. tell child dragged if exit hit area ?
+     */
+    @Override
+    public boolean touchDragged(float x, float y) {
+        // 1. do scroll ...
+
+        // 2. tell child to check if exit hit area.
+        for (QQView child : childrenView) {
+            child.touchDragged(x, y);
+        }
+
+        return false;
+    }
+
+
+
 }
