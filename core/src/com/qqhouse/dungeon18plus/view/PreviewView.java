@@ -72,24 +72,24 @@ public class PreviewView extends QQButton {
         descW = (int)(this.width - leftPadding - rightPadding - 8 - 48);
         glDesc.setText(fntDesc, desc, 0, 50, Color.WHITE, descW, Align.topLeft, true, null);
         height += glDesc.height - 12 + 16;
-        Gdx.app.error("TEST", "desc height = " + glDesc.height);
-        Gdx.app.error("TEST", "desc glyph = " + glDesc.glyphCount);
+        //Gdx.app.error("TEST", "desc height = " + glDesc.height);
+        //Gdx.app.error("TEST", "desc glyph = " + glDesc.glyphCount);
 
         this.height = height;
-        Gdx.app.error("TEST", "size = " + this.width + "," + this.height);
+        //Gdx.app.error("TEST", "size = " + this.width + "," + this.height);
 
         // icon position
         iconShiftX = leftPadding;
         iconShiftY = this.height - topPadding - 48;
-        Gdx.app.error("TEST", "icon shift = " + iconShiftX + "," + iconShiftY);
+        //Gdx.app.error("TEST", "icon shift = " + iconShiftX + "," + iconShiftY);
 
         nameShiftX = iconShiftX + 48 + 8 + (descW - glName.width) / 2;
         nameShiftY = this.height - topPadding;
-        Gdx.app.error("TEST", "name shift = " + nameShiftX + "," + nameShiftY);
+        //Gdx.app.error("TEST", "name shift = " + nameShiftX + "," + nameShiftY);
 
         descShiftX = iconShiftX + 48 + 8;
         descShiftY = this.height - topPadding - 20 - 4;
-        Gdx.app.error("TEST", "desc shift = " + descShiftX + "," + descShiftY);
+        //Gdx.app.error("TEST", "desc shift = " + descShiftX + "," + descShiftY);
 
 
     }

@@ -41,7 +41,7 @@ public class SaveGame extends QQSaveGame {
 
     @Override
     protected void newGame() {
-        Gdx.app.error("TEST", "SaveGame.newGame()");
+        //Gdx.app.error("TEST", "SaveGame.newGame()");
 
         // add all mHero class with nothing unlocked.
         mHeroClassData.records.clear();
