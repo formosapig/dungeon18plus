@@ -19,8 +19,7 @@ public class TitleBarView extends QQView {
     private BitmapFont font; // font to draw...
     private String title; // info.
 
-    public TitleBarView(QQScreen master, Texture icon, BitmapFont font, String title) {
-        super(master);
+    public TitleBarView(Texture icon, BitmapFont font, String title) {
         this.icon = icon;
         this.font = font;
         this.title = title;

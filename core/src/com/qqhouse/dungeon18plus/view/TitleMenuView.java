@@ -11,33 +11,24 @@ import com.qqhouse.ui.QQScreen;
 
 public class TitleMenuView extends QQButton {
 
+    private Texture blockee;
     private BitmapFont font;
-    private String key;
-    private Texture txrBlockee;
-    private String menuStr;
+    private String menu;
     private float menuShiftX, menuShiftY;
 
-    public TitleMenuView(QQScreen master, String buttonKey) {
-        super(master, buttonKey);
-    }
-
-    public TitleMenuView setResource(BitmapFont font, String key, String blockeeKey) {
+    public TitleMenuView(String buttonKey, Texture blockee, BitmapFont font, String menu) {
+        super(buttonKey);
+        this.blockee = blockee;
         this.font = font;
-        this.key = key;
-
-        txrBlockee = new Texture(Gdx.files.internal("blockee\\" + blockeeKey + ".png"));
-        // 效果較好 ?
-        txrBlockee.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-        menuStr = master.getLanguageBundle().get(key);
+        this.menu = menu;
 
         GlyphLayout glyphLayout = new GlyphLayout();
-        glyphLayout.setText(font, menuStr);
+        glyphLayout.setText(font, menu);
 
         menuShiftX = 60 + (172 - glyphLayout.width) / 2;
         menuShiftY = 8 + 48 / 2 + glyphLayout.height / 2; // good!
-        return this;
     }
+
     @Override
     public void drawForeground(SpriteBatch batch) {
         //Color c = batch.getColor();
@@ -46,19 +37,19 @@ public class TitleMenuView extends QQButton {
         //batch.setColor(1f,0.8f,0.8f,1);//c.r, c.g, c.b, 0.1f);
 
         // draw blockee
-        batch.draw(txrBlockee, 8 + x, 8 + y);
+        batch.draw(blockee, 8 + x, 8 + y);
 
         //batch.setColor(1,1,1,1);//c.r, c.g, c.b, 1);
         // draw font...
         //master.getFont().getData().setScale(0.71f, 0.5f);
-        font.draw(batch, menuStr, (int)(menuShiftX + x), (int)(menuShiftY + y));
+        font.draw(batch, menu, (int)(menuShiftX + x), (int)(menuShiftY + y));
         //batch.draw();
     }
 
 
     @Override
     public void dispose() {
-        txrBlockee.dispose();
+        blockee.dispose();
         // button...?
         super.dispose();
     }

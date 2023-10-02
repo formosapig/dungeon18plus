@@ -3,6 +3,7 @@ package com.qqhouse.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -24,6 +25,10 @@ public abstract class QQScreen extends InputAdapter {
         this.savedGame = savedGame;
         this.viewport = viewport;
         childrenView = new SnapshotArray<>(true, 4, QQView.class);
+    }
+
+    public Camera getCamera() {
+        return viewport.getCamera();
     }
 
     // input processor
@@ -169,23 +174,19 @@ public abstract class QQScreen extends InputAdapter {
 
         return font;
     }
-    protected BitmapFont createFont(int fontSize, Color color, String fontCharacters) {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/NotoSansTC-Regular.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = fontSize; // default = 16
-        parameter.color = color;//new Color(0x9E8064FF);
-        parameter.characters = FreeTypeFontGenerator.DEFAULT_CHARS + fontCharacters;// default = a~z A~Z 1~9, 0, some normal character
-        // 在 parameter 內設 filter, 可以取代 font.getRegion().getTexture().setFilter ...
-        parameter.magFilter = Texture.TextureFilter.Linear;
-        parameter.minFilter = Texture.TextureFilter.Linear;
-        BitmapFont font = generator.generateFont(parameter);
-        generator.dispose(); // avoid memory leaks, important
-        // 加了這行, 字體變漂亮了... 在手機上的效果無法確定....
-        //font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        Gdx.app.error("TEST", "fontSize     = " + fontSize);
-        Gdx.app.error("TEST", "- CapHeight  = " + font.getCapHeight());
-        Gdx.app.error("TEST", "- LineHeight = " + font.getLineHeight());
 
-        return font;
+    protected BitmapFont createFont(int fontSize, Color color, String fontCharacters) {
+        return createFont("NotoSansTC-Regular.ttf", fontSize, color, fontCharacters);
     }
+
+    // acquire resource
+    protected Texture getTexture(String key) {
+        return new Texture(Gdx.files.internal(key));
+    }
+
+    protected String getI18N(String key) {
+        return lanBundle.get(key);
+    }
+
+
 }

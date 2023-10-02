@@ -1,6 +1,7 @@
 package com.qqhouse.dungeon18plus.core;
 
 import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.hero.DungeonHero;
 import com.qqhouse.dungeon18plus.struct.event.BattleEvent;
@@ -72,11 +73,13 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     public final EventResult eventResult = new EventResult();
     private final EventInfo mEventInfo = new EventInfo();
     private int mEventIndex;
-    
-    public DungeonManager(HeroClass heroClass) {
-        
+    private SaveGame savedGame;
+
+    public DungeonManager(HeroClass heroClass, SaveGame savedGame) {
+
+        this.savedGame = savedGame;
         // class record
-        HeroClassRecord record = null;//GameData.getInstance().getHeroClassRecord(heroClass);
+        HeroClassRecord record = savedGame.getHeroClassRecord(heroClass);
 
         // create Hero
         mHero = new DungeonHero();

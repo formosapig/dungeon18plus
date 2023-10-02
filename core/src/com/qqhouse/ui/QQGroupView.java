@@ -9,8 +9,7 @@ public class QQGroupView extends QQView implements QQView.ChildrenVisitor {
 
     SnapshotArray<QQView> children;
 
-    public QQGroupView(QQScreen master) {
-        super(master);
+    public QQGroupView() {
         children = new SnapshotArray<>();
     }
 

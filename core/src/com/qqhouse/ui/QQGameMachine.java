@@ -2,6 +2,7 @@ package com.qqhouse.ui;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -18,7 +19,6 @@ public abstract class QQGameMachine implements ApplicationListener {
         constructor
      */
     private static final int EMPTY_STATE = -1;
-
 
     private SpriteBatch batch;
     private OrthographicCamera camera;
@@ -51,6 +51,7 @@ public abstract class QQGameMachine implements ApplicationListener {
     private Map<Integer, QQScreen> mScreens;
     private int mState;
     private QQScreen mCurrentScreen;
+    private QQScreen current;
 
     protected void addState(int state, QQScreen screen) {
         if (mScreens.containsKey(state)) {
@@ -79,6 +80,17 @@ public abstract class QQGameMachine implements ApplicationListener {
         }
     }
 
+    protected void changeScreen(QQScreen screen) {
+        Gdx.input.setInputProcessor(null);
+        if (null != current) {
+            current.onLeave();
+        }
+
+        current = screen;
+
+        current.onEnter();
+        Gdx.input.setInputProcessor(current);
+    }
 
     // get game state.
     public int getState() {
@@ -97,9 +109,11 @@ public abstract class QQGameMachine implements ApplicationListener {
 
     @Override
     public void render() {
+        //Gdx.app.error("TEST", "QQGameMachine.render()");
         // act, calculate ui actions and so on....
         // minimum is 30 fps
-        mCurrentScreen.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        current.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        //mCurrentScreen.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 
         // draw
         ScreenUtils.clear(0, 0, 0, 1);
@@ -107,25 +121,37 @@ public abstract class QQGameMachine implements ApplicationListener {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        mCurrentScreen.draw(batch);
+
+        //Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
+        //Gdx.gl.glScissor(0, 0, 200, 200);
+
+        current.draw(batch);
+        //mCurrentScreen.draw(batch);
+        //batch.flush();
+        //Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
+        // display dps ?
+        //Gdx.graphics.setTitle("FPS : " + Gdx.graphics.getFramesPerSecond());
+
         batch.end();
     }
 
     @Override
     public void pause() {
-        mCurrentScreen.pause();
+        current.pause();
+        //mCurrentScreen.pause();
         savedGame.save();
     }
 
     @Override
     public void resume() {
-        mCurrentScreen.resume();
+        current.resume();
+        //mCurrentScreen.resume();
         savedGame.load();
     }
 
     @Override
     public void dispose() {
         batch.dispose();
-        changeState(EMPTY_STATE);
+        //changeState(EMPTY_STATE);
     }
 }

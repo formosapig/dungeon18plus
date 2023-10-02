@@ -28,24 +28,17 @@ public class G {
     // test title menu
     public static final boolean FULL_TITLE_MENU = true;
 
-    // title menu
-    public static final int TITLE_DUNGEON    = 0;
-    public static final int TITLE_TOWER      = 1;
-    public static final int TITLE_COLOSSEUM  = 2;
-    public static final int TITLE_WILDERNESS = 3;
-    public static final int TITLE_CASTLE     = 4;
-    public static final int TITLE_LIBRARY    = 5;
-
     // version name ?
     public static final String VER = "2.0.0";
     public static final String SAVE_FILE = "d18p2";
 
     // game mode, used in HeroClassRecord.flag
-    public static final int GAME_MODE_DUNGEON       = 1<<1;
-    public static final int GAME_MODE_TOWER         = 1<<2;
-    public static final int GAME_MODE_COLOSSEUM     = 1<<3;
-    public static final int GAME_MODE_WILDERNESS    = 1<<4;
-    public static final int GAME_MODE_CASTLE        = 1<<5;
+    public static final int GAME_MODE_DUNGEON       = 1<<0;
+    public static final int GAME_MODE_TOWER         = 1<<1;
+    public static final int GAME_MODE_COLOSSEUM     = 1<<2;
+    public static final int GAME_MODE_WILDERNESS    = 1<<3;
+    public static final int GAME_MODE_CASTLE        = 1<<4;
+    public static final int GAME_MODE_LIBRARY       = 1<<5;
 
 
 

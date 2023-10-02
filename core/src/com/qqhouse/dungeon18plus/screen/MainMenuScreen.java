@@ -1,30 +1,19 @@
 package com.qqhouse.dungeon18plus.screen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Dungeon18Plus;
-import com.badlogic.gdx.Input;
-import com.qqhouse.dungeon18plus.core.WildernessManager;
 
 public class MainMenuScreen implements Screen {
 
@@ -56,7 +45,7 @@ public class MainMenuScreen implements Screen {
             String key = event.getListenerActor().getName();
             switch (key) {
                 case "DUNGEON":
-                    game.setScreen(new DungeonScreen(game));
+                    game.setScreen(new Scene2DDungeonScreen(game));
                     break;
                 case "TOWER":
                     game.setScreen(new TowerScreen(game));

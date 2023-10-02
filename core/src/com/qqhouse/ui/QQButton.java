@@ -5,11 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public abstract class QQButton extends QQView {
 
-    public QQButton(QQScreen master, String buttonKey) {
-        super(master);
+    public QQButton(String buttonKey) {
+        //super(master);
         String resBase = "button/" + buttonKey;
         bgNormal = new NinePatch(new Texture(Gdx.files.internal(resBase + "_up.png")), 4, 4, 4, 4);
         bgNormal.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -44,7 +45,7 @@ public abstract class QQButton extends QQView {
 
     @Override
     public boolean touchUp(float x, float y) {
-        //Gdx.app.error("TEST", "touch up : " + this);
+        //Gdx.app.error("TEST", "touch up : " + this + "@" + TimeUtils.millis());
         if (!enable || !touchable)
             return false;
         if (pressed) {
@@ -83,5 +84,4 @@ public abstract class QQButton extends QQView {
         this.index = index;
         return this;
     }
-
 }

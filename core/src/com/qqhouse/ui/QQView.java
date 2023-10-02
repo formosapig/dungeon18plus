@@ -22,12 +22,12 @@ public abstract class QQView {
     /*
         with screen
      */
-    public QQView(QQScreen master) {
-        this.master = master;
-        master.addView(this);
-    }
+    //public QQView(QQScreen master) {
+        //this.master = master;
+        //master.addView(this);
+    //}
 
-    protected QQScreen master;
+    //protected QQScreen master;
 
     public QQView hit(float x, float y) {
         float shiftX = x - this.x;

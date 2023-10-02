@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.G;
 import com.qqhouse.dungeon18plus.core.HeroClass;
@@ -20,8 +21,21 @@ import com.qqhouse.ui.QQView;
 import java.util.ArrayList;
 
 public class SelectHeroScreen extends QQScreen implements QQClickListener {
-    public SelectHeroScreen(Viewport viewport) {
+
+    public interface SelectHeroCallback {
+        void onSelectHero(int gameMode, HeroClass hero);
+    }
+
+    public SelectHeroScreen(Viewport viewport, SelectHeroCallback callback) {
         super(null, viewport);
+        this.callback = callback;
+    }
+
+    private SelectHeroCallback callback;
+    private int gameMode;
+
+    public void setGameMode(int gameMode) {
+        this.gameMode = gameMode;
     }
 
     // resource kept
@@ -41,7 +55,6 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
 
         // one title view ..., just print select hero ?
         TitleBarView title = new TitleBarView(
-                this,
                 new Texture(Gdx.files.internal("blockee/fairy.png")),
                 fntTitle,
                 "Select Hero : ");
@@ -50,6 +63,7 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
         title.setPadding(8);
         title.setSize(G.WIDTH, 48);
         title.setPosition(0, G.HEIGHT - 48);
+        addView(title);
 
         ArrayList<HeroClass> tmp = new ArrayList<>();
         tmp.add(HeroClass.NOVICE);
@@ -61,24 +75,29 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
         tmp.add(HeroClass.CRUSADER);
         tmp.add(HeroClass.FAIRY);
         tmp.add(HeroClass.SKELETON_KING);
+        //tmp.add(HeroClass.CLERIC);
+        //tmp.add(HeroClass.RED_MAGE);
+        //tmp.add(HeroClass.BLUE_MAGE);
+        //tmp.add(HeroClass.GREEN_MAGE);
+        //tmp.add(HeroClass.SWORD_MASTER);
 
         fntName = createFont("NotoSansTC-Bold.ttf", 20, new Color(0x9E8064FF), "");
-        fntDesc = createFont(14, Color.WHITE, "");
+        fntDesc = createFont(14, Color.WHITE, "'");
 
 
         //ScrollPane
 
         // list view of hero preview view
-        list = (QQListView) new QQListView(this)
-                .size(G.WIDTH, G.HEIGHT - title.getHeight() - 4).
+        list = (QQListView) new QQListView()
+                .size(G.WIDTH, G.HEIGHT - title.getHeight() - 8).
                 position(0, 0).
-                padding(4);
+                padding(8);
+        list.setCamera(getCamera());
         addView(list);
 
         for (int i = 0, s = tmp.size(); i < s; ++i) {
             HeroClass hero = tmp.get(i);
-            PreviewView view = new PreviewView(this,
-                    hero.alignment.key, // Alignment decides background.
+            PreviewView view = new PreviewView(hero.alignment.key, // Alignment decides background.
                     new Texture(Gdx.files.internal("blockee//" + hero.key + ".png")),
                     fntName,
                     lanBundle.get(hero.key),
@@ -106,7 +125,10 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
      */
     @Override
     public void onClick(int code) {
-        Gdx.app.error("TEST", "click");
-        Gdx.app.error("TEST", "click " + HeroClass.find(code));
+        //Gdx.app.error("TEST", "click. @" + TimeUtils.millis());
+        //Gdx.app.error("TEST", "click");
+        //Gdx.app.error("TEST", "click " + HeroClass.find(code) + "@" + TimeUtils.millis());
+        // 時間上來看沒有什麼特別的問題. 差 1 ms 而已.
+        callback.onSelectHero(gameMode, HeroClass.find(code));
     }
 }

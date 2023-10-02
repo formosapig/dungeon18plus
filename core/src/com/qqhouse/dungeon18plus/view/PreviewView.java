@@ -40,8 +40,8 @@ public class PreviewView extends QQButton {
      */
 
 
-    public PreviewView(QQScreen master, String btnKey, Texture icon, BitmapFont fntName, String name, BitmapFont fntDesc, String desc) {
-        super(master, btnKey);
+    public PreviewView(String btnKey, Texture icon, BitmapFont fntName, String name, BitmapFont fntDesc, String desc) {
+        super(btnKey);
         this.icon = icon;
         this.fntName = fntName;
         this.name = name;

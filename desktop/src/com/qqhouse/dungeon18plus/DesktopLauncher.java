@@ -9,7 +9,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setTitle("Dungeon 18+");
-		config.setWindowedMode((int) (480/*G.WIDTH*/), (int) (800/*G.HEIGHT*/));
+		config.setWindowedMode((int) (320/*G.WIDTH*/), (int) (520/*G.HEIGHT*/));
 		config.useVsync(true);
 		config.setForegroundFPS(60);
 		config.setIdleFPS(10);

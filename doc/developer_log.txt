@@ -1,3 +1,11 @@
+--------------- 20231002(一) ---------------
+- listview 搞定了, 帥呀~~氣河馬!!
+- 吳俊德靠妖 Roger 的房間要還他.
+- 更肥的我....
+- 變灰階
+  new Texture(Gdx.files.internal("blockee/merchant.png"), Pixmap.Format.LuminanceAlpha, true),
+- 伊莉亞（祭服） -> 75
+
 --------------- 20231001(日) ---------------
 - 稍微看了一下 ScrollPane 的 code, 也是使用 openGL 的剪刀機制.
 - 1. invalidate() -> layout() 重新計算大小...
