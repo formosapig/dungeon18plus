@@ -1,19 +1,14 @@
 package com.qqhouse.ui;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
-import java.util.Iterator;
 
 public abstract class QQView {
 
-    protected interface ChildrenVisitor {
-        abstract void visitDraw(SpriteBatch batch);
+    public interface IsParentView {
+        abstract void drawChildrenView(SpriteBatch batch, float originX, float originY);
     }
-    protected ChildrenVisitor visitor = null;
+    protected IsParentView visitor = null;
 
     public static final int WRAP_CONTENT = -1;  // 保有 view 的 size
     public static final int FILL_PARENT  = -2;  // 最大的填充 parent 的 size
@@ -56,34 +51,25 @@ public abstract class QQView {
     /*
         background series...
      */
-    protected boolean pressed = false;
-    protected boolean enable = true;
     protected boolean touchable = true;
     protected NinePatch bgNormal = null;
-    protected NinePatch bgPressed = null;
-    protected NinePatch bgDisable = null;
 
-    protected void drawBackground(SpriteBatch batch) {
-        if (!enable && null != bgDisable) {
-            bgDisable.draw(batch, x, y, width, height);
-            return;
+    // 相對 (0, 0) 的座標, 直接拿來畫即可...
+    protected void drawBackground(SpriteBatch batch, float originX, float originY) {
+        if (null != bgNormal) {
+            bgNormal.draw(batch, originX, originY, width, height);
         }
-        if (pressed && null != bgPressed) {
-            bgPressed.draw(batch, x, y, width, height);
-            return;
-        }
-        if (null != bgNormal)
-            bgNormal.draw(batch, x, y, width, height);
     }
 
-    protected void drawForeground(SpriteBatch batch) {}
+    protected void drawForeground(SpriteBatch batch, float originX, float originY) {}
 
-    public final void draw(SpriteBatch batch) {
-        drawBackground(batch);
-        drawForeground(batch);
-        if (this instanceof ChildrenVisitor) {
-        //if (null != visitor) {
-            ((ChildrenVisitor)this).visitDraw(batch);
+    // 呼叫 draw 時, 傳入 parent 相對於原點的座標, 所以還需要加上 x, y 的位移值
+    public final void draw(SpriteBatch batch, float parentX, float parentY) {
+        drawBackground(batch, parentX + x, parentY + y);
+        drawForeground(batch, parentX + x, parentY + y);
+        if (this instanceof IsParentView) {
+            // 當自己成為 parent 時, 傳入加上 x, y 後的偏移值
+            ((IsParentView) this).drawChildrenView(batch, parentX + x, parentY + y);
         }
     }
 

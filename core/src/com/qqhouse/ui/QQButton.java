@@ -9,15 +9,34 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public abstract class QQButton extends QQView {
 
+    private boolean pressed = false;
+    private boolean enable = true;
+    private NinePatch bgPressed = null;
+    private NinePatch bgDisable = null;
+
     public QQButton(String buttonKey) {
         //super(master);
         String resBase = "button/" + buttonKey;
         bgNormal = new NinePatch(new Texture(Gdx.files.internal(resBase + "_up.png")), 4, 4, 4, 4);
-        bgNormal.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        //bgNormal.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         bgPressed = new NinePatch(new Texture(Gdx.files.internal(resBase + "_down.png")), 4, 4, 4, 4);
-        bgPressed.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        //bgPressed.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         bgDisable = new NinePatch(new Texture(Gdx.files.internal("button/disable.png")), 4, 4, 4, 4);
-        bgDisable.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        //bgDisable.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+    }
+
+    @Override
+    protected void drawBackground(SpriteBatch batch, float originX, float originY) {
+        if (!enable && null != bgDisable) {
+            bgDisable.draw(batch, originX, originY, width, height);
+            return;
+        }
+        if (pressed && null != bgPressed) {
+            bgPressed.draw(batch, originX, originY, width, height);
+            return;
+        }
+        if (null != bgNormal)
+            bgNormal.draw(batch, originX, originY, width, height);
     }
 
     /*

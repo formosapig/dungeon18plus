@@ -1,11 +1,9 @@
 package com.qqhouse.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.SnapshotArray;
 
-public class QQGroupView extends QQView implements QQView.ChildrenVisitor {
+public class QQGroupView extends QQView implements QQView.IsParentView {
 
     SnapshotArray<QQView> children;
 
@@ -22,11 +20,16 @@ public class QQGroupView extends QQView implements QQView.ChildrenVisitor {
 
     }
 
+    //@Override
+    //public void visitDraw(SpriteBatch batch) {
+    //    QQView[] childrenArray = children.items;
+    //    for (int i = children.size - 1; i >= 0; i--) {
+    //        childrenArray[i].draw(batch);
+    //    }
+    //}
+
     @Override
-    public void visitDraw(SpriteBatch batch) {
-        QQView[] childrenArray = children.items;
-        for (int i = children.size - 1; i >= 0; i--) {
-            childrenArray[i].draw(batch);
-        }
+    public void drawChildrenView(SpriteBatch batch, float relativeX, float relativeY) {
+
     }
 }

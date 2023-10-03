@@ -137,7 +137,8 @@ public abstract class QQScreen extends InputAdapter {
     public final void draw(SpriteBatch batch) {
         QQView[] views = childrenView.begin();
         for (int i = 0, n = childrenView.size; i < n; ++i) {
-            views[i].draw(batch);
+            // screen base is 0, 0
+            views[i].draw(batch, 0, 0);
         }
         childrenView.end();
     }
@@ -171,6 +172,9 @@ public abstract class QQScreen extends InputAdapter {
         Gdx.app.error("TEST", "fontSize     = " + fontSize);
         Gdx.app.error("TEST", "- CapHeight  = " + font.getCapHeight());
         Gdx.app.error("TEST", "- LineHeight = " + font.getLineHeight());
+        Gdx.app.error("TEST", "- XHeight = " + font.getXHeight());
+        Gdx.app.error("TEST", "- Ascent = " + font.getAscent());
+        Gdx.app.error("TEST", "- Descent = " + font.getDescent());
 
         return font;
     }

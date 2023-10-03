@@ -96,16 +96,16 @@ public class PreviewView extends QQButton {
 
 
     @Override
-    public void drawForeground(SpriteBatch batch) {
+    public void drawForeground(SpriteBatch batch, float originX, float originY) {
 
         // draw icon
-        batch.draw(icon, (int)(x + iconShiftX), (int)(y + iconShiftY), 48, 48);
+        batch.draw(icon, (int)(originX + iconShiftX), (int)(originY + iconShiftY), 48, 48);
 
         // draw name
-        fntName.draw(batch, name, x + nameShiftX, y + nameShiftY);
+        fntName.draw(batch, name, originX + nameShiftX, originY + nameShiftY);
 
         // draw desc
-        fntDesc.draw(batch, desc, x + descShiftX, y + descShiftY, 0, 50, descW, Align.topLeft, true, null);
+        fntDesc.draw(batch, desc, originX + descShiftX, originY + descShiftY, 0, 50, descW, Align.topLeft, true, null);
 
     }
 

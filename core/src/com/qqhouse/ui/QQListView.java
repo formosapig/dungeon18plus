@@ -1,8 +1,6 @@
 package com.qqhouse.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -19,7 +17,7 @@ import java.util.ArrayList;
 
 
 */
-public class QQListView extends QQView implements QQView.ChildrenVisitor {
+public class QQListView extends QQView implements QQView.IsParentView {
 
     public QQListView() {
         //super(master);
@@ -72,7 +70,7 @@ public class QQListView extends QQView implements QQView.ChildrenVisitor {
     }
 
     @Override
-    public void visitDraw(SpriteBatch batch) {
+    public void drawChildrenView(SpriteBatch batch, float relativeX, float relativeY) {
 
         //batch.flush();
 
@@ -92,7 +90,7 @@ public class QQListView extends QQView implements QQView.ChildrenVisitor {
         ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
         if (ScissorStack.pushScissors(scissors)) {
             for (QQView view : childrenView) {
-                view.draw(batch);
+                view.draw(batch, relativeX  + x, relativeY + y);
             }
             batch.flush();
             ScissorStack.popScissors();
@@ -190,6 +188,4 @@ public class QQListView extends QQView implements QQView.ChildrenVisitor {
         //ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
 
     }
-
-
 }

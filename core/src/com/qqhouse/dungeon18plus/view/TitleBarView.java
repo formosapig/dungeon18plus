@@ -26,14 +26,14 @@ public class TitleBarView extends QQView {
     }
 
     @Override
-    public void drawForeground(SpriteBatch batch) {
+    public void drawForeground(SpriteBatch batch, float originX, float originY) {
         // draw icon with fixed size.
         if (null != icon) {
-            batch.draw(icon, x + leftPadding, y + bottomPadding, 32, 32);
+            batch.draw(icon, originX + leftPadding, originY + bottomPadding, 32, 32);
         }
 
         // print title in central...
-        font.draw(batch, title, x + leftPadding + 32 + 4, y + bottomPadding + (32 + 18) / 2);
+        font.draw(batch, title, originX + leftPadding + 32 + 4, originY + bottomPadding + (32 + 18) / 2);
 
 
     }
