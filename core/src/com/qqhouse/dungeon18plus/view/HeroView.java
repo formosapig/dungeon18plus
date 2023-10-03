@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
+import com.qqhouse.dungeon18plus.struct.hero.DungeonHero;
 import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQText;
@@ -32,6 +33,7 @@ public class HeroView extends QQButton implements QQView.IsParentView {
     private BitmapFont fntDigital, fntSmallDigital;
     private QQText digital;
     private ArrayList<QQView> childrenView;
+    private QQIconText lifeText, attackText, defenseText, speedText;
 
     public void preset(Texture hero, Texture life, Texture attack, Texture defense, Texture speed, Texture key, Texture coin, Texture star) {
         this.hero = hero;
@@ -57,36 +59,36 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         childrenView.add(digital);
 
         // life view ?!
-        QQIconText lifeView = new QQIconText(fntDigital, life);
-        lifeView.setAlign(Align.right);
-        lifeView.setSize(62, 16);
-        lifeView.setPosition(60, 6);
-        lifeView.setColorText(Color.YELLOW, "999");
-        childrenView.add(lifeView);
+        lifeText = new QQIconText(fntDigital, life);
+        lifeText.setAlign(Align.right);
+        lifeText.setSize(62, 16);
+        lifeText.setPosition(60, 6);
+        lifeText.setColorText(Color.YELLOW, "");
+        childrenView.add(lifeText);
 
         // attack view
-        QQIconText attView = new QQIconText(fntDigital, attack);
-        attView.setAlign(Align.right);
-        attView.setSize(62, 16);
-        attView.setPosition(132, 6);
-        attView.setColorText(Color.RED, "15");
-        childrenView.add(attView);
+        attackText = new QQIconText(fntDigital, attack);
+        attackText.setAlign(Align.right);
+        attackText.setSize(62, 16);
+        attackText.setPosition(132, 6);
+        attackText.setColorText(Color.RED, "");
+        childrenView.add(attackText);
 
         // defense view
-        QQIconText defView = new QQIconText(fntDigital, defense);
-        defView.setAlign(Align.right);
-        defView.setSize(62, 16);
-        defView.setPosition(204, 6);
-        defView.setColorText(Color.BLUE, "15");
-        childrenView.add(defView);
+        defenseText = new QQIconText(fntDigital, defense);
+        defenseText.setAlign(Align.right);
+        defenseText.setSize(62, 16);
+        defenseText.setPosition(204, 6);
+        defenseText.setColorText(Color.BLUE, "");
+        childrenView.add(defenseText);
 
         // speed view
-        QQIconText spdView = new QQIconText(fntDigital, speed);
-        spdView.setAlign(Align.right);
-        spdView.setSize(62, 16);
-        spdView.setPosition(276, 6);
-        spdView.setColorText(Color.GREEN, "15");
-        childrenView.add(spdView);
+        speedText = new QQIconText(fntDigital, speed);
+        speedText.setAlign(Align.right);
+        speedText.setSize(62, 16);
+        speedText.setPosition(276, 6);
+        speedText.setColorText(Color.GREEN, "");
+        childrenView.add(speedText);
 
 
     }
@@ -125,6 +127,14 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         //fntSmallDigital.draw(batch, "  0", originX + 312, y + 37);
         //digital.setText("0");
         //digital.draw(batch, originX, originY);
+
+    }
+
+    public void setData(DungeonHero hero) {
+        lifeText.setText(Integer.toString(hero.life));
+        attackText.setText(Integer.toString(hero.attack));
+        defenseText.setText(Integer.toString(hero.defense));
+        speedText.setText(Integer.toString(hero.speed));
 
     }
 

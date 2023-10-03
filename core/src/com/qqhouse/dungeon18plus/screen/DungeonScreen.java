@@ -63,9 +63,17 @@ public class DungeonScreen extends QQScreen {
         heroView.setPosition(4, G.HEIGHT - 64 - 4);
         //heroView.setSize(QQView.FILL_PARENT, 64);
         heroView.setSize(G.WIDTH - 4 - 4, 64);
+        heroView.setData(manager.getHero());
         addView(heroView);
 
         // event listview ...
+
+
+
+
+
+
+
 
         // message view ...
 

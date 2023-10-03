@@ -11,7 +11,7 @@
 - 更肥的我....
 - 變灰階
   new Texture(Gdx.files.internal("blockee/merchant.png"), Pixmap.Format.LuminanceAlpha, true),
-- 伊莉亞（祭服） -> 75
+- {公主連結} 伊莉亞（祭服） -> 75
 - 試了一些字型, 還是 white rabbit 好....
 
 --------------- 20231001(日) ---------------
