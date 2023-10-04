@@ -36,6 +36,7 @@ public class HeroView extends QQButton implements QQView.IsParentView {
     private QQText digital;
     private ArrayList<QQView> childrenView;
     private QQIconText lifeText, attackText, defenseText, speedText;
+    private ItemView keyItem, coinItem, starItem;
 
     public void preset(Texture hero, Texture life, Texture attack, Texture defense, Texture speed, Texture key, Texture coin, Texture star) {
         this.hero = hero;
@@ -58,7 +59,7 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         digital.setSize(32, 16);
         digital.setAlign(Align.right);
         digital.setText("999");
-        childrenView.add(digital);
+        //childrenView.add(digital);
 
         // life view ?!
         lifeText = new QQIconText(fntDigital, life);
@@ -92,6 +93,26 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         speedText.setColorText(Color.GREEN, "");
         childrenView.add(speedText);
 
+        // key item
+        keyItem = new ItemView(key, fntSmallDigital);
+        keyItem.setColor(Color.WHITE);
+        keyItem.setSize(32, 32);
+        keyItem.setPosition(212, 26);
+        childrenView.add(keyItem);
+
+        // coin
+        coinItem = new ItemView(coin, fntSmallDigital);
+        coinItem.setColor(Color.WHITE);
+        coinItem.setSize(32, 32);
+        coinItem.setPosition(262, 26);
+        childrenView.add(coinItem);
+
+        // star
+        starItem = new ItemView(star, fntSmallDigital);
+        starItem.setColor(Color.WHITE);
+        starItem.setSize(32, 32);
+        starItem.setPosition(312, 26);
+        childrenView.add(starItem);
 
     }
 
@@ -123,13 +144,13 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         //fntDigital.draw(batch, "   40", originX + 294, originY + 20);
 
         // key / coin / star
-        batch.draw(key, originX + 212, originY + 26);
-        batch.draw(coin, originX + 262, originY + 26);
-        batch.draw(star, originX + 312, originY + 26);
+        //batch.draw(key, originX + 212, originY + 26);
+        //batch.draw(coin, originX + 262, originY + 26);
+        //batch.draw(star, originX + 312, originY + 26);
 
-        fntSmallDigital.setColor(Color.WHITE);
-        fntSmallDigital.draw(batch, "999", originX + 212, y + 37);
-        fntSmallDigital.draw(batch, " 12", originX + 262, y + 37);
+        //fntSmallDigital.setColor(Color.WHITE);
+        //fntSmallDigital.draw(batch, "999", originX + 212, y + 37);
+        //fntSmallDigital.draw(batch, " 12", originX + 262, y + 37);
         //fntSmallDigital.draw(batch, "  0", originX + 312, y + 37);
         //digital.setText("0");
         //digital.draw(batch, originX, originY);
@@ -141,6 +162,9 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         attackText.setText(Integer.toString(hero.attack));
         defenseText.setText(Integer.toString(hero.defense));
         speedText.setText(Integer.toString(hero.speed));
+        keyItem.setText(Integer.toString(hero.key));
+        coinItem.setText(Integer.toString(hero.coin));
+        starItem.setText(Integer.toString(hero.star));
     }
 
 

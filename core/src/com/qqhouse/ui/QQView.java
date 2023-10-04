@@ -124,7 +124,7 @@ public abstract class QQView {
     }
 
 
-    abstract public void dispose();
+    public void dispose() {}
 
     /*
     chain function
