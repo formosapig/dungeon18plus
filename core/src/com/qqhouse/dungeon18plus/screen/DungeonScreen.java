@@ -11,6 +11,7 @@ import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.io.Assets;
+import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
@@ -79,6 +80,22 @@ public class DungeonScreen extends QQScreen {
         // message view ...
 
         // action view ...
+        int actionCount = manager.getActionSlotCount();
+        float actionWidth = ((G.WIDTH - 4) - (actionCount - 1) * 4) / actionCount;
+        float actionPos = (G.WIDTH - 4)/ actionCount;
+        float innerWidth = G.WIDTH - 4;
+
+        for (int i = 0; i < actionCount; ++i) {
+            QQButton button = new QQButton(manager.getHero().heroClass.alignment.key);
+            button.setSize(actionWidth, 64);
+            //button.setPosition(4 + (actionWidth + 4) * i, 4);
+            //button.setPosition(4.0f + actionPos * (float)i, 4);
+            // 看起來最準...
+            button.setPosition(4 + innerWidth * i / actionCount, 4);
+            addView(button);
+        }
+
+
     }
 
     @Override

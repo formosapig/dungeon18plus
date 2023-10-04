@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.TimeUtils;
 
-public abstract class QQButton extends QQView implements QQView.IsTouchable {
+public class QQButton extends QQView implements QQView.IsTouchable {
 
     private boolean pressed = false;
     private boolean enable = true;
