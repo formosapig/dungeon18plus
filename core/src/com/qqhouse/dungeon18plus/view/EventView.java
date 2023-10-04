@@ -11,12 +11,6 @@ public class EventView extends QQButton implements QQView.IsParentView {
     }
 
 
-
-
-
-
-
-
     @Override
     public void drawChildrenView(SpriteBatch batch, float originX, float originY) {
 

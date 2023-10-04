@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.TimeUtils;
 
-public abstract class QQButton extends QQView {
+public abstract class QQButton extends QQView implements QQView.IsTouchable {
 
     private boolean pressed = false;
     private boolean enable = true;
@@ -79,9 +79,9 @@ public abstract class QQButton extends QQView {
 
     @Override
     public boolean touchDragged(float x, float y) {
-        if (pressed && null == hit(x, y)) {
-            pressed = false;
-        }
+        //if (pressed && null == hit(x, y)) {
+        //    pressed = false;
+        //}
         return false;
     }
 
@@ -90,6 +90,13 @@ public abstract class QQButton extends QQView {
         bgNormal.getTexture().dispose();
         bgPressed.getTexture().dispose();
         bgDisable.getTexture().dispose();
+    }
+
+    @Override
+    public void cancelTouching() {
+        if (pressed) {
+            pressed = false;
+        }
     }
 
     // chain function

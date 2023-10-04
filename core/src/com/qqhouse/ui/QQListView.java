@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -32,7 +33,8 @@ public class QQListView extends QQView implements QQView.IsParentView {
     private final ArrayList<QQView> childrenView;
     private boolean calculateAnchorY;
     private float anchorY;
-    private float scrollY, maxScrollY, previousScrollY; // vertical only.
+    private float touchY, scrollY, maxScrollY, previousScrollY; // vertical only.
+    private IsTouchable hitBeforeScroll = null;
 
     /*
         add child view...
@@ -90,7 +92,10 @@ public class QQListView extends QQView implements QQView.IsParentView {
         ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
         if (ScissorStack.pushScissors(scissors)) {
             for (QQView view : childrenView) {
-                view.draw(batch, relativeX  + x, relativeY + y);
+                //if (view.getY() <= height || view.getY() >= 0) {
+                    // draw views in visible range.
+                    view.draw(batch, relativeX + x, relativeY + y);
+                //}
             }
             batch.flush();
             ScissorStack.popScissors();
@@ -115,17 +120,24 @@ public class QQListView extends QQView implements QQView.IsParentView {
         2. transfer event to child, like button needs touch down event to change background.
      */
     private Vector2 touchDownPos;// = new Vector2();
+    // get (x, y) relative to my position
     @Override
-    public boolean touchDown(float x, float y) {
+    public boolean touchDown(float relativeX, float relativeY) {
         // 1. keep touch down position for scroll
-        touchDownPos = new Vector2(x, y);
+        //touchDownPos = new Vector2(relativeX, relativeY);
+        touchY = relativeY;
 
         // 2. walk through all child and find out hit one, send touch down to it.
         QQView target = null;
         for (QQView child : childrenView) {
-            target = child.hit(x, y);
+            float childRelativeX = relativeX - child.getX();
+            float childRelativeY = relativeY - child.getY();
+            target = child.hit(childRelativeX, childRelativeY);
             if (null != target) {
-                return target.touchDown(x, y);
+                if (target instanceof IsTouchable) {
+                    hitBeforeScroll = (IsTouchable) target;
+                }
+                return target.touchDown(childRelativeX, childRelativeY);
             }
         }
         return false;
@@ -137,17 +149,20 @@ public class QQListView extends QQView implements QQView.IsParentView {
         2. walk through all child and find out hit one, send touch up to it.
      */
     @Override
-    public boolean touchUp(float x, float y) {
+    public boolean touchUp(float relativeX, float relativeY) {
         // 1. trace this event to exit scroll mode ...
-        touchDownPos = null; // ??
-        previousScrollY = scrollY;
+        //touchDownPos = null; // ??
+        //previousScrollY = scrollY;
+        //Gdx.app.error("QQListView.java", "previousScrollY = " + previousScrollY);
 
         // 2. tell child touch up
         QQView target = null;
         for (QQView child : childrenView) {
-            target = child.hit(x, y);
+            float childRelativeX = relativeX - child.getX();
+            float childRelativeY = relativeY - child.getY();
+            target = child.hit(childRelativeX, childRelativeY);
             if (null != target) {
-                return target.touchUp(x, y);
+                return target.touchUp(childRelativeX, childRelativeY);
             }
         }
 
@@ -159,18 +174,33 @@ public class QQListView extends QQView implements QQView.IsParentView {
         2. tell child dragged if exit hit area ?
      */
     @Override
-    public boolean touchDragged(float x, float y) {
+    public boolean touchDragged(float relativeX, float relativeY) {
         // 1. do scroll ...
-        if (null != touchDownPos) {
-            scrollY = previousScrollY + y - touchDownPos.y;
-            if (scrollY < 0) scrollY = 0;
-            if (scrollY > maxScrollY) scrollY = maxScrollY;
-            rearrangeChildren();
+        scrollY += relativeY - touchY;
+        touchY = relativeY;
+        if (scrollY < 0) scrollY = 0;
+        if (scrollY > maxScrollY) scrollY = maxScrollY;
+        rearrangeChildren();
+        if (null != hitBeforeScroll) {
+            hitBeforeScroll.cancelTouching();
         }
+
+
+        //if (null != touchDownPos) {
+        //    scrollY = previousScrollY + relativeY - touchDownPos.y;
+        //    if (scrollY < 0) scrollY = 0;
+        //    if (scrollY > maxScrollY) scrollY = maxScrollY;
+        //    rearrangeChildren();
+
+            // do scroll, so cancel touching.
+        //    if (null != hitBeforeScroll) {
+        //        hitBeforeScroll.cancelTouching();
+        //    }
+        //}
 
         // 2. tell child to check if exit hit area.
         for (QQView child : childrenView) {
-            child.touchDragged(x, y);
+            child.touchDragged(relativeX - child.getX(), relativeY - child.getY());
         }
 
         return false;

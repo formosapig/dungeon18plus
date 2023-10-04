@@ -58,13 +58,16 @@ public abstract class QQScreen extends InputAdapter {
         QQView[] views = childrenView.items;//.begin();
         QQView target = null;
         for (int i = 0, n = childrenView.size; i < n; ++i) {
-            target = views[i].hit(screenPos.x, screenPos.y);
+            // 傳入相對於 (0, 0) 的座標...
+            QQView v = views[i];
+            target = v.hit(screenPos.x - v.getX(), screenPos.y - v.getY());
             if (null != target) {
                 break;
             }
         }
         if (null != target) {
-            return target.touchDown(screenPos.x, screenPos.y);
+            // 傳入相對於 (0, 0) 的座標...
+            return target.touchDown(screenPos.x - target.getX(), screenPos.y - target.getY());
         }
         //childrenView.end();
 
@@ -80,7 +83,9 @@ public abstract class QQScreen extends InputAdapter {
 
         QQView[] views = childrenView.items;
         for (int i = 0, n = childrenView.size; i < n; ++i) {
-            views[i].touchDragged(screenPos.x, screenPos.y);
+            // 傳入相對於 (0, 0) 的座標...
+            QQView v = views[i];
+            v.touchDragged(screenPos.x - v.getX(), screenPos.y - v.getY());
         }
         return false;
     }
@@ -92,13 +97,16 @@ public abstract class QQScreen extends InputAdapter {
         QQView[] views = childrenView.items;
         QQView target = null;
         for (int i = 0, n = childrenView.size; i < n; ++i) {
-            target = views[i].hit(screenPos.x, screenPos.y);
+            // 傳入相對於 (0, 0) 的座標...
+            QQView v = views[i];
+            target = views[i].hit(screenPos.x - v.getX(), screenPos.y - v.getY());
             if (null != target) {
                 break;
             }
         }
         if (null != target) {
-            return target.touchUp(screenPos.x, screenPos.y);
+            // 傳入相對於 (0, 0) 的座標...
+            return target.touchUp(screenPos.x - target.getX(), screenPos.y - target.getY());
         }
 
         return false;

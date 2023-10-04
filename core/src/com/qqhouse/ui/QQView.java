@@ -10,6 +10,10 @@ public abstract class QQView {
     }
     protected IsParentView visitor = null;
 
+    public interface IsTouchable {
+        abstract void cancelTouching();
+    }
+
     public static final int WRAP_CONTENT = -1;  // 保有 view 的 size
     public static final int FILL_PARENT  = -2;  // 最大的填充 parent 的 size
 
@@ -24,10 +28,8 @@ public abstract class QQView {
 
     //protected QQScreen master;
 
-    public QQView hit(float x, float y) {
-        float shiftX = x - this.x;
-        float shiftY = y - this.y;
-        if (shiftX >= 0 && shiftX <= width && shiftY >= 0 && shiftY <= height)
+    public QQView hit(float relativeX, float relativeY) {
+        if (relativeX >= 0 && relativeX <= width && relativeY >= 0 && relativeY <= height)
             return this;
         else
             return null;
