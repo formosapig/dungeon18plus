@@ -19,6 +19,7 @@ import com.qqhouse.dungeon18plus.G;
 import com.qqhouse.dungeon18plus.core.GameAlignment;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.TitleMenuView;
+import com.qqhouse.io.Assets;
 import com.qqhouse.ui.QQClickListener;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
@@ -36,17 +37,13 @@ public class TitleScreen extends QQScreen {
     private TitleCallback callback;
     private BitmapFont font;
 
-    public TitleScreen(SaveGame savedGame, Viewport viewport, TitleCallback callback) {
-        super(savedGame, viewport);
+    public TitleScreen(SaveGame savedGame, Viewport viewport, Assets assets, TitleCallback callback) {
+        super(savedGame, viewport, assets);
         this.callback = callback;
     }
 
     @Override
     public void onEnter() {
-
-        // language bundle
-        lanBundle = I18NBundle.createBundle(Gdx.files.internal("i18n/dungeon18plus"));
-
         // bitmap font...
         font = createFont(28, new Color(0x9E8064FF), "地下城巫師塔圓形競技場荒原魔王城圖書館");
 
@@ -57,18 +54,18 @@ public class TitleScreen extends QQScreen {
         float menu_height = 64;
         float menu_margin = 6;
         menus.add(new TitleMenuView(ORDINARY.key,
-                getTexture("blockee/skeleton_fighter.png"),
+                assets.getBlockee("skeleton_fighter"),
                 font,
-                getI18N("dungeon"))
+                assets.geti18n("dungeon"))
                 .qqListener(clickListener, G.GAME_MODE_DUNGEON)
                 .size(menu_width, menu_height));
 
         // Tower : collect five hero class.
         if (savedGame.isGameModeUnlocked(G.GAME_MODE_TOWER)) {
             menus.add(new TitleMenuView(LAWFUL.key,
-                    getTexture("blockee/fire_sorcerer.png"),
+                    assets.getBlockee("fire_sorcerer"),
                     font,
-                    getI18N("tower"))
+                    assets.geti18n("tower"))
                     .qqListener(clickListener, G.GAME_MODE_TOWER)
                     .size(menu_width, menu_height));
         }
@@ -76,9 +73,9 @@ public class TitleScreen extends QQScreen {
         // Colosseum : defeat skeleton fighter in the dungeon.
         if (savedGame.isGameModeUnlocked(G.GAME_MODE_COLOSSEUM)) {
             menus.add(new TitleMenuView(NEUTRAL.key,
-                    getTexture("blockee/arena.png"),
+                    assets.getBlockee("arena"),
                     font,
-                    getI18N("colosseum"))
+                    assets.geti18n("colosseum"))
                     .qqListener(clickListener, G.GAME_MODE_COLOSSEUM)
                     //.defaultDisable()
                     .size(menu_width, menu_height));
@@ -87,9 +84,9 @@ public class TitleScreen extends QQScreen {
         // Wilderness : see sword master in the colosseum.
         if (savedGame.isGameModeUnlocked(G.GAME_MODE_WILDERNESS)) {
             menus.add(new TitleMenuView(SPECIAL.key,
-                    getTexture("blockee/steel_cyclops.png"),
+                    assets.getBlockee("steel_cyclops"),
                     font,
-                    getI18N("wilderness"))
+                    assets.geti18n("wilderness"))
                     .qqListener(clickListener, G.GAME_MODE_WILDERNESS)
                     //.defaultDisable()
                     .size(menu_width, menu_height));
@@ -98,9 +95,9 @@ public class TitleScreen extends QQScreen {
         // Castle : defeat demon in wilderness
         if (savedGame.isGameModeUnlocked(G.GAME_MODE_CASTLE)) {
             menus.add(new TitleMenuView(CHAOTIC.key,
-                    getTexture("blockee/skeleton_king.png"),
+                    assets.getBlockee("skeleton_king"),
                     font,
-                    getI18N("castle"))
+                    assets.geti18n("castle"))
                     .qqListener(clickListener, G.GAME_MODE_CASTLE)
                     //.defaultDisable()
                     .size(menu_width, menu_height));
@@ -108,11 +105,11 @@ public class TitleScreen extends QQScreen {
 
         // Library : default
         menus.add(new TitleMenuView(LAWFUL.key,
-                getTexture("blockee/merchant.png"),
+                assets.getBlockee("merchant"),
                 // 下面這行 code 把 texture 變成灰階的了,笑死
                 //new Texture(Gdx.files.internal("blockee/merchant.png"), Pixmap.Format.LuminanceAlpha, true),
                 font,
-                getI18N("library"))
+                assets.geti18n("library"))
                 .qqListener(clickListener, G.GAME_MODE_LIBRARY)
                 .size(menu_width, menu_height));
 

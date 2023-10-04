@@ -13,6 +13,7 @@ import com.qqhouse.dungeon18plus.G;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.view.PreviewView;
 import com.qqhouse.dungeon18plus.view.TitleBarView;
+import com.qqhouse.io.Assets;
 import com.qqhouse.ui.QQClickListener;
 import com.qqhouse.ui.QQListView;
 import com.qqhouse.ui.QQScreen;
@@ -26,8 +27,8 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
         void onSelectHero(int gameMode, HeroClass hero);
     }
 
-    public SelectHeroScreen(Viewport viewport, SelectHeroCallback callback) {
-        super(null, viewport);
+    public SelectHeroScreen(Viewport viewport, Assets assets, SelectHeroCallback callback) {
+        super(null, viewport, assets);
         this.callback = callback;
     }
 
@@ -46,9 +47,6 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
 
     @Override
     public void onEnter() {
-
-        // initial language bundle.
-        lanBundle = I18NBundle.createBundle(Gdx.files.internal("i18n/dungeon18plus"));
         // initial font.
         // bitmap font...
         fntTitle = createFont(18, Color.WHITE, "請選擇英雄");
@@ -75,11 +73,11 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
         tmp.add(HeroClass.CRUSADER);
         tmp.add(HeroClass.FAIRY);
         tmp.add(HeroClass.SKELETON_KING);
-        //tmp.add(HeroClass.CLERIC);
-        //tmp.add(HeroClass.RED_MAGE);
-        //tmp.add(HeroClass.BLUE_MAGE);
-        //tmp.add(HeroClass.GREEN_MAGE);
-        //tmp.add(HeroClass.SWORD_MASTER);
+        tmp.add(HeroClass.CLERIC);
+        tmp.add(HeroClass.RED_MAGE);
+        tmp.add(HeroClass.BLUE_MAGE);
+        tmp.add(HeroClass.GREEN_MAGE);
+        tmp.add(HeroClass.SWORD_MASTER);
 
         fntName = createFont("NotoSansTC-Bold.ttf", 20, new Color(0x9E8064FF), "");
         fntDesc = createFont(14, Color.WHITE, "'");
@@ -98,11 +96,11 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
         for (int i = 0, s = tmp.size(); i < s; ++i) {
             HeroClass hero = tmp.get(i);
             PreviewView view = new PreviewView(hero.alignment.key, // Alignment decides background.
-                    new Texture(Gdx.files.internal("blockee//" + hero.key + ".png")),
+                    assets.getBlockee(hero.key),
                     fntName,
-                    lanBundle.get(hero.key),
+                    assets.geti18n(hero.key),
                     fntDesc,
-                    lanBundle.get(hero.key+"_help"));
+                    assets.geti18n(hero.key+"_help"));
             view.setPadding(8);
             view.setSize(QQView.FILL_PARENT, QQView.WRAP_CONTENT);
             view.addQQClickListener(this, hero.code);

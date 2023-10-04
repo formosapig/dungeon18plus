@@ -10,6 +10,7 @@ import com.qqhouse.dungeon18plus.core.DungeonManager;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.HeroView;
+import com.qqhouse.io.Assets;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
@@ -25,8 +26,8 @@ public class DungeonScreen extends QQScreen {
         manager = new DungeonManager(hero, savedGame);
     }
 
-    public DungeonScreen(SaveGame savedGame, Viewport viewport) {
-        super(savedGame, viewport);
+    public DungeonScreen(SaveGame savedGame, Viewport viewport, Assets assets) {
+        super(savedGame, viewport, assets);
     }
 
     private BitmapFont fntDigital, fntSmallDigital;
@@ -49,14 +50,14 @@ public class DungeonScreen extends QQScreen {
         // hero view ...
         HeroView heroView = new HeroView(manager.getHero().heroClass.alignment.key);
         heroView.preset(
-                new Texture(Gdx.files.internal("blockee\\" + manager.getHero().heroClass.key + ".png")), // hero
-                new Texture(Gdx.files.internal("drawable/icon16_life.png")), // life
-                new Texture(Gdx.files.internal("drawable/icon16_attack.png")), // attack
-                new Texture(Gdx.files.internal("drawable/icon16_defense.png")), // defense
-                new Texture(Gdx.files.internal("drawable/icon16_speed.png")), // speed
-                new Texture(Gdx.files.internal("drawable/item_key.png")), // key
-                new Texture(Gdx.files.internal("drawable/item_copper_coin.png")), // coin
-                new Texture(Gdx.files.internal("drawable/item_star.png")) // star
+                assets.getBlockee(manager.getHero().heroClass.key), // hero
+                assets.getIcon16("life"), // life
+                assets.getIcon16("attack"), // attack
+                assets.getIcon16("defense"), // defense
+                assets.getIcon16("speed"), // speed
+                assets.getItem("key"), // key
+                assets.getItem("copper_coin"), // coin
+                assets.getItem("star") // star
         );
         heroView.setFont(fntDigital, fntSmallDigital);
         heroView.setPadding(8);

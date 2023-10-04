@@ -2,12 +2,14 @@ package com.qqhouse.dungeon18plus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.screen.DungeonScreen;
 import com.qqhouse.dungeon18plus.screen.Scene2DDungeonScreen;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
+import com.qqhouse.io.Assets;
 import com.qqhouse.ui.QQGameMachine;
 
 public class Main extends QQGameMachine implements
@@ -23,7 +25,7 @@ public class Main extends QQGameMachine implements
     private TitleScreen title;
     private SelectHeroScreen selectHero;
     private DungeonScreen dungeon;
-
+    private Assets assets;
 
 
 
@@ -37,8 +39,13 @@ public class Main extends QQGameMachine implements
         savedGame = new SaveGame(G.SAVE_FILE);
         savedGame.load();
 
+        //Gdx.app.error("Main.java", "start load assert@" + TimeUtils.millis());
+        assets = new Assets();
+        //assets.manager.finishLoading();
+        //Gdx.app.error("Main.java", "finish load assert@" + TimeUtils.millis());
+
         // title screen first
-        title = new TitleScreen((SaveGame) savedGame, viewport, this);
+        title = new TitleScreen((SaveGame) savedGame, viewport, assets, this);
 
         changeScreen(title);
 
@@ -59,7 +66,7 @@ public class Main extends QQGameMachine implements
             case G.GAME_MODE_TOWER:
             case G.GAME_MODE_COLOSSEUM: {
                 if (null == selectHero) {
-                    selectHero = new SelectHeroScreen(viewport, this);
+                    selectHero = new SelectHeroScreen(viewport, assets, this);
                 }
                 selectHero.setGameMode(gameMode);
                 changeScreen(selectHero);
@@ -77,7 +84,7 @@ public class Main extends QQGameMachine implements
         switch (gameMode) {
             case G.GAME_MODE_DUNGEON: {
                 if (null == dungeon) {
-                    dungeon = new DungeonScreen((SaveGame) savedGame, viewport);
+                    dungeon = new DungeonScreen((SaveGame) savedGame, viewport, assets);
                 }
                 dungeon.setHero(hero);
                 changeScreen(dungeon);

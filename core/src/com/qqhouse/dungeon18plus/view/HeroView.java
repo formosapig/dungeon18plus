@@ -1,6 +1,8 @@
 package com.qqhouse.dungeon18plus.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -105,6 +107,10 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         //batch.draw(defense, originX + 204, originY + 6); // defense
         //batch.draw(speed, originX + 276, originY + 6); // speed
 
+        //AssetDescriptor
+
+        //AssetManager
+
         // draw life ?
         //fntDigital.setUseIntegerPositions(true);
         //fntDigital.setColor(Color.YELLOW);
@@ -135,7 +141,6 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         attackText.setText(Integer.toString(hero.attack));
         defenseText.setText(Integer.toString(hero.defense));
         speedText.setText(Integer.toString(hero.speed));
-
     }
 
 

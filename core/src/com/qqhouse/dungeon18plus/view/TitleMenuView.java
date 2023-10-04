@@ -49,7 +49,6 @@ public class TitleMenuView extends QQButton {
 
     @Override
     public void dispose() {
-        blockee.dispose();
         // button...?
         super.dispose();
     }

@@ -15,15 +15,19 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
+import com.qqhouse.io.Assets;
 
 public abstract class QQScreen extends InputAdapter {
 
     protected final SaveGame savedGame;
+    protected final Assets assets;
     private Viewport viewport;
 
-    public QQScreen(SaveGame savedGame, Viewport viewport) {
+
+    public QQScreen(SaveGame savedGame, Viewport viewport, Assets assets) {
         this.savedGame = savedGame;
         this.viewport = viewport;
+        this.assets = assets;
         childrenView = new SnapshotArray<>(true, 4, QQView.class);
     }
 
@@ -150,10 +154,6 @@ public abstract class QQScreen extends InputAdapter {
     /*
         resource
      */
-    protected I18NBundle lanBundle;
-    public I18NBundle getLanguageBundle() {
-        return lanBundle;
-    }
 
     // font should controlled by screen instance.
     protected BitmapFont createFont(String fontName, int fontSize, Color color, String fontCharacters) {
@@ -182,15 +182,5 @@ public abstract class QQScreen extends InputAdapter {
     protected BitmapFont createFont(int fontSize, Color color, String fontCharacters) {
         return createFont("NotoSansTC-Regular.ttf", fontSize, color, fontCharacters);
     }
-
-    // acquire resource
-    protected Texture getTexture(String key) {
-        return new Texture(Gdx.files.internal(key));
-    }
-
-    protected String getI18N(String key) {
-        return lanBundle.get(key);
-    }
-
 
 }
