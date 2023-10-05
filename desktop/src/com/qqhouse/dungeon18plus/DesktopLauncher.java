@@ -9,8 +9,9 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setTitle("Dungeon 18+");
-		config.setWindowedMode(375, 667); // iPhone SE 3
-		//config.setWindowedMode(G.WIDTH, G.HEIGHT);
+		//config.setWindowedMode(375, 667); // iPhone SE 3
+		config.setWindowedMode(290, 566); // desktop
+		// config.setWindowedMode(G.WIDTH, G.HEIGHT);
 		config.useVsync(true);
 		config.setForegroundFPS(60);
 		config.setIdleFPS(10);
