@@ -1,7 +1,7 @@
 package com.qqhouse.dungeon18plus.core;
 
 import com.badlogic.gdx.Gdx;
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.Ability;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
 import com.qqhouse.dungeon18plus.struct.event.VariedHero;
@@ -40,8 +40,8 @@ class GladiatorCreator extends GameManager<Hero> {
         // reset limit
         final int roundPlus = round / 10;	// 0 ~ 3
         int speedMinus = -(roundPlus + 1) / 2;
-        if ((mHero.getLimit().speed + speedMinus) < G.Setting.GLOBAL_HERO_MIN_SPEED) {
-            speedMinus = G.Setting.GLOBAL_HERO_MIN_SPEED - mHero.getLimit().speed;
+        if ((mHero.getLimit().speed + speedMinus) < Game.Setting.GLOBAL_HERO_MIN_SPEED) {
+            speedMinus = Game.Setting.GLOBAL_HERO_MIN_SPEED - mHero.getLimit().speed;
         }
         mHero.getLimit().plus(new Ability(
                 250 * roundPlus,
@@ -54,8 +54,8 @@ class GladiatorCreator extends GameManager<Hero> {
 
         mHero.star = round * 35;
         mHero.coin = round * 18;
-        if (G.Debug.CREATE_GLADIATOR) {
-            Gdx.app.error(G.Debug.TAG, String.format(Locale.US, "gladiator : %s(c:%d,s:%d)", heroClass, mHero.coin, mHero.star));
+        if (Game.Debug.CREATE_GLADIATOR) {
+            Gdx.app.error(Game.Debug.TAG, String.format(Locale.US, "gladiator : %s(c:%d,s:%d)", heroClass, mHero.coin, mHero.star));
         }
 	}
 
@@ -67,8 +67,8 @@ class GladiatorCreator extends GameManager<Hero> {
             if (mHero.coin >= price) {
                 mHero.coin -= price;
                 gainLoot(equip, null);
-                if (G.Debug.CREATE_GLADIATOR) {
-                    Gdx.app.error(G.Debug.TAG, String.format(Locale.US, "equip : %s(%d)-> %s", equip, mHero.coin, mHero));
+                if (Game.Debug.CREATE_GLADIATOR) {
+                    Gdx.app.error(Game.Debug.TAG, String.format(Locale.US, "equip : %s(%d)-> %s", equip, mHero.coin, mHero));
                 }
             }
             if (mHero.coin < 30)
@@ -106,8 +106,8 @@ class GladiatorCreator extends GameManager<Hero> {
             final ActionSlot slot = getActionSlot(pickup);
             if (canDoAction(slot)) {
                 doAction(pickup, null);
-                if (G.Debug.CREATE_GLADIATOR) {
-                    Gdx.app.error(G.Debug.TAG, String.format(Locale.US, "act : %s(%d) -> %s", slot.action, mHero.star, mHero));
+                if (Game.Debug.CREATE_GLADIATOR) {
+                    Gdx.app.error(Game.Debug.TAG, String.format(Locale.US, "act : %s(%d) -> %s", slot.action, mHero.star, mHero));
                 }
             } else {
                 int featDiscount = pickup == 0

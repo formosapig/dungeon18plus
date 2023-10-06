@@ -1,6 +1,6 @@
 package com.qqhouse.dungeon18plus.gamedata;
 
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Help;
 import com.qqhouse.io.QQSaveGame;
 
@@ -39,7 +39,7 @@ class HelpData_1_6_2 extends QQSaveGame.DataPart {
 
 	@Override
 	public void afterRead() {
-		if (G.Debug.TEST_HELP) {
+		if (Game.Debug.TEST_HELP) {
             understand.clear();
         }
 	}

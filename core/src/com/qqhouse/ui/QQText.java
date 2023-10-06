@@ -1,25 +1,20 @@
 package com.qqhouse.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
-import com.qqhouse.dungeon18plus.G;
-
-import javax.swing.GroupLayout;
 
 public class QQText extends QQView{
 
 
     protected BitmapFont font;
-    private Color color = null;
+    protected Color color = null;
     protected String text;
     protected int align;
-    private float shiftX, shiftY;
+    protected float shiftX, shiftY;
 
     public QQText(BitmapFont font) {
         this.font = font;
@@ -30,8 +25,15 @@ public class QQText extends QQView{
         this.bgNormal = background;
     }
 
+    @Override
+    public void setSize(float width, float height) {
+        super.setSize(width, height);
+        adjust();
+    }
+
     public void setAlign(int align) {
         this.align = align;
+        adjust();
     }
 
 
@@ -47,7 +49,9 @@ public class QQText extends QQView{
     }
 
 
-    private void adjust() {
+    protected void adjust() {
+        if (null == text)
+            return;
         GlyphLayout glyphs = new GlyphLayout();
         glyphs.setText(font, text);
 
@@ -74,7 +78,7 @@ public class QQText extends QQView{
     public void drawBackground(SpriteBatch batch, float originX, float originY) {
         if (null != bgNormal) {
             Color tmp = batch.getColor();
-            batch.setColor(1, 1, 0.5f, 0.25f);
+            batch.setColor(1, 1, 1, 0.5f);
             bgNormal.draw(batch, originX, originY, width, height);
             batch.setColor(1, 1, 1, 1);
             batch.flush();

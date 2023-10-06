@@ -1,6 +1,6 @@
 package com.qqhouse.dungeon18plus.struct.hero;
 
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.struct.Ability;
 import com.qqhouse.dungeon18plus.struct.EventResult;
@@ -255,8 +255,8 @@ public class Hero extends Ability implements Fightable {
 					change = mLimit.speed - source.speed;
 				}
 				// global speed limit
-                if ((change < 0) && (G.Setting.GLOBAL_HERO_MIN_SPEED - source.speed) > change) {
-                    change = G.Setting.GLOBAL_HERO_MIN_SPEED - source.speed;
+                if ((change < 0) && (Game.Setting.GLOBAL_HERO_MIN_SPEED - source.speed) > change) {
+                    change = Game.Setting.GLOBAL_HERO_MIN_SPEED - source.speed;
                 }
 				// event result
 				if (null != result) {

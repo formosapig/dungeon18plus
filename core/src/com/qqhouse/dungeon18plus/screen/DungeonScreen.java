@@ -4,16 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.DungeonManager;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
+import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.view.ActionView;
+import com.qqhouse.dungeon18plus.view.EventView;
 import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.ui.QQClickListener;
+import com.qqhouse.ui.QQListView;
 import com.qqhouse.ui.QQScreen;
 
 import java.util.ArrayList;
@@ -56,7 +59,7 @@ public class DungeonScreen extends QQScreen {
         //fntDigital.setFixedWidthGlyphs("0123456789");
 
         // hero view ...
-        heroView = new HeroView(manager.getHero().heroClass.alignment.key);
+        heroView = new HeroView(manager.getHero().heroClass.alignment.key, assets);
         heroView.preset(
                 assets.getBlockee(manager.getHero().heroClass.key), // hero
                 assets.getIcon16("life"), // life
@@ -69,14 +72,33 @@ public class DungeonScreen extends QQScreen {
         );
         heroView.setFont(fntDigital, fntSmallDigital);
         heroView.setPadding(8);
-        heroView.setPosition(0, G.HEIGHT - 64);
+        heroView.setPosition(0, Game.HEIGHT - 64);
         //heroView.setSize(QQView.FILL_PARENT, 64);
-        heroView.setSize(G.WIDTH, 64);
+        heroView.setSize(Game.WIDTH, 64);
+        heroView.reset(manager.getHero());
         //heroView.setData(manager.getHero());
         addView(heroView);
 
         // event listview ...
+        QQListView list = (QQListView) new QQListView()
+                .size(Game.WIDTH, Game.HEIGHT - 64 -2 - 2 - 24 - 2 - 64).
+                position(0, 64 + 2 + 24 + 2);
+        list.setCamera(getCamera());
+        addView(list);
 
+        int eventCount = manager.getEventCount();
+
+        for (int i = 0; i < eventCount; ++i) {
+            Event event = manager.getEvent(i);
+
+            EventView evt = new EventView(event.type.align.key, assets);
+            evt.setSize(Game.WIDTH, 64);
+            evt.reset(event);
+            list.addView(evt);
+
+
+
+        }
 
 
 
@@ -86,14 +108,14 @@ public class DungeonScreen extends QQScreen {
 
         // message view ...
         lootInfo = new LootInfoView(assets.getBackground("loot_info"));
-        lootInfo.setSize(G.WIDTH, 24);
+        lootInfo.setSize(Game.WIDTH, 24);
         lootInfo.setPosition(0, 64 + 2);
         addView(lootInfo);
 
         // action view ...
         int actionCount = manager.getActionSlotCount();
         // 由於會縮放,需要注意 int 會導致捨位誤差...
-        float actionWidth = ((G.WIDTH) - (actionCount - 1) * 2) / (float)actionCount;
+        float actionWidth = ((Game.WIDTH) - (actionCount - 1) * 2) / (float)actionCount;
         Gdx.app.error("DungeonScreen.java", "actionWidth = " + actionWidth);
 
         for (int i = 0; i < actionCount; ++i) {

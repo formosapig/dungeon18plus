@@ -1,6 +1,6 @@
 package com.qqhouse.dungeon18plus.core;
 
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.hero.DungeonHero;
@@ -12,10 +12,7 @@ import com.qqhouse.dungeon18plus.struct.event.VariedHero;
 import com.qqhouse.dungeon18plus.struct.EventInfo;
 import com.qqhouse.dungeon18plus.struct.EventResult;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
-import com.qqhouse.dungeon18plus.struct.Monster;
-import com.qqhouse.dungeon18plus.struct.hero.ScoreHero;
 import com.qqhouse.dungeon18plus.struct.Varier;
-import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -97,7 +94,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         mHero.maxExp = getMaxExp(heroClass, 1);
 
 
-        if (G.Debug.QUICK_GAME) {
+        if (Game.Debug.QUICK_GAME) {
             mHero.getBody().life = mHero.getLimit().life;
             mHero.getBody().attack = mHero.getLimit().attack;
             mHero.getBody().defense = mHero.getLimit().defense;
@@ -129,7 +126,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             if (!mShopItems.contains(loot))
                 mShopItems.add(loot);
         // extra item
-        if (G.isPremium) {
+        if (Game.isPremium) {
             Item[] extraItem = {Item.IRON_DAGGER_1
                 , Item.IRON_SWORD_1
                 , Item.IRON_SHIELD_1
@@ -227,7 +224,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 Item shopItem = mShopItems.remove(0);
                 Event shop = new Event(EventType.MERCHANT)
                         .setLoot(shopItem)
-                        .setCost(G.cost.coin, shopItem.price);
+                        .setCost(Game.cost.coin, shopItem.price);
                 int position = (int) (Math.random() * mAllEvent.size());
                 mAllEvent.add(position, shop);
             }
@@ -238,7 +235,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         for (int i = 0; i < doorNum; ++i) {
             // memo 暫訂先亂數要求 6, 8, 10
             int keyNum = mRandom.nextInt(3) * 2 + 6;
-            Event door = new Event(EventType.DOOR).setLoot(getDoorTreasure()).setCost(G.cost.key, keyNum);
+            Event door = new Event(EventType.DOOR).setLoot(getDoorTreasure()).setCost(Game.cost.key, keyNum);
             int position = (int) (Math.random() * mAllEvent.size());
             mAllEvent.add(position, door);
         }
@@ -259,7 +256,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         for (Item ring : powerRing) {
             if (mRandom.nextInt(100) < rate) {
                 final int trapDamage = (mRandom.nextInt(10) + 1) * (mRandom.nextInt(10) + 1) * 10;
-                Event trap = new Event(EventType.TRAP).setLoot(ring).setCost(G.cost.damage, trapDamage);
+                Event trap = new Event(EventType.TRAP).setLoot(ring).setCost(Game.cost.damage, trapDamage);
                 int position = (int) (Math.random() * mAllEvent.size());
                 mAllEvent.add(position, trap);
             }
@@ -343,7 +340,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 Item shopItem = mShopItems.remove(0);
                 Event shop = new Event(EventType.MERCHANT)
                         .setLoot(shopItem)
-                        .setCost(G.cost.coin, shopItem.price);
+                        .setCost(Game.cost.coin, shopItem.price);
                 mAllEvent.add(shop);
             }
         }
@@ -513,18 +510,18 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     
     private boolean isEventDoable(Event evt) {
         switch(evt.costType) {
-        case G.cost.key:
+        case Game.cost.key:
             return mHero.key >= evt.costValue;
-        case G.cost.coin:
+        case Game.cost.coin:
             // TODO check equpi with all type attribute, pure attack & max attack cap ???
             return mHero.coin >= evt.costValue && (!evt.loot.isPureSpeed() || mHero.getLimit().speed < mHero.speed || EventType.MERCHANT != evt.type);
-        case G.cost.star:
+        case Game.cost.star:
             return mHero.star >= evt.costValue;
-        case G.cost.damage:
+        case Game.cost.damage:
             return mHero.life > evt.costValue;
-        case G.cost.none:
+        case Game.cost.none:
             return true;
-        case G.cost.never:
+        case Game.cost.never:
             return false;
         default:
             throw new RuntimeException("invalid cost type : " + evt.costType);
@@ -653,10 +650,10 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 classData.unlockEndlessDungeon();
             }
 
-            return G.result.win;
+            return Game.result.win;
         } else if (EventType.GAME_OVER == evt.type) {
             classData.updateLevel(mHero.level);
-            return G.result.lose;
+            return Game.result.lose;
         }
         
         // turn passed when battle.
@@ -838,7 +835,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             //if (evt.costValue == Fightable.UNBEATABLE) {
             //    evt.costType = Game.cost.never;
             //} else {
-            evt.costType = G.cost.damage;
+            evt.costType = Game.cost.damage;
             /*
              * feat : block
              */
@@ -858,16 +855,16 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
              * other : key
              */
             if (Feat.UNLOCK.in(mHero.feats) || Feat.DARK_PRESENCE.in(mHero.feats))
-                evt.costType = G.cost.none;
+                evt.costType = Game.cost.none;
             else if (Feat.BURST_DOOR.in(mHero.feats) && mHero.key < evt.costValue) {
                 // 在要求使用鑰匙的情況下, 轉換成使用體力開門
                 // 6 key = 60 life, 8 key = 80 life and son on...
-                if (evt.costType == G.cost.key) {
-                    evt.costType = G.cost.damage;
+                if (evt.costType == Game.cost.key) {
+                    evt.costType = Game.cost.damage;
                     evt.costValue = evt.costValue * 10;//mHero.life / 8;
                 }
             } else
-                evt.costType = G.cost.key;
+                evt.costType = Game.cost.key;
         } else if (EventType.TRAP == evt.type) {
             /*
              * trap
@@ -878,17 +875,17 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
             // decide cost type
             if (Feat.EVASION.in(mHero.feats) || Feat.DARK_PRESENCE.in(mHero.feats)) {
-                evt.costType = G.cost.none;
+                evt.costType = Game.cost.none;
             } else if (Feat.DISARM_TRAP.in(mHero.feats) && mHero.key >= 10) {
-                evt.costType = G.cost.key;
+                evt.costType = Game.cost.key;
                 // todo define disarm trap key usage ....
                 evt.costValue = 10;
             } else {
-                evt.costType = G.cost.damage;
+                evt.costType = Game.cost.damage;
             }
 
             // decide cost value
-            if (G.cost.damage == evt.costType && nextTurn) {
+            if (Game.cost.damage == evt.costType && nextTurn) {
                 // damage = random (1 ~ 100) * 10
                 evt.costValue = (mRandom.nextInt(10) + 1) * (mRandom.nextInt(10) + 1) * 10;
             }
@@ -900,15 +897,15 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
              * bargain : cost valu x 90%
              * other : do nothing
              */
-            evt.costType = G.cost.coin;
+            evt.costType = Game.cost.coin;
             evt.costValue = evt.loot.price;
 
             if (Feat.DARK_PRESENCE.in(mHero.feats))
-                evt.costType = G.cost.none;
+                evt.costType = Game.cost.none;
             else if (Feat.STEAL.in(mHero.feats)) {
                 evt.costValue = evt.costValue * 11 / 10;
                 if (mHero.coin < evt.costValue && mHero.key > 0) {
-                    evt.costType = G.cost.key;
+                    evt.costType = Game.cost.key;
                     evt.costValue = evt.loot.price / 10;
                 }
             } else if (Feat.BARGAIN.in(mHero.feats)) {
@@ -927,22 +924,22 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     
     private void payForEvent(Event evt) {
         switch(evt.costType) {
-        case G.cost.none:
-        case G.cost.never:
+        case Game.cost.none:
+        case Game.cost.never:
             break;
-        case G.cost.key:
+        case Game.cost.key:
             mHero.key -= evt.costValue;
             break;
-        case G.cost.coin:
+        case Game.cost.coin:
             // endless purse will not decrease coin.
             if (!Feat.ENDLESS_PURSE.in(mHero.feats)) {
                 mHero.coin -= evt.costValue;
             }
             break;
-        case G.cost.star:
+        case Game.cost.star:
             mHero.star -= evt.costValue;
             break;
-        case G.cost.damage:
+        case Game.cost.damage:
         {
             mHero.upgradeAbility(new Varier(Varier.Type.LIFE | Varier.Type.OFFSET, -evt.costValue), null);
             if (evt.costValue < 0) {

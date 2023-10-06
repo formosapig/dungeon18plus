@@ -29,10 +29,10 @@ public class Main extends QQGameMachine implements
     @Override
     public void create() {
         //Gdx.app.error("TEST", "Main.create()");
-        initial(G.WIDTH, G.HEIGHT);
+        initial(Game.WIDTH, Game.HEIGHT);
 
         // save game
-        savedGame = new SaveGame(G.SAVE_FILE);
+        savedGame = new SaveGame(Game.SAVE_FILE);
         savedGame.load();
 
         //Gdx.app.error("Main.java", "start load assert@" + TimeUtils.millis());
@@ -58,9 +58,9 @@ public class Main extends QQGameMachine implements
     public void onTitle(int gameMode) {
         switch(gameMode) {
             // need select hero first
-            case G.GAME_MODE_DUNGEON:
-            case G.GAME_MODE_TOWER:
-            case G.GAME_MODE_COLOSSEUM: {
+            case Game.GAME_MODE_DUNGEON:
+            case Game.GAME_MODE_TOWER:
+            case Game.GAME_MODE_COLOSSEUM: {
                 if (null == selectHero) {
                     selectHero = new SelectHeroScreen(viewport, assets, this);
                 }
@@ -68,7 +68,7 @@ public class Main extends QQGameMachine implements
                 changeScreen(selectHero);
             }
                 break;
-            case G.GAME_MODE_LIBRARY:
+            case Game.GAME_MODE_LIBRARY:
                 break;
             default:
                 throw new GdxRuntimeException("invalid game mode : " + gameMode);
@@ -78,7 +78,7 @@ public class Main extends QQGameMachine implements
     @Override
     public void onSelectHero(int gameMode, HeroClass hero) {
         switch (gameMode) {
-            case G.GAME_MODE_DUNGEON: {
+            case Game.GAME_MODE_DUNGEON: {
                 if (null == dungeon) {
                     dungeon = new DungeonScreen((SaveGame) savedGame, viewport, assets);
                 }

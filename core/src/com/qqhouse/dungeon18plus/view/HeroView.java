@@ -1,15 +1,16 @@
 package com.qqhouse.dungeon18plus.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
+import com.qqhouse.dungeon18plus.Assets;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.hero.DungeonHero;
+import com.qqhouse.dungeon18plus.struct.hero.Hero;
 import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQText;
@@ -18,8 +19,9 @@ import com.qqhouse.ui.QQView;
 import java.util.ArrayList;
 
 public class HeroView extends QQButton implements QQView.IsParentView {
-    public HeroView(String buttonKey) {
+    public HeroView(String buttonKey, Assets assets) {
         super(buttonKey);
+        this.assets = assets;
         childrenView = new ArrayList<>();
     }
 
@@ -31,12 +33,55 @@ public class HeroView extends QQButton implements QQView.IsParentView {
 
 
      */
+    private Assets assets;
     private Texture hero, life, attack, defense, speed, key, coin, star;
     private BitmapFont fntDigital, fntSmallDigital;
     private QQText digital;
     private ArrayList<QQView> childrenView;
     private QQIconText lifeText, attackText, defenseText, speedText;
     private ItemView keyItem, coinItem, starItem;
+
+    public void reset(Hero hero) {
+        this.hero = assets.getBlockee(hero.heroClass.key);
+
+        // life view ?!
+        //lifeText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("life"));
+        lifeText = new QQIconText(assets.getFont("whitrabt", 18), assets.getIcon16("life"));
+        lifeText.setAlign(Align.center);
+        lifeText.setSize(72, 16);
+        lifeText.setPosition(64, 6);
+        lifeText.setColorText(Game.color.LIFE, "");
+        childrenView.add(lifeText);
+
+        // attack view
+        //attackText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("attack"));
+        attackText = new QQIconText(assets.getFont("whitrabt", 18), assets.getIcon16("attack"));
+        attackText.setAlign(Align.center);
+        attackText.setSize(72, 16);
+        attackText.setPosition(136, 6);
+        attackText.setColorText(Game.color.ATTACK, "");
+        childrenView.add(attackText);
+
+        // defense view
+        //defenseText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("defense"));
+        defenseText = new QQIconText(assets.getFont("whitrabt", 18), assets.getIcon16("defense"));
+        defenseText.setAlign(Align.center);
+        defenseText.setSize(72, 16);
+        defenseText.setPosition(208, 6);
+        defenseText.setColorText(Game.color.DEFENSE, "");
+        childrenView.add(defenseText);
+
+        // speed view
+        //speedText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("speed"));
+        speedText = new QQIconText(assets.getFont("whitrabt", 18), assets.getIcon16("speed"));
+        speedText.setAlign(Align.center);
+        speedText.setSize(72, 16);
+        speedText.setPosition(280, 6);
+        speedText.setColorText(Game.color.SPEED, "");
+        childrenView.add(speedText);
+
+    }
+
 
     public void preset(Texture hero, Texture life, Texture attack, Texture defense, Texture speed, Texture key, Texture coin, Texture star) {
         this.hero = hero;
@@ -62,36 +107,36 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         //childrenView.add(digital);
 
         // life view ?!
-        lifeText = new QQIconText(fntDigital, life);
-        lifeText.setAlign(Align.right);
-        lifeText.setSize(62, 16);
-        lifeText.setPosition(60, 6);
-        lifeText.setColorText(Color.YELLOW, "");
-        childrenView.add(lifeText);
+        //lifeText = new QQIconText(fntDigital, life);
+        //lifeText.setAlign(Align.right);
+        //lifeText.setSize(62, 16);
+        //lifeText.setPosition(60, 6);
+        //lifeText.setColorText(Color.YELLOW, "");
+        //childrenView.add(lifeText);
 
         // attack view
-        attackText = new QQIconText(fntDigital, attack);
-        attackText.setAlign(Align.right);
-        attackText.setSize(62, 16);
-        attackText.setPosition(132, 6);
-        attackText.setColorText(Color.RED, "");
-        childrenView.add(attackText);
+        //attackText = new QQIconText(fntDigital, attack);
+        //attackText.setAlign(Align.right);
+        //attackText.setSize(62, 16);
+        //attackText.setPosition(132, 6);
+        //attackText.setColorText(Color.RED, "");
+        //childrenView.add(attackText);
 
         // defense view
-        defenseText = new QQIconText(fntDigital, defense);
-        defenseText.setAlign(Align.right);
-        defenseText.setSize(62, 16);
-        defenseText.setPosition(204, 6);
-        defenseText.setColorText(Color.BLUE, "");
-        childrenView.add(defenseText);
+        //defenseText = new QQIconText(fntDigital, defense);
+        //defenseText.setAlign(Align.right);
+        //defenseText.setSize(62, 16);
+        //defenseText.setPosition(204, 6);
+        //defenseText.setColorText(Color.BLUE, "");
+        //childrenView.add(defenseText);
 
         // speed view
-        speedText = new QQIconText(fntDigital, speed);
-        speedText.setAlign(Align.right);
-        speedText.setSize(62, 16);
-        speedText.setPosition(276, 6);
-        speedText.setColorText(Color.GREEN, "");
-        childrenView.add(speedText);
+        //speedText = new QQIconText(fntDigital, speed);
+        //speedText.setAlign(Align.right);
+        //speedText.setSize(62, 16);
+        //speedText.setPosition(276, 6);
+        //speedText.setColorText(Color.GREEN, "");
+        //childrenView.add(speedText);
 
         // key item
         keyItem = new ItemView(key, fntSmallDigital);
@@ -160,9 +205,10 @@ public class HeroView extends QQButton implements QQView.IsParentView {
     public void setData(DungeonHero hero) {
         lifeText.setText(Integer.toString(hero.life));
         attackText.setText(Integer.toString(hero.attack));
+        //attackText.setText("199x2");
         defenseText.setText(Integer.toString(hero.defense));
         speedText.setText(Integer.toString(hero.speed));
-        keyItem.setText(Integer.toString(hero.key));
+        keyItem.setText(Integer.toString(hero.key+ 1000));
         coinItem.setText(Integer.toString(hero.coin));
         starItem.setText(Integer.toString(hero.star));
     }

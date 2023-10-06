@@ -1,7 +1,7 @@
 package com.qqhouse.dungeon18plus.core;
 
 
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.Ability;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
 import com.qqhouse.dungeon18plus.struct.EventResult;
@@ -267,7 +267,7 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
 
         // if can not attack
         if (0 == attackerDamage) {
-            return G.Setting.GLOBAL_MAX_DAMAGE;
+            return Game.Setting.GLOBAL_MAX_DAMAGE;
         }
 
         int totalTime = ((defender.life - 1) / attackerDamage + 1) * attacker.speed;
@@ -282,8 +282,8 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
 
         int loseLife = defenderDamage * (totalTime / defender.speed);
 
-        if (loseLife > G.Setting.GLOBAL_MAX_DAMAGE) {
-            loseLife = G.Setting.GLOBAL_MAX_DAMAGE;
+        if (loseLife > Game.Setting.GLOBAL_MAX_DAMAGE) {
+            loseLife = Game.Setting.GLOBAL_MAX_DAMAGE;
         }
 
         return loseLife;

@@ -1,20 +1,17 @@
 package com.qqhouse.dungeon18plus.core;
 
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignAction;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignResult;
 import com.qqhouse.dungeon18plus.struct.GiantRecord;
 import com.qqhouse.dungeon18plus.struct.campaign.Giant;
 import com.qqhouse.dungeon18plus.struct.campaign.GuardInfo;
-import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.struct.campaign.Campaigner;
 import com.qqhouse.dungeon18plus.struct.campaign.Legion;
 import com.qqhouse.dungeon18plus.struct.Operation;
 import com.qqhouse.dungeon18plus.struct.Operation2;
-import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 
@@ -64,7 +61,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		awayTeam = new ArrayList<>();
 
 		// initial time
-		time = G.Setting.CAMPAIGN_MAX_TIME;
+		time = Game.Setting.CAMPAIGN_MAX_TIME;
 		
 		// initial home team (read legion data only)
 		homeTeam = new ArrayList<>();
@@ -274,8 +271,8 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		// check result.
 		if (0 > result)
 			result = 0;
-		if (result > G.Setting.GLOBAL_MAX_DAMAGE) {
-            result = G.Setting.GLOBAL_MAX_DAMAGE;
+		if (result > Game.Setting.GLOBAL_MAX_DAMAGE) {
+            result = Game.Setting.GLOBAL_MAX_DAMAGE;
         }
 		return result;
 	}
@@ -349,8 +346,8 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 			target.speed += changeValue;
 			addBattleResult(target.icon, Operation.SPEED, changeValue);
 			// check speed.
-			if (target.speed < G.Setting.GLOBAL_HERO_MIN_SPEED) {
-                target.speed = G.Setting.GLOBAL_HERO_MIN_SPEED;
+			if (target.speed < Game.Setting.GLOBAL_HERO_MIN_SPEED) {
+                target.speed = Game.Setting.GLOBAL_HERO_MIN_SPEED;
             }
 		}
 		// resurrection.

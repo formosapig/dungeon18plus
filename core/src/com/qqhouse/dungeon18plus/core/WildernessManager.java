@@ -1,6 +1,6 @@
 package com.qqhouse.dungeon18plus.core;
 
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignAction;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignResult;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignScore;
@@ -78,7 +78,7 @@ public class WildernessManager {
 		giants.add(giant);
 		
 		// initial time
-		time = G.Setting.CAMPAIGN_MAX_TIME;
+		time = Game.Setting.CAMPAIGN_MAX_TIME;
 		
 		// initial kill count
 		mKillLegionCount = 0;
@@ -306,8 +306,8 @@ public class WildernessManager {
 		if (0 > result) {
             result = 0;
         }
-		if (result > G.Setting.GLOBAL_MAX_DAMAGE) {
-            result = G.Setting.GLOBAL_MAX_DAMAGE;
+		if (result > Game.Setting.GLOBAL_MAX_DAMAGE) {
+            result = Game.Setting.GLOBAL_MAX_DAMAGE;
         }
 		return result;
 	}
@@ -386,8 +386,8 @@ public class WildernessManager {
 			target.speed += changeValue;
 			addBattleResult(target.icon, Operation.SPEED, changeValue);
 			// check speed.
-			if (target.speed < G.Setting.GLOBAL_HERO_MIN_SPEED) {
-                target.speed = G.Setting.GLOBAL_HERO_MIN_SPEED;
+			if (target.speed < Game.Setting.GLOBAL_HERO_MIN_SPEED) {
+                target.speed = Game.Setting.GLOBAL_HERO_MIN_SPEED;
             }
 		}
 		// resurrection.

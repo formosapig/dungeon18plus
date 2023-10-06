@@ -1,6 +1,6 @@
 package com.qqhouse.dungeon18plus.struct.hero;
 
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.struct.Ability;
 
@@ -17,7 +17,7 @@ public class ScoreHero extends Ability implements Comparable<ScoreHero> {
 		this.heroClass = hero.heroClass;
 		this.level = hero.level;
 		this.score = highScore;
-		this.fromAnotherDungeon = G.DEFAULT_DUNGEON_NUMBER;
+		this.fromAnotherDungeon = Game.DEFAULT_DUNGEON_NUMBER;
 	}
 
 	public ScoreHero() {}

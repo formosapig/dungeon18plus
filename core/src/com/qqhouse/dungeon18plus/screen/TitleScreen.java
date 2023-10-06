@@ -5,7 +5,7 @@ import static com.qqhouse.dungeon18plus.core.GameAlignment.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.TitleMenuView;
 import com.qqhouse.dungeon18plus.Assets;
@@ -45,48 +45,48 @@ public class TitleScreen extends QQScreen {
                 assets.getBlockee("skeleton_fighter"),
                 font,
                 assets.geti18n("dungeon"))
-                .qqListener(clickListener, G.GAME_MODE_DUNGEON)
+                .qqListener(clickListener, Game.GAME_MODE_DUNGEON)
                 .size(menu_width, menu_height));
 
         // Tower : collect five hero class.
-        if (savedGame.isGameModeUnlocked(G.GAME_MODE_TOWER)) {
+        if (savedGame.isGameModeUnlocked(Game.GAME_MODE_TOWER)) {
             menus.add(new TitleMenuView(LAWFUL.key,
                     assets.getBlockee("fire_sorcerer"),
                     font,
                     assets.geti18n("tower"))
-                    .qqListener(clickListener, G.GAME_MODE_TOWER)
+                    .qqListener(clickListener, Game.GAME_MODE_TOWER)
                     .size(menu_width, menu_height));
         }
 
         // Colosseum : defeat skeleton fighter in the dungeon.
-        if (savedGame.isGameModeUnlocked(G.GAME_MODE_COLOSSEUM)) {
+        if (savedGame.isGameModeUnlocked(Game.GAME_MODE_COLOSSEUM)) {
             menus.add(new TitleMenuView(NEUTRAL.key,
                     assets.getBlockee("arena"),
                     font,
                     assets.geti18n("colosseum"))
-                    .qqListener(clickListener, G.GAME_MODE_COLOSSEUM)
+                    .qqListener(clickListener, Game.GAME_MODE_COLOSSEUM)
                     //.defaultDisable()
                     .size(menu_width, menu_height));
         }
 
         // Wilderness : see sword master in the colosseum.
-        if (savedGame.isGameModeUnlocked(G.GAME_MODE_WILDERNESS)) {
+        if (savedGame.isGameModeUnlocked(Game.GAME_MODE_WILDERNESS)) {
             menus.add(new TitleMenuView(SPECIAL.key,
                     assets.getBlockee("steel_cyclops"),
                     font,
                     assets.geti18n("wilderness"))
-                    .qqListener(clickListener, G.GAME_MODE_WILDERNESS)
+                    .qqListener(clickListener, Game.GAME_MODE_WILDERNESS)
                     //.defaultDisable()
                     .size(menu_width, menu_height));
         }
 
         // Castle : defeat demon in wilderness
-        if (savedGame.isGameModeUnlocked(G.GAME_MODE_CASTLE)) {
+        if (savedGame.isGameModeUnlocked(Game.GAME_MODE_CASTLE)) {
             menus.add(new TitleMenuView(CHAOTIC.key,
                     assets.getBlockee("skeleton_king"),
                     font,
                     assets.geti18n("castle"))
-                    .qqListener(clickListener, G.GAME_MODE_CASTLE)
+                    .qqListener(clickListener, Game.GAME_MODE_CASTLE)
                     //.defaultDisable()
                     .size(menu_width, menu_height));
         }
@@ -98,12 +98,12 @@ public class TitleScreen extends QQScreen {
                 //new Texture(Gdx.files.internal("blockee/merchant.png"), Pixmap.Format.LuminanceAlpha, true),
                 font,
                 assets.geti18n("library"))
-                .qqListener(clickListener, G.GAME_MODE_LIBRARY)
+                .qqListener(clickListener, Game.GAME_MODE_LIBRARY)
                 .size(menu_width, menu_height));
 
-        float margin_x = (G.WIDTH - menu_width) / 2;
-        float margin_y = (G.HEIGHT - (menu_height * menus.size()) - (menu_margin * (menus.size() - 1))) / 2;
-        float startY = G.HEIGHT - margin_y - menu_height;
+        float margin_x = (Game.WIDTH - menu_width) / 2;
+        float margin_y = (Game.HEIGHT - (menu_height * menus.size()) - (menu_margin * (menus.size() - 1))) / 2;
+        float startY = Game.HEIGHT - margin_y - menu_height;
 
         for (int i = 0; i < menus.size(); ++i) {
             addView(menus.get(i));

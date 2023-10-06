@@ -6,8 +6,8 @@ public enum EventType {
 	// ZAKO
 	SKELETON(0xBC4CCEDA,
 		EventType.TYPE_ZAKO,
-		"blockee_skeleton",
-		"btn_zako",
+		"skeleton",
+		GameAlignment.ORDINARY,
 		"skeleton",
 		"skeleton_help") {
 			@Override
@@ -18,8 +18,8 @@ public enum EventType {
 			}},
 	SQULETON(0xE490F428,
 		EventType.TYPE_ZAKO,
-		"blockee_squleton",
-		"btn_zako",
+		"squleton",
+		GameAlignment.SPECIAL,
 		"squleton",
 		"squleton_help") {
 			@Override
@@ -30,8 +30,8 @@ public enum EventType {
 			}},
 	SKELETON_FIGHTER(0xAA5D1760,
 		EventType.TYPE_ZAKO,
-		"blockee_skeleton_fighter",
-		"btn_zako",
+		"skeleton_fighter",
+		GameAlignment.ORDINARY,
 		"skeleton_fighter",
 		"skeleton_fighter_help") {
 			@Override
@@ -42,8 +42,8 @@ public enum EventType {
 			}},
 	SLIME(0x950F1DB0,
 		EventType.TYPE_ZAKO,
-		"blockee_slime",
-		"btn_zako",
+		"slime",
+		GameAlignment.ORDINARY,
 		"slime",
 		"slime_help") {
 			@Override
@@ -60,8 +60,8 @@ public enum EventType {
 			}},
 	BLACK_SLIME(0xD63031CC,
 		EventType.TYPE_ZAKO,
-		"blockee_black_slime",
-		"btn_zako",
+		"black_slime",
+		GameAlignment.ORDINARY,
 		"black_slime",
 		"black_slime_help") {
 			@Override
@@ -78,8 +78,8 @@ public enum EventType {
 			}},
 	CYCLOPS(0xC0CABC68,
 		EventType.TYPE_ZAKO,
-		"blockee_cyclops",
-		"btn_zako",
+		"cyclops",
+		GameAlignment.CHAOTIC,
 		"cyclops",
 		"cyclops_help") {
 			@Override
@@ -90,8 +90,8 @@ public enum EventType {
 			}},
 	PUMPKIN(0x073DD736,
 		EventType.TYPE_ZAKO,	
-		"blockee_pumpkin",
-		"btn_zako",
+		"pumpkin",
+		GameAlignment.ORDINARY,
 		"pumpkin",
 		"pumpkin_help") {
 			@Override
@@ -106,8 +106,8 @@ public enum EventType {
 			}},
 	WEREWOLF(0xEF932C35,
 		EventType.TYPE_ZAKO,
-		"blockee_werewolf",
-		"btn_zako",
+		"werewolf",
+		GameAlignment.ORDINARY,
 		"werewolf",
 		"werewolf_help") {
 			@Override
@@ -118,8 +118,8 @@ public enum EventType {
 			}},
 	YETI(0x342ABE0D,
 		EventType.TYPE_ZAKO,
-		"blockee_yeti",
-		"btn_zako",
+		"yeti",
+		GameAlignment.ORDINARY,
 		"yeti",
 		"yeti_help") {
 			@Override
@@ -131,8 +131,8 @@ public enum EventType {
 			}},
 	GRIFFON(0x1D0CF942,
 		EventType.TYPE_ZAKO,
-		"blockee_griffon",
-		"btn_zako",
+		"griffon",
+		GameAlignment.ORDINARY,
 		"griffon",
 		"griffon_help") {
 			@Override
@@ -144,8 +144,8 @@ public enum EventType {
 	// BOSS
 	CAT_SITH(0xEC056EA1,
 		EventType.TYPE_BOSS,
-		"blockee_cat_sith",
-		"btn_boss",
+		"cat_sith",
+		GameAlignment.NEUTRAL,
 		"cat_sith",
 		"cat_sith_help") {
 			@Override
@@ -156,8 +156,8 @@ public enum EventType {
 			}},
 	WAILING_WALL(0xE16DA30F,
 		EventType.TYPE_BOSS,
-		"blockee_wailing_wall",
-		"btn_boss",
+		"wailing_wall",
+		GameAlignment.LAWFUL,
 		"wailing_wall",
 		"wailing_wall_help") {
 			@Override
@@ -168,8 +168,8 @@ public enum EventType {
 			}},
 	DEMON(0x3C6CFB03,
 		EventType.TYPE_BOSS,
-		"blockee_demon",
-		"btn_boss",
+		"demon",
+			GameAlignment.CHAOTIC,
 		"demon",
 		"demon_help") {
 			@Override
@@ -180,8 +180,8 @@ public enum EventType {
 			}},
 	EARTH_KNIGHT(0x257E2D9F,
 		EventType.TYPE_BOSS,
-		"blockee_earth_knight",
-		"btn_boss",
+		"earth_knight",
+		GameAlignment.NEUTRAL,
 		"earth_knight",
 		"earth_knight_help") {
 			@Override
@@ -192,8 +192,8 @@ public enum EventType {
 			}},
 	FIRE_KNIGHT(0x6A1B9E64,
 		EventType.TYPE_BOSS,
-		"blockee_fire_knight",
-		"btn_boss",
+		"fire_knight",
+		GameAlignment.NEUTRAL,
 		"fire_knight",
 		"fire_knight_help") {
 			@Override
@@ -204,8 +204,8 @@ public enum EventType {
 			}},
 	WATER_KNIGHT(0x503D5A8D,
 		EventType.TYPE_BOSS,
-		"blockee_water_knight",
-		"btn_boss",
+		"water_knight",
+		GameAlignment.NEUTRAL,
 		"water_knight",
 		"water_knight_help") {
 			@Override
@@ -216,8 +216,8 @@ public enum EventType {
 			}},
 	WIND_KNIGHT(0x1BA7D67D,
 		EventType.TYPE_BOSS,
-		"blockee_wind_knight",
-		"btn_boss",
+		"wind_knight",
+		GameAlignment.NEUTRAL,
 		"wind_knight",
 		"wind_knight_help") {
 			@Override
@@ -228,8 +228,8 @@ public enum EventType {
 			}},
 	STEEL_CYCLOPS(0x69729BD7,
 		EventType.TYPE_BOSS,
-		"blockee_steel_cyclops",
-		"btn_boss",
+		"steel_cyclops",
+		GameAlignment.CHAOTIC,
 		"steel_cyclops",
 		"steel_cyclops_help") {
 		@Override
@@ -240,8 +240,8 @@ public enum EventType {
 			}},
 	SKELETON_KING(0x142236F6,
 		EventType.TYPE_BOSS,
-		"blockee_skeleton_king",
-		"btn_boss",
+		"skeleton_king",
+		GameAlignment.CHAOTIC,
 		"skeleton_king",
 		"skeleton_king_help") {
 			@Override
@@ -253,65 +253,65 @@ public enum EventType {
 	// GEAR			
 	DOOR(0x265CC0D3,
 		EventType.TYPE_DOOR,
-		"blockee_door",
-		"btn_fairy",
+		"door",
+		GameAlignment.NEUTRAL,
 		"door",
 		"door_help"),
 	TRAP(0x0F391D1B,
 		EventType.TYPE_TRAP,
-		"blockee_chomper",
-		"btn_zako",
+		"chomper",
+        GameAlignment.ORDINARY,
 		"trap",
 		"trap_help"),
 	// NPC
 	MERCHANT(0x56391E1E,
 		EventType.TYPE_SHOP,
-		"blockee_merchant",
-		"btn_shop",
+		"merchant",
+		GameAlignment.SPECIAL,
 		"merchant",
 		"merchant_help"),
 	FAIRY(0x522FDB3F,
 		EventType.TYPE_NONE,
-		"blockee_fairy",
-		"btn_fairy",
+		"fairy",
+		GameAlignment.NEUTRAL,
 		"fairy",
 		"fairy_help"),
 	VETERAN(0x3BB09970,
 		EventType.TYPE_HERO,
-		"blockee_novice",
-		"btn_brave",
+		"novice",
+		GameAlignment.LAWFUL,
 		"old_hero",
 		"old_hero_help"),
 	// COLOSSEUM
 	GLADIATOR(0x3DA88728,
 		EventType.TYPE_HERO,
-		"blockee_novice",
-		"btn_boss",
+		"novice",
+		GameAlignment.CHAOTIC,
 		"gladiator",
 		"gladiator_help"),
 	// END GAME			
 	WIN_NORMAL(0x1CCBAB13,
 		EventType.TYPE_END_GAME,
-		"blockee_arena",
-		"btn_fairy",
+		"arena",
+		GameAlignment.NEUTRAL,
 		"win_normal",
 		"win_normal_help"),
 	WIN_GOLDEN(0xE9BF7F03,
 		EventType.TYPE_END_GAME,
-		"blockee_golden_arena",
-		"btn_fairy",
+		"golden_arena",
+		GameAlignment.NEUTRAL,
 		"win_golden",
 		"win_golden_help"),
 	GAME_OVER(0xE6D00890,
 		EventType.TYPE_END_GAME,
-		"blockee_guard",
-		"btn_fairy",
+		"guard",
+		GameAlignment.NEUTRAL,
 		"game_over",
 		"game_over_help"),
 	COLOSSEUM_MASTER(0x73856D3A,
 		EventType.TYPE_END_GAME,
-		"blockee_sword_master",
-		"btn_fairy",
+		"sword_master",
+		GameAlignment.NEUTRAL,
 		"colosseum_master",
 		"colosseum_master_help");
 
@@ -333,16 +333,17 @@ public enum EventType {
 	// data				
 	public final int code;
 	public final String icon;
-	public final String bg;	// background.
+	public final GameAlignment align;
+	//public final String bg;	// background.
 	public final String name;
 	public final String help;
 	private final int type;
 	
-	EventType(int code, int type, String icon, String bg, String name, String help) {
+	EventType(int code, int type, String icon, GameAlignment align, String name, String help) {
 		this.code = code;
 		this.type = type;
 		this.icon = icon;
-		this.bg = bg;
+		this.align = align;
 		this.name = name;
 		this.help = help;
 	}

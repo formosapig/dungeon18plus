@@ -1,6 +1,6 @@
 package com.qqhouse.dungeon18plus.struct.event;
 
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.EventType;
 import com.qqhouse.dungeon18plus.core.Item;
 
@@ -11,7 +11,7 @@ public class ColosseumShop extends Event {
     public ColosseumShop(Item equip) {
         super(EventType.MERCHANT);
         this.loot = equip;
-        this.costType = G.cost.coin;
+        this.costType = Game.cost.coin;
         this.costValue = equip.price;
     }
 

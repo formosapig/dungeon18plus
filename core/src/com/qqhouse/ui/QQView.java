@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -35,15 +36,14 @@ public abstract class QQView {
             return null;
     }
 
-    public boolean touchDown(float x, float y) {
-        return false;
-    }
+    public boolean touchDown(float x, float y) {return false;}
 
-    public boolean touchUp(float x, float y) {
-        return false;
-    }
+    public boolean touchUp(float x, float y) {return false;}
 
     public boolean touchDragged(float x, float y) {return false;}
+
+    public boolean scrolled(float x, float y) {return false;}
+
 
     /*
         called by QQScreen

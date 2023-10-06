@@ -49,23 +49,23 @@ public class QQListView extends QQView implements QQView.IsParentView {
         }
         childrenView.add(view);
         rearrangeChildren();
-        float totalHeight = -4;
+        float totalHeight = -2;
         for (QQView v : childrenView) {
-            totalHeight += 4 + v.height; // 4 = widget margin...
+            totalHeight += 2 + v.height; // 2 = widget margin...
         }
         maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
     }
 
     private void rearrangeChildren() {
-        float anchorY = y + height - topPadding;
+        float anchorY = /*y +*/ height - topPadding;
 
         for (int i = 0, s = childrenView.size(); i < s; ++i) {
             QQView view = childrenView.get(i);
             float posY = anchorY - view.height;
 
-            view.setPosition(x + leftPadding, posY + scrollY);
+            view.setPosition(/*x + */leftPadding, posY + scrollY);
 
-            anchorY = posY - 4;
+            anchorY = posY - 2;
         }
         // 好像不應該放在這邊....
         //maxScrollY = -anchorY;
@@ -94,7 +94,7 @@ public class QQListView extends QQView implements QQView.IsParentView {
             for (QQView view : childrenView) {
                 //if (view.getY() <= height || view.getY() >= 0) {
                     // draw views in visible range.
-                    view.draw(batch, relativeX + x, relativeY + y);
+                    view.draw(batch, relativeX, relativeY);
                 //}
             }
             batch.flush();
@@ -203,6 +203,17 @@ public class QQListView extends QQView implements QQView.IsParentView {
             child.touchDragged(relativeX - child.getX(), relativeY - child.getY());
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        // 1. do scroll ...
+        scrollY += -10 * amountY;
+        if (scrollY < 0) scrollY = 0;
+        if (scrollY > maxScrollY) scrollY = maxScrollY;
+        Gdx.app.error("QQListView", "scrolled : " + scrollY);
+        rearrangeChildren();
         return false;
     }
 

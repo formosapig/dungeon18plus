@@ -1,6 +1,6 @@
 package com.qqhouse.dungeon18plus.struct;
 
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.core.Soul;
@@ -56,7 +56,7 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 		this.highLevel = 0;
 		this.highScore = 0;
 		this.maxRound = 0;
-		this.maxSoulSize = G.HERO_DEFAULT_SOUL_SIZE;
+		this.maxSoulSize = Game.HERO_DEFAULT_SOUL_SIZE;
 	}
 	
 	public HeroClassRecord(HeroClass heroClass, int flag, int highLevel, int highScore, int maxRound, int maxSoulSize) {
@@ -90,8 +90,8 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 			EquipmentMastery em = equips.get(i);
 			if (em.equipment == equip) {
 				// can not exceed max
-				if (G.SPECIFIC_MASTERY_MAX < mastery)
-					mastery = G.SPECIFIC_MASTERY_MAX;
+				if (Game.SPECIFIC_MASTERY_MAX < mastery)
+					mastery = Game.SPECIFIC_MASTERY_MAX;
 				if (em.mastery < mastery)
 					em.mastery = mastery;
 				return;
@@ -114,7 +114,7 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 				return em.mastery;
 			}
 		}
-		return G.MASTERY_NOT_FOUND;
+		return Game.MASTERY_NOT_FOUND;
 	}
 	
 	public int getSoulCount() {

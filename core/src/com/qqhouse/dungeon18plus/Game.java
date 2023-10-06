@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.badlogic.gdx.graphics.Color;
 import com.qqhouse.dungeon18plus.core.EventType;
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.Help;
@@ -15,7 +16,7 @@ import com.qqhouse.dungeon18plus.core.Soul;
 import com.qqhouse.dungeon18plus.core.UltimateSkill;
 import com.qqhouse.dungeon18plus.struct.campaign.UniqueSkillData;
 
-public class G {
+public class Game {
 
     // UI Setting
     // 主流是 19 : 9 , 縮小成 16 : 9 依然好看... 相反的話就很醜....
@@ -117,6 +118,21 @@ public class G {
         public static final int process_boss = -4;
     }
 
+    /*
+       color
+     */
+    public static final class color {
+        public static final Color LIFE       = new Color(0xFFFF60FF);
+        public static final Color ATTACK     = new Color(0xFF6060FF);
+        public static final Color DEFENSE    = new Color(0x8080FFFF);
+        public static final Color SPEED      = new Color(0x60FF60FF);
+        public static final Color DAMAGE     = new Color(0xFF60FFFF);
+        public static final Color RARE       = new Color(0x9E8064FF);
+        public static final Color RANK       = new Color(0x60FFFFFF);
+        public static final Color ROUND      = new Color(0xB0A0C0FF);
+        public static final Color GUARD      = new Color(0xF0F0F0FF);
+        public static final Color ZAKO_LEVEL = new Color(0xFFFFFFFF);
+    }
 
     /*
      * cost type
@@ -166,8 +182,8 @@ public class G {
     public void start() {
 
         // premium test
-        if (G.Debug.PREMIUM) {
-            G.isPremium = true;
+        if (Game.Debug.PREMIUM) {
+            Game.isPremium = true;
         }
 
         // bundle data to application's life cycle.
@@ -195,7 +211,7 @@ public class G {
 
         //GameData.getInstance();
 
-        if (G.Debug.TEST_ENUM) {
+        if (Game.Debug.TEST_ENUM) {
             checkAllEnum();
 
 //            int sum = 0;
@@ -232,9 +248,9 @@ public class G {
 
         if (TEST_UNIQUE_SKILL_COOL_DOWN) {
             for (UltimateSkill us : UltimateSkill.values()) {
-                UniqueSkillData data = us.get(G.SPECIFIC_MASTERY_MAX);
+                UniqueSkillData data = us.get(Game.SPECIFIC_MASTERY_MAX);
                 if (40 >= data.coolDown) {
-                    Gdx.app.error("d18", String.format("Unique Skill : %s[%d] -> CD=%d", us.toString(), G.SPECIFIC_MASTERY_MAX, data.coolDown));
+                    Gdx.app.error("d18", String.format("Unique Skill : %s[%d] -> CD=%d", us.toString(), Game.SPECIFIC_MASTERY_MAX, data.coolDown));
                 }
             }
         }
@@ -250,8 +266,8 @@ public class G {
                     count++;
                 }
             }
-            if (count != G.COLLECTABLE_EQUIPMENT) {
-                throw new RuntimeException(String.format(Locale.US, "collectable equipment should be : %d (%d)", count, G.COLLECTABLE_EQUIPMENT));
+            if (count != Game.COLLECTABLE_EQUIPMENT) {
+                throw new RuntimeException(String.format(Locale.US, "collectable equipment should be : %d (%d)", count, Game.COLLECTABLE_EQUIPMENT));
             }
         }
     }
@@ -300,7 +316,7 @@ public class G {
         for (Item l : Item.values()) {
             if (!test.add(l.code)) {
                 int newCode = new Random().nextInt();
-                Gdx.app.error(G.Debug.TAG, String.format(Locale.US, "%s duplicate, set code = %08X", l, newCode));
+                Gdx.app.error(Game.Debug.TAG, String.format(Locale.US, "%s duplicate, set code = %08X", l, newCode));
                 pass = false;
             }
         }

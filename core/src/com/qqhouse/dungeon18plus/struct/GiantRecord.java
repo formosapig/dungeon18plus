@@ -1,6 +1,6 @@
 package com.qqhouse.dungeon18plus.struct;
 
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.Soul;
 import com.qqhouse.dungeon18plus.core.UltimateSkill;
@@ -39,7 +39,7 @@ public final class GiantRecord implements Comparable<GiantRecord> {
 	}
 	
 	public void defeat(int time) {
-		if (time < G.Setting.CAMPAIGN_MAX_TIME && this.fastWin < time) {
+		if (time < Game.Setting.CAMPAIGN_MAX_TIME && this.fastWin < time) {
 			this.fastWin = time;
 		}
 	}

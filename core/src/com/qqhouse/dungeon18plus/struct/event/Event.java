@@ -1,6 +1,6 @@
 package com.qqhouse.dungeon18plus.struct.event;
 
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.EventType;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.core.Item;
@@ -20,7 +20,7 @@ public class Event /*extends Ability*/ {
 
 	public Event(EventType type) {
 	    this.type = type;
-	    costType = G.cost.none;
+	    costType = Game.cost.none;
 	    costValue = 0;
 	    loot = Item.NONE;
 	    itemCount = 0;

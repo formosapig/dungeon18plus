@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.view.PreviewView;
 import com.qqhouse.dungeon18plus.view.TitleBarView;
@@ -55,8 +55,8 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
 
         //addView(title);
         title.setPadding(8);
-        title.setSize(G.WIDTH, 48);
-        title.setPosition(0, G.HEIGHT - 48);
+        title.setSize(Game.WIDTH, 48);
+        title.setPosition(0, Game.HEIGHT - 48);
         addView(title);
 
         ArrayList<HeroClass> tmp = new ArrayList<>();
@@ -83,7 +83,7 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
 
         // list view of hero preview view
         list = (QQListView) new QQListView()
-                .size(G.WIDTH, G.HEIGHT - title.getHeight() - 8).
+                .size(Game.WIDTH, Game.HEIGHT - title.getHeight() - 8).
                 position(0, 0).
                 padding(8);
         list.setCamera(getCamera());

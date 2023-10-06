@@ -1,6 +1,6 @@
 package com.qqhouse.dungeon18plus.core;
 
-import com.qqhouse.dungeon18plus.G;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.Ability;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.EventInfo;
@@ -63,7 +63,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 		// initial shops
 		mShopItems.clear();
 		//mShopItems.addAll(GameData.getInstance().getEquipmentData());
-		if (G.isPremium) {
+		if (Game.isPremium) {
 			mShopItems.add(Item.YGGDRASIL_DAGGER);
 			mShopItems.add(Item.YGGDRASIL_SWORD);
 			mShopItems.add(Item.YGGDRASIL_STAFF);
@@ -153,13 +153,13 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
     
     private boolean isEventDoable(Event evt) {
 		switch(evt.costType) {
-		case G.cost.none:
+		case Game.cost.none:
 			return true;
-		case G.cost.coin:
+		case Game.cost.coin:
 			return mHero.coin >= evt.costValue;
-		case G.cost.damage:
-			return (mHero.life > evt.costValue) || G.Debug.QUICK_GAME;
-		case G.cost.never:
+		case Game.cost.damage:
+			return (mHero.life > evt.costValue) || Game.Debug.QUICK_GAME;
+		case Game.cost.never:
 			return false;
 		default:
 			throw new RuntimeException("invalid cost type : " + evt.costType);
@@ -230,12 +230,12 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 			// end , record max turn
 			//HeroClassRecord record = GameData.getInstance().getHeroClassRecord(mHero.heroClass);
 			//record.updateRound(mHero.round);
-			return G.result.lose;
+			return Game.result.lose;
 		}
 		
 		// check end.
 		UpdateCostValue();
-		return G.result.process;
+		return Game.result.process;
     }
     
     private void UpdateCostValue() {
@@ -261,7 +261,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 				if (evt instanceof VariedHero) {
 					enhanceGladiator((VariedHero)evt, mHero);
                 }
-				evt.costType = G.cost.damage;
+				evt.costType = Game.cost.damage;
 				evt.costValue = battle(mHero, (BattleEvent)evt);
 				if (mHero.life > evt.costValue)
 					isEnd = false;
@@ -313,9 +313,9 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
     
     private void payForEvent(Event evt, EventResult result) {
 		switch(evt.costType) {
-		case G.cost.none:
+		case Game.cost.none:
 			break;
-		case G.cost.damage:
+		case Game.cost.damage:
 		    if (evt instanceof VariedHero) {
                 Ability contrast = ((VariedHero)evt).getAbility();
                 // RAGE
@@ -351,7 +351,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
                 }
             }
 			break;
-		case G.cost.coin:
+		case Game.cost.coin:
 		    mHero.coin -= evt.costValue;
 		    break;
 		default:

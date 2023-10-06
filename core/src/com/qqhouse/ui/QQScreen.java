@@ -72,9 +72,9 @@ public abstract class QQScreen extends InputAdapter {
     }
 
     public boolean touchDragged (int screenX, int screenY, int pointer) {
-        //Gdx.app.error("TEST", "touchDragged : " + screenX + "," + screenY);
+        //Gdx.app.error("QQScreen", "touchDragged : " + screenX + "," + screenY);
         Vector2 screenPos = screenToStageCoordinates(new Vector2(screenX, screenY));
-        //Gdx.app.error("TEST", "touchDragged : " + screenPos.x + "," + screenPos.y);
+        //Gdx.app.error("QQScreen", "touchDragged : " + screenPos.x + "," + screenPos.y);
 
         // tell all child dragged ....
 
@@ -106,6 +106,18 @@ public abstract class QQScreen extends InputAdapter {
             return target.touchUp(screenPos.x - target.getX(), screenPos.y - target.getY());
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean scrolled (float amountX, float amountY) {
+        Gdx.app.error("QQScreen", "amountX : " + amountX + ", amountY : " + amountY);
+        QQView[] views = childrenView.items;
+        for (int i = 0, n = childrenView.size; i < n; ++i) {
+            // 傳入相對於 (0, 0) 的座標...
+            QQView v = views[i];
+            v.scrolled(amountX, amountY);
+        }
         return false;
     }
 
