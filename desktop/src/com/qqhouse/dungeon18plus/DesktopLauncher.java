@@ -10,11 +10,13 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setTitle("Dungeon 18+");
 		//config.setWindowedMode(375, 667); // iPhone SE 3
-		config.setWindowedMode(290, 566); // desktop
-		// config.setWindowedMode(G.WIDTH, G.HEIGHT);
+		config.setWindowedMode(330, 566); // desktop
+		//config.setWindowedMode(G.WIDTH, G.HEIGHT);
 		config.useVsync(true);
 		config.setForegroundFPS(60);
 		config.setIdleFPS(10);
+		//config.setDecorated(false);
+		config.setResizable(false);
 		//new Lwjgl3Application(new Dungeon18Plus(), config);
 		new Lwjgl3Application(new Main(), config);
 	}

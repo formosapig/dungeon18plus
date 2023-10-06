@@ -2,18 +2,21 @@ package com.qqhouse.dungeon18plus.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.G;
 import com.qqhouse.dungeon18plus.core.DungeonManager;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
+import com.qqhouse.dungeon18plus.struct.ActionSlot;
+import com.qqhouse.dungeon18plus.view.ActionView;
 import com.qqhouse.dungeon18plus.view.HeroView;
-import com.qqhouse.io.Assets;
-import com.qqhouse.ui.QQButton;
+import com.qqhouse.dungeon18plus.view.LootInfoView;
+import com.qqhouse.dungeon18plus.Assets;
+import com.qqhouse.ui.QQClickListener;
 import com.qqhouse.ui.QQScreen;
-import com.qqhouse.ui.QQView;
+
+import java.util.ArrayList;
 
 public class DungeonScreen extends QQScreen {
 
@@ -32,6 +35,10 @@ public class DungeonScreen extends QQScreen {
     }
 
     private BitmapFont fntDigital, fntSmallDigital;
+    private HeroView heroView;
+    private ArrayList<ActionView> actionViews = new ArrayList<>();
+    private LootInfoView lootInfo;
+
 
     @Override
     public void onEnter() {
@@ -49,7 +56,7 @@ public class DungeonScreen extends QQScreen {
         //fntDigital.setFixedWidthGlyphs("0123456789");
 
         // hero view ...
-        HeroView heroView = new HeroView(manager.getHero().heroClass.alignment.key);
+        heroView = new HeroView(manager.getHero().heroClass.alignment.key);
         heroView.preset(
                 assets.getBlockee(manager.getHero().heroClass.key), // hero
                 assets.getIcon16("life"), // life
@@ -62,10 +69,10 @@ public class DungeonScreen extends QQScreen {
         );
         heroView.setFont(fntDigital, fntSmallDigital);
         heroView.setPadding(8);
-        heroView.setPosition(4, G.HEIGHT - 64 - 4);
+        heroView.setPosition(0, G.HEIGHT - 64);
         //heroView.setSize(QQView.FILL_PARENT, 64);
-        heroView.setSize(G.WIDTH - 4 - 4, 64);
-        heroView.setData(manager.getHero());
+        heroView.setSize(G.WIDTH, 64);
+        //heroView.setData(manager.getHero());
         addView(heroView);
 
         // event listview ...
@@ -78,25 +85,58 @@ public class DungeonScreen extends QQScreen {
 
 
         // message view ...
+        lootInfo = new LootInfoView(assets.getBackground("loot_info"));
+        lootInfo.setSize(G.WIDTH, 24);
+        lootInfo.setPosition(0, 64 + 2);
+        addView(lootInfo);
 
         // action view ...
         int actionCount = manager.getActionSlotCount();
-        float actionWidth = ((G.WIDTH - 4) - (actionCount - 1) * 4) / actionCount;
-        float actionPos = (G.WIDTH - 4)/ actionCount;
-        float innerWidth = G.WIDTH - 4;
+        // 由於會縮放,需要注意 int 會導致捨位誤差...
+        float actionWidth = ((G.WIDTH) - (actionCount - 1) * 2) / (float)actionCount;
+        Gdx.app.error("DungeonScreen.java", "actionWidth = " + actionWidth);
 
         for (int i = 0; i < actionCount; ++i) {
-            QQButton button = new QQButton(manager.getHero().heroClass.alignment.key);
-            button.setSize(actionWidth, 64);
-            //button.setPosition(4 + (actionWidth + 4) * i, 4);
-            //button.setPosition(4.0f + actionPos * (float)i, 4);
-            // 看起來最準...
-            button.setPosition(4 + innerWidth * i / actionCount, 4);
-            addView(button);
+            ActionSlot slot = manager.getActionSlot(i);
+
+            ActionView action = new ActionView(
+                    manager.getHero().heroClass.alignment.key,
+                    assets.getIcon32(manager.getActionSlot(i).action.key),
+                    fntSmallDigital,
+                    assets.getIcon16(slot.action.cost.getIcon16Key()),
+                    slot.action.cost.value
+                    );
+            action.setSize(actionWidth, 64);
+            float pos = (actionWidth + 2) * i;
+            Gdx.app.error("DungeonScreen.java", "pos = " + pos);
+            action.setPosition((actionWidth + 2) * i, 0);
+            action.addQQClickListener(new QQClickListener() {
+                @Override
+                public void onClick(int index) {
+                    if (manager.canDoAction(index)) {
+                        manager.doAction(index);
+                        // update status...
+                        update();
+                    }
+                }
+            }, i);
+            actionViews.add(action);
+            addView(action);
         }
 
-
+        update();
     }
+
+    public void update() {
+        // 1. heroview
+        heroView.setData(manager.getHero());
+        // 2. event list
+        // 3. action list
+        for (int i = 0, s = actionViews.size(); i < s; ++i) {
+            actionViews.get(i).setEnable(manager.canDoAction(i));
+        }
+    }
+
 
     @Override
     public void onLeave() {

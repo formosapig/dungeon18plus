@@ -148,6 +148,11 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
 		return min + mRandom.nextInt(rangeCount  + 1) * range;
     }
 
+    public boolean canDoAction(int index) {
+        return canDoAction(this.mActionSlots.get(index));
+    }
+
+
     public boolean canDoAction(ActionSlot slot) {
         final Action act = slot.action;
         switch (act.type) {

@@ -1,15 +1,11 @@
 package com.qqhouse.dungeon18plus;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.screen.DungeonScreen;
-import com.qqhouse.dungeon18plus.screen.Scene2DDungeonScreen;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
-import com.qqhouse.io.Assets;
 import com.qqhouse.ui.QQGameMachine;
 
 public class Main extends QQGameMachine implements

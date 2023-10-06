@@ -235,14 +235,14 @@ public class Varier {
         }
     }
 
-    public String getSmallIcon() {
+    public String getIcon16Key() {
         switch (getPureType()) {
-            case Type.LIFE: return "icon16_life";
-            case Type.ATTACK: return "icon16_attack";
-            case Type.DEFENSE: return "icon16_defense";
-            case Type.SPEED: return "icon16_speed";
-            case Type.HEAL: return "icon16_resurrection";
-            case Type.DAMAGE: return "icon16_damage";
+            case Type.LIFE: return "life";
+            case Type.ATTACK: return "attack";
+            case Type.DEFENSE: return "defense";
+            case Type.SPEED: return "speed";
+            case Type.HEAL: return "resurrection";
+            case Type.DAMAGE: return "damage";
             case Type.KEY: return "cost_key";
             case Type.COIN: return "cost_coin";
             case Type.STAR: return "cost_star";

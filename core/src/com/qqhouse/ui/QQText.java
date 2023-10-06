@@ -15,10 +15,10 @@ import javax.swing.GroupLayout;
 public class QQText extends QQView{
 
 
-    private BitmapFont font;
+    protected BitmapFont font;
     private Color color = null;
-    private String text;
-    private int align;
+    protected String text;
+    protected int align;
     private float shiftX, shiftY;
 
     public QQText(BitmapFont font) {

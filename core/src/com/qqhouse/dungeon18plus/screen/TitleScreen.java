@@ -2,30 +2,18 @@ package com.qqhouse.dungeon18plus.screen;
 
 import static com.qqhouse.dungeon18plus.core.GameAlignment.*;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.maps.ImageResolver;
-import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.G;
-import com.qqhouse.dungeon18plus.core.GameAlignment;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.TitleMenuView;
-import com.qqhouse.io.Assets;
+import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.ui.QQClickListener;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TitleScreen extends QQScreen {
 
