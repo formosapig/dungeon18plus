@@ -75,7 +75,7 @@ public class Assets extends QQAssets {
     }
 
     public Texture getItem(String key) {
-        String fileName = "drawable/item_" + key + ".png";
+        String fileName = "item/" + key + ".png";
         if (!manager.contains(fileName, Texture.class)) {
             manager.load(fileName, Texture.class, ttParam);
             manager.finishLoadingAsset(fileName);

@@ -27,6 +27,11 @@ public class QQIconText extends QQText {
 
     private Texture icon;
 
+    public void setIcon(Texture icon) {
+        this.icon = icon;
+    }
+
+
     protected void adjust() {
         if (null == text)
             return;

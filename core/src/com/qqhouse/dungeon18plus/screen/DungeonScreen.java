@@ -41,6 +41,7 @@ public class DungeonScreen extends QQScreen {
     private HeroView heroView;
     private ArrayList<ActionView> actionViews = new ArrayList<>();
     private LootInfoView lootInfo;
+    private ArrayList<EventView> eventViews = new ArrayList<>();
 
 
     @Override
@@ -94,10 +95,18 @@ public class DungeonScreen extends QQScreen {
             EventView evt = new EventView(event.type.align.key, assets);
             evt.setSize(Game.WIDTH, 64);
             evt.reset(event);
+            evt.addQQClickListener(new QQClickListener() {
+                @Override
+                public void onClick(int index) {
+                    if (manager.isEventDoable(index)) {
+                        manager.doEvent();
+                        update();
+                    }
+                }
+            }, i);
+
             list.addView(evt);
-
-
-
+            eventViews.add(evt);
         }
 
 
@@ -153,6 +162,11 @@ public class DungeonScreen extends QQScreen {
         // 1. heroview
         heroView.setData(manager.getHero());
         // 2. event list
+        for (int i = 0, s = eventViews.size(); i < s; ++i) {
+            EventView evt = eventViews.get(i);
+            evt.setEnable(manager.isEventDoable(i));
+            evt.update(manager.getEvent(i));
+        }
         // 3. action list
         for (int i = 0, s = actionViews.size(); i < s; ++i) {
             actionViews.get(i).setEnable(manager.canDoAction(i));

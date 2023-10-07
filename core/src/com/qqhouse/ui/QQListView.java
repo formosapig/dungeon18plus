@@ -209,7 +209,7 @@ public class QQListView extends QQView implements QQView.IsParentView {
     @Override
     public boolean scrolled(float amountX, float amountY) {
         // 1. do scroll ...
-        scrollY += -10 * amountY;
+        scrollY += 20 * amountY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
         Gdx.app.error("QQListView", "scrolled : " + scrollY);

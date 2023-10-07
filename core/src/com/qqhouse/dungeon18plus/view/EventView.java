@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQIconText;
@@ -64,17 +65,67 @@ public class EventView extends QQButton implements QQView.IsParentView {
                 break;
         }
         //QQIconText cost = new QQIconText(assets.getFont("whitrabt"), new NinePatch(assets.getBackground("blessed")), costIcon);
-        QQIconText cost = new QQIconText(assets.getFont("whitrabt", 22), costIcon);
+        cost = new QQIconText(assets.getFont("whitrabt", 22), costIcon);
         cost.setSize(64, 32);
         cost.setPosition(64, 24);
         cost.setAlign(Align.left);
         cost.setColorText(costColor, costValue);
         childrenView.add(cost);
 
+        // item ...
+        if (event.loot != Item.NONE) {
+
+            item = new ItemView(assets.getItem(event.loot.icon), assets.getFont("whitrabt", 16));
+            //item.setColor(Game.color.RARE);
+            if (event.itemCount > 0) {
+                item.setText(Integer.toString(event.itemCount));
+            } else {
+                item.setText("");
+            }
+            item.setSize(32, 32);
+            item.setPosition(Game.WIDTH - 8 - 32, 24);
+            childrenView.add(item);
+        }
+
     }
 
     public void update(Event event) {
-
+        // update cost
+        Texture costIcon = null;
+        Color costColor = Color.WHITE;
+        String costValue = "";
+        switch (event.costType) {
+            case Game.cost.key:
+                costIcon = assets.getItem("key");
+                costColor = Game.color.RARE;
+                costValue = String.format(Locale.US, "%d", event.costValue);
+                break;
+            case Game.cost.coin:
+                costIcon = assets.getItem("copper_coin");
+                costColor = Game.color.RARE;
+                costValue = String.format(Locale.US, "%d", event.costValue);
+                break;
+            case Game.cost.none:
+                costIcon = assets.getIcon32("win");
+                break;
+            case Game.cost.never:
+                costIcon = assets.getIcon32("lose");
+                break;
+            case Game.cost.damage:
+                if (event.costValue < 0) {
+                    costIcon = assets.getIcon32("life");
+                    costColor = Game.color.LIFE;
+                    costValue = String.format(Locale.US, "%+d", -event.costValue);
+                } else {
+                    costIcon = assets.getIcon32("damage");
+                    costColor = Game.color.DAMAGE;
+                    costValue = String.format(Locale.US, "%d", event.costValue);
+                }
+                break;
+        }
+        //QQIconText cost = new QQIconText(assets.getFont("whitrabt"), new NinePatch(assets.getBackground("blessed")), costIcon);
+        cost.setIcon(costIcon);
+        cost.setColorText(costColor, costValue);
     }
 
 
