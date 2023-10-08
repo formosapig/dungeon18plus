@@ -12,9 +12,10 @@ public class QQText extends QQView{
 
     protected BitmapFont font;
     protected Color color = null;
-    protected String text;
+    protected String text = "";
     protected int align;
     protected float shiftX, shiftY;
+    private float alpha = 1; // 0 ~ 1
 
     public QQText(BitmapFont font) {
         this.font = font;
@@ -25,31 +26,40 @@ public class QQText extends QQView{
         this.bgNormal = background;
     }
 
+    public QQText(BitmapFont font, NinePatch background, float alpha) {
+        this.font = font;
+        this.bgNormal = background;
+        this.alpha = alpha;
+    }
+
     @Override
     public void setSize(float width, float height) {
         super.setSize(width, height);
-        adjust();
+        rearrange();
     }
 
     public void setAlign(int align) {
         this.align = align;
-        adjust();
+        rearrange();
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     public void setColorText(Color color, String text) {
         this.color = color;
         this.text = text;
-        adjust();
+        rearrange();
     }
 
     public void setText(String text) {
         this.text = text;
-        adjust();
+        rearrange();
     }
 
 
-    protected void adjust() {
+    protected void rearrange() {
         if (null == text)
             return;
         GlyphLayout glyphs = new GlyphLayout();
@@ -78,7 +88,7 @@ public class QQText extends QQView{
     public void drawBackground(SpriteBatch batch, float originX, float originY) {
         if (null != bgNormal) {
             Color tmp = batch.getColor();
-            batch.setColor(1, 1, 1, 0.5f);
+            batch.setColor(1, 1, 1, alpha);
             bgNormal.draw(batch, originX, originY, width, height);
             batch.setColor(1, 1, 1, 1);
             batch.flush();

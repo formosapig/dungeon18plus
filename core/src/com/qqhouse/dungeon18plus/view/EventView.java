@@ -1,12 +1,15 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Item;
+import com.qqhouse.dungeon18plus.struct.event.BattleEvent;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQIconText;
@@ -20,6 +23,13 @@ public class EventView extends QQButton implements QQView.IsParentView {
     public EventView(String buttonKey, Assets assets) {
         super(buttonKey);
         this.assets = assets;
+    }
+
+    private void setButtonBackground(String buttonKey) {
+        super.setButtonBackground(
+                new NinePatch(assets.getButton(buttonKey + "_up"), 4, 4, 4, 4),
+                new NinePatch(assets.getButton(buttonKey + "_down"), 4, 4, 4, 4),
+                new NinePatch(assets.getButton("disable"), 4, 4, 4, 4));
     }
 
     private Assets assets;
@@ -73,23 +83,35 @@ public class EventView extends QQButton implements QQView.IsParentView {
         childrenView.add(cost);
 
         // item ...
-        if (event.loot != Item.NONE) {
+        item = new ItemView(assets.getFont(Game.font.DIGITAL, 16));
 
-            item = new ItemView(assets.getItem(event.loot.icon), assets.getFont("whitrabt", 16));
+        //if (event.loot != Item.NONE) {
+
+            //item = new ItemView(assets.getItem(event.loot.icon), assets.getFont("whitrabt", 16));
             //item.setColor(Game.color.RARE);
-            if (event.itemCount > 0) {
-                item.setText(Integer.toString(event.itemCount));
-            } else {
-                item.setText("");
-            }
+            //if (event.itemCount > 0) {
+            //    item.setText(Integer.toString(event.itemCount));
+            //} else {
+            //    item.setText("");
+            //}
             item.setSize(32, 32);
-            item.setPosition(Game.WIDTH - 8 - 32, 24);
+            item.setPosition(Game.WIDTH - 8 - 32, 26);
+            item.setColor(Game.color.COUNT);
+            item.setVisible(false);
             childrenView.add(item);
-        }
+        //}
+
+        // ability view
+        ability = new AbilityView(assets);
+        ability.setSize(200, 16);
+        ability.setPosition(Game.WIDTH - 200 - 8, 6);
+        ability.setVisible(false);
+        childrenView.add(ability);
 
     }
 
     public void update(Event event) {
+        icon = assets.getBlockee(event.type.icon);
         // update cost
         Texture costIcon = null;
         Color costColor = Color.WHITE;
@@ -126,6 +148,34 @@ public class EventView extends QQButton implements QQView.IsParentView {
         //QQIconText cost = new QQIconText(assets.getFont("whitrabt"), new NinePatch(assets.getBackground("blessed")), costIcon);
         cost.setIcon(costIcon);
         cost.setColorText(costColor, costValue);
+
+        // item ...
+        if (event.loot != Item.NONE) {
+            item.setIcon(assets.getItem(event.loot.icon));
+            if (event.itemCount > 0) {
+                item.setText(Integer.toString(event.itemCount));
+            } else {
+                item.setText("");
+            }
+            item.setVisible(true);
+        } else {
+            item.setVisible(false);
+        }
+
+        // update ability
+        if (/*showDetail && */event.type.showDetail()) {
+            if (event instanceof BattleEvent) {
+                ability.update(((BattleEvent)event).getAbility());
+                ability.setVisible(true);
+            }
+        } else if (event.type.showEquipmentData() && Item.NONE != event.loot) {
+            //mSub.setData(evt.loot.upgrade);
+            //mSub.setVisibility(View.VISIBLE);
+        } else {
+            ability.setVisible(false);
+        }
+
+        setButtonBackground(event.type.align.key);
     }
 
 
@@ -141,7 +191,9 @@ public class EventView extends QQButton implements QQView.IsParentView {
     @Override
     public void drawChildrenView(SpriteBatch batch, float originX, float originY) {
         for (QQView view : childrenView) {
-            view.draw(batch, originX, originY);
+            if (view.isVisible()) {
+                view.draw(batch, originX, originY);
+            }
         }
     }
 }

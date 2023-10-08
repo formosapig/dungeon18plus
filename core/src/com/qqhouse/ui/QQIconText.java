@@ -16,7 +16,7 @@ public class QQIconText extends QQText {
     public QQIconText(BitmapFont font, Texture icon) {
         super(font);
         this.icon = icon;
-        //this.align = Align.right;
+        //font.setFixedWidthGlyphs("01234567890+-=%");
     }
 
     public QQIconText(BitmapFont font, NinePatch bg, Texture icon) {
@@ -31,12 +31,15 @@ public class QQIconText extends QQText {
         this.icon = icon;
     }
 
-
-    protected void adjust() {
-        if (null == text)
-            return;
+    @Override
+    protected void rearrange() {
         GlyphLayout glyphs = new GlyphLayout();
         glyphs.setText(font, text);
+
+        // width
+        if (wrapWidth) {
+            width = icon.getWidth() + 2 + glyphs.width;
+        }
 
         // shift x
         if (Align.isCenterHorizontal(align)) {

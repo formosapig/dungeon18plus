@@ -9,10 +9,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.core.Feat;
 import com.qqhouse.dungeon18plus.struct.hero.DungeonHero;
 import com.qqhouse.dungeon18plus.struct.hero.Hero;
 import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQIconText;
+import com.qqhouse.ui.QQProgress;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
@@ -33,16 +35,46 @@ public class HeroView extends QQButton implements QQView.IsParentView {
 
 
      */
-    private Assets assets;
+    private final Assets assets;
     private Texture hero, life, attack, defense, speed, key, coin, star;
     private BitmapFont fntDigital, fntSmallDigital;
     private QQText digital;
     private ArrayList<QQView> childrenView;
     private QQIconText lifeText, attackText, defenseText, speedText;
     private ItemView keyItem, coinItem, starItem;
+    private QQText level;
+    private QQProgress exp;
 
-    public void reset(Hero hero) {
+    public void reset(DungeonHero hero) {
         this.hero = assets.getBlockee(hero.heroClass.key);
+
+        /*
+              experience hero : key, coin, star
+              fairy           : key, coin, star, no exp
+              skeleton king   : soul, no exp
+         */
+        if (Feat.EXPERIENCE.in(hero.feats)) {
+            // level
+            level = new QQText(assets.getFont("whitrabt", 16), new NinePatch(assets.getBackground("level"), 4, 4, 4, 4), 0.75f);
+            level.setColor(Game.color.RANK);
+            level.setSize(24, 16); // TODO 1007 希望可以浮動的調整寬度...
+            level.setPosition(4, 44);
+            level.setAlign(Align.center);
+            level.setText("22");
+            childrenView.add(level);
+
+            // progress bar for exp...
+            exp = new QQProgress(
+                    new NinePatch(assets.getBackground("black")),
+                    new NinePatch(assets.getBackground("white")));
+            exp.setSize(50, 8);
+            exp.setPosition(7, 4);
+            childrenView.add(exp);
+        }
+
+
+
+
 
         // life view ?!
         //lifeText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("life"));
@@ -50,7 +82,7 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         lifeText.setAlign(Align.center);
         lifeText.setSize(72, 16);
         lifeText.setPosition(64, 6);
-        lifeText.setColorText(Game.color.LIFE, "");
+        lifeText.setColor(Game.color.LIFE);
         childrenView.add(lifeText);
 
         // attack view
@@ -59,7 +91,7 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         attackText.setAlign(Align.center);
         attackText.setSize(72, 16);
         attackText.setPosition(136, 6);
-        attackText.setColorText(Game.color.ATTACK, "");
+        attackText.setColor(Game.color.ATTACK);
         childrenView.add(attackText);
 
         // defense view
@@ -68,7 +100,7 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         defenseText.setAlign(Align.center);
         defenseText.setSize(72, 16);
         defenseText.setPosition(208, 6);
-        defenseText.setColorText(Game.color.DEFENSE, "");
+        defenseText.setColor(Game.color.DEFENSE);
         childrenView.add(defenseText);
 
         // speed view
@@ -77,11 +109,31 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         speedText.setAlign(Align.center);
         speedText.setSize(72, 16);
         speedText.setPosition(280, 6);
-        speedText.setColorText(Game.color.SPEED, "");
+        speedText.setColor(Game.color.SPEED);
         childrenView.add(speedText);
 
     }
 
+    public void update(DungeonHero hero) {
+
+        if (null != level) {
+            level.setText(Integer.toString(hero.level));
+        }
+        if (null != exp) {
+            exp.setPercent(hero.exp * 100/ hero.maxExp);
+        }
+
+        lifeText.setText(Integer.toString(hero.life));
+        attackText.setText(Integer.toString(hero.attack));
+        //attackText.setText("199x2");
+        defenseText.setText(Integer.toString(hero.defense));
+        speedText.setText(Integer.toString(hero.speed));
+        keyItem.setText(Integer.toString(hero.key));
+        coinItem.setText(Integer.toString(hero.coin));
+        starItem.setText(Integer.toString(hero.star));
+        // level
+        // exp...
+    }
 
     public void preset(Texture hero, Texture life, Texture attack, Texture defense, Texture speed, Texture key, Texture coin, Texture star) {
         this.hero = hero;
@@ -208,9 +260,11 @@ public class HeroView extends QQButton implements QQView.IsParentView {
         //attackText.setText("199x2");
         defenseText.setText(Integer.toString(hero.defense));
         speedText.setText(Integer.toString(hero.speed));
-        keyItem.setText(Integer.toString(hero.key+ 1000));
+        keyItem.setText(Integer.toString(hero.key));
         coinItem.setText(Integer.toString(hero.coin));
         starItem.setText(Integer.toString(hero.star));
+        // level
+        // exp...
     }
 
 

@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
@@ -103,9 +104,23 @@ public class Assets extends QQAssets {
             param.fontParameters.characters += "";
             manager.load(fileName, BitmapFont.class, param);
             manager.finishLoadingAsset(fileName);
+            // fixed size ?! FIXME white rabbit 的 1 沒有 fixed width ... 導致浪費效能...
+            BitmapFont font = manager.get(fileName, BitmapFont.class);
+            font.setFixedWidthGlyphs(FreeTypeFontGenerator.DEFAULT_CHARS);
         }
         return manager.get(fileName, BitmapFont.class);
     }
+
+    public Texture getButton(String key) {
+        String fileName = "button/" + key + ".png";
+        if (!manager.contains(fileName, Texture.class)) {
+            manager.load(fileName, Texture.class, ttParam);
+            manager.finishLoadingAsset(fileName);
+        }
+        return manager.get(fileName, Texture.class);
+    }
+
+
 
     public void dispose() {
         manager.dispose();

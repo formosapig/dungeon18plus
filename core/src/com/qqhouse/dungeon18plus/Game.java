@@ -132,7 +132,17 @@ public class Game {
         public static final Color ROUND      = new Color(0xB0A0C0FF);
         public static final Color GUARD      = new Color(0xF0F0F0FF);
         public static final Color ZAKO_LEVEL = new Color(0xFFFFFFFF);
+        public static final Color COUNT      = new Color(0xFFFFFFFF);
     }
+
+    /*
+       font ...
+     */
+    public static final class font {
+        public static final String DIGITAL = "whitrabt";
+    }
+
+
 
     /*
      * cost type

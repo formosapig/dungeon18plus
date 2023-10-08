@@ -149,4 +149,14 @@ public abstract class QQView {
         return this;
     }
 
+    /*
+        visible
+     */
+    private boolean visible = true;
+    public void setVisible(boolean visible) {this.visible = visible;}
+    public boolean isVisible() {return this.visible;}
+
+    protected boolean wrapWidth = false;
+    public void setWrapWidth(boolean wrapWidth) {this.wrapWidth = wrapWidth;}
+
 }

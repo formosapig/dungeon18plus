@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -125,7 +124,6 @@ public class DungeonScreen extends QQScreen {
         int actionCount = manager.getActionSlotCount();
         // 由於會縮放,需要注意 int 會導致捨位誤差...
         float actionWidth = ((Game.WIDTH) - (actionCount - 1) * 2) / (float)actionCount;
-        Gdx.app.error("DungeonScreen.java", "actionWidth = " + actionWidth);
 
         for (int i = 0; i < actionCount; ++i) {
             ActionSlot slot = manager.getActionSlot(i);
@@ -138,8 +136,6 @@ public class DungeonScreen extends QQScreen {
                     slot.action.cost.value
                     );
             action.setSize(actionWidth, 64);
-            float pos = (actionWidth + 2) * i;
-            Gdx.app.error("DungeonScreen.java", "pos = " + pos);
             action.setPosition((actionWidth + 2) * i, 0);
             action.addQQClickListener(new QQClickListener() {
                 @Override
@@ -160,7 +156,7 @@ public class DungeonScreen extends QQScreen {
 
     public void update() {
         // 1. heroview
-        heroView.setData(manager.getHero());
+        heroView.update(manager.getHero());
         // 2. event list
         for (int i = 0, s = eventViews.size(); i < s; ++i) {
             EventView evt = eventViews.get(i);

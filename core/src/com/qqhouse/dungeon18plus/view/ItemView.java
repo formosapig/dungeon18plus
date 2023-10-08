@@ -29,6 +29,16 @@ public class ItemView extends QQView {
         touchable = false; // do not touch item ....
     }
 
+    public ItemView(BitmapFont font) {
+        this.font = font;
+        touchable = false;
+    }
+
+
+    public void setIcon(Texture icon) {
+        this.icon = icon;
+    }
+
     public void setCountable(boolean countable) {
         this.countable = countable;
     }

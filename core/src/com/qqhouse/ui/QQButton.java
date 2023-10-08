@@ -25,6 +25,12 @@ public class QQButton extends QQView implements QQView.IsTouchable {
         //bgDisable.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
+    public void setButtonBackground(NinePatch normal, NinePatch pressed, NinePatch disable) {
+        bgNormal = normal;
+        bgPressed = pressed;
+        bgDisable = disable;
+    }
+
     @Override
     protected void drawBackground(SpriteBatch batch, float originX, float originY) {
         if (!enable && null != bgDisable) {
