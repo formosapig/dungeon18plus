@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -8,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.ui.QQButton;
-import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
 public class PreviewView extends QQButton {
@@ -40,8 +38,8 @@ public class PreviewView extends QQButton {
      */
 
 
-    public PreviewView(String btnKey, Texture icon, BitmapFont fntName, String name, BitmapFont fntDesc, String desc) {
-        super(btnKey);
+    public PreviewView(BackgroundSet set, Texture icon, BitmapFont fntName, String name, BitmapFont fntDesc, String desc) {
+        super(set);
         this.icon = icon;
         this.fntName = fntName;
         this.name = name;
@@ -115,4 +113,5 @@ public class PreviewView extends QQButton {
     public void dispose() {
 
     }
+
 }

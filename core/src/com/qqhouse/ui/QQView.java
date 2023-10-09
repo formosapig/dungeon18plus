@@ -6,28 +6,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class QQView {
 
-    public interface IsParentView {
-        abstract void drawChildrenView(SpriteBatch batch, float originX, float originY);
+    public interface IsParent {
+        void addChild(QQView view);
+        void drawChildren(SpriteBatch batch, float originX, float originY);
     }
-    protected IsParentView visitor = null;
 
     public interface IsTouchable {
-        abstract void cancelTouching();
+        void cancelTouching();
     }
 
     public static final int WRAP_CONTENT = -1;  // 保有 view 的 size
     public static final int FILL_PARENT  = -2;  // 最大的填充 parent 的 size
-
-
-    /*
-        with screen
-     */
-    //public QQView(QQScreen master) {
-        //this.master = master;
-        //master.addView(this);
-    //}
-
-    //protected QQScreen master;
 
     public QQView hit(float relativeX, float relativeY) {
         if (relativeX >= 0 && relativeX <= width && relativeY >= 0 && relativeY <= height)
@@ -69,9 +58,9 @@ public abstract class QQView {
     public final void draw(SpriteBatch batch, float parentX, float parentY) {
         drawBackground(batch, parentX + x, parentY + y);
         drawForeground(batch, parentX + x, parentY + y);
-        if (this instanceof IsParentView) {
+        if (this instanceof IsParent) {
             // 當自己成為 parent 時, 傳入加上 x, y 後的偏移值
-            ((IsParentView) this).drawChildrenView(batch, parentX + x, parentY + y);
+            ((IsParent) this).drawChildren(batch, parentX + x, parentY + y);
         }
     }
 

@@ -13,7 +13,7 @@ public class QQText extends QQView{
     protected BitmapFont font;
     protected Color color = null;
     protected String text = "";
-    protected int align;
+    protected int align = Align.center;
     protected float shiftX, shiftY;
     private float alpha = 1; // 0 ~ 1
 

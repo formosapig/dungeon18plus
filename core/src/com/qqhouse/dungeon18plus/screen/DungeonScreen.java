@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -8,6 +9,7 @@ import com.qqhouse.dungeon18plus.core.DungeonManager;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
+import com.qqhouse.dungeon18plus.struct.EventResult;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.view.ActionView;
 import com.qqhouse.dungeon18plus.view.EventView;
@@ -59,18 +61,7 @@ public class DungeonScreen extends QQScreen {
         //fntDigital.setFixedWidthGlyphs("0123456789");
 
         // hero view ...
-        heroView = new HeroView(manager.getHero().heroClass.alignment.key, assets);
-        heroView.preset(
-                assets.getBlockee(manager.getHero().heroClass.key), // hero
-                assets.getIcon16("life"), // life
-                assets.getIcon16("attack"), // attack
-                assets.getIcon16("defense"), // defense
-                assets.getIcon16("speed"), // speed
-                assets.getItem("key"), // key
-                assets.getItem("copper_coin"), // coin
-                assets.getItem("star") // star
-        );
-        heroView.setFont(fntDigital, fntSmallDigital);
+        heroView = new HeroView(assets);
         heroView.setPadding(8);
         heroView.setPosition(0, Game.HEIGHT - 64);
         //heroView.setSize(QQView.FILL_PARENT, 64);
@@ -91,7 +82,7 @@ public class DungeonScreen extends QQScreen {
         for (int i = 0; i < eventCount; ++i) {
             Event event = manager.getEvent(i);
 
-            EventView evt = new EventView(event.type.align.key, assets);
+            EventView evt = new EventView(assets);
             evt.setSize(Game.WIDTH, 64);
             evt.reset(event);
             evt.addQQClickListener(new QQClickListener() {
@@ -108,14 +99,8 @@ public class DungeonScreen extends QQScreen {
             eventViews.add(evt);
         }
 
-
-
-
-
-
-
         // message view ...
-        lootInfo = new LootInfoView(assets.getBackground("loot_info"));
+        lootInfo = new LootInfoView(assets);
         lootInfo.setSize(Game.WIDTH, 24);
         lootInfo.setPosition(0, 64 + 2);
         addView(lootInfo);
@@ -129,7 +114,7 @@ public class DungeonScreen extends QQScreen {
             ActionSlot slot = manager.getActionSlot(i);
 
             ActionView action = new ActionView(
-                    manager.getHero().heroClass.alignment.key,
+                    assets.getBackgroundSet(manager.getHero().heroClass.alignment.key),
                     assets.getIcon32(manager.getActionSlot(i).action.key),
                     fntSmallDigital,
                     assets.getIcon16(slot.action.cost.getIcon16Key()),
@@ -163,6 +148,7 @@ public class DungeonScreen extends QQScreen {
             evt.setEnable(manager.isEventDoable(i));
             evt.update(manager.getEvent(i));
         }
+        lootInfo.update(manager.eventResult);
         // 3. action list
         for (int i = 0, s = actionViews.size(); i < s; ++i) {
             actionViews.get(i).setEnable(manager.canDoAction(i));

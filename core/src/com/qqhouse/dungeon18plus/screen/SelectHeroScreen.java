@@ -91,7 +91,8 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
 
         for (int i = 0, s = tmp.size(); i < s; ++i) {
             HeroClass hero = tmp.get(i);
-            PreviewView view = new PreviewView(hero.alignment.key, // Alignment decides background.
+            PreviewView view = new PreviewView(
+                    assets.getBackgroundSet(hero.alignment.key), // Alignment decides background.
                     assets.getBlockee(hero.key),
                     fntName,
                     assets.geti18n(hero.key),

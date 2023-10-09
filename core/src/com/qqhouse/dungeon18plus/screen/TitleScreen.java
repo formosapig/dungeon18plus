@@ -41,7 +41,7 @@ public class TitleScreen extends QQScreen {
         float menu_width = 240;
         float menu_height = 64;
         float menu_margin = 6;
-        menus.add(new TitleMenuView(ORDINARY.key,
+        menus.add(new TitleMenuView(assets.getBackgroundSet(ORDINARY.key),
                 assets.getBlockee("skeleton_fighter"),
                 font,
                 assets.geti18n("dungeon"))
@@ -50,7 +50,7 @@ public class TitleScreen extends QQScreen {
 
         // Tower : collect five hero class.
         if (savedGame.isGameModeUnlocked(Game.GAME_MODE_TOWER)) {
-            menus.add(new TitleMenuView(LAWFUL.key,
+            menus.add(new TitleMenuView(assets.getBackgroundSet(LAWFUL.key),
                     assets.getBlockee("fire_sorcerer"),
                     font,
                     assets.geti18n("tower"))
@@ -60,7 +60,7 @@ public class TitleScreen extends QQScreen {
 
         // Colosseum : defeat skeleton fighter in the dungeon.
         if (savedGame.isGameModeUnlocked(Game.GAME_MODE_COLOSSEUM)) {
-            menus.add(new TitleMenuView(NEUTRAL.key,
+            menus.add(new TitleMenuView(assets.getBackgroundSet(NEUTRAL.key),
                     assets.getBlockee("arena"),
                     font,
                     assets.geti18n("colosseum"))
@@ -71,7 +71,7 @@ public class TitleScreen extends QQScreen {
 
         // Wilderness : see sword master in the colosseum.
         if (savedGame.isGameModeUnlocked(Game.GAME_MODE_WILDERNESS)) {
-            menus.add(new TitleMenuView(SPECIAL.key,
+            menus.add(new TitleMenuView(assets.getBackgroundSet(SPECIAL.key),
                     assets.getBlockee("steel_cyclops"),
                     font,
                     assets.geti18n("wilderness"))
@@ -82,7 +82,7 @@ public class TitleScreen extends QQScreen {
 
         // Castle : defeat demon in wilderness
         if (savedGame.isGameModeUnlocked(Game.GAME_MODE_CASTLE)) {
-            menus.add(new TitleMenuView(CHAOTIC.key,
+            menus.add(new TitleMenuView(assets.getBackgroundSet(CHAOTIC.key),
                     assets.getBlockee("skeleton_king"),
                     font,
                     assets.geti18n("castle"))
@@ -92,7 +92,7 @@ public class TitleScreen extends QQScreen {
         }
 
         // Library : default
-        menus.add(new TitleMenuView(LAWFUL.key,
+        menus.add(new TitleMenuView(assets.getBackgroundSet(LAWFUL.key),
                 assets.getBlockee("merchant"),
                 // 下面這行 code 把 texture 變成灰階的了,笑死
                 //new Texture(Gdx.files.internal("blockee/merchant.png"), Pixmap.Format.LuminanceAlpha, true),

@@ -24,6 +24,12 @@ public class Game {
     public static final int HEIGHT = 760; // in pixel
     public static final int UI_MARGIN = 4; // in pixel
 
+    public static final class Size {
+        public static final int WIDGET_MARGIN = 2; // margin between widgets
+        public static final int INNER_MARGIN = 2;  // margin inside widget
+    }
+
+
     // blockee size.
     public static final int BLOCKEE_SIZE = 48;
 

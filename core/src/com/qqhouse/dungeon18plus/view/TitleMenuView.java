@@ -1,13 +1,10 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.qqhouse.ui.QQButton;
-import com.qqhouse.ui.QQScreen;
 
 public class TitleMenuView extends QQButton {
 
@@ -16,8 +13,8 @@ public class TitleMenuView extends QQButton {
     private String menu;
     private float menuShiftX, menuShiftY;
 
-    public TitleMenuView(String buttonKey, Texture blockee, BitmapFont font, String menu) {
-        super(buttonKey);
+    public TitleMenuView(BackgroundSet set, Texture blockee, BitmapFont font, String menu) {
+        super(set);
         this.blockee = blockee;
         this.font = font;
         this.menu = menu;

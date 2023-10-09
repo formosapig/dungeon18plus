@@ -3,7 +3,7 @@ package com.qqhouse.ui;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.SnapshotArray;
 
-public class QQGroupView extends QQView implements QQView.IsParentView {
+public class QQGroupView extends QQView implements QQView.IsParent {
 
     SnapshotArray<QQView> children;
 
@@ -29,7 +29,12 @@ public class QQGroupView extends QQView implements QQView.IsParentView {
     //}
 
     @Override
-    public void drawChildrenView(SpriteBatch batch, float relativeX, float relativeY) {
+    public void addChild(QQView view) {
+
+    }
+
+    @Override
+    public void drawChildren(SpriteBatch batch, float originX, float originY) {
 
     }
 }

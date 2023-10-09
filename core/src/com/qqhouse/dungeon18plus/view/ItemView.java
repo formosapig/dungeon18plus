@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Align;
 import com.qqhouse.ui.QQView;
 
 public class ItemView extends QQView {
@@ -72,4 +71,28 @@ public class ItemView extends QQView {
 
     @Override
     public void dispose() {}
+
+    /*
+        chain method
+     */
+    public ItemView color(Color color) {
+        this.color = color;
+        return this;
+    }
+
+    public ItemView size(float width, float height) {
+        super.setSize(width, height);
+        return this;
+    }
+
+    public ItemView position(float x, float y) {
+        super.setPosition(x, y);
+        return this;
+    }
+
+    public ItemView attach(IsParent parent) {
+        parent.addChild(this);
+        return this;
+    }
+
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
+import com.qqhouse.dungeon18plus.Game;
 
 import java.util.ArrayList;
 
@@ -18,11 +19,10 @@ import java.util.ArrayList;
 
 
 */
-public class QQListView extends QQView implements QQView.IsParentView {
+public class QQListView extends QQView implements QQView.IsParent {
 
     public QQListView() {
         //super(master);
-        childrenView = new ArrayList<QQView>();
         calculateAnchorY = true;
         anchorY = 0;
         scrollY = 0;
@@ -30,7 +30,6 @@ public class QQListView extends QQView implements QQView.IsParentView {
         maxScrollY = 0;
     }
 
-    private final ArrayList<QQView> childrenView;
     private boolean calculateAnchorY;
     private float anchorY;
     private float touchY, scrollY, maxScrollY, previousScrollY; // vertical only.
@@ -49,9 +48,9 @@ public class QQListView extends QQView implements QQView.IsParentView {
         }
         childrenView.add(view);
         rearrangeChildren();
-        float totalHeight = -2;
+        float totalHeight = - Game.Size.WIDGET_MARGIN;
         for (QQView v : childrenView) {
-            totalHeight += 2 + v.height; // 2 = widget margin...
+            totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
         }
         maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
     }
@@ -65,47 +64,13 @@ public class QQListView extends QQView implements QQView.IsParentView {
 
             view.setPosition(/*x + */leftPadding, posY + scrollY);
 
-            anchorY = posY - 2;
+            anchorY = posY - Game.Size.WIDGET_MARGIN;
         }
         // 好像不應該放在這邊....
         //maxScrollY = -anchorY;
     }
 
-    @Override
-    public void drawChildrenView(SpriteBatch batch, float relativeX, float relativeY) {
 
-        //batch.flush();
-
-        // test using openGL scissor test
-        //Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
-
-        // 尺寸不對, 這是螢幕的尺寸, 但我們擁有的是繪圖的尺寸...
-        //Gdx.gl.glScissor((int)x, (int)y, 350, 400/*(int)height*/);
-
-        //Gdx.app.error("TEST", "ListView :" + x + "," + y + "," + width + "," + height);
-
-        // flush previous draw...
-        batch.flush();
-
-        Rectangle scissors = new Rectangle();
-        Rectangle clipBounds = new Rectangle(x, y, width, height);
-        ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
-        if (ScissorStack.pushScissors(scissors)) {
-            for (QQView view : childrenView) {
-                //if (view.getY() <= height || view.getY() >= 0) {
-                    // draw views in visible range.
-                    view.draw(batch, relativeX, relativeY);
-                //}
-            }
-            batch.flush();
-            ScissorStack.popScissors();
-        }
-
-        //batch.flush();
-
-        //Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
-
-    }
 
     @Override
     public void dispose() {
@@ -229,4 +194,51 @@ public class QQListView extends QQView implements QQView.IsParentView {
         //ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
 
     }
+
+    /*
+        IsParent series
+     */
+    private ArrayList<QQView> childrenView = new ArrayList<>();
+    @Override
+    public void addChild(QQView view) {
+        childrenView.add(view);
+    }
+
+    @Override
+    public void drawChildren(SpriteBatch batch, float relativeX, float relativeY) {
+
+        //batch.flush();
+
+        // test using openGL scissor test
+        //Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
+
+        // 尺寸不對, 這是螢幕的尺寸, 但我們擁有的是繪圖的尺寸...
+        //Gdx.gl.glScissor((int)x, (int)y, 350, 400/*(int)height*/);
+
+        //Gdx.app.error("TEST", "ListView :" + x + "," + y + "," + width + "," + height);
+
+        // flush previous draw...
+        batch.flush();
+
+        Rectangle scissors = new Rectangle();
+        Rectangle clipBounds = new Rectangle(x, y, width, height);
+        ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
+        if (ScissorStack.pushScissors(scissors)) {
+            for (QQView view : childrenView) {
+                //if (view.getY() <= height || view.getY() >= 0) {
+                // draw views in visible range.
+                if (view.isVisible())
+                    view.draw(batch, relativeX, relativeY);
+                //}
+            }
+            batch.flush();
+            ScissorStack.popScissors();
+        }
+
+        //batch.flush();
+
+        //Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
+
+    }
+
 }

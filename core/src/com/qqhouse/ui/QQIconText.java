@@ -1,6 +1,7 @@
 package com.qqhouse.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -66,13 +67,31 @@ public class QQIconText extends QQText {
         super.drawForeground(batch, originX, originY);
     }
 
-    //@Override
-    //public void setText(String text) {
-    //    GlyphLayout glyphs = new GlyphLayout();
-    //    glyphs.setText(font, text);
+    /*
+        chain methods...
+     */
+    public QQIconText color(Color color) {
+        super.setColor(color);
+        return this;
+    }
 
-    //    width = 16 + 2 + glyphs.width;
-    //    super.setText(text);
-    //}
+    public QQIconText align(int align) {
+        super.setAlign(align);
+        return this;
+    }
 
+    public QQIconText size(float width, float height) {
+        super.setSize(width, height);
+        return this;
+    }
+
+    public QQIconText position(float x, float y) {
+        super.setPosition(x, y);
+        return this;
+    }
+
+    public QQIconText attach(IsParent parent) {
+        parent.addChild(this);
+        return this;
+    }
 }

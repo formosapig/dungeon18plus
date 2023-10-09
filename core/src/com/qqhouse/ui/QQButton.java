@@ -4,31 +4,36 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class QQButton extends QQView implements QQView.IsTouchable {
+
+    public static class BackgroundSet {
+        public NinePatch normal;
+        public NinePatch pressed;
+        public NinePatch disable;
+    }
 
     private boolean pressed = false;
     private boolean enable = true;
     private NinePatch bgPressed = null;
     private NinePatch bgDisable = null;
 
-    public QQButton(String buttonKey) {
-        //super(master);
-        String resBase = "button/" + buttonKey;
-        bgNormal = new NinePatch(new Texture(Gdx.files.internal(resBase + "_up.png")), 4, 4, 4, 4);
-        //bgNormal.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        bgPressed = new NinePatch(new Texture(Gdx.files.internal(resBase + "_down.png")), 4, 4, 4, 4);
-        //bgPressed.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        bgDisable = new NinePatch(new Texture(Gdx.files.internal("button/disable.png")), 4, 4, 4, 4);
-        //bgDisable.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+    public QQButton(BackgroundSet set) {
+        setBackground(set);
+        //bgNormal = new NinePatch(assets.getTexture("button", buttonKey + "_up"), 4, 4, 4, 4);
+        //bgPressed = new NinePatch(assets.getTexture("button", buttonKey + "_down"), 4, 4, 4, 4);
+        //bgDisable = new NinePatch(assets.getTexture("button", "disable"), 4, 4, 4, 4);
     }
 
-    public void setButtonBackground(NinePatch normal, NinePatch pressed, NinePatch disable) {
-        bgNormal = normal;
-        bgPressed = pressed;
-        bgDisable = disable;
+    public QQButton() {}
+
+    public void setBackground(BackgroundSet set) {
+        bgNormal = set.normal;
+        bgPressed = set.pressed;
+        bgDisable = set.disable;
     }
 
     @Override
@@ -92,11 +97,7 @@ public class QQButton extends QQView implements QQView.IsTouchable {
     }
 
     @Override
-    public void dispose() {
-        bgNormal.getTexture().dispose();
-        bgPressed.getTexture().dispose();
-        bgDisable.getTexture().dispose();
-    }
+    public void dispose() {}
 
     @Override
     public void cancelTouching() {

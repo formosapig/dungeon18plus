@@ -15,8 +15,8 @@ public class ActionView extends QQButton {
         fixed cost value ?
      */
 
-    public ActionView(String buttonKey, Texture icon, BitmapFont costFont, Texture costIcon, int costValue) {
-        super(buttonKey);
+    public ActionView(BackgroundSet set, Texture icon, BitmapFont costFont, Texture costIcon, int costValue) {
+        super(set);
         this.icon = icon;
         cost = new QQIconText(costFont, costIcon);
         cost.setSize(36, 16);

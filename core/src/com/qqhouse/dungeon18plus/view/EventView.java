@@ -18,21 +18,13 @@ import com.qqhouse.ui.QQView;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class EventView extends QQButton implements QQView.IsParentView {
+public class EventView extends QQButton implements QQView.IsParent {
 
-    public EventView(String buttonKey, Assets assets) {
-        super(buttonKey);
+    private Assets assets;
+    public EventView(Assets assets) {
         this.assets = assets;
     }
 
-    private void setButtonBackground(String buttonKey) {
-        super.setButtonBackground(
-                new NinePatch(assets.getButton(buttonKey + "_up"), 4, 4, 4, 4),
-                new NinePatch(assets.getButton(buttonKey + "_down"), 4, 4, 4, 4),
-                new NinePatch(assets.getButton("disable"), 4, 4, 4, 4));
-    }
-
-    private Assets assets;
     private Texture icon;
     private ItemView item; // loot
     private QQIconText cost; // big font ?!
@@ -175,7 +167,7 @@ public class EventView extends QQButton implements QQView.IsParentView {
             ability.setVisible(false);
         }
 
-        setButtonBackground(event.type.align.key);
+        setBackground(assets.getBackgroundSet(event.type.align.key));
     }
 
 
@@ -187,9 +179,18 @@ public class EventView extends QQButton implements QQView.IsParentView {
 
     }
 
+    /*
+        IsParent series
+     */
     private ArrayList<QQView> childrenView = new ArrayList<>();
+
     @Override
-    public void drawChildrenView(SpriteBatch batch, float originX, float originY) {
+    public void addChild(QQView view) {
+        childrenView.add(view);
+    }
+
+    @Override
+    public void drawChildren(SpriteBatch batch, float originX, float originY) {
         for (QQView view : childrenView) {
             if (view.isVisible()) {
                 view.draw(batch, originX, originY);
