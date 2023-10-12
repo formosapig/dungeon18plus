@@ -9,7 +9,6 @@ import com.qqhouse.dungeon18plus.core.DungeonManager;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
-import com.qqhouse.dungeon18plus.struct.EventResult;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.view.ActionView;
 import com.qqhouse.dungeon18plus.view.EventView;
@@ -17,8 +16,9 @@ import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.ui.QQClickListener;
-import com.qqhouse.ui.QQListView;
+import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQScreen;
+import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
 
@@ -32,6 +32,7 @@ public class DungeonScreen extends QQScreen {
 
     public void setHero(HeroClass hero) {
         manager = new DungeonManager(hero, savedGame);
+        manager.setAdapter(eventAdapter);
     }
 
     public DungeonScreen(SaveGame savedGame, Viewport viewport, Assets assets) {
@@ -43,6 +44,39 @@ public class DungeonScreen extends QQScreen {
     private ArrayList<ActionView> actionViews = new ArrayList<>();
     private LootInfoView lootInfo;
     private ArrayList<EventView> eventViews = new ArrayList<>();
+    private QQList eventList;
+
+    /*
+        QQList Adapter ...
+     */
+    private QQList.Adapter eventAdapter = new QQList.Adapter() {
+
+        @Override
+        public int getSize() {
+            return manager.getEventCount();
+        }
+
+        @Override
+        public EventView getView(int index) {
+            Event event = manager.getEvent(index);
+
+            EventView evt = new EventView(assets);
+            evt.setSize(Game.WIDTH, 64);
+            evt.reset(event);
+
+            return evt;
+        }
+
+        @Override
+        public void updateView(int index, QQView view) {
+            EventView v = (EventView) view;
+            v.setEnable(manager.isEventDoable(index));
+            v.update(manager.getEvent(index));
+
+        }
+    };
+
+
 
 
     @Override
@@ -71,33 +105,48 @@ public class DungeonScreen extends QQScreen {
         addView(heroView);
 
         // event listview ...
-        QQListView list = (QQListView) new QQListView()
-                .size(Game.WIDTH, Game.HEIGHT - 64 -2 - 2 - 24 - 2 - 64).
-                position(0, 64 + 2 + 24 + 2);
-        list.setCamera(getCamera());
-        addView(list);
-
-        int eventCount = manager.getEventCount();
-
-        for (int i = 0; i < eventCount; ++i) {
-            Event event = manager.getEvent(i);
-
-            EventView evt = new EventView(assets);
-            evt.setSize(Game.WIDTH, 64);
-            evt.reset(event);
-            evt.addQQClickListener(new QQClickListener() {
-                @Override
-                public void onClick(int index) {
-                    if (manager.isEventDoable(index)) {
-                        manager.doEvent();
-                        update();
-                    }
+        eventList = new QQList();
+        eventList.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
+        eventList.setPosition(0, 64 + 2 + 24 + 2);
+        eventList.setCamera(getCamera());
+        eventList.setAdapter(eventAdapter);
+        eventList.addQQClickListener(new QQClickListener() {
+            @Override
+            public void onClick(int index) {
+                if (manager.isEventDoable(index)) {
+                    manager.doEvent();
+                    update();
                 }
-            }, i);
+            }});
+        addView(eventList);
 
-            list.addView(evt);
-            eventViews.add(evt);
-        }
+        //QQListView list = (QQListView) new QQListView()
+        //        .size(Game.WIDTH, Game.HEIGHT - 64 -2 - 2 - 24 - 2 - 64).
+        //        position(0, 64 + 2 + 24 + 2);
+        //list.setCamera(getCamera());
+        //addView(list);
+
+        //int eventCount = manager.getEventCount();
+
+        //for (int i = 0; i < eventCount; ++i) {
+        //    Event event = manager.getEvent(i);
+
+        //    EventView evt = new EventView(assets);
+        //    evt.setSize(Game.WIDTH, 64);
+        //    evt.reset(event);
+        //    evt.addQQClickListener(new QQClickListener() {
+        //        @Override
+        //        public void onClick(int index) {
+        //            if (manager.isEventDoable(index)) {
+        //                manager.doEvent();
+        //                update();
+        //            }
+        //        }
+        //    }, i);
+
+        //    list.addView(evt);
+        //    eventViews.add(evt);
+        //}
 
         // message view ...
         lootInfo = new LootInfoView(assets);
@@ -130,6 +179,7 @@ public class DungeonScreen extends QQScreen {
                         // update status...
                         update();
                     }
+                    debug();
                 }
             }, i);
             actionViews.add(action);
@@ -139,15 +189,25 @@ public class DungeonScreen extends QQScreen {
         update();
     }
 
+    private void debug() {
+        Gdx.app.error("DungeonScreen", "event table = .....");
+        for (int i = 0; i < manager.getEventCount(); ++i) {
+            Gdx.app.error("DungeonScreen", String.format("Event %2d = %s", i, manager.getEvent(i).toString()));
+        }
+
+    }
+
     public void update() {
         // 1. heroview
         heroView.update(manager.getHero());
         // 2. event list
-        for (int i = 0, s = eventViews.size(); i < s; ++i) {
-            EventView evt = eventViews.get(i);
-            evt.setEnable(manager.isEventDoable(i));
-            evt.update(manager.getEvent(i));
-        }
+        //for (int i = 0, s = eventViews.size(); i < s; ++i) {
+        //    EventView evt = eventViews.get(i);
+        //    evt.setEnable(manager.isEventDoable(i));
+        //    evt.update(manager.getEvent(i));
+        //}
+        eventAdapter.updateAll();
+
         lootInfo.update(manager.eventResult);
         // 3. action list
         for (int i = 0, s = actionViews.size(); i < s; ++i) {

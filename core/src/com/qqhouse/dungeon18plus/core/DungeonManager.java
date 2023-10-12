@@ -13,6 +13,7 @@ import com.qqhouse.dungeon18plus.struct.EventInfo;
 import com.qqhouse.dungeon18plus.struct.EventResult;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.struct.Varier;
+import com.qqhouse.ui.QQList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,7 +61,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     private int bossLevel = 0;
 
     // RecyclerViewAdapter
-    //private RecyclerViewAdapter mAdapter;
+    private QQList.Adapter mAdapter;
     //private RecyclerViewAdapter mSpecialAdapter;
 
     // special event
@@ -416,9 +417,9 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         return isEventDoable(mEvents.get(position));
     }
     
-    //public void setAdapter(RecyclerViewAdapter adapter) {
-    //    mAdapter = adapter;
-    //}
+    public void setAdapter(QQList.Adapter adapter) {
+        mAdapter = adapter;
+    }
     
     /*
      * attribute up series
@@ -539,7 +540,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         final Event evt = mEvents.get(mEventIndex);
         // remove it first
         mEvents.remove(mEventIndex);
-        //mAdapter.remove(mEventIndex);
+        mAdapter.remove(mEventIndex);
 
         return doEventImpl(evt);
     }
@@ -725,9 +726,9 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 //}
             } else {
                 mEvents.add(newEvent);
-                //if (null != mAdapter) {
-                //    mAdapter.insert(mEvents.size() - 1);
-                //}
+                if (null != mAdapter) {
+                    mAdapter.insert(mEvents.size() - 1);
+                }
             }
             added++;
         }

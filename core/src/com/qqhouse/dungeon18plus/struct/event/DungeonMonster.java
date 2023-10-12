@@ -43,6 +43,11 @@ public class DungeonMonster extends BattleEvent {
         }
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s%d", this.type.toString(), this.mLevel);
+    }
+
 
 
 }
