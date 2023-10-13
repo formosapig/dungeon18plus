@@ -107,8 +107,15 @@ public abstract class QQGameMachine implements ApplicationListener {
         viewport.update(width, height);
     }
 
+    private boolean firstRender = false;
+
     @Override
     public void render() {
+
+        if (!firstRender) {
+            Gdx.app.error("QQGameMachine", "first render called.");
+            firstRender = true;
+        }
         //Gdx.app.error("TEST", "QQGameMachine.render()");
         // act, calculate ui actions and so on....
         // minimum is 30 fps
