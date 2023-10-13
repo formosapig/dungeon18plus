@@ -81,8 +81,22 @@ public class QQList extends QQView implements QQView.IsParent {
         }
         maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
     }
+
     public void remove(int index) {
-        childrenView.remove(index);
+        removeTarget = childrenView.remove(index);
+        removeTarget.applyAnimation(new RemoveAnimation(this.width / 0.66f, this.width).listener(
+                new QQAnimation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart() {}
+
+                    @Override
+                    public void onAnimationEnd() {
+                        removeTarget = null;
+                    }
+                }
+        ));
+
+        //childrenView.remove(index);
         rearrangeChildren();
         float totalHeight = - Game.Size.WIDGET_MARGIN;
         for (QQView v : childrenView) {
@@ -90,9 +104,46 @@ public class QQList extends QQView implements QQView.IsParent {
         }
         maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
     }
+
     public void updateAll() {
         for (int i = 0, s = childrenView.size(); i < s; ++i) {
             adapter.updateView(i, childrenView.get(i));
+        }
+    }
+
+    /*
+        animation series
+     */
+    private QQView removeTarget;
+
+    @Override
+    public void act(float delta) {
+        for (QQView view : childrenView)
+            view.act(delta);
+        if (null != removeTarget)
+            removeTarget.act(delta);
+    }
+
+    private final float removeSpeed = Game.WIDTH / 0.33f;
+
+    private static final class RemoveAnimation extends QQAnimation {
+
+        private float removeVelocity, endX;
+        public RemoveAnimation(float removeVelocity, float endX) {
+            this.removeVelocity = removeVelocity;
+            this.endX = endX;
+        }
+
+        @Override
+        public boolean goOn(float delta) {
+            float x = target.getX() + delta * removeVelocity;
+            target.setPosition(x, target.getY());
+            return x < endX;
+        }
+
+        public RemoveAnimation listener(QQAnimation.AnimationListener listener) {
+            addListener(listener);
+            return this;
         }
     }
 
@@ -259,8 +310,8 @@ public class QQList extends QQView implements QQView.IsParent {
 
     @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {
-        batch.flush();
 
+        batch.flush();
         Rectangle scissors = new Rectangle();
         Rectangle clipBounds = new Rectangle(x, y, width, height);
         ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
@@ -275,5 +326,9 @@ public class QQList extends QQView implements QQView.IsParent {
             batch.flush();
             ScissorStack.popScissors();
         }
+        // remove target will not be cut..
+        if (null != removeTarget)
+            removeTarget.draw(batch, originX, originY);
+
     }
 }

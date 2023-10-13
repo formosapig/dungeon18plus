@@ -2,6 +2,7 @@ package com.qqhouse.dungeon18plus.screen;
 
 import static com.qqhouse.dungeon18plus.core.GameAlignment.*;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -32,6 +33,7 @@ public class TitleScreen extends QQScreen {
 
     @Override
     public void onEnter() {
+        Gdx.app.error("TitleScreen", "onEnter.");
         // bitmap font...
         font = createFont(28, new Color(0x9E8064FF), "地下城巫師塔圓形競技場荒原魔王城圖書館");
 
@@ -109,6 +111,7 @@ public class TitleScreen extends QQScreen {
             addView(menus.get(i));
             menus.get(i).setPosition(margin_x, startY - (menu_height + menu_margin) * i);
         }
+        Gdx.app.error("TitleScreen", "OnEnter finish.");
     }
 
     private QQClickListener clickListener = new QQClickListener() {

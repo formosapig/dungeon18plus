@@ -37,7 +37,20 @@ public abstract class QQView {
     /*
         called by QQScreen
      */
-    public void act(float delta) {};
+    /*
+        animation series
+     */
+    private QQAnimation animation;
+    public void applyAnimation(QQAnimation animation) {
+        this.animation = animation;
+        animation.target = this;
+        animation.start();
+    }
+
+    public void act(float delta) {
+        if (null != animation)
+            animation.act(delta);
+    };
 
     /*
         background series...
