@@ -11,7 +11,8 @@ import com.qqhouse.dungeon18plus.Game;
 
 import java.util.ArrayList;
 
-public class QQList extends QQView implements QQView.IsParent {
+public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchable {
+
 
     public static abstract class Adapter {
 
@@ -354,6 +355,7 @@ public class QQList extends QQView implements QQView.IsParent {
     public boolean touchUp(float relativeX, float relativeY) {
         if (0 < animationLock)
             return false;
+        touchY = -1;
         // 1. trace this event to exit scroll mode ...
         //touchDownPos = null; // ??
         //previousScrollY = scrollY;
@@ -385,7 +387,7 @@ public class QQList extends QQView implements QQView.IsParent {
      */
     @Override
     public boolean touchDragged(float relativeX, float relativeY) {
-        if (0 < animationLock)
+        if (0 < animationLock || 0 > touchY)
             return false;
         // 1. do scroll ...
         scrollY += relativeY - touchY;
@@ -412,16 +414,16 @@ public class QQList extends QQView implements QQView.IsParent {
         //}
 
         // 2. tell child to check if exit hit area.
-        for (QQView child : childrenView) {
-            child.touchDragged(relativeX - child.getX(), relativeY - child.getY());
-        }
+        //for (QQView child : childrenView) {
+        //    child.touchDragged(relativeX - child.getX(), relativeY - child.getY());
+        //}
 
         return false;
     }
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        if (0 < animationLock)
+        if (0 < animationLock || 0 > touchY)
             return false;
         // 1. do scroll ...
         scrollY += 20 * amountY;
@@ -431,6 +433,12 @@ public class QQList extends QQView implements QQView.IsParent {
         rearrangeChildren();
         return false;
     }
+
+    @Override
+    public void cancelTouching() {
+        touchY = -1;
+    }
+
 
     /*
         click listener

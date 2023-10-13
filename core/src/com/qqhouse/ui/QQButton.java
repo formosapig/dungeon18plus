@@ -88,11 +88,13 @@ public class QQButton extends QQView implements QQView.IsTouchable {
         return false;
     }
 
+    // list view 內的元件 cancel 的機制是另外一套?!
+
     @Override
     public boolean touchDragged(float x, float y) {
-        //if (pressed && null == hit(x, y)) {
-        //    pressed = false;
-        //}
+        if (pressed && null == hit(x, y)) {
+            pressed = false;
+        }
         return false;
     }
 

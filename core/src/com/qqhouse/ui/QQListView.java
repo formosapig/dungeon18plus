@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 
 */
-public class QQListView extends QQView implements QQView.IsParent {
+public class QQListView extends QQView implements QQView.IsParent, QQView.IsTouchable {
 
     public QQListView() {
         //super(master);
@@ -32,7 +32,7 @@ public class QQListView extends QQView implements QQView.IsParent {
 
     private boolean calculateAnchorY;
     private float anchorY;
-    private float touchY, scrollY, maxScrollY, previousScrollY; // vertical only.
+    private float touchY = -1, scrollY, maxScrollY, previousScrollY; // vertical only.
     private IsTouchable hitBeforeScroll = null;
 
     /*
@@ -119,6 +119,7 @@ public class QQListView extends QQView implements QQView.IsParent {
         //touchDownPos = null; // ??
         //previousScrollY = scrollY;
         //Gdx.app.error("QQListView.java", "previousScrollY = " + previousScrollY);
+        touchY = -1;
 
         // 2. tell child touch up
         QQView target = null;
@@ -140,6 +141,9 @@ public class QQListView extends QQView implements QQView.IsParent {
      */
     @Override
     public boolean touchDragged(float relativeX, float relativeY) {
+        //Gdx.app.error("QQListView", String.format("%4.2f,%4.2f,%4.2f",scrollY,relativeY,touchY));
+        if (0 > touchY)
+            return false;
         // 1. do scroll ...
         scrollY += relativeY - touchY;
         touchY = relativeY;
@@ -164,9 +168,9 @@ public class QQListView extends QQView implements QQView.IsParent {
         //}
 
         // 2. tell child to check if exit hit area.
-        for (QQView child : childrenView) {
-            child.touchDragged(relativeX - child.getX(), relativeY - child.getY());
-        }
+        //for (QQView child : childrenView) {
+        //    child.touchDragged(relativeX - child.getX(), relativeY - child.getY());
+        //}
 
         return false;
     }
@@ -241,4 +245,9 @@ public class QQListView extends QQView implements QQView.IsParent {
 
     }
 
+    @Override
+    public void cancelTouching() {
+        // child does not care...
+        touchY = -1;
+    }
 }

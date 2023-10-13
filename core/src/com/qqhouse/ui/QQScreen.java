@@ -45,6 +45,8 @@ public abstract class QQScreen extends InputAdapter {
         return stageCoords;
     }
 
+    private QQView.IsTouchable touchDownTarget = null;
+
     @Override
     public boolean touchDown (int screenX, int screenY, int pointer, int button) {
         // detect touch down.
@@ -59,6 +61,8 @@ public abstract class QQScreen extends InputAdapter {
             QQView v = views[i];
             target = v.hit(screenPos.x - v.getX(), screenPos.y - v.getY());
             if (null != target) {
+                if (target instanceof QQView.IsTouchable)
+                    touchDownTarget = (QQView.IsTouchable) target;
                 break;
             }
         }
@@ -88,7 +92,7 @@ public abstract class QQScreen extends InputAdapter {
     }
 
     public boolean touchUp (int screenX, int screenY, int pointer, int button) {
-        //Gdx.app.error("TEST", "touch up : " + this);
+        Gdx.app.error("QQScreen", "touchUp()");
         Vector2 screenPos = screenToStageCoordinates(new Vector2(screenX, screenY));
 
         QQView[] views = childrenView.items;
@@ -100,6 +104,10 @@ public abstract class QQScreen extends InputAdapter {
             if (null != target) {
                 break;
             }
+        }
+        if (target != touchDownTarget && null != touchDownTarget) {
+            touchDownTarget.cancelTouching();
+            touchDownTarget = null;
         }
         if (null != target) {
             // 傳入相對於 (0, 0) 的座標...
