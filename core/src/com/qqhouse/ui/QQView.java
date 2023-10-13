@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -42,9 +43,16 @@ public abstract class QQView {
      */
     private QQAnimation animation;
     public void applyAnimation(QQAnimation animation) {
+        if (null != this.animation) {
+            Gdx.app.error("QQView", "I am working.");
+        }
         this.animation = animation;
         animation.target = this;
         animation.start();
+    }
+
+    public void removeAnimation() {
+        this.animation = null;
     }
 
     public void act(float delta) {

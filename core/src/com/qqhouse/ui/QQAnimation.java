@@ -3,24 +3,22 @@ package com.qqhouse.ui;
 public abstract class QQAnimation {
 
     public interface AnimationListener {
-        void onAnimationStart();
-        void onAnimationEnd();
+        void onAnimationStart(QQView target);
+        void onAnimationEnd(QQView target);
     }
 
     protected QQView target;
     private AnimationListener listener;
-    private boolean running;
 
     public void start() {
         if (null != listener)
-            listener.onAnimationStart();
-        running = true;
+            listener.onAnimationStart(target);
     }
 
     public void stop() {
         if (null != listener)
-            listener.onAnimationEnd();
-        running = false;
+            listener.onAnimationEnd(target);
+        target.removeAnimation();
     }
 
     public void act(float delta) {

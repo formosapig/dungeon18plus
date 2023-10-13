@@ -114,7 +114,10 @@ public class DungeonScreen extends QQScreen {
             @Override
             public void onClick(int index) {
                 if (manager.isEventDoable(index)) {
+                    Gdx.app.error("DungeonScreen", " do event.");
                     manager.doEvent();
+                    Gdx.app.error("DungeonScreen", " update.");
+
                     update();
                 }
             }});

@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.Game;
-import com.qqhouse.dungeon18plus.view.EventView;
 
 import java.util.ArrayList;
 
@@ -73,36 +73,122 @@ public class QQList extends QQView implements QQView.IsParent {
     }
 
     public void insert(int index) {
-        childrenView.add(index, adapter.getView(index));
-        rearrangeChildren();
-        float totalHeight = - Game.Size.WIDGET_MARGIN;
-        for (QQView v : childrenView) {
-            totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
+        // 要插入之前所有的人往下移...
+        for (int i = index, s = childrenView.size(); i < s; ++i) {
+            QQView view = childrenView.get(i);
+            view.applyAnimation(new MoveVerticalAnimation(-view.getHeight() /0.2f, view.getHeight(), 0.0f).listener(new QQAnimation.AnimationListener() {
+                @Override
+                public void onAnimationStart(QQView target) {
+                    increaseAnimationLock();
+                    Gdx.app.error("QQList", "insert(move).start" + animationLock);
+                }
+
+                @Override
+                public void onAnimationEnd(QQView target) {
+                    //Gdx.app.error("QQList", "move up end and rearrange().");
+                    //rearrangeChildren();
+                    //float totalHeight = - Game.Size.WIDGET_MARGIN;
+                    //for (QQView v : childrenView) {
+                    //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
+                    //}
+                    //maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
+                    decreaseAnimationLock();
+                    Gdx.app.error("QQList", "insert(move).end" + animationLock);
+
+                }
+            }));
         }
-        maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
+
+        // 插入並且做插入的動畫...
+        QQView view = adapter.getView(index);
+        childrenView.add(index, view);
+        view.applyAnimation(new InsertAnimation(this.width / 0.2f, -this.width, 0f, 0.2f).listener(
+                new QQAnimation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(QQView target) {
+                        increaseAnimationLock();
+                        Gdx.app.error("QQList", "insert.start" + animationLock);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(QQView target) {
+                        decreaseAnimationLock();
+                        //target = null;
+                        //removeTarget = null;
+                        Gdx.app.error("QQList", "insert.end" + animationLock);
+                    }
+                }
+        ));
+
+
+
+        //rearrangeChildren();
+        //float totalHeight = - Game.Size.WIDGET_MARGIN;
+        //for (QQView v : childrenView) {
+        //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
+        //}
+        //maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
     }
 
     public void remove(int index) {
+        //Gdx.app.error("QQList", "start remove.");
         removeTarget = childrenView.remove(index);
-        removeTarget.applyAnimation(new RemoveAnimation(this.width / 0.66f, this.width).listener(
+        removeTarget.applyAnimation(new RemoveAnimation(this.width / 0.2f, this.width).listener(
                 new QQAnimation.AnimationListener() {
                     @Override
-                    public void onAnimationStart() {}
+                    public void onAnimationStart(QQView target) {
+                        increaseAnimationLock();
+                        Gdx.app.error("QQList", "remove.start" + animationLock);
+                    }
 
                     @Override
-                    public void onAnimationEnd() {
+                    public void onAnimationEnd(QQView target) {
+                        decreaseAnimationLock();
+                        Gdx.app.error("QQList", "remove.end" + animationLock);
+
+                        //target = null;
                         removeTarget = null;
                     }
                 }
         ));
 
-        //childrenView.remove(index);
-        rearrangeChildren();
-        float totalHeight = - Game.Size.WIDGET_MARGIN;
-        for (QQView v : childrenView) {
-            totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
+        // 先做一個永遠是下面往上移的版本來看看 ...
+
+        for (int i = index, s = childrenView.size(); i < s; ++i) {
+            QQView view = childrenView.get(i);
+            view.applyAnimation(new MoveVerticalAnimation(view.getHeight() /0.2f, view.getHeight(), 0.2f).listener(new QQAnimation.AnimationListener() {
+                @Override
+                public void onAnimationStart(QQView target) {
+                    increaseAnimationLock();
+                    Gdx.app.error("QQList", "remove(move).start" + animationLock);
+
+                }
+
+                @Override
+                public void onAnimationEnd(QQView target) {
+                    //decreaseAnimationLock();
+                    //Gdx.app.error("QQList", "move up end and rearrange().");
+                    //rearrangeChildren();
+                    //float totalHeight = - Game.Size.WIDGET_MARGIN;
+                    //for (QQView v : childrenView) {
+                    //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
+                    //}
+                    //maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
+                    decreaseAnimationLock();
+                    Gdx.app.error("QQList", "remove(move).end" + animationLock);
+
+                }
+            }));
         }
-        maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
+        //Gdx.app.error("QQList", "remove end.");
+
+        //childrenView.remove(index);
+        //rearrangeChildren();
+        //float totalHeight = - Game.Size.WIDGET_MARGIN;
+        //for (QQView v : childrenView) {
+        //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
+        //}
+        //maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
     }
 
     public void updateAll() {
@@ -115,6 +201,25 @@ public class QQList extends QQView implements QQView.IsParent {
         animation series
      */
     private QQView removeTarget;
+    private int animationLock = 0;
+    private void increaseAnimationLock() {
+        animationLock++;
+        //Gdx.app.error("QQList", "animation lock++ : " + animationLock );
+    }
+    private void decreaseAnimationLock() {
+        animationLock--;
+        //Gdx.app.error("QQList", "animation lock-- : " + animationLock );
+        if (0 == animationLock) {
+            rearrangeChildren();
+            float totalHeight = - Game.Size.WIDGET_MARGIN;
+            for (QQView v : childrenView) {
+                totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
+            }
+            maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
+        } else if (0 > animationLock) {
+            throw new GdxRuntimeException("animation lock error.");
+        }
+    }
 
     @Override
     public void act(float delta) {
@@ -124,7 +229,42 @@ public class QQList extends QQView implements QQView.IsParent {
             removeTarget.act(delta);
     }
 
-    private final float removeSpeed = Game.WIDTH / 0.33f;
+    //private final float removeSpeed = Game.WIDTH / 0.33f;
+    private static final class InsertAnimation extends QQAnimation {
+
+        private float velocity, startX, endX, delay;
+        public InsertAnimation(float velocity, float startX, float endX, float delay) {
+            this.velocity = velocity;
+            this.startX = startX;
+            this.endX = endX;
+            this.delay = delay;
+            //target.setPosition(startX, target.getY());
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            target.setPosition(startX, target.getY());
+        }
+
+        @Override
+        public boolean goOn(float delta) {
+            if (delay > 0) {
+                delay -= delta;
+            } else {
+                float x = target.getX() + delta * velocity;
+                target.setPosition(x, target.getY());
+                if (x >= endX)
+                    return false;
+            }
+            return true;
+        }
+
+        public InsertAnimation listener(QQAnimation.AnimationListener listener) {
+            addListener(listener);
+            return this;
+        }
+    }
 
     private static final class RemoveAnimation extends QQAnimation {
 
@@ -147,10 +287,44 @@ public class QQList extends QQView implements QQView.IsParent {
         }
     }
 
+    private static final class MoveVerticalAnimation extends QQAnimation {
+
+        private float velocity, distance, delay;
+        public MoveVerticalAnimation(float velocity, float distance, float delay) {
+            this.velocity = velocity;
+            this.distance = distance;
+            this.delay = delay;
+            //Gdx.app.error("QQList", "move up : " + moveUpVelocity + "," + distance + "," + delay);
+        }
+
+        @Override
+        public boolean goOn(float delta) {
+            // delay first
+            if (delay >= 0) {
+                delay -= delta;
+            } else {
+                float y = target.getY() + delta * velocity;
+                distance -= Math.abs(delta * velocity);
+                target.setPosition(target.getX(), y);
+                if (distance <= 0)
+                    return false;
+            }
+            return true;
+        }
+
+        public MoveVerticalAnimation listener(QQAnimation.AnimationListener listener) {
+            addListener(listener);
+            return this;
+        }
+
+    }
+
     private Vector2 touchDownPos;// = new Vector2();
     // get (x, y) relative to my position
     @Override
     public boolean touchDown(float relativeX, float relativeY) {
+        if (0 < animationLock)
+            return false;
         // 1. keep touch down position for scroll
         //touchDownPos = new Vector2(relativeX, relativeY);
         touchY = relativeY;
@@ -178,6 +352,8 @@ public class QQList extends QQView implements QQView.IsParent {
      */
     @Override
     public boolean touchUp(float relativeX, float relativeY) {
+        if (0 < animationLock)
+            return false;
         // 1. trace this event to exit scroll mode ...
         //touchDownPos = null; // ??
         //previousScrollY = scrollY;
@@ -209,11 +385,14 @@ public class QQList extends QQView implements QQView.IsParent {
      */
     @Override
     public boolean touchDragged(float relativeX, float relativeY) {
+        if (0 < animationLock)
+            return false;
         // 1. do scroll ...
         scrollY += relativeY - touchY;
         touchY = relativeY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
+        Gdx.app.error("QQList", "touchDragged.");
         rearrangeChildren();
         if (null != hitBeforeScroll) {
             hitBeforeScroll.cancelTouching();
@@ -242,6 +421,8 @@ public class QQList extends QQView implements QQView.IsParent {
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
+        if (0 < animationLock)
+            return false;
         // 1. do scroll ...
         scrollY += 20 * amountY;
         if (scrollY < 0) scrollY = 0;
@@ -268,6 +449,7 @@ public class QQList extends QQView implements QQView.IsParent {
     }
 
     private void rearrangeChildren() {
+        Gdx.app.error("QQList", "rearrangeChildren()");
         float anchorY = /*y +*/ height - topPadding;
 
         for (int i = 0, s = childrenView.size(); i < s; ++i) {

@@ -33,10 +33,10 @@ public class TitleScreen extends QQScreen {
 
     @Override
     public void onEnter() {
-        Gdx.app.error("TitleScreen", "onEnter.");
+        //Gdx.app.error("TitleScreen", "onEnter.");
         // bitmap font...
         font = createFont(28, new Color(0x9E8064FF), "地下城巫師塔圓形競技場荒原魔王城圖書館");
-        Gdx.app.error("TitleScreen", "font created.");
+        //Gdx.app.error("TitleScreen", "font created.");
 
         menus = new ArrayList<QQView>();
 
@@ -50,7 +50,7 @@ public class TitleScreen extends QQScreen {
                 assets.geti18n("dungeon"))
                 .qqListener(clickListener, Game.GAME_MODE_DUNGEON)
                 .size(menu_width, menu_height));
-        Gdx.app.error("TitleScreen", "dungeon menu added.");
+        //Gdx.app.error("TitleScreen", "dungeon menu added.");
 
         // Tower : collect five hero class.
         if (savedGame.isGameModeUnlocked(Game.GAME_MODE_TOWER)) {
@@ -104,7 +104,7 @@ public class TitleScreen extends QQScreen {
                 assets.geti18n("library"))
                 .qqListener(clickListener, Game.GAME_MODE_LIBRARY)
                 .size(menu_width, menu_height));
-        Gdx.app.error("TitleScreen", "library menu added.");
+        //Gdx.app.error("TitleScreen", "library menu added.");
 
         float margin_x = (Game.WIDTH - menu_width) / 2;
         float margin_y = (Game.HEIGHT - (menu_height * menus.size()) - (menu_margin * (menus.size() - 1))) / 2;
@@ -114,7 +114,7 @@ public class TitleScreen extends QQScreen {
             addView(menus.get(i));
             menus.get(i).setPosition(margin_x, startY - (menu_height + menu_margin) * i);
         }
-        Gdx.app.error("TitleScreen", "OnEnter finish.");
+        //Gdx.app.error("TitleScreen", "OnEnter finish.");
     }
 
     private QQClickListener clickListener = new QQClickListener() {

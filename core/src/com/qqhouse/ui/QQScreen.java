@@ -111,7 +111,7 @@ public abstract class QQScreen extends InputAdapter {
 
     @Override
     public boolean scrolled (float amountX, float amountY) {
-        Gdx.app.error("QQScreen", "amountX : " + amountX + ", amountY : " + amountY);
+        //Gdx.app.error("QQScreen", "amountX : " + amountX + ", amountY : " + amountY);
         QQView[] views = childrenView.items;
         for (int i = 0, n = childrenView.size; i < n; ++i) {
             // 傳入相對於 (0, 0) 的座標...
@@ -186,12 +186,12 @@ public abstract class QQScreen extends InputAdapter {
         generator.dispose(); // avoid memory leaks, important
         // 加了這行, 字體變漂亮了... 在手機上的效果無法確定....
         //font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        Gdx.app.error("TEST", "fontSize     = " + fontSize);
-        Gdx.app.error("TEST", "- CapHeight  = " + font.getCapHeight());
-        Gdx.app.error("TEST", "- LineHeight = " + font.getLineHeight());
-        Gdx.app.error("TEST", "- XHeight = " + font.getXHeight());
-        Gdx.app.error("TEST", "- Ascent = " + font.getAscent());
-        Gdx.app.error("TEST", "- Descent = " + font.getDescent());
+        //Gdx.app.error("TEST", "fontSize     = " + fontSize);
+        //Gdx.app.error("TEST", "- CapHeight  = " + font.getCapHeight());
+        //Gdx.app.error("TEST", "- LineHeight = " + font.getLineHeight());
+        //Gdx.app.error("TEST", "- XHeight = " + font.getXHeight());
+        //Gdx.app.error("TEST", "- Ascent = " + font.getAscent());
+        //Gdx.app.error("TEST", "- Descent = " + font.getDescent());
 
         return font;
     }

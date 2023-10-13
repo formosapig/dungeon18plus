@@ -29,7 +29,7 @@ public class Main extends QQGameMachine implements
 
     @Override
     public void create() {
-        Gdx.app.error("Main", "Main.create()");
+        //Gdx.app.error("Main", "Main.create()");
         initial(Game.WIDTH, Game.HEIGHT);
 
         // save game
@@ -52,7 +52,7 @@ public class Main extends QQGameMachine implements
 
         // enter title (default state)
         //changeState(STATE_TITLE);
-        Gdx.app.error("Main", "Main.create() end.");
+        //Gdx.app.error("Main", "Main.create() end.");
     }
 
     @Override
