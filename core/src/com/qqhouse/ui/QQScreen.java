@@ -92,7 +92,7 @@ public abstract class QQScreen extends InputAdapter {
     }
 
     public boolean touchUp (int screenX, int screenY, int pointer, int button) {
-        Gdx.app.error("QQScreen", "touchUp()");
+        //Gdx.app.error("QQScreen", "touchUp()");
         Vector2 screenPos = screenToStageCoordinates(new Vector2(screenX, screenY));
 
         QQView[] views = childrenView.items;

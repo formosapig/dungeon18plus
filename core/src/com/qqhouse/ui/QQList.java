@@ -81,20 +81,13 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                 @Override
                 public void onAnimationStart(QQView target) {
                     increaseAnimationLock();
-                    Gdx.app.error("QQList", "insert(move).start" + animationLock);
+                    //Gdx.app.error("QQList", "insert(move).start" + animationLock);
                 }
 
                 @Override
                 public void onAnimationEnd(QQView target) {
-                    //Gdx.app.error("QQList", "move up end and rearrange().");
-                    //rearrangeChildren();
-                    //float totalHeight = - Game.Size.WIDGET_MARGIN;
-                    //for (QQView v : childrenView) {
-                    //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
-                    //}
-                    //maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
                     decreaseAnimationLock();
-                    Gdx.app.error("QQList", "insert(move).end" + animationLock);
+                    //Gdx.app.error("QQList", "insert(move).end" + animationLock);
 
                 }
             }));
@@ -108,15 +101,13 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                     @Override
                     public void onAnimationStart(QQView target) {
                         increaseAnimationLock();
-                        Gdx.app.error("QQList", "insert.start" + animationLock);
+                        //Gdx.app.error("QQList", "insert.start" + animationLock);
                     }
 
                     @Override
                     public void onAnimationEnd(QQView target) {
                         decreaseAnimationLock();
-                        //target = null;
-                        //removeTarget = null;
-                        Gdx.app.error("QQList", "insert.end" + animationLock);
+                        //Gdx.app.error("QQList", "insert.end" + animationLock);
                     }
                 }
         ));
@@ -139,13 +130,13 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                     @Override
                     public void onAnimationStart(QQView target) {
                         increaseAnimationLock();
-                        Gdx.app.error("QQList", "remove.start" + animationLock);
+                        //Gdx.app.error("QQList", "remove.start" + animationLock);
                     }
 
                     @Override
                     public void onAnimationEnd(QQView target) {
                         decreaseAnimationLock();
-                        Gdx.app.error("QQList", "remove.end" + animationLock);
+                        //Gdx.app.error("QQList", "remove.end" + animationLock);
 
                         //target = null;
                         removeTarget = null;
@@ -161,23 +152,13 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                 @Override
                 public void onAnimationStart(QQView target) {
                     increaseAnimationLock();
-                    Gdx.app.error("QQList", "remove(move).start" + animationLock);
-
+                    //Gdx.app.error("QQList", "remove(move).start" + animationLock);
                 }
 
                 @Override
                 public void onAnimationEnd(QQView target) {
-                    //decreaseAnimationLock();
-                    //Gdx.app.error("QQList", "move up end and rearrange().");
-                    //rearrangeChildren();
-                    //float totalHeight = - Game.Size.WIDGET_MARGIN;
-                    //for (QQView v : childrenView) {
-                    //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
-                    //}
-                    //maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
                     decreaseAnimationLock();
-                    Gdx.app.error("QQList", "remove(move).end" + animationLock);
-
+                    //Gdx.app.error("QQList", "remove(move).end" + animationLock);
                 }
             }));
         }
@@ -394,7 +375,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         touchY = relativeY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
-        Gdx.app.error("QQList", "touchDragged.");
+        //Gdx.app.error("QQList", "touchDragged.");
         rearrangeChildren();
         if (null != hitBeforeScroll) {
             hitBeforeScroll.cancelTouching();
@@ -423,13 +404,13 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        if (0 < animationLock || 0 > touchY)
+        if (0 < animationLock)
             return false;
         // 1. do scroll ...
-        scrollY += 20 * amountY;
+        scrollY += 40 * amountY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
-        Gdx.app.error("QQListView", "scrolled : " + scrollY);
+        //Gdx.app.error("QQListView", "scrolled : " + scrollY);
         rearrangeChildren();
         return false;
     }
@@ -457,7 +438,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     }
 
     private void rearrangeChildren() {
-        Gdx.app.error("QQList", "rearrangeChildren()");
+        //Gdx.app.error("QQList", "rearrangeChildren()");
         float anchorY = /*y +*/ height - topPadding;
 
         for (int i = 0, s = childrenView.size(); i < s; ++i) {

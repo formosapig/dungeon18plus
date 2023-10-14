@@ -181,7 +181,7 @@ public class QQListView extends QQView implements QQView.IsParent, QQView.IsTouc
         scrollY += 20 * amountY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
-        Gdx.app.error("QQListView", "scrolled : " + scrollY);
+        //Gdx.app.error("QQListView", "scrolled : " + scrollY);
         rearrangeChildren();
         return false;
     }
