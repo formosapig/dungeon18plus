@@ -56,7 +56,7 @@ public abstract class QQScreen extends InputAdapter {
 
         QQView[] views = childrenView.items;//.begin();
         QQView target = null;
-        for (int i = 0, n = childrenView.size; i < n; ++i) {
+        for (int i = childrenView.size - 1; i >= 0; --i) {
             // 傳入相對於 (0, 0) 的座標...
             QQView v = views[i];
             target = v.hit(screenPos.x - v.getX(), screenPos.y - v.getY());
@@ -97,7 +97,7 @@ public abstract class QQScreen extends InputAdapter {
 
         QQView[] views = childrenView.items;
         QQView target = null;
-        for (int i = 0, n = childrenView.size; i < n; ++i) {
+        for (int i = childrenView.size - 1; i >= 0; --i) {
             // 傳入相對於 (0, 0) 的座標...
             QQView v = views[i];
             target = views[i].hit(screenPos.x - v.getX(), screenPos.y - v.getY());

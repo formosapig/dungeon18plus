@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.core;
 
+import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.BossKill;
@@ -62,6 +63,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
     // RecyclerViewAdapter
     private QQList.Adapter mAdapter;
+    private QQList.Adapter specialEventAdapter;
     //private RecyclerViewAdapter mSpecialAdapter;
 
     // special event
@@ -100,8 +102,8 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             //mHero.getBody().attack = mHero.getLimit().attack;
             //mHero.getBody().defense = mHero.getLimit().defense;
             //mHero.getBody().speed = mHero.getLimit().speed;
-            //mHero.key = 999;
-            //mHero.coin = 999;
+            mHero.key = 999;
+            mHero.coin = 999;
             mHero.star = 999;
         }
 
@@ -405,7 +407,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     }
     
     /*
-     * RecyclerViewAdapter.DataSource
+     * data source for event adapter
      */
     public int getEventCount() {
         return mEvents.size();
@@ -423,7 +425,20 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     public void setAdapter(QQList.Adapter adapter) {
         mAdapter = adapter;
     }
-    
+
+    /*
+        data source for special event adapter
+     */
+    public int getSpecialEventCount() {return mSpecialEvents.size();}
+
+    public Event getSpecialEvent(int index) {return mSpecialEvents.get(index);}
+
+    public boolean isSpecialEventDoable(int index) {
+        return isEventDoable(mSpecialEvents.get(index));
+    }
+
+    public void setSpecialAdapter(QQList.Adapter adapter) {specialEventAdapter = adapter;}
+
     /*
      * attribute up series
      */
@@ -535,7 +550,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     public int doSpecialEvent(int index) {
         final Event evt = mSpecialEvents.get(index);
         mSpecialEvents.remove(index);
-        //mSpecialAdapter.remove(index);
+        specialEventAdapter.remove(index);
         return doEventImpl(evt);
     }
 
@@ -724,9 +739,10 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
             if (newEvent.type.isBoss()) {
                 mSpecialEvents.add(newEvent);
-                //if (null != mSpecialAdapter) {
-                //    mSpecialAdapter.insert(mSpecialEvents.size() - 1);
-                //}
+                if (null != specialEventAdapter) {
+                    Gdx.app.error("DungeonManager", "add boss.");
+                    specialEventAdapter.insert(mSpecialEvents.size() - 1);
+                }
             } else {
                 mEvents.add(newEvent);
                 if (null != mAdapter) {
@@ -1408,7 +1424,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     public boolean test() {
         Event shop = new Event(EventType.FAIRY);
         mSpecialEvents.add(0, shop);
-        //mSpecialAdapter.insert(0);//mSpecialEvents.size() - 1);
+        specialEventAdapter.insert(0);//mSpecialAdapter.insert(0);//mSpecialEvents.size() - 1);
         return true;
     }
 

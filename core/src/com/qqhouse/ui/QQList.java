@@ -48,6 +48,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         scrollY = 0;
         previousScrollY = 0;
         maxScrollY = 0;
+        touchY = -1;
     }
 
     private boolean calculateAnchorY;
@@ -96,7 +97,17 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         // 插入並且做插入的動畫...
         QQView view = adapter.getView(index);
         childrenView.add(index, view);
-        view.applyAnimation(new InsertAnimation(this.width / 0.2f, -this.width, 0f, 0.2f).listener(
+        if (wrapHeight) {
+            height = childrenView.size() * view.height
+                    + (childrenView.size() - 1) * Game.Size.WIDGET_MARGIN
+                    + topPadding
+                    + bottomPadding;
+        }
+        // set default position before animation
+        float y = height - topPadding - view.getHeight() * (index + 1) - 2 * index + scrollY;
+        view.setPosition(-this.width, y);
+
+        view.applyAnimation(new InsertAnimation(this.width / 0.2f, 0f, 0.2f).listener(
                 new QQAnimation.AnimationListener() {
                     @Override
                     public void onAnimationStart(QQView target) {
@@ -111,15 +122,6 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                     }
                 }
         ));
-
-
-
-        //rearrangeChildren();
-        //float totalHeight = - Game.Size.WIDGET_MARGIN;
-        //for (QQView v : childrenView) {
-        //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
-        //}
-        //maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
     }
 
     public void remove(int index) {
@@ -139,6 +141,12 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                         //Gdx.app.error("QQList", "remove.end" + animationLock);
 
                         //target = null;
+                        if (wrapHeight) {
+                            height = childrenView.size() * removeTarget.height
+                                    + (childrenView.size() - 1) * Game.Size.WIDGET_MARGIN
+                                    + topPadding
+                                    + bottomPadding;
+                        }
                         removeTarget = null;
                     }
                 }
@@ -153,6 +161,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                 public void onAnimationStart(QQView target) {
                     increaseAnimationLock();
                     //Gdx.app.error("QQList", "remove(move).start" + animationLock);
+
                 }
 
                 @Override
@@ -162,15 +171,6 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                 }
             }));
         }
-        //Gdx.app.error("QQList", "remove end.");
-
-        //childrenView.remove(index);
-        //rearrangeChildren();
-        //float totalHeight = - Game.Size.WIDGET_MARGIN;
-        //for (QQView v : childrenView) {
-        //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
-        //}
-        //maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
     }
 
     public void updateAll() {
@@ -214,19 +214,11 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     //private final float removeSpeed = Game.WIDTH / 0.33f;
     private static final class InsertAnimation extends QQAnimation {
 
-        private float velocity, startX, endX, delay;
-        public InsertAnimation(float velocity, float startX, float endX, float delay) {
+        private float velocity, endX, delay;
+        public InsertAnimation(float velocity, float endX, float delay) {
             this.velocity = velocity;
-            this.startX = startX;
             this.endX = endX;
             this.delay = delay;
-            //target.setPosition(startX, target.getY());
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            target.setPosition(startX, target.getY());
         }
 
         @Override
@@ -375,7 +367,6 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         touchY = relativeY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
-        //Gdx.app.error("QQList", "touchDragged.");
         rearrangeChildren();
         if (null != hitBeforeScroll) {
             hitBeforeScroll.cancelTouching();
@@ -410,6 +401,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         scrollY += 40 * amountY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
+        Gdx.app.error("QQList", "scrollY = " + scrollY + "@" + this);
         //Gdx.app.error("QQListView", "scrolled : " + scrollY);
         rearrangeChildren();
         return false;
@@ -460,23 +452,14 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     private ArrayList<QQView> childrenView = new ArrayList<>();
     @Override
     public void addChild(QQView view) {
-
-        // when add to parent, recalculate size....
-        //if (view.width == QQView.FILL_PARENT) {
-        //    view.setSize(this.width - leftPadding - rightPadding, view.height);
-        //}
-        //if (view.height == QQView.FILL_PARENT) {
-        //    view.setSize(view.width, this.height - topPadding - bottomPadding);
-        //}
         childrenView.add(view);
-        //rearrangeChildren();
-        //float totalHeight = - Game.Size.WIDGET_MARGIN;
-        //for (QQView v : childrenView) {
-        //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
-        //}
-        //maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
-
-        //childrenView.add(view);
+        // recalculate height
+        if (wrapHeight) {
+            height = childrenView.size() * view.height
+                    + (childrenView.size() - 1) * Game.Size.WIDGET_MARGIN
+                    + topPadding
+                    + bottomPadding;
+        }
     }
 
     @Override

@@ -33,6 +33,7 @@ public class DungeonScreen extends QQScreen {
     public void setHero(HeroClass hero) {
         manager = new DungeonManager(hero, savedGame);
         manager.setAdapter(eventAdapter);
+        manager.setSpecialAdapter(specialEventAdapter);
     }
 
     public DungeonScreen(SaveGame savedGame, Viewport viewport, Assets assets) {
@@ -44,7 +45,7 @@ public class DungeonScreen extends QQScreen {
     private ArrayList<ActionView> actionViews = new ArrayList<>();
     private LootInfoView lootInfo;
     private ArrayList<EventView> eventViews = new ArrayList<>();
-    private QQList eventList;
+    private QQList eventList, specialEventList;
 
     /*
         QQList Adapter ...
@@ -76,6 +77,32 @@ public class DungeonScreen extends QQScreen {
         }
     };
 
+    private QQList.Adapter specialEventAdapter = new QQList.Adapter() {
+
+        @Override
+        public int getSize() {return manager.getSpecialEventCount();}
+
+        @Override
+        public EventView getView(int index) {
+            Gdx.app.error("DungeonScreen", "SpecialAdapter.getView : " + index);
+            Event event = manager.getSpecialEvent(index);
+
+            EventView evt = new EventView(assets);
+            evt.setSize(Game.WIDTH, 64);
+            evt.reset(event);
+
+            return evt;
+        }
+
+        @Override
+        public void updateView(int index, QQView view) {
+            EventView v = (EventView) view;
+            v.setEnable(manager.isSpecialEventDoable(index));
+            v.update(manager.getSpecialEvent(index));
+            Gdx.app.error("DungeonScreen", "SpecialAdapter.updateView : " + index + " = " + v.getX() + "," + v.getX());
+
+        }
+    };
 
 
 
@@ -121,6 +148,24 @@ public class DungeonScreen extends QQScreen {
                 }
             }});
         addView(eventList);
+
+        // special event list
+        specialEventList = new QQList();
+        specialEventList.setSize(Game.WIDTH, QQView.WRAP_CONTENT);//64 + 64 + 2 + 2 + 2);
+        specialEventList.setPosition(0, 64 + 2 + 24 + 2);
+        specialEventList.setCamera(getCamera());
+        specialEventList.setAdapter(specialEventAdapter);
+        specialEventList.addQQClickListener(new QQClickListener() {
+            @Override
+            public void onClick(int index) {
+                if (manager.isSpecialEventDoable(index)) {
+                    manager.doSpecialEvent(index);
+                    update();
+                }
+            }});
+        addView(specialEventList);
+
+
 
         //QQListView list = (QQListView) new QQListView()
         //        .size(Game.WIDTH, Game.HEIGHT - 64 -2 - 2 - 24 - 2 - 64).
@@ -181,7 +226,7 @@ public class DungeonScreen extends QQScreen {
                         // update status...
                         update();
                     }
-                    //debug();
+                    debug();
                 }
             }, i);
             actionViews.add(action);
@@ -192,11 +237,11 @@ public class DungeonScreen extends QQScreen {
     }
 
     private void debug() {
-        Gdx.app.error("DungeonScreen", "event table = .....");
-        for (int i = 0; i < manager.getEventCount(); ++i) {
-            Gdx.app.error("DungeonScreen", String.format("Event %2d = %s", i, manager.getEvent(i).toString()));
-        }
-
+        //Gdx.app.error("DungeonScreen", "event table = .....");
+        //for (int i = 0; i < manager.getEventCount(); ++i) {
+        //    Gdx.app.error("DungeonScreen", String.format("Event %2d = %s", i, manager.getEvent(i).toString()));
+        //}
+        //manager.test();
     }
 
     public void update() {
@@ -209,6 +254,7 @@ public class DungeonScreen extends QQScreen {
         //    evt.update(manager.getEvent(i));
         //}
         eventAdapter.updateAll();
+        specialEventAdapter.updateAll();
 
         lootInfo.update(manager.eventResult);
         // 3. action list

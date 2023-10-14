@@ -99,9 +99,11 @@ public abstract class QQView {
         this.width = width;
         if (width == QQView.WRAP_CONTENT) {
             calculateContentWidth();
+            wrapWidth = true;
         }
         this.height = height;
         if (height == QQView.WRAP_CONTENT) {
+            wrapHeight = true;
             calculateContentHeight();
         }
     }
@@ -166,7 +168,7 @@ public abstract class QQView {
     public void setVisible(boolean visible) {this.visible = visible;}
     public boolean isVisible() {return this.visible;}
 
-    protected boolean wrapWidth = false;
+    protected boolean wrapWidth = false, wrapHeight = false;
     public void setWrapWidth(boolean wrapWidth) {this.wrapWidth = wrapWidth;}
 
 }
