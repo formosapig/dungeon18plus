@@ -130,7 +130,20 @@ public class Assets {
         return manager.get(fileName, Texture.class);
     }
 
-    public BitmapFont getFont(String fontName, int fontSize) {
+    public BitmapFont getFont(FontSet set) {
+        return getFont(set.name, set.size);
+    }
+
+    public static final class FontSet {
+        public String name;
+        public int size;
+        public FontSet(String name, int size) {
+            this.name = name;
+            this.size = size;
+        }
+    }
+
+    private BitmapFont getFont(String fontName, int fontSize) {
         String fileName = String.format("%s%d.ttf", fontName, fontSize);
         if (!manager.contains(fileName)) {
             FreetypeFontLoader.FreeTypeFontLoaderParameter param = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
@@ -142,8 +155,8 @@ public class Assets {
             manager.load(fileName, BitmapFont.class, param);
             manager.finishLoadingAsset(fileName);
             // fixed size ?! FIXME white rabbit 的 1 沒有 fixed width ... 導致浪費效能...
-            BitmapFont font = manager.get(fileName, BitmapFont.class);
-            font.setFixedWidthGlyphs(FreeTypeFontGenerator.DEFAULT_CHARS);
+            //BitmapFont font = manager.get(fileName, BitmapFont.class);
+            //font.setFixedWidthGlyphs(FreeTypeFontGenerator.DEFAULT_CHARS);
         }
         return manager.get(fileName, BitmapFont.class);
     }

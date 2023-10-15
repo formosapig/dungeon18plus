@@ -61,10 +61,9 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 //    private int zakoMaxForEachType = 0;
     private int bossLevel = 0;
 
-    // RecyclerViewAdapter
+    // QQList Adapter
     private QQList.Adapter mAdapter;
     private QQList.Adapter specialEventAdapter;
-    //private RecyclerViewAdapter mSpecialAdapter;
 
     // special event
     public Event specialEvent;
@@ -793,13 +792,13 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             case WIN_LEVEL_NONE: {
                 Event gameOver = new Event(EventType.GAME_OVER);
                 mEvents.add(0, gameOver);
-                //mAdapter.insert(0);
+                mAdapter.insert(0);
             }
                 break;
             case WIN_LEVEL_NORMAL: {
                 Event win = new Event(EventType.WIN_NORMAL);
                 mEvents.add(0, win);
-                //mAdapter.insert(0);
+                mAdapter.insert(0);
             }
                 break;
             case WIN_LEVEL_GOLDEN: {
@@ -808,7 +807,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 // RecyclerView 預設會加在最上面，此時沒有動畫，自然也沒有 OnAnimationEnd 事件，導致　
                 // 整個流程卡死，目前的作法是強制不作動畫，如此一來，在只有兩三個事件時，最上的事件會很突然的
                 // 出現，只要是只有 Add  的事件都有可能有類似的 Bug ，以後再研究出好的解決。
-                //mAdapter.insert(0);
+                mAdapter.insert(0);
             }
                 break;
             }

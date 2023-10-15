@@ -77,6 +77,8 @@ public abstract class QQView {
 
     // 呼叫 draw 時, 傳入 parent 相對於原點的座標, 所以還需要加上 x, y 的位移值
     public final void draw(SpriteBatch batch, float parentX, float parentY) {
+        if (!isVisible())
+            return;
         drawBackground(batch, parentX + x, parentY + y);
         drawForeground(batch, parentX + x, parentY + y);
         if (this instanceof IsParent) {

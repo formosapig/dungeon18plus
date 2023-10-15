@@ -1,10 +1,13 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
 public class ItemView extends QQView {
@@ -16,43 +19,39 @@ public class ItemView extends QQView {
      */
 
     private Texture icon;
-    private BitmapFont font; // display quantity
-    private Color color;
-    private String text;
-    private boolean countable; // if not countable , do not display quantity
-    private float shiftX, shiftY;
+    private QQText count;
 
-    public ItemView(Texture icon, BitmapFont font) {
+    public ItemView(BitmapFont font, Texture bg) {
+        count = new QQText(font, new NinePatch(bg, 4, 4, 4, 4), 0.5f);
+        count.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
+        count.setPosition(0, 0);
+        count.setPadding(2);
+    }
+
+    public ItemView(Texture icon, BitmapFont font, Texture bg) {
         this.icon = icon;
-        this.font = font;
-        touchable = false; // do not touch item ....
+        count = new QQText(font, new NinePatch(bg, 4, 4, 4, 4), 0.5f);
+        count.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
+        count.setPosition(0, 0);
+        count.setPadding(2);
     }
-
-    public ItemView(BitmapFont font) {
-        this.font = font;
-        touchable = false;
-    }
-
 
     public void setIcon(Texture icon) {
         this.icon = icon;
     }
 
-    public void setCountable(boolean countable) {
-        this.countable = countable;
-    }
-
     public void setColor(Color color) {
-        this.color = color;
+        count.setColor(color);
     }
 
     public void setText(String text) {
-        this.text = text;
-        GlyphLayout glyphs = new GlyphLayout();
-        glyphs.setText(font, text);
-
-        shiftX = 32 - glyphs.width;
-        shiftY = glyphs.height;
+        if ("".equals(text)) {
+            count.setVisible(false);
+        } else {
+            count.setVisible(true);
+            count.setText(text);
+            count.setPosition(34 - count.getWidth(), -2);
+        }
     }
 
     @Override
@@ -60,14 +59,9 @@ public class ItemView extends QQView {
         // draw item
         batch.draw(icon, originX, originY, 32, 32);
 
-        // draw quantity
-        if (null != color) {
-            font.setColor(color);
-        }
-        font.draw(batch, text, originX + shiftX, originY + shiftY);
+        // draw count
+        count.draw(batch, originX, originY);
     }
-
-
 
     @Override
     public void dispose() {}
@@ -76,7 +70,7 @@ public class ItemView extends QQView {
         chain method
      */
     public ItemView color(Color color) {
-        this.color = color;
+        count.setColor(color);
         return this;
     }
 

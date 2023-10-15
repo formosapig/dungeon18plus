@@ -64,7 +64,7 @@ public class Game {
         // test help message
         public static final boolean TEST_HELP                       = false;
         // powerful start mHero
-        public static final boolean QUICK_GAME                      = true;
+        public static final boolean QUICK_GAME                      = false;
         // bluetooth function...
         public static final boolean BLUETOOTH                       = true;
         // test special potion
@@ -144,8 +144,12 @@ public class Game {
     /*
        font ...
      */
-    public static final class font {
-        public static final String DIGITAL = "whitrabt";
+    public static final class Font {
+        public static final Assets.FontSet LEVEL16 = new Assets.FontSet("ConsolaMono-Bold", 16);
+        public static final Assets.FontSet DIGITAL16 = new Assets.FontSet("whitrabt", 16);
+        public static final Assets.FontSet HERO_ABILITY = new Assets.FontSet("whitrabt", 18);
+        public static final Assets.FontSet LOOT_INFO = new Assets.FontSet("whitrabt", 18);
+        public static final Assets.FontSet EVENT_COST = new Assets.FontSet("whitrabt", 22);
     }
 
 

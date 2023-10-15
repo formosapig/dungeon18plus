@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.qqhouse.dungeon18plus.Assets;
@@ -25,7 +24,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         this.assets = assets;
         bgNormal = new NinePatch(assets.getBackground("loot_info"), 4, 4, 4, 4);
 
-        star = new QQIconText(assets.getFont(Game.font.DIGITAL, 18), assets.getIcon16("cost_star"));
+        star = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("cost_star"));
         star.setColor(Game.color.RARE);
         star.setSize(16, 16);
         star.setPosition(0, 0);
@@ -33,7 +32,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         star.setVisible(false);
         childrenView.add(star);
 
-        coin = new QQIconText(assets.getFont(Game.font.DIGITAL, 18), assets.getIcon16("cost_coin"));
+        coin = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("cost_coin"));
         coin.setColor(Game.color.RARE);
         coin.setSize(16, 16);
         coin.setPosition(0, 0);
@@ -41,7 +40,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         coin.setVisible(false);
         childrenView.add(coin);
 
-        life = new QQIconText(assets.getFont(Game.font.DIGITAL, 18), assets.getIcon16("life"));
+        life = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("life"));
         life.setColor(Game.color.LIFE);
         life.setSize(16, 16);
         life.setPosition(0, 0);
@@ -49,7 +48,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         life.setVisible(false);
         childrenView.add(life);
 
-        attack = new QQIconText(assets.getFont(Game.font.DIGITAL, 18), assets.getIcon16("attack"));
+        attack = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("attack"));
         attack.setColor(Game.color.ATTACK);
         attack.setSize(16, 16);
         attack.setPosition(0, 0);
@@ -57,7 +56,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         attack.setVisible(false);
         childrenView.add(attack);
 
-        defense = new QQIconText(assets.getFont(Game.font.DIGITAL, 18), assets.getIcon16("defense"));
+        defense = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("defense"));
         defense.setColor(Game.color.DEFENSE);
         defense.setSize(16, 16);
         defense.setPosition(0, 0);
@@ -65,7 +64,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         defense.setVisible(false);
         childrenView.add(defense);
 
-        speed = new QQIconText(assets.getFont(Game.font.DIGITAL, 18), assets.getIcon16("speed"));
+        speed = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("speed"));
         speed.setColor(Game.color.SPEED);
         speed.setSize(16, 16);
         speed.setPosition(0, 0);

@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -62,8 +63,20 @@ public class QQText extends QQView{
     protected void rearrange() {
         if (null == text)
             return;
+
         GlyphLayout glyphs = new GlyphLayout();
         glyphs.setText(font, text);
+
+        // wrap width
+        if (wrapWidth) {
+            width = glyphs.width + leftPadding + rightPadding;
+            //Gdx.app.error("QQText", "wrapWidth = " + width);
+        }
+
+        if (wrapHeight) {
+            height = glyphs.height + topPadding + bottomPadding;
+            //Gdx.app.error("QQText", "wrapHeight = " + height);
+        }
 
         // shift x
         if (Align.isCenterHorizontal(align)) {

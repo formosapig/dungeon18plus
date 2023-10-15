@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -13,6 +12,7 @@ import com.qqhouse.dungeon18plus.struct.event.BattleEvent;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQIconText;
+import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
@@ -29,9 +29,31 @@ public class EventView extends QQButton implements QQView.IsParent {
     private ItemView item; // loot
     private QQIconText cost; // big font ?!
     private AbilityView ability; // ability of foe or something...
+    private QQText level, score;
 
     public void reset(Event event) {
         icon = assets.getBlockee(event.type.icon);
+
+        // level
+        if (event.type.isZako()) {
+            level = new QQText(assets.getFont(Game.Font.LEVEL16), new NinePatch(assets.getTexture("background", "zako_level"), 4, 4, 4, 4), 0.75f);
+            level.setColor(Game.color.ZAKO_LEVEL);
+            level.setPadding(4);
+            level.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
+            //level.setSize(24, 16);
+            level.setPosition(4, 40);
+            childrenView.add(level);
+        }
+
+        // score
+        if (event.type.isBoss()) {
+            score = new QQText(assets.getFont(Game.Font.LEVEL16), new NinePatch(assets.getTexture("background", "level"), 4, 4, 4, 4), 0.75f);
+            score.setColor(Game.color.RANK);
+            score.setPadding(4);
+            score.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
+            score.setPosition(4, 4);
+            childrenView.add(score);
+        }
 
         // cost
         Texture costIcon = null;
@@ -67,7 +89,7 @@ public class EventView extends QQButton implements QQView.IsParent {
                 break;
         }
         //QQIconText cost = new QQIconText(assets.getFont("whitrabt"), new NinePatch(assets.getBackground("blessed")), costIcon);
-        cost = new QQIconText(assets.getFont("whitrabt", 22), costIcon);
+        cost = new QQIconText(assets.getFont(Game.Font.EVENT_COST), costIcon);
         cost.setSize(64, 32);
         cost.setPosition(64, 24);
         cost.setAlign(Align.left);
@@ -75,7 +97,12 @@ public class EventView extends QQButton implements QQView.IsParent {
         childrenView.add(cost);
 
         // item ...
-        item = new ItemView(assets.getFont(Game.font.DIGITAL, 16));
+        item = new ItemView(assets.getFont(Game.Font.DIGITAL16), assets.getBackground("black"));
+        item.setSize(32, 32);
+        item.setPosition(Game.WIDTH - 8 - 32, 26);
+        item.setColor(Game.color.COUNT);
+        item.setVisible(false);
+        childrenView.add(item);
 
         //if (event.loot != Item.NONE) {
 
@@ -86,11 +113,6 @@ public class EventView extends QQButton implements QQView.IsParent {
             //} else {
             //    item.setText("");
             //}
-            item.setSize(32, 32);
-            item.setPosition(Game.WIDTH - 8 - 32, 26);
-            item.setColor(Game.color.COUNT);
-            item.setVisible(false);
-            childrenView.add(item);
         //}
 
         // ability view
@@ -104,6 +126,17 @@ public class EventView extends QQButton implements QQView.IsParent {
 
     public void update(Event event) {
         icon = assets.getBlockee(event.type.icon);
+
+        // level
+        if (null != level) {
+            level.setText(Integer.toString(event.getLevel()));
+        }
+
+        // score
+        if (null != score) {
+            score.setText(Integer.toString(event.getScore()));
+        }
+
         // update cost
         Texture costIcon = null;
         Color costColor = Color.WHITE;
@@ -161,8 +194,8 @@ public class EventView extends QQButton implements QQView.IsParent {
                 ability.setVisible(true);
             }
         } else if (event.type.showEquipmentData() && Item.NONE != event.loot) {
-            //mSub.setData(evt.loot.upgrade);
-            //mSub.setVisibility(View.VISIBLE);
+            ability.update(event.loot.upgrade);
+            ability.setVisible(true);
         } else {
             ability.setVisible(false);
         }
