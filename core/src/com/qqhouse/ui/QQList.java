@@ -398,10 +398,10 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         if (0 < animationLock)
             return false;
         // 1. do scroll ...
-        scrollY += 40 * amountY;
+        scrollY += 60 * amountY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
-        Gdx.app.error("QQList", "scrollY = " + scrollY + "@" + this);
+        //Gdx.app.error("QQList", "scrollY = " + scrollY + "@" + this);
         //Gdx.app.error("QQListView", "scrolled : " + scrollY);
         rearrangeChildren();
         return false;

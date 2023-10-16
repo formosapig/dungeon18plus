@@ -1,3 +1,20 @@
+--------------- 20231016(一) ---------------
+- 照這則的說明 https://gamedev.stackexchange.com/questions/117236/textures-created-with-photoshop-show-up-with-a-white-border
+  在 Android 有小邊線是因為縮放的問題, 使用 Texture Packer 可以解決。。。
+- 參考
+  https://gamedev.stackexchange.com/questions/153640/libgdx-texture-sides-are-cropped-automatically-for-seemingly-no-reason
+  https://gamedev.stackexchange.com/questions/61796/sprite-sheet-textures-picking-up-edges-of-adjacent-texture
+- List view case 分析
+  1. 單純 insert 時, 原來的位置向下移, 空一個位置後插入.
+  2. 單純 remove
+     a. 下方 scroll 範圍外還有一個 view 的餘裕時, 往上拉.
+     b. 上方頂到 scroll 的盡頭了, 不管下方夠不夠, 往上拉.
+     c. 下方沒有 view 的餘裕, 上方還有時, 往下拉....
+  3. 先 insert 後 remove　或先 remove 後 insert ...
+
+- QQGroup 的功能
+  1. child view 的 match parent ...
+
 --------------- 20231014(六) ---------------
 - 左腳腳後更痛風...
 - 浪費一整天的時間...

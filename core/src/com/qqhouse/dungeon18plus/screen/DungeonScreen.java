@@ -165,36 +165,6 @@ public class DungeonScreen extends QQScreen {
             }});
         addView(specialEventList);
 
-
-
-        //QQListView list = (QQListView) new QQListView()
-        //        .size(Game.WIDTH, Game.HEIGHT - 64 -2 - 2 - 24 - 2 - 64).
-        //        position(0, 64 + 2 + 24 + 2);
-        //list.setCamera(getCamera());
-        //addView(list);
-
-        //int eventCount = manager.getEventCount();
-
-        //for (int i = 0; i < eventCount; ++i) {
-        //    Event event = manager.getEvent(i);
-
-        //    EventView evt = new EventView(assets);
-        //    evt.setSize(Game.WIDTH, 64);
-        //    evt.reset(event);
-        //    evt.addQQClickListener(new QQClickListener() {
-        //        @Override
-        //        public void onClick(int index) {
-        //            if (manager.isEventDoable(index)) {
-        //                manager.doEvent();
-        //                update();
-        //            }
-        //        }
-        //    }, i);
-
-        //    list.addView(evt);
-        //    eventViews.add(evt);
-        //}
-
         // message view ...
         lootInfo = new LootInfoView(assets);
         lootInfo.setSize(Game.WIDTH, 24);
