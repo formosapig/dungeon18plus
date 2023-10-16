@@ -218,6 +218,11 @@ public class EventView extends QQButton implements QQView.IsParent {
     private ArrayList<QQView> childrenView = new ArrayList<>();
 
     @Override
+    public void arrangeChildren() {
+
+    }
+
+    @Override
     public void addChild(QQView view) {
         childrenView.add(view);
     }

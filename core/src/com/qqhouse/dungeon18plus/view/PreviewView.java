@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -49,8 +50,9 @@ public class PreviewView extends QQButton {
 
     @Override
     protected void calculateContentHeight() {
+        //Gdx.app.error("PreviewView", "width = " + width + "@" + this);
         // if width not set, can not calculate height of font with multi line.
-        if (QQView.FILL_PARENT == width)
+        if (0 == width) // QQView.MATCH_PARENT == width)
             return;
 
         float height = topPadding + bottomPadding;

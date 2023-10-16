@@ -29,6 +29,11 @@ public class QQGroupView extends QQView implements QQView.IsParent {
     //}
 
     @Override
+    public void arrangeChildren() {
+
+    }
+
+    @Override
     public void addChild(QQView view) {
 
     }

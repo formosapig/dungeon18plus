@@ -147,6 +147,7 @@ public class Game {
     public static final class Font {
         public static final Assets.FontSet LEVEL16 = new Assets.FontSet("ConsolaMono-Bold", 16);
         public static final Assets.FontSet DIGITAL16 = new Assets.FontSet("whitrabt", 16);
+        //public static final Assets.FontSet HERO_ABILITY = new Assets.FontSet("Nouveau_IBM", 18);
         public static final Assets.FontSet HERO_ABILITY = new Assets.FontSet("whitrabt", 18);
         public static final Assets.FontSet LOOT_INFO = new Assets.FontSet("whitrabt", 18);
         public static final Assets.FontSet EVENT_COST = new Assets.FontSet("whitrabt", 22);

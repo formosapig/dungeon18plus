@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 
 public abstract class QQView {
 
     public interface IsParent {
+        void arrangeChildren();
         void addChild(QQView view);
         void drawChildren(SpriteBatch batch, float originX, float originY);
     }
@@ -17,7 +19,7 @@ public abstract class QQView {
     }
 
     public static final int WRAP_CONTENT = -1;  // 保有 view 的 size
-    public static final int FILL_PARENT  = -2;  // 最大的填充 parent 的 size
+    public static final int MATCH_PARENT  = -2;  // 最大的填充 parent 的 size
 
     public QQView hit(float relativeX, float relativeY) {
         if (relativeX >= 0 && relativeX <= width && relativeY >= 0 && relativeY <= height)
@@ -98,16 +100,28 @@ public abstract class QQView {
     }
 
     public void setSize(float width, float height) {
-        this.width = width;
+        // width
         if (width == QQView.WRAP_CONTENT) {
-            calculateContentWidth();
+            //calculateContentWidth();
             wrapWidth = true;
+        } else if (width == QQView.MATCH_PARENT) {
+            matchWidth = true;
+        } else {
+            this.width = width;
         }
-        this.height = height;
+        if (wrapWidth)
+            calculateContentWidth();
+        // height
         if (height == QQView.WRAP_CONTENT) {
+            //calculateContentHeight();
             wrapHeight = true;
-            calculateContentHeight();
+        } else if (height == QQView.MATCH_PARENT) {
+            matchHeight = true;
+        } else {
+            this.height = height;
         }
+        if (wrapHeight)
+            calculateContentHeight();
     }
 
     protected void calculateContentWidth() {}
@@ -137,7 +151,6 @@ public abstract class QQView {
         rightPadding = all;
     }
 
-
     public void dispose() {}
 
     /*
@@ -164,6 +177,14 @@ public abstract class QQView {
     }
 
     /*
+        alignment of child view or text
+     */
+    protected int align = Align.center;
+    public void setAlign(int align) {
+        this.align = align;
+    }
+
+    /*
         visible
      */
     private boolean visible = true;
@@ -171,6 +192,8 @@ public abstract class QQView {
     public boolean isVisible() {return this.visible;}
 
     protected boolean wrapWidth = false, wrapHeight = false;
+    protected boolean matchWidth = false, matchHeight = false;
     public void setWrapWidth(boolean wrapWidth) {this.wrapWidth = wrapWidth;}
+    public void setMatchHeight(boolean matchHeight) {this.matchHeight = matchHeight;}
 
 }

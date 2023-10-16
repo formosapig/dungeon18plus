@@ -99,7 +99,7 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
                     fntDesc,
                     assets.geti18n(hero.key+"_help"));
             view.setPadding(8);
-            view.setSize(QQView.FILL_PARENT, QQView.WRAP_CONTENT);
+            view.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
             view.addQQClickListener(this, hero.code);
             list.addView(view);
         }

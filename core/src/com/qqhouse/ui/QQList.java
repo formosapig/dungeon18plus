@@ -450,6 +450,10 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         IsParent series
      */
     private ArrayList<QQView> childrenView = new ArrayList<>();
+
+    @Override
+    public void arrangeChildren() {}
+
     @Override
     public void addChild(QQView view) {
         childrenView.add(view);
@@ -470,13 +474,8 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         Rectangle clipBounds = new Rectangle(x, y, width, height);
         ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
         if (ScissorStack.pushScissors(scissors)) {
-            for (QQView view : childrenView) {
-                //if (view.getY() <= height || view.getY() >= 0) {
-                // draw views in visible range.
-                if (view.isVisible())
-                    view.draw(batch, originX, originY);
-                //}
-            }
+            for (QQView view : childrenView)
+                view.draw(batch, originX, originY);
             batch.flush();
             ScissorStack.popScissors();
         }

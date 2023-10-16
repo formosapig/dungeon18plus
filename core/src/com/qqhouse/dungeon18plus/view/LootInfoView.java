@@ -136,6 +136,12 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         IsParent series
      */
     private ArrayList<QQView> childrenView = new ArrayList<>();
+
+    @Override
+    public void arrangeChildren() {
+
+    }
+
     @Override
     public void addChild(QQView view) {
         childrenView.add(view);

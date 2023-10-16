@@ -14,7 +14,6 @@ public class QQText extends QQView{
     protected BitmapFont font;
     protected Color color = null;
     protected String text = "";
-    protected int align = Align.center;
     protected float shiftX, shiftY;
     private float alpha = 1; // 0 ~ 1
 
@@ -39,6 +38,7 @@ public class QQText extends QQView{
         rearrange();
     }
 
+    @Override
     public void setAlign(int align) {
         this.align = align;
         rearrange();

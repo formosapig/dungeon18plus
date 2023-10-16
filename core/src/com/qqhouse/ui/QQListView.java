@@ -40,10 +40,11 @@ public class QQListView extends QQView implements QQView.IsParent, QQView.IsTouc
      */
     public void addView(QQView view) {
         // when add to parent, recalculate size....
-        if (view.width == QQView.FILL_PARENT) {
+        //Gdx.app.error("QQListView", "view matchWidth" + view.matchWidth + "@" + view);
+        if (view.matchWidth) {//view.width == QQView.MATCH_PARENT) {
             view.setSize(this.width - leftPadding - rightPadding, view.height);
         }
-        if (view.height == QQView.FILL_PARENT) {
+        if (view.matchHeight) { //view.height == QQView.MATCH_PARENT) {
             view.setSize(view.width, this.height - topPadding - bottomPadding);
         }
         childrenView.add(view);
@@ -203,6 +204,12 @@ public class QQListView extends QQView implements QQView.IsParent, QQView.IsTouc
         IsParent series
      */
     private ArrayList<QQView> childrenView = new ArrayList<>();
+
+    @Override
+    public void arrangeChildren() {
+
+    }
+
     @Override
     public void addChild(QQView view) {
         childrenView.add(view);
@@ -228,13 +235,8 @@ public class QQListView extends QQView implements QQView.IsParent, QQView.IsTouc
         Rectangle clipBounds = new Rectangle(x, y, width, height);
         ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
         if (ScissorStack.pushScissors(scissors)) {
-            for (QQView view : childrenView) {
-                //if (view.getY() <= height || view.getY() >= 0) {
-                // draw views in visible range.
-                if (view.isVisible())
-                    view.draw(batch, relativeX, relativeY);
-                //}
-            }
+            for (QQView view : childrenView)
+                view.draw(batch, relativeX, relativeY);
             batch.flush();
             ScissorStack.popScissors();
         }
