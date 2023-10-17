@@ -1,3 +1,7 @@
+--------------- 20231017(二) ---------------
+- {公主連結} 雪（祭服） -> 90
+
+
 --------------- 20231016(一) ---------------
 - 照這則的說明 https://gamedev.stackexchange.com/questions/117236/textures-created-with-photoshop-show-up-with-a-white-border
   在 Android 有小邊線是因為縮放的問題, 使用 Texture Packer 可以解決。。。

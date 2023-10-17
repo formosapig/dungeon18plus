@@ -1,7 +1,6 @@
 package com.qqhouse.ui;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
@@ -110,7 +109,7 @@ public abstract class QQView {
             this.width = width;
         }
         if (wrapWidth)
-            calculateContentWidth();
+            resetWrapWidth();
         // height
         if (height == QQView.WRAP_CONTENT) {
             //calculateContentHeight();
@@ -121,11 +120,11 @@ public abstract class QQView {
             this.height = height;
         }
         if (wrapHeight)
-            calculateContentHeight();
+            resetWrapHeight();
     }
 
-    protected void calculateContentWidth() {}
-    protected void calculateContentHeight() {}
+    protected void resetWrapWidth() {}
+    protected void resetWrapHeight() {}
 
 
     public float getX() {return x;}
@@ -191,9 +190,18 @@ public abstract class QQView {
     public void setVisible(boolean visible) {this.visible = visible;}
     public boolean isVisible() {return this.visible;}
 
+    /*
+        wrap content / match parent
+     */
     protected boolean wrapWidth = false, wrapHeight = false;
     protected boolean matchWidth = false, matchHeight = false;
     public void setWrapWidth(boolean wrapWidth) {this.wrapWidth = wrapWidth;}
     public void setMatchHeight(boolean matchHeight) {this.matchHeight = matchHeight;}
+
+    /*
+        IsParent ...
+     */
+    protected IsParent parent = null;
+    public void setParent(IsParent parent) {this.parent = parent;}
 
 }

@@ -57,6 +57,21 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     private IsTouchable hitBeforeScroll = null;
 
     /*
+        set size should trigger rearrange ...
+     */
+    @Override
+    public void setSize(float width, float height) {
+        super.setSize(width, height);
+        rearrangeChildren();
+        float totalHeight = - Game.Size.WIDGET_MARGIN;
+        for (QQView v : childrenView) {
+            totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
+        }
+        maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
+    }
+
+
+    /*
         Adapter series
      */
     private Adapter adapter;
@@ -398,7 +413,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         if (0 < animationLock)
             return false;
         // 1. do scroll ...
-        scrollY += 60 * amountY;
+        scrollY += (64 + Game.Size.WIDGET_MARGIN) * amountY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
         //Gdx.app.error("QQList", "scrollY = " + scrollY + "@" + this);
@@ -430,7 +445,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     }
 
     private void rearrangeChildren() {
-        //Gdx.app.error("QQList", "rearrangeChildren()");
+        Gdx.app.error("QQList", "rearrangeChildren() @" + this);
         float anchorY = /*y +*/ height - topPadding;
 
         for (int i = 0, s = childrenView.size(); i < s; ++i) {
@@ -468,10 +483,11 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
     @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {
-
         batch.flush();
         Rectangle scissors = new Rectangle();
-        Rectangle clipBounds = new Rectangle(x, y, width, height);
+        Rectangle clipBounds = new Rectangle(originX, originY, width, height);
+        // QQList 變成 sub view 時, 座標又變換了....
+        //Rectangle clipBounds = new Rectangle(x, y, width, height);
         ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
         if (ScissorStack.pushScissors(scissors)) {
             for (QQView view : childrenView)

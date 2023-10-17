@@ -54,6 +54,7 @@ public abstract class QQScreen extends InputAdapter {
         Vector2 screenPos = screenToStageCoordinates(new Vector2(screenX, screenY));
         //Gdx.app.error("TEST", "touchDown : " + screenPos.x + "," + screenPos.y);
 
+        // 後加入的疊在上面, 所以先收到事件...
         QQView[] views = childrenView.items;//.begin();
         QQView target = null;
         for (int i = childrenView.size - 1; i >= 0; --i) {

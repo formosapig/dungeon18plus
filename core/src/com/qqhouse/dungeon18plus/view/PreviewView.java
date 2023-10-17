@@ -49,7 +49,7 @@ public class PreviewView extends QQButton {
     }
 
     @Override
-    protected void calculateContentHeight() {
+    protected void resetWrapHeight() {
         //Gdx.app.error("PreviewView", "width = " + width + "@" + this);
         // if width not set, can not calculate height of font with multi line.
         if (0 == width) // QQView.MATCH_PARENT == width)
