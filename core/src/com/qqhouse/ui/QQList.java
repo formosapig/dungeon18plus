@@ -117,6 +117,8 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                     + (childrenView.size() - 1) * Game.Size.WIDGET_MARGIN
                     + topPadding
                     + bottomPadding;
+            if (null != parent)
+                parent.arrangeChildren();
         }
         // set default position before animation
         float y = height - topPadding - view.getHeight() * (index + 1) - 2 * index + scrollY;
@@ -141,6 +143,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
     public void remove(int index) {
         //Gdx.app.error("QQList", "start remove.");
+        // FIXME remove not resetWrapHeight ...
         removeTarget = childrenView.remove(index);
         removeTarget.applyAnimation(new RemoveAnimation(this.width / 0.2f, this.width).listener(
                 new QQAnimation.AnimationListener() {
@@ -478,6 +481,8 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                     + (childrenView.size() - 1) * Game.Size.WIDGET_MARGIN
                     + topPadding
                     + bottomPadding;
+            if (null != parent)
+                parent.arrangeChildren();
         }
     }
 

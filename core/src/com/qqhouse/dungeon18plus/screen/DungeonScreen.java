@@ -116,7 +116,7 @@ public class DungeonScreen extends QQScreen {
         addView(heroView);
 
         // group ( event, special event ), just a container...
-        QQGroup group = new QQGroup();
+        QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL);
         // FIXME 使用 match_parent 以及 Screen 內含 QQView ...
         group.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
         group.setPosition(0, 64 + 2 + 24 + 2);

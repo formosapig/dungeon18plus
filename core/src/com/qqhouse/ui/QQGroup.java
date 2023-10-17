@@ -10,7 +10,17 @@ import java.util.ArrayList;
 
 public class QQGroup extends QQView implements QQView.IsParent {
 
-    private boolean vertical = true; // vertical / horizontal
+    public static final int DIRECT_NONE = 0;
+    public static final int DIRECT_VERTICAL = 1;
+    public static final int DIRECT_HORIZONTAL = 2;
+
+    private int direct = DIRECT_NONE;
+
+    public QQGroup(int direct) {
+        this.direct = direct;
+    }
+
+
     private float innerMargin = 0;
     public void setInnerMargin(float margin) {this.innerMargin = margin;}
 
@@ -112,7 +122,7 @@ public class QQGroup extends QQView implements QQView.IsParent {
 
     @Override
     public void arrangeChildren() {
-        if (vertical) {
+        if (DIRECT_VERTICAL == direct) {
             // check if view need match parent ...
             int matchChildren = 0;
             float heightForMatch = height;
