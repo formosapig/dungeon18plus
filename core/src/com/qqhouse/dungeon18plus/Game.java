@@ -20,8 +20,9 @@ public class Game {
 
     // UI Setting
     // 主流是 19 : 9 , 縮小成 16 : 9 依然好看... 相反的話就很醜....
+    // 在 sharp aquos s2 上是 17 : 9 ...
     public static final int WIDTH = 360; // in pixel
-    public static final int HEIGHT = 760; // in pixel
+    public static final int HEIGHT = 680; // in pixel
     public static final int UI_MARGIN = 4; // in pixel
 
     public static final class Size {

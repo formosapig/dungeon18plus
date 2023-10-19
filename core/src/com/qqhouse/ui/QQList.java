@@ -164,6 +164,8 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                                     + (childrenView.size() - 1) * Game.Size.WIDGET_MARGIN
                                     + topPadding
                                     + bottomPadding;
+                            if (null != parent)
+                                parent.arrangeChildren();
                         }
                         removeTarget = null;
                     }
@@ -227,6 +229,15 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             view.act(delta);
         if (null != removeTarget)
             removeTarget.act(delta);
+        // long press series
+        if (-1 != longPressIndex) {
+            longPressCounter += delta;
+            if (0.5f <= longPressCounter) {
+                if (null != listener)
+                    listener.onLongPress(longPressIndex);
+                longPressIndex = -1;
+            }
+        }
     }
 
     //private final float removeSpeed = Game.WIDTH / 0.33f;
@@ -323,13 +334,17 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
         // 2. walk through all child and find out hit one, send touch down to it.
         QQView target = null;
-        for (QQView child : childrenView) {
+        for (int i = 0, s = childrenView.size(); i < s; ++i) {
+            QQView child = childrenView.get(i);
             float childRelativeX = relativeX - child.getX();
             float childRelativeY = relativeY - child.getY();
             target = child.hit(childRelativeX, childRelativeY);
             if (null != target) {
+                Gdx.app.error("QQList", "touchDown : " + i + ",@" + target);
                 if (target instanceof IsTouchable) {
                     hitBeforeScroll = (IsTouchable) target;
+                    longPressCounter = 0;
+                    longPressIndex = i;
                 }
                 return target.touchDown(childRelativeX, childRelativeY);
             }
@@ -347,10 +362,15 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         if (0 < animationLock)
             return false;
         touchY = -1;
+        // long press reset
+        longPressIndex =  -1;
+        //longPressCounter = 0;
+
         // 1. trace this event to exit scroll mode ...
         //touchDownPos = null; // ??
         //previousScrollY = scrollY;
         //Gdx.app.error("QQListView.java", "previousScrollY = " + previousScrollY);
+
 
         // 2. tell child touch up
         QQView target = null;
@@ -360,9 +380,10 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             float childRelativeY = relativeY - child.getY();
             target = child.hit(childRelativeX, childRelativeY);
             if (null != target) {
+                Gdx.app.error("QQList", "touchUp : " + i + ",@" + target);
                 if (target.touchUp(childRelativeX, childRelativeY)) {
                     if (null != listener) {
-                        listener.onClick(i);
+                        listener.onPress(i);
                     }
                     return true;
                 }
@@ -380,15 +401,22 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     public boolean touchDragged(float relativeX, float relativeY) {
         if (0 < animationLock || 0 > touchY)
             return false;
+        // TODO 有時候會有一個位移等於零的 touchDragged 事件發生...真奇怪.
+        Gdx.app.error("QQList", "touchDragged : " + (relativeY - touchY));
         // 1. do scroll ...
-        scrollY += relativeY - touchY;
+        float moveDelta = relativeY - touchY;
+        scrollY += moveDelta;
         touchY = relativeY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
         rearrangeChildren();
-        if (null != hitBeforeScroll) {
+
+        // cancel touching and long press counter..
+        if (null != hitBeforeScroll && moveDelta > 0.01f) {
+            Gdx.app.error("QQList", "cancelTouching@" + hitBeforeScroll);
             hitBeforeScroll.cancelTouching();
         }
+        longPressIndex = -1;
 
 
         //if (null != touchDownPos) {
@@ -415,6 +443,9 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     public boolean scrolled(float amountX, float amountY) {
         if (0 < animationLock)
             return false;
+        // cancel long press
+        longPressIndex = -1;
+
         // 1. do scroll ...
         scrollY += (64 + Game.Size.WIDGET_MARGIN) * amountY;
         if (scrollY < 0) scrollY = 0;
@@ -432,10 +463,18 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
 
     /*
-        click listener
+        press listener return index
      */
-    private QQClickListener listener;
-    public void addQQClickListener(QQClickListener listener) {
+    private float longPressCounter = 0;
+    private int longPressIndex = -1;
+
+    public interface PressListener {
+        void onPress(int index);
+        void onLongPress(int index);
+    }
+
+    private PressListener listener;
+    public void addListener(PressListener listener) {
         this.listener = listener;
     }
 
@@ -448,7 +487,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     }
 
     private void rearrangeChildren() {
-        Gdx.app.error("QQList", "rearrangeChildren() @" + this);
+        //Gdx.app.error("QQList", "rearrangeChildren() @" + this);
         float anchorY = /*y +*/ height - topPadding;
 
         for (int i = 0, s = childrenView.size(); i < s; ++i) {

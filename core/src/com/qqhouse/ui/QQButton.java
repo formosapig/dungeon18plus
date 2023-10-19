@@ -1,12 +1,7 @@
 package com.qqhouse.ui;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.utils.TimeUtils;
 
 public class QQButton extends QQView implements QQView.IsTouchable {
 
@@ -36,6 +31,26 @@ public class QQButton extends QQView implements QQView.IsTouchable {
         bgDisable = set.disable;
     }
 
+    /*
+        long press series
+     */
+    private float longPressCounter = 0;
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        if (pressed) {
+            longPressCounter += delta;
+            if (longPressCounter >= 0.5f) {
+                longPressCounter = 0;
+                pressed = false;
+                if (null != clickListener)
+                    clickListener.onLongPress(this);
+            }
+
+        }
+    }
+
     @Override
     protected void drawBackground(SpriteBatch batch, float originX, float originY) {
         if (!enable && null != bgDisable) {
@@ -53,10 +68,10 @@ public class QQButton extends QQView implements QQView.IsTouchable {
     /*
         click series ...
      */
-    private QQClickListener clickListener;
+    private QQPressListener clickListener;
     private int index;
 
-    public void addQQClickListener(QQClickListener listener, int index) {
+    public void addQQClickListener(QQPressListener listener, int index) {
         this.clickListener = listener;
         this.index = index;
     }
@@ -81,7 +96,7 @@ public class QQButton extends QQView implements QQView.IsTouchable {
         if (pressed) {
             pressed = false;
             if (null != clickListener) {
-                clickListener.onClick(index);
+                clickListener.onPress(index);
             }
             return true;
         }
@@ -114,7 +129,7 @@ public class QQButton extends QQView implements QQView.IsTouchable {
         return this;
     }
 
-    public QQButton qqListener(QQClickListener listener, int index) {
+    public QQButton qqListener(QQPressListener listener, int index) {
         this.clickListener = listener;
         this.index = index;
         return this;

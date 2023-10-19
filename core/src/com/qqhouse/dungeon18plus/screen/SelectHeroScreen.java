@@ -10,14 +10,14 @@ import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.view.PreviewView;
 import com.qqhouse.dungeon18plus.view.TitleBarView;
 import com.qqhouse.dungeon18plus.Assets;
-import com.qqhouse.ui.QQClickListener;
+import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQListView;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
 
-public class SelectHeroScreen extends QQScreen implements QQClickListener {
+public class SelectHeroScreen extends QQScreen implements QQPressListener {
 
     public interface SelectHeroCallback {
         void onSelectHero(int gameMode, HeroClass hero);
@@ -119,11 +119,16 @@ public class SelectHeroScreen extends QQScreen implements QQClickListener {
         click to select hero class...
      */
     @Override
-    public void onClick(int code) {
+    public void onPress(int code) {
         //Gdx.app.error("TEST", "click. @" + TimeUtils.millis());
         //Gdx.app.error("TEST", "click");
         //Gdx.app.error("TEST", "click " + HeroClass.find(code) + "@" + TimeUtils.millis());
         // 時間上來看沒有什麼特別的問題. 差 1 ms 而已.
         callback.onSelectHero(gameMode, HeroClass.find(code));
+    }
+
+    @Override
+    public void onLongPress(QQView view) {
+
     }
 }

@@ -16,10 +16,19 @@ public class QQGroup extends QQView implements QQView.IsParent {
 
     private int direct = DIRECT_NONE;
 
+    public QQGroup() {
+        this.direct = DIRECT_NONE;
+        this.innerMargin = 0;
+    }
+
     public QQGroup(int direct) {
         this.direct = direct;
     }
 
+    public QQGroup(int direct, int innerMargin) {
+        this.direct = direct;
+        this.innerMargin = innerMargin;
+    }
 
     private float innerMargin = 0;
     public void setInnerMargin(float margin) {this.innerMargin = margin;}
@@ -145,8 +154,8 @@ public class QQGroup extends QQView implements QQView.IsParent {
             for (QQView v : childrenView) {
                 v.setPosition(v.getX(), anchorY);
                 anchorY += v.getHeight() + innerMargin;
-                Gdx.app.error("QQGroup", "put v in : " + v.getX() + "," + v.getY() + "@" + v);
-                Gdx.app.error("QQGroup", "    size : " + v.getWidth() + "," + v.getHeight());
+                //Gdx.app.error("QQGroup", "put v in : " + v.getX() + "," + v.getY() + "@" + v);
+                //Gdx.app.error("QQGroup", "    size : " + v.getWidth() + "," + v.getHeight());
             }
         }
     }

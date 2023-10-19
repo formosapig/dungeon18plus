@@ -13,7 +13,7 @@ import com.qqhouse.dungeon18plus.view.EventView;
 import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
 import com.qqhouse.dungeon18plus.Assets;
-import com.qqhouse.ui.QQClickListener;
+import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQScreen;
@@ -116,7 +116,7 @@ public class DungeonScreen extends QQScreen {
         addView(heroView);
 
         // group ( event, special event ), just a container...
-        QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL);
+        QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, 2);
         // FIXME 使用 match_parent 以及 Screen 內含 QQView ...
         group.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
         group.setPosition(0, 64 + 2 + 24 + 2);
@@ -129,14 +129,20 @@ public class DungeonScreen extends QQScreen {
         specialEventList.setPosition(0, 0);
         specialEventList.setCamera(getCamera());
         specialEventList.setAdapter(specialEventAdapter);
-        specialEventList.addQQClickListener(new QQClickListener() {
+        specialEventList.addListener(new QQList.PressListener() {
             @Override
-            public void onClick(int index) {
+            public void onPress(int index) {
                 if (manager.isSpecialEventDoable(index)) {
                     manager.doSpecialEvent(index);
                     update();
                 }
-            }});
+            }
+
+            @Override
+            public void onLongPress(int index) {
+                Gdx.app.error("DungeonScreen", "special event long press : " + index);
+            }
+        });
         //addView(specialEventList);
         group.addChild(specialEventList);
 
@@ -147,16 +153,22 @@ public class DungeonScreen extends QQScreen {
         //eventList.setPosition(0, 64 + 2 + 24 + 2);
         eventList.setCamera(getCamera());
         eventList.setAdapter(eventAdapter);
-        eventList.addQQClickListener(new QQClickListener() {
+        eventList.addListener(new QQList.PressListener() {
             @Override
-            public void onClick(int index) {
+            public void onPress(int index) {
                 if (manager.isEventDoable(index)) {
                     //Gdx.app.error("DungeonScreen", " do event.");
                     manager.doEvent();
                     //Gdx.app.error("DungeonScreen", " update.");
                     update();
                 }
-            }});
+            }
+
+            @Override
+            public void onLongPress(int index) {
+                Gdx.app.error("DungeonScreen", "event long press : " + index);
+            }
+        });
         //addView(eventList);
         group.addChild(eventList);
 
@@ -183,15 +195,20 @@ public class DungeonScreen extends QQScreen {
                     );
             action.setSize(actionWidth, 64);
             action.setPosition((actionWidth + 2) * i, 0);
-            action.addQQClickListener(new QQClickListener() {
+            action.addQQClickListener(new QQPressListener() {
                 @Override
-                public void onClick(int index) {
+                public void onPress(int index) {
                     if (manager.canDoAction(index)) {
                         manager.doAction(index);
                         // update status...
                         update();
                     }
                     debug();
+                }
+
+                @Override
+                public void onLongPress(QQView view) {
+
                 }
             }, i);
             actionViews.add(action);

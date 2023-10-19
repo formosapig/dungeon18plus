@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 
-public abstract class QQView {
+public class QQView {
 
     public interface IsParent {
         void arrangeChildren();
@@ -59,7 +59,7 @@ public abstract class QQView {
     public void act(float delta) {
         if (null != animation)
             animation.act(delta);
-    };
+    }
 
     /*
         background series...

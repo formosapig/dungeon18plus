@@ -2,7 +2,6 @@ package com.qqhouse.dungeon18plus.screen;
 
 import static com.qqhouse.dungeon18plus.core.GameAlignment.*;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -10,7 +9,7 @@ import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.TitleMenuView;
 import com.qqhouse.dungeon18plus.Assets;
-import com.qqhouse.ui.QQClickListener;
+import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
@@ -117,10 +116,15 @@ public class TitleScreen extends QQScreen {
         //Gdx.app.error("TitleScreen", "OnEnter finish.");
     }
 
-    private QQClickListener clickListener = new QQClickListener() {
+    private QQPressListener clickListener = new QQPressListener() {
         @Override
-        public void onClick(int gameMode) {
+        public void onPress(int gameMode) {
             callback.onTitle(gameMode);
+        }
+
+        @Override
+        public void onLongPress(QQView view) {
+
         }
     };
 
