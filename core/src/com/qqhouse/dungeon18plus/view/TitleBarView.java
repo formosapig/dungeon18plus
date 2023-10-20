@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -33,6 +34,7 @@ public class TitleBarView extends QQView {
         }
 
         // print title in central...
+        font.setColor(Color.WHITE);
         font.draw(batch, title, originX + leftPadding + 32 + 4, originY + bottomPadding + (32 + 18) / 2);
 
 

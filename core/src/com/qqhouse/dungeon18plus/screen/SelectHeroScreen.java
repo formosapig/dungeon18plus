@@ -1,9 +1,5 @@
 package com.qqhouse.dungeon18plus.screen;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.HeroClass;
@@ -36,21 +32,21 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
     }
 
     // resource kept
-    private BitmapFont fntTitle;
-    private BitmapFont fntName;
-    private BitmapFont fntDesc;
+    //private BitmapFont fntTitle;
+    //private BitmapFont fntName;
+    //private BitmapFont fntDesc;
     private QQListView list;
 
     @Override
     public void onEnter() {
         // initial font.
         // bitmap font...
-        fntTitle = createFont(18, Color.WHITE, "請選擇英雄");
+        //fntTitle = createFont(18, Color.WHITE, "請選擇英雄");
 
         // one title view ..., just print select hero ?
         TitleBarView title = new TitleBarView(
-                new Texture(Gdx.files.internal("blockee/fairy.png")),
-                fntTitle,
+                assets.getBlockee("fairy"),
+                assets.getFont(Game.Font.NAME20),
                 "Select Hero : ");
 
         //addView(title);
@@ -75,8 +71,9 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         tmp.add(HeroClass.GREEN_MAGE);
         tmp.add(HeroClass.SWORD_MASTER);
 
-        fntName = createFont("NotoSansTC-Bold.ttf", 20, new Color(0x9E8064FF), "");
-        fntDesc = createFont(14, Color.WHITE, "'");
+        // FIXME hero name must change font color...
+        //fntName = createFont("NotoSansTC-Bold.ttf", 20, new Color(0x9E8064FF), "");
+        //fntDesc = createFont(14, Color.WHITE, "'");
 
 
         //ScrollPane
@@ -94,9 +91,9 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
             PreviewView view = new PreviewView(
                     assets.getBackgroundSet(hero.alignment.key), // Alignment decides background.
                     assets.getBlockee(hero.key),
-                    fntName,
+                    assets.getFont(Game.Font.NAME20),
                     assets.geti18n(hero.key),
-                    fntDesc,
+                    assets.getFont(Game.Font.HELP14),
                     assets.geti18n(hero.key+"_help"));
             view.setPadding(8);
             view.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
@@ -107,12 +104,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
 
     @Override
     public void onLeave() {
-
         list.dispose();
-        fntTitle.dispose();
-        fntName.dispose();
-        fntDesc.dispose();
-
     }
 
     /*

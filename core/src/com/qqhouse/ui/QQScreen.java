@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.Assets;
 
@@ -178,35 +180,28 @@ public abstract class QQScreen extends InputAdapter {
     public void resume() {}
 
     /*
-        resource
+        Dialog series...
      */
+    public void openDialog(QQView view) {
+        QQView dialogMask = new QQView();
 
-    // font should controlled by screen instance.
-    protected BitmapFont createFont(String fontName, int fontSize, Color color, String fontCharacters) {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font//" + fontName));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = fontSize; // default = 16
-        parameter.color = color;//new Color(0x9E8064FF);
-        parameter.characters = FreeTypeFontGenerator.DEFAULT_CHARS + fontCharacters;// default = a~z A~Z 1~9, 0, some normal character
-        // 在 parameter 內設 filter, 可以取代 font.getRegion().getTexture().setFilter ...
-        parameter.magFilter = Texture.TextureFilter.Linear;
-        parameter.minFilter = Texture.TextureFilter.Linear;
-        BitmapFont font = generator.generateFont(parameter);
-        generator.dispose(); // avoid memory leaks, important
-        // 加了這行, 字體變漂亮了... 在手機上的效果無法確定....
-        //font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        //Gdx.app.error("TEST", "fontSize     = " + fontSize);
-        //Gdx.app.error("TEST", "- CapHeight  = " + font.getCapHeight());
-        //Gdx.app.error("TEST", "- LineHeight = " + font.getLineHeight());
-        //Gdx.app.error("TEST", "- XHeight = " + font.getXHeight());
-        //Gdx.app.error("TEST", "- Ascent = " + font.getAscent());
-        //Gdx.app.error("TEST", "- Descent = " + font.getDescent());
+        dialogMask.bgNormal = new NinePatch(assets.getBackground("black"), 4, 4, 4, 4);
+        dialogMask.bgNormal.setColor(new Color(1, 1, 1, 0.5f));
+        dialogMask.setPosition(0, 0);
+        dialogMask.setSize(Game.WIDTH, Game.HEIGHT);
 
-        return font;
+        addView(dialogMask);
+
+        // calculate view's size
+        if (view.matchWidth)
+            view.setSize(Game.WIDTH, view.getHeight());
+
+        // set position
+        view.setPosition((Game.WIDTH - view.getWidth())/2,
+                (Game.HEIGHT - view.getHeight())/2);
+
+
     }
 
-    protected BitmapFont createFont(int fontSize, Color color, String fontCharacters) {
-        return createFont("NotoSansTC-Regular.ttf", fontSize, color, fontCharacters);
-    }
 
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQView;
 
@@ -42,10 +43,13 @@ public class PreviewView extends QQButton {
     public PreviewView(BackgroundSet set, Texture icon, BitmapFont fntName, String name, BitmapFont fntDesc, String desc) {
         super(set);
         this.icon = icon;
+        fntName.setColor(Game.color.RARE);
         this.fntName = fntName;
         this.name = name;
         this.fntDesc = fntDesc;
         this.desc = desc;
+        //this.fntName.setColor(Game.color.RARE);
+        this.fntDesc.setColor(Color.WHITE);
     }
 
     @Override
@@ -102,18 +106,13 @@ public class PreviewView extends QQButton {
         batch.draw(icon, (int)(originX + iconShiftX), (int)(originY + iconShiftY), 48, 48);
 
         // draw name
+        fntName.setColor(Game.color.RARE);
         fntName.draw(batch, name, originX + nameShiftX, originY + nameShiftY);
 
         // draw desc
         fntDesc.draw(batch, desc, originX + descShiftX, originY + descShiftY, 0, 50, descW, Align.topLeft, true, null);
-
     }
-
-
 
     @Override
-    public void dispose() {
-
-    }
-
+    public void dispose() {}
 }

@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setTitle("Dungeon 18+");
 		//config.setWindowedMode(375, 667); // iPhone SE 3
-		config.setWindowedMode(330, 510); // desktop
+		config.setWindowedMode(330, 530); // desktop
 		//config.setWindowedMode(Game.WIDTH, Game.HEIGHT);
 		config.useVsync(true);
 		config.setForegroundFPS(60);

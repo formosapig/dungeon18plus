@@ -7,6 +7,7 @@ import com.qqhouse.dungeon18plus.core.DungeonManager;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
+import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.view.ActionView;
 import com.qqhouse.dungeon18plus.view.EventView;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 public class DungeonScreen extends QQScreen {
 
     public interface DungeonCallback {
-        void onDungeonResult();
+        void onDungeonResult(boolean isWin, ArrayList<BossKill> kills);
     }
 
     private DungeonManager manager;
@@ -166,6 +167,7 @@ public class DungeonScreen extends QQScreen {
 
             @Override
             public void onLongPress(int index) {
+                openDialog(null);
                 Gdx.app.error("DungeonScreen", "event long press : " + index);
             }
         });

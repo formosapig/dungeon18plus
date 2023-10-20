@@ -146,6 +146,10 @@ public class Game {
        font ...
      */
     public static final class Font {
+        public static final Assets.FontSet TITLE28 = new Assets.FontSet("NotoSansTC-Regular", 28);
+        public static final Assets.FontSet NAME20 = new Assets.FontSet("NotoSansTC-Regular", 20);
+        public static final Assets.FontSet HELP14 = new Assets.FontSet("NotoSansTC-Regular", 14);
+
         public static final Assets.FontSet LEVEL16 = new Assets.FontSet("ConsolaMono-Bold", 16);
         public static final Assets.FontSet DIGITAL16 = new Assets.FontSet("whitrabt", 16);
         //public static final Assets.FontSet HERO_ABILITY = new Assets.FontSet("Nouveau_IBM", 18);

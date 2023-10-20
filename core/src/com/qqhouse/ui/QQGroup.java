@@ -137,25 +137,31 @@ public class QQGroup extends QQView implements QQView.IsParent {
             float heightForMatch = height;
 
             for (QQView v : childrenView) {
+                if (!v.isVisible())
+                    continue;
                 if (v.matchHeight)
                     matchChildren++;
-                else
+                else // TODO if height == 0 ? should consider this.
                     heightForMatch -= v.getHeight();
             }
 
             // heightForMatch split to matchChildren
-            for (QQView v : childrenView) {
-                if (v.matchHeight)
-                    v.height = heightForMatch / matchChildren;
+            if (0 < matchChildren) {
+                for (QQView v : childrenView) {
+                    if (v.matchHeight && v.isVisible())
+                        v.height = heightForMatch / matchChildren;
+                }
             }
 
             // reset position
             float anchorY = 0;
             for (QQView v : childrenView) {
+                if (!v.isVisible() || v.getHeight() == 0)
+                    continue;
                 v.setPosition(v.getX(), anchorY);
                 anchorY += v.getHeight() + innerMargin;
-                //Gdx.app.error("QQGroup", "put v in : " + v.getX() + "," + v.getY() + "@" + v);
-                //Gdx.app.error("QQGroup", "    size : " + v.getWidth() + "," + v.getHeight());
+                Gdx.app.error("QQGroup", "put v in : " + v.getX() + "," + v.getY() + "@" + v);
+                Gdx.app.error("QQGroup", "    size : " + v.getWidth() + "," + v.getHeight());
             }
         }
     }

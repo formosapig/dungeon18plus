@@ -22,8 +22,8 @@ public class TitleScreen extends QQScreen {
     }
 
     private ArrayList<QQView> menus;
-    private TitleCallback callback;
-    private BitmapFont font;
+    private final TitleCallback callback;
+    //private BitmapFont font;
 
     public TitleScreen(SaveGame savedGame, Viewport viewport, Assets assets, TitleCallback callback) {
         super(savedGame, viewport, assets);
@@ -34,7 +34,8 @@ public class TitleScreen extends QQScreen {
     public void onEnter() {
         //Gdx.app.error("TitleScreen", "onEnter.");
         // bitmap font...
-        font = createFont(28, new Color(0x9E8064FF), "地下城巫師塔圓形競技場荒原魔王城圖書館");
+        //font = createFont(28, new Color(0x9E8064FF), "地下城巫師塔圓形競技場荒原魔王城圖書館");
+        BitmapFont fnt = assets.getFont(Game.Font.TITLE28);
         //Gdx.app.error("TitleScreen", "font created.");
 
         menus = new ArrayList<QQView>();
@@ -45,7 +46,7 @@ public class TitleScreen extends QQScreen {
         float menu_margin = 6;
         menus.add(new TitleMenuView(assets.getBackgroundSet(ORDINARY.key),
                 assets.getBlockee("skeleton_fighter"),
-                font,
+                fnt,
                 assets.geti18n("dungeon"))
                 .qqListener(clickListener, Game.GAME_MODE_DUNGEON)
                 .size(menu_width, menu_height));
@@ -55,7 +56,7 @@ public class TitleScreen extends QQScreen {
         if (savedGame.isGameModeUnlocked(Game.GAME_MODE_TOWER)) {
             menus.add(new TitleMenuView(assets.getBackgroundSet(LAWFUL.key),
                     assets.getBlockee("fire_sorcerer"),
-                    font,
+                    fnt,
                     assets.geti18n("tower"))
                     .qqListener(clickListener, Game.GAME_MODE_TOWER)
                     .size(menu_width, menu_height));
@@ -65,7 +66,7 @@ public class TitleScreen extends QQScreen {
         if (savedGame.isGameModeUnlocked(Game.GAME_MODE_COLOSSEUM)) {
             menus.add(new TitleMenuView(assets.getBackgroundSet(NEUTRAL.key),
                     assets.getBlockee("arena"),
-                    font,
+                    fnt,
                     assets.geti18n("colosseum"))
                     .qqListener(clickListener, Game.GAME_MODE_COLOSSEUM)
                     //.defaultDisable()
@@ -76,7 +77,7 @@ public class TitleScreen extends QQScreen {
         if (savedGame.isGameModeUnlocked(Game.GAME_MODE_WILDERNESS)) {
             menus.add(new TitleMenuView(assets.getBackgroundSet(SPECIAL.key),
                     assets.getBlockee("steel_cyclops"),
-                    font,
+                    fnt,
                     assets.geti18n("wilderness"))
                     .qqListener(clickListener, Game.GAME_MODE_WILDERNESS)
                     //.defaultDisable()
@@ -87,7 +88,7 @@ public class TitleScreen extends QQScreen {
         if (savedGame.isGameModeUnlocked(Game.GAME_MODE_CASTLE)) {
             menus.add(new TitleMenuView(assets.getBackgroundSet(CHAOTIC.key),
                     assets.getBlockee("skeleton_king"),
-                    font,
+                    fnt,
                     assets.geti18n("castle"))
                     .qqListener(clickListener, Game.GAME_MODE_CASTLE)
                     //.defaultDisable()
@@ -99,7 +100,7 @@ public class TitleScreen extends QQScreen {
                 assets.getBlockee("merchant"),
                 // 下面這行 code 把 texture 變成灰階的了,笑死
                 //new Texture(Gdx.files.internal("blockee/merchant.png"), Pixmap.Format.LuminanceAlpha, true),
-                font,
+                fnt,
                 assets.geti18n("library"))
                 .qqListener(clickListener, Game.GAME_MODE_LIBRARY)
                 .size(menu_width, menu_height));
@@ -134,6 +135,5 @@ public class TitleScreen extends QQScreen {
             removeView(view);
             view.dispose();
         }
-        font.dispose();
     }
 }

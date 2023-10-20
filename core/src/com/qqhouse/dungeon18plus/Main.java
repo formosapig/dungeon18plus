@@ -7,11 +7,15 @@ import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.screen.DungeonScreen;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
+import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.ui.QQGameMachine;
+
+import java.util.ArrayList;
 
 public class Main extends QQGameMachine implements
         TitleScreen.TitleCallback,
-        SelectHeroScreen.SelectHeroCallback {
+        SelectHeroScreen.SelectHeroCallback,
+        DungeonScreen.DungeonCallback {
 
     public static final int STATE_TITLE       = 0;
     public static final int STATE_SELECT_HERO = 1;
@@ -90,5 +94,13 @@ public class Main extends QQGameMachine implements
             default:
                 throw new GdxRuntimeException("Unsupported game mode." + gameMode);
         }
+    }
+
+    @Override
+    public void onDungeonResult(boolean isWin, ArrayList<BossKill> kills) {
+
+
+
+
     }
 }
