@@ -182,23 +182,40 @@ public abstract class QQScreen extends InputAdapter {
     /*
         Dialog series...
      */
-    public void openDialog(QQView view) {
-        QQView dialogMask = new QQView();
+    public void openDialog(QQView customView, boolean modal) {
+        final QQView dialogMask = new QQView();
 
         dialogMask.bgNormal = new NinePatch(assets.getBackground("black"), 4, 4, 4, 4);
         dialogMask.bgNormal.setColor(new Color(1, 1, 1, 0.5f));
         dialogMask.setPosition(0, 0);
         dialogMask.setSize(Game.WIDTH, Game.HEIGHT);
 
+        // add click listener to dialogMask , any click on it will dismiss dialog.
+        //if (!modal) {
+        //    dialogMask.addPressListener(new QQView.PressListener() {
+        //        @Override
+        //        public void onPress(QQView view) {
+        //            if (view == dialogMask) {
+        //                removeView(dialogMask);
+        //            }
+        //        }
+
+        //        @Override
+        //        public void onLongPress(QQView view) {}
+        //    });
+        //}
+
         addView(dialogMask);
 
+
+
         // calculate view's size
-        if (view.matchWidth)
-            view.setSize(Game.WIDTH, view.getHeight());
+        if (customView.matchWidth)
+            customView.setSize(Game.WIDTH, customView.getHeight());
 
         // set position
-        view.setPosition((Game.WIDTH - view.getWidth())/2,
-                (Game.HEIGHT - view.getHeight())/2);
+        customView.setPosition((Game.WIDTH - customView.getWidth())/2,
+                (Game.HEIGHT - customView.getHeight())/2);
 
 
     }

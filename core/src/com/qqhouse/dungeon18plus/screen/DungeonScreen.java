@@ -10,10 +10,12 @@ import com.qqhouse.dungeon18plus.struct.ActionSlot;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.view.ActionView;
+import com.qqhouse.dungeon18plus.view.EventInfoView;
 import com.qqhouse.dungeon18plus.view.EventView;
 import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
 import com.qqhouse.dungeon18plus.Assets;
+import com.qqhouse.dungeon18plus.view.SummaryDialog;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
@@ -43,6 +45,7 @@ public class DungeonScreen extends QQScreen {
     private HeroView heroView;
     private final ArrayList<ActionView> actionViews = new ArrayList<>();
     private LootInfoView lootInfo;
+    private EventInfoView eventInfo;
 
     /*
         QQList Adapter ...
@@ -134,8 +137,11 @@ public class DungeonScreen extends QQScreen {
             @Override
             public void onPress(int index) {
                 if (manager.isSpecialEventDoable(index)) {
-                    manager.doSpecialEvent(index);
+                    int result = manager.doSpecialEvent(index);
                     update();
+                    if (Game.result.process > result) {
+                        endGame(Game.result.win == result);
+                    }
                 }
             }
 
@@ -159,15 +165,19 @@ public class DungeonScreen extends QQScreen {
             public void onPress(int index) {
                 if (manager.isEventDoable(index)) {
                     //Gdx.app.error("DungeonScreen", " do event.");
-                    manager.doEvent();
+                    int result = manager.doEvent();
                     //Gdx.app.error("DungeonScreen", " update.");
                     update();
+                    if (Game.result.process > result) {
+                        endGame(Game.result.win == result);
+                    }
                 }
             }
 
             @Override
             public void onLongPress(int index) {
-                openDialog(null);
+                eventInfo.update(manager.getEvent(index));
+                openDialog(eventInfo, false);
                 Gdx.app.error("DungeonScreen", "event long press : " + index);
             }
         });
@@ -217,6 +227,9 @@ public class DungeonScreen extends QQScreen {
             addView(action);
         }
 
+        // event info
+        eventInfo = new EventInfoView();
+
         update();
     }
 
@@ -228,7 +241,7 @@ public class DungeonScreen extends QQScreen {
         //manager.test();
     }
 
-    public void update() {
+    private void update() {
         // 1. heroview
         heroView.update(manager.getHero());
 
@@ -243,6 +256,12 @@ public class DungeonScreen extends QQScreen {
         }
     }
 
+    private void endGame(boolean isWin) {
+        SummaryDialog summary = new SummaryDialog();
+        //summary.reset(manager.killList, isWin);
+        //summry.setPressListener();
+        openDialog(summary, true);
+    }
 
     @Override
     public void onLeave() {

@@ -1259,19 +1259,19 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         } else {
             // rare drop
             switch (boss) {
-            case CAT_SITH:         return Item.WIND_BOOTS;
-            case WAILING_WALL:     return Item.BLACK_SHIELD;
+            case CAT_SITH:      return Item.WIND_BOOTS;
+            case WAILING_WALL:  return Item.BLACK_SHIELD;
             case DEMON:         return Item.SHADOW_DAGGER;
-            case EARTH_KNIGHT:     return Item.WHITE_SHIELD;
-            case FIRE_KNIGHT:     return Item.FIRE_SWORD;
-            case WATER_KNIGHT:     return Item.ICE_SWORD;
-            case WIND_KNIGHT:     return Item.THUNDER_SWORD;
-            case STEEL_CYCLOPS:    {
+            case EARTH_KNIGHT:  return Item.WHITE_SHIELD;
+            case FIRE_KNIGHT:   return Item.FIRE_SWORD;
+            case WATER_KNIGHT:  return Item.ICE_SWORD;
+            case WIND_KNIGHT:   return Item.THUNDER_SWORD;
+            case STEEL_CYCLOPS: {
                 Item[] ironPlus = {Item.IRON_DAGGER_1, Item.IRON_SWORD_1, Item.IRON_SHIELD_1, Item.IRON_RING_1, Item.IRON_BOOTS_1};
                 return ironPlus[mRandom.nextInt(ironPlus.length)];
             }
-            case SKELETON_KING:  return mRandom.nextBoolean() ? Item.SKULL_SWORD : Item.SKULL_SHIELD;
-            default:                            return Item.NONE;
+            case SKELETON_KING: return mRandom.nextBoolean() ? Item.SKULL_SWORD : Item.SKULL_SHIELD;
+            default:            return Item.NONE;
             }
         }
     }

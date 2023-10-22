@@ -47,3 +47,17 @@ action slot.
 ----------------------------------------------------------------------------------------------------
 * 盜賊類裝備應該要增加 key 的數量, key 的真實功能是賊技/敏捷技/暗殺技 的能量...
 
+----------------------------------------------------------------------------------------------------
+* 通過地下城時
+  - 等級 16       :   5 score
+  - 等級 17       :  10 score
+  - 等級 18       :  30 score (need steel cylops)
+  - max life     :   5 score
+  - max attack   :   5 score
+  - max defense  :   5 score
+  - min speed    :   5 score
+  - wooden set   :  25 score
+  - skeleton set : 110 score (cursed, hard)
+  - holy set     :  80 score (blessed, normal)
+
+  ... and so on ....

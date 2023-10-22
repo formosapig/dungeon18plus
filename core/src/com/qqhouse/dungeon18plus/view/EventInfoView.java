@@ -1,6 +1,7 @@
 package com.qqhouse.dungeon18plus.view;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQText;
@@ -18,6 +19,8 @@ public class EventInfoView extends QQGroup {
     private AbilityView lootUpgrade;
 
 
+    public void update(Event event) {
 
+    }
 
 }
