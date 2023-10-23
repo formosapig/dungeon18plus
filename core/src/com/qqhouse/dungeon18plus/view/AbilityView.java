@@ -25,7 +25,7 @@ public class AbilityView extends QQView implements QQView.IsParent {
         life = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("life"));
         life.setSize(48, 16);
         life.setPosition(0, 0);
-        life.setColor(Game.color.LIFE);
+        life.setColor(Game.Colour.LIFE);
         life.setAlign(Align.right);
         life.setWrapWidth(true);
         childrenView.add(life);
@@ -33,7 +33,7 @@ public class AbilityView extends QQView implements QQView.IsParent {
         attack = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("attack"));
         attack.setSize(48, 16);
         attack.setPosition(48, 0);
-        attack.setColor(Game.color.ATTACK);
+        attack.setColor(Game.Colour.ATTACK);
         attack.setAlign(Align.right);
         attack.setWrapWidth(true);
         childrenView.add(attack);
@@ -41,7 +41,7 @@ public class AbilityView extends QQView implements QQView.IsParent {
         defense = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("defense"));
         defense.setSize(48, 16);
         defense.setPosition(96, 0);
-        defense.setColor(Game.color.DEFENSE);
+        defense.setColor(Game.Colour.DEFENSE);
         defense.setAlign(Align.right);
         defense.setWrapWidth(true);
         childrenView.add(defense);
@@ -49,7 +49,7 @@ public class AbilityView extends QQView implements QQView.IsParent {
         speed = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("speed"));
         speed.setSize(48, 16);
         speed.setPosition(144, 0);
-        speed.setColor(Game.color.SPEED);
+        speed.setColor(Game.Colour.SPEED);
         speed.setAlign(Align.right);
         speed.setWrapWidth(true);
         childrenView.add(speed);

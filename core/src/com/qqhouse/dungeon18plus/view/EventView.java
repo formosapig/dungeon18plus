@@ -37,7 +37,7 @@ public class EventView extends QQButton implements QQView.IsParent {
         // level
         if (event.type.isZako()) {
             level = new QQText(assets.getFont(Game.Font.LEVEL16), new NinePatch(assets.getTexture("background", "zako_level"), 4, 4, 4, 4), 0.75f);
-            level.setColor(Game.color.ZAKO_LEVEL);
+            level.setColor(Game.Colour.ZAKO_LEVEL);
             level.setPadding(4);
             level.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
             //level.setSize(24, 16);
@@ -48,7 +48,7 @@ public class EventView extends QQButton implements QQView.IsParent {
         // score
         if (event.type.isBoss()) {
             score = new QQText(assets.getFont(Game.Font.LEVEL16), new NinePatch(assets.getTexture("background", "level"), 4, 4, 4, 4), 0.75f);
-            score.setColor(Game.color.RANK);
+            score.setColor(Game.Colour.RANK);
             score.setPadding(4);
             score.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
             score.setPosition(4, 4);
@@ -62,12 +62,12 @@ public class EventView extends QQButton implements QQView.IsParent {
         switch (event.costType) {
             case Game.cost.key:
                 costIcon = assets.getItem("key");
-                costColor = Game.color.RARE;
+                costColor = Game.Colour.RARE;
                 costValue = String.format(Locale.US, "%d", event.costValue);
                 break;
             case Game.cost.coin:
                 costIcon = assets.getItem("copper_coin");
-                costColor = Game.color.RARE;
+                costColor = Game.Colour.RARE;
                 costValue = String.format(Locale.US, "%d", event.costValue);
                 break;
             case Game.cost.none:
@@ -79,11 +79,11 @@ public class EventView extends QQButton implements QQView.IsParent {
             case Game.cost.damage:
                 if (event.costValue < 0) {
                     costIcon = assets.getIcon32("life");
-                    costColor = Game.color.LIFE;
+                    costColor = Game.Colour.LIFE;
                     costValue = String.format(Locale.US, "%+d", -event.costValue);
                 } else {
                     costIcon = assets.getIcon32("damage");
-                    costColor = Game.color.DAMAGE;
+                    costColor = Game.Colour.DAMAGE;
                     costValue = String.format(Locale.US, "%d", event.costValue);
                 }
                 break;
@@ -99,8 +99,8 @@ public class EventView extends QQButton implements QQView.IsParent {
         // item ...
         item = new ItemView(assets.getFont(Game.Font.DIGITAL16), assets.getBackground("black"));
         item.setSize(32, 32);
-        item.setPosition(Game.WIDTH - 8 - 32, 26);
-        item.setColor(Game.color.COUNT);
+        item.setPosition(Game.Size.WIDTH - 8 - 32, 26);
+        item.setColor(Game.Colour.COUNT);
         item.setVisible(false);
         childrenView.add(item);
 
@@ -118,7 +118,7 @@ public class EventView extends QQButton implements QQView.IsParent {
         // ability view
         ability = new AbilityView(assets);
         ability.setSize(200, 16);
-        ability.setPosition(Game.WIDTH - 200 - 8, 6);
+        ability.setPosition(Game.Size.WIDTH - 200 - 8, 6);
         ability.setVisible(false);
         childrenView.add(ability);
 
@@ -144,12 +144,12 @@ public class EventView extends QQButton implements QQView.IsParent {
         switch (event.costType) {
             case Game.cost.key:
                 costIcon = assets.getItem("key");
-                costColor = Game.color.RARE;
+                costColor = Game.Colour.RARE;
                 costValue = String.format(Locale.US, "%d", event.costValue);
                 break;
             case Game.cost.coin:
                 costIcon = assets.getItem("copper_coin");
-                costColor = Game.color.RARE;
+                costColor = Game.Colour.RARE;
                 costValue = String.format(Locale.US, "%d", event.costValue);
                 break;
             case Game.cost.none:
@@ -161,11 +161,11 @@ public class EventView extends QQButton implements QQView.IsParent {
             case Game.cost.damage:
                 if (event.costValue < 0) {
                     costIcon = assets.getIcon32("life");
-                    costColor = Game.color.LIFE;
+                    costColor = Game.Colour.LIFE;
                     costValue = String.format(Locale.US, "%+d", -event.costValue);
                 } else {
                     costIcon = assets.getIcon32("damage");
-                    costColor = Game.color.DAMAGE;
+                    costColor = Game.Colour.DAMAGE;
                     costValue = String.format(Locale.US, "%d", event.costValue);
                 }
                 break;

@@ -51,8 +51,8 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
 
         //addView(title);
         title.setPadding(8);
-        title.setSize(Game.WIDTH, 48);
-        title.setPosition(0, Game.HEIGHT - 48);
+        title.setSize(Game.Size.WIDTH, 48);
+        title.setPosition(0, Game.Size.HEIGHT - 48);
         addView(title);
 
         ArrayList<HeroClass> tmp = new ArrayList<>();
@@ -80,7 +80,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
 
         // list view of hero preview view
         list = (QQListView) new QQListView()
-                .size(Game.WIDTH, Game.HEIGHT - title.getHeight() - 8).
+                .size(Game.Size.WIDTH, Game.Size.HEIGHT - title.getHeight() - 8).
                 position(0, 0).
                 padding(8);
         list.setCamera(getCamera());

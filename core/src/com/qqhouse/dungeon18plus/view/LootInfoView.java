@@ -25,7 +25,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         bgNormal = new NinePatch(assets.getBackground("loot_info"), 4, 4, 4, 4);
 
         star = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("cost_star"));
-        star.setColor(Game.color.RARE);
+        star.setColor(Game.Colour.RARE);
         star.setSize(16, 16);
         star.setPosition(0, 0);
         star.setWrapWidth(true);
@@ -33,7 +33,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         childrenView.add(star);
 
         coin = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("cost_coin"));
-        coin.setColor(Game.color.RARE);
+        coin.setColor(Game.Colour.RARE);
         coin.setSize(16, 16);
         coin.setPosition(0, 0);
         coin.setWrapWidth(true);
@@ -41,7 +41,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         childrenView.add(coin);
 
         life = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("life"));
-        life.setColor(Game.color.LIFE);
+        life.setColor(Game.Colour.LIFE);
         life.setSize(16, 16);
         life.setPosition(0, 0);
         life.setWrapWidth(true);
@@ -49,7 +49,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         childrenView.add(life);
 
         attack = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("attack"));
-        attack.setColor(Game.color.ATTACK);
+        attack.setColor(Game.Colour.ATTACK);
         attack.setSize(16, 16);
         attack.setPosition(0, 0);
         attack.setWrapWidth(true);
@@ -57,7 +57,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         childrenView.add(attack);
 
         defense = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("defense"));
-        defense.setColor(Game.color.DEFENSE);
+        defense.setColor(Game.Colour.DEFENSE);
         defense.setSize(16, 16);
         defense.setPosition(0, 0);
         defense.setWrapWidth(true);
@@ -65,7 +65,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
         childrenView.add(defense);
 
         speed = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("speed"));
-        speed.setColor(Game.color.SPEED);
+        speed.setColor(Game.Colour.SPEED);
         speed.setSize(16, 16);
         speed.setPosition(0, 0);
         speed.setWrapWidth(true);

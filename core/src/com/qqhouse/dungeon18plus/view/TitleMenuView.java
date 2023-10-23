@@ -40,7 +40,7 @@ public class TitleMenuView extends QQButton {
         //batch.setColor(1,1,1,1);//c.r, c.g, c.b, 1);
         // draw font...
         //master.getFont().getData().setScale(0.71f, 0.5f);
-        font.setColor(Game.color.RARE);
+        font.setColor(Game.Colour.RARE);
         font.draw(batch, menu, (int)(originX + menuShiftX), (int)(originY + menuShiftY));
         //batch.draw();
     }

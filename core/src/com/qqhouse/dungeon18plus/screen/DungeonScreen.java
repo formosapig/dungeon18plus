@@ -62,7 +62,7 @@ public class DungeonScreen extends QQScreen {
             Event event = manager.getEvent(index);
 
             EventView evt = new EventView(assets);
-            evt.setSize(Game.WIDTH, 64);
+            evt.setSize(Game.Size.WIDTH, 64);
             evt.reset(event);
 
             return evt;
@@ -88,7 +88,7 @@ public class DungeonScreen extends QQScreen {
             Event event = manager.getSpecialEvent(index);
 
             EventView evt = new EventView(assets);
-            evt.setSize(Game.WIDTH, 64);
+            evt.setSize(Game.Size.WIDTH, 64);
             evt.reset(event);
 
             return evt;
@@ -112,9 +112,9 @@ public class DungeonScreen extends QQScreen {
         // hero view ...
         heroView = new HeroView(assets);
         heroView.setPadding(8);
-        heroView.setPosition(0, Game.HEIGHT - 64);
+        heroView.setPosition(0, Game.Size.HEIGHT - 64);
         //heroView.setSize(QQView.FILL_PARENT, 64);
-        heroView.setSize(Game.WIDTH, 64);
+        heroView.setSize(Game.Size.WIDTH, 64);
         heroView.reset(manager.getHero());
         //heroView.setData(manager.getHero());
         addView(heroView);
@@ -122,7 +122,7 @@ public class DungeonScreen extends QQScreen {
         // group ( event, special event ), just a container...
         QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, 2);
         // FIXME 使用 match_parent 以及 Screen 內含 QQView ...
-        group.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
+        group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
         group.setPosition(0, 64 + 2 + 24 + 2);
         addView(group);
 
@@ -156,7 +156,7 @@ public class DungeonScreen extends QQScreen {
         // event listview ...
         QQList eventList = new QQList();
         //eventList.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
-        eventList.setSize(Game.WIDTH, QQView.MATCH_PARENT);
+        eventList.setSize(Game.Size.WIDTH, QQView.MATCH_PARENT);
         //eventList.setPosition(0, 64 + 2 + 24 + 2);
         eventList.setCamera(getCamera());
         eventList.setAdapter(eventAdapter);
@@ -186,14 +186,14 @@ public class DungeonScreen extends QQScreen {
 
         // message view ...
         lootInfo = new LootInfoView(assets);
-        lootInfo.setSize(Game.WIDTH, 24);
+        lootInfo.setSize(Game.Size.WIDTH, 24);
         lootInfo.setPosition(0, 64 + 2);
         addView(lootInfo);
 
         // action view ...
         int actionCount = manager.getActionSlotCount();
         // 由於會縮放,需要注意 int 會導致捨位誤差...
-        float actionWidth = ((Game.WIDTH) - (actionCount - 1) * 2) / (float)actionCount;
+        float actionWidth = ((Game.Size.WIDTH) - (actionCount - 1) * 2) / (float)actionCount;
 
         for (int i = 0; i < actionCount; ++i) {
             ActionSlot slot = manager.getActionSlot(i);
@@ -239,6 +239,7 @@ public class DungeonScreen extends QQScreen {
         //    Gdx.app.error("DungeonScreen", String.format("Event %2d = %s", i, manager.getEvent(i).toString()));
         //}
         //manager.test();
+        manager.test2();
     }
 
     private void update() {
@@ -257,8 +258,8 @@ public class DungeonScreen extends QQScreen {
     }
 
     private void endGame(boolean isWin) {
-        SummaryDialog summary = new SummaryDialog();
-        //summary.reset(manager.killList, isWin);
+        SummaryDialog summary = new SummaryDialog(assets);
+        summary.reset(manager.killList, isWin);
         //summry.setPressListener();
         openDialog(summary, true);
     }

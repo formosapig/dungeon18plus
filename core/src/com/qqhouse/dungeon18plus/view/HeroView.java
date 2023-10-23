@@ -47,7 +47,7 @@ public class HeroView extends QQButton implements QQView.IsParent {
         if (Feat.EXPERIENCE.in(hero.feats)) {
             // level
             level = new QQText(assets.getFont(Game.Font.LEVEL16), new NinePatch(assets.getTexture("background", "level"), 4, 4, 4, 4), 0.75f);
-            level.setColor(Game.color.RANK);
+            level.setColor(Game.Colour.RANK);
             level.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT); // TODO 1007 希望可以浮動的調整寬度...
             level.setPadding(4);//2, 2, 2, 2);
             level.setPosition(4, 40);
@@ -67,22 +67,22 @@ public class HeroView extends QQButton implements QQView.IsParent {
         // life view ?!
         //lifeText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("life"))
         lifeText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "life"))
-                .size(72, 16).position(64, 6).color(Game.color.LIFE).attach(this);
+                .size(72, 16).position(64, 6).color(Game.Colour.LIFE).attach(this);
 
         // attack view
         //attackText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("attack"))
         attackText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "attack"))
-                .size(72, 16).position(136, 6).color(Game.color.ATTACK).attach(this);
+                .size(72, 16).position(136, 6).color(Game.Colour.ATTACK).attach(this);
 
         // defense view
         //defenseText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("defense"))
         defenseText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "defense"))
-                .size(72, 16).position(208, 6).color(Game.color.DEFENSE).attach(this);
+                .size(72, 16).position(208, 6).color(Game.Colour.DEFENSE).attach(this);
 
         // speed view
         //speedText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("speed"))
         speedText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "speed"))
-                .size(72, 16).position(280, 6).color(Game.color.SPEED).attach(this);
+                .size(72, 16).position(280, 6).color(Game.Colour.SPEED).attach(this);
 
         // Soul ...
 
@@ -90,15 +90,15 @@ public class HeroView extends QQButton implements QQView.IsParent {
         //keyItem = new ItemView(assets.getTexture("item", "key"), assets.getFont(Game.Font.DIGITAL16))
         //        .color(Game.color.COUNT).size(32, 32).position(212, 26).attach(this);
         keyItem = new ItemView(assets.getTexture("item", "key"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                .color(Game.color.COUNT).size(32, 32).position(212, 26).attach(this);
+                .color(Game.Colour.COUNT).size(32, 32).position(212, 26).attach(this);
 
         // coin
         coinItem = new ItemView(assets.getTexture("item", "copper_coin"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                .color(Game.color.COUNT).size(32, 32).position(262, 26).attach(this);
+                .color(Game.Colour.COUNT).size(32, 32).position(262, 26).attach(this);
 
         // star
         starItem = new ItemView(assets.getTexture("item", "star"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                .color(Game.color.COUNT).size(32, 32).position(312, 26).attach(this);
+                .color(Game.Colour.COUNT).size(32, 32).position(312, 26).attach(this);
 
         // background
         setBackground(assets.getBackgroundSet(hero.heroClass.alignment.key));

@@ -40,8 +40,8 @@ public class Scene2DDungeonScreen implements Screen {
         this.game = game;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
-        viewport = new StretchViewport(Game.WIDTH, Game.HEIGHT, camera);
+        camera.setToOrtho(false, Game.Size.WIDTH, Game.Size.HEIGHT);
+        viewport = new StretchViewport(Game.Size.WIDTH, Game.Size.HEIGHT, camera);
         //viewport = new FitViewport(480, 640, camera);
         //viewport = new FillViewport(480, 640, camera);
         stage = new Stage(viewport, game.batch);
@@ -81,8 +81,8 @@ public class Scene2DDungeonScreen implements Screen {
         // hero
         Button btnHero = new TextButton("Hero View Here", skin);
         btnHero.setName("HERO");
-        btnHero.setSize(Game.WIDTH - Game.UI_MARGIN * 2, 80);
-        btnHero.setPosition(Game.UI_MARGIN, Game.HEIGHT - btnHero.getHeight() - Game.UI_MARGIN);
+        btnHero.setSize(Game.Size.WIDTH - Game.Size.UI_MARGIN * 2, 80);
+        btnHero.setPosition(Game.Size.UI_MARGIN, Game.Size.HEIGHT - btnHero.getHeight() - Game.Size.UI_MARGIN);
         btnHero.addListener(buttonGesture);
         stage.addActor(btnHero);
 
@@ -103,15 +103,15 @@ public class Scene2DDungeonScreen implements Screen {
 
             //btn.setFillParent(true);
             //btn.setFillParent(true);
-            group1.add(btn).height(80).width(Game.WIDTH - Game.UI_MARGIN * 2).padTop(2).padBottom(2).row();
+            group1.add(btn).height(80).width(Game.Size.WIDTH - Game.Size.UI_MARGIN * 2).padTop(2).padBottom(2).row();
             //group.addActor(btn);
         }
         //stage.addActor(group);
 
 
         ScrollPane eventPane = new ScrollPane(group1);
-        eventPane.setSize(Game.WIDTH - Game.UI_MARGIN * 2, 472);
-        eventPane.setPosition(Game.UI_MARGIN, 80);
+        eventPane.setSize(Game.Size.WIDTH - Game.Size.UI_MARGIN * 2, 472);
+        eventPane.setPosition(Game.Size.UI_MARGIN, 80);
         stage.addActor(eventPane);
 
         // message window....
@@ -128,8 +128,8 @@ public class Scene2DDungeonScreen implements Screen {
 
 
         Label label = new Label("This is message window.", skin);
-        label.setSize(Game.WIDTH - Game.UI_MARGIN * 2, 24);
-        label.setPosition(Game.UI_MARGIN, 52);
+        label.setSize(Game.Size.WIDTH - Game.Size.UI_MARGIN * 2, 24);
+        label.setPosition(Game.Size.UI_MARGIN, 52);
         stage.addActor(label);
 
 
@@ -138,7 +138,7 @@ public class Scene2DDungeonScreen implements Screen {
             Button btn = new TextButton("Act" + (i + 1), skin);
             btn.setName("Act" + (i + 1));
             btn.setSize(75.3333f, 48);
-            btn.setPosition(Game.UI_MARGIN + i * 79.3333f, Game.UI_MARGIN);
+            btn.setPosition(Game.Size.UI_MARGIN + i * 79.3333f, Game.Size.UI_MARGIN);
             btn.addListener(buttonGesture);
             stage.addActor(btn);
         }

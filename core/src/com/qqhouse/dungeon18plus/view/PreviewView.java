@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -9,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.ui.QQButton;
-import com.qqhouse.ui.QQView;
 
 public class PreviewView extends QQButton {
 
@@ -43,7 +41,7 @@ public class PreviewView extends QQButton {
     public PreviewView(BackgroundSet set, Texture icon, BitmapFont fntName, String name, BitmapFont fntDesc, String desc) {
         super(set);
         this.icon = icon;
-        fntName.setColor(Game.color.RARE);
+        fntName.setColor(Game.Colour.RARE);
         this.fntName = fntName;
         this.name = name;
         this.fntDesc = fntDesc;
@@ -106,7 +104,7 @@ public class PreviewView extends QQButton {
         batch.draw(icon, (int)(originX + iconShiftX), (int)(originY + iconShiftY), 48, 48);
 
         // draw name
-        fntName.setColor(Game.color.RARE);
+        fntName.setColor(Game.Colour.RARE);
         fntName.draw(batch, name, originX + nameShiftX, originY + nameShiftY);
 
         // draw desc

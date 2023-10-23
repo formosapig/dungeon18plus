@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.BossKill;
+import com.qqhouse.dungeon18plus.struct.Monster;
 import com.qqhouse.dungeon18plus.struct.hero.DungeonHero;
 import com.qqhouse.dungeon18plus.struct.event.BattleEvent;
 import com.qqhouse.dungeon18plus.struct.event.DungeonBoss;
@@ -14,6 +15,7 @@ import com.qqhouse.dungeon18plus.struct.EventInfo;
 import com.qqhouse.dungeon18plus.struct.EventResult;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.struct.Varier;
+import com.qqhouse.dungeon18plus.struct.hero.ScoreHero;
 import com.qqhouse.ui.QQList;
 
 import java.util.ArrayList;
@@ -124,7 +126,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         
         // initial shop items
         mShopItems.clear();
-        //mShopItems.addAll(GameData.getInstance().getEquipmentData());
+        mShopItems.addAll(savedGame.getEquipmentData());
         // default shop item
         Item[] defaultShopItem = {Item.WOODEN_SWORD, Item.WOODEN_SHIELD, Item.WOODEN_RING, Item.IRON_SWORD, Item.IRON_SHIELD, Item.IRON_BOOTS, Item.IRON_RING};
         for (Item loot : defaultShopItem)
@@ -208,7 +210,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             hero.level++;
             hero.star += 30;
             hero.maxExp = getMaxExp(hero.heroClass, hero.level);
-            result.star = 3;
+            result.star = 30;
             return true;
         }
         return false;
@@ -256,6 +258,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 //        }
         
         // 5% for power ring
+        // TODO power ring 要少一點出, 但陷阱要多出一點.
         Item[] powerRing = {Item.RING_OF_LIFE, Item.RING_OF_ATTACK, Item.RING_OF_DEFENSE, Item.RING_OF_SPEED};
         int rate = Feat.HOLY_ONE.in(mHero.feats) ? 10 : 5;
         for (Item ring : powerRing) {
@@ -292,8 +295,8 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         allZako.add(EventType.SKELETON);
         allZako.add(EventType.CYCLOPS);
         // black slime
-        //if (GameData.getInstance().isGiantDefeated(GiantRace.BLACK_SLIME))
-        //    allZako.add(EventType.BLACK_SLIME);
+        if (savedGame.isGiantDefeated(GiantRace.BLACK_SLIME))
+            allZako.add(EventType.BLACK_SLIME);
         Collections.shuffle(allZako);
         
         // decide zako type, fixed.
@@ -316,7 +319,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             
         // max level
         final int maxLevel = 20;
-            
+
         for (int seed : input) {
             // fill zako
                 zakoCount[seed]++;
@@ -361,15 +364,15 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
             // bring squleton or skeleton fighter
             if (type == EventType.SKELETON_KING) {
-                //if (GameData.getInstance().isGiantDefeated(GiantRace.SKELETON_FIGHTER) && mRandom.nextBoolean()) {
-                //    DungeonMonster fighter = new DungeonMonster(EventType.SKELETON_FIGHTER, mRandom.nextInt(G.ZAKO_LEVEL_MAX) + 1)
-                //            .setLoot(getSkeletonFighterDrop());
-                //    mAllEvent.add(fighter);
-                //} else {
-                //    DungeonMonster squleton = new DungeonMonster(EventType.SQULETON, mRandom.nextInt(20) + 1)
-                //            .setLoot(getSquletonDrop());
-                //mAllEvent.add(squleton);
-            //}
+                if (savedGame.isGiantDefeated(GiantRace.SKELETON_FIGHTER) && mRandom.nextBoolean()) {
+                    DungeonMonster fighter = new DungeonMonster(EventType.SKELETON_FIGHTER, mRandom.nextInt(Game.ZAKO_LEVEL_MAX) + 1)
+                            .setLoot(getSkeletonFighterDrop());
+                    mAllEvent.add(fighter);
+                } else {
+                    DungeonMonster squleton = new DungeonMonster(EventType.SQULETON, mRandom.nextInt(20) + 1)
+                            .setLoot(getSquletonDrop());
+                    mAllEvent.add(squleton);
+                }
             }
         }
         
@@ -387,8 +390,8 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         mBossList.add(EventType.WAILING_WALL);
         mBossList.add(EventType.DEMON);
         // steel cyclops
-        //if (GameData.getInstance().isGiantDefeated(GiantRace.STEEL_CYCLOPS))
-        //    mBossList.add(EventType.STEEL_CYCLOPS);
+        if (savedGame.isGiantDefeated(GiantRace.STEEL_CYCLOPS))
+            mBossList.add(EventType.STEEL_CYCLOPS);
         Collections.shuffle(mBossList);
         mBossList.add(EventType.SKELETON_KING);
         
@@ -593,7 +596,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             
             // record killed monster
             if (evt instanceof DungeonMonster) {
-                //GameData.getInstance().addMonster(new Monster(evt.type, evt.getLevel()));
+                savedGame.addMonster(new Monster(evt.type, evt.getLevel()));
             }
 
         }
@@ -634,7 +637,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
         int eventAdded = fillEvent();
         
-        HeroClassRecord classData = null;//GameData.getInstance().getHeroClassRecord(mHero.heroClass);
+        HeroClassRecord classData = savedGame.getHeroClassRecord(mHero.heroClass);
         
         if (EventType.WIN_NORMAL == evt.type || EventType.WIN_GOLDEN == evt.type) {
             // record high level
@@ -646,7 +649,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 totalScore += kill.score;
             classData.updateScore(totalScore);
             
-            //GameData.getInstance().addScoreHero(new ScoreHero(mHero, totalScore));
+            savedGame.addScoreHero(new ScoreHero(mHero, totalScore));
             
 //            // remove killed past
 //            if ((mHero.feats & Game.feat.darkPresence) > 0 && !mPastKilled.isEmpty()) {
@@ -656,8 +659,8 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 //            }
             if (EventType.WIN_GOLDEN == evt.type) {
                 // enable skeleton king in dungeon mode
-                //GameData.getInstance().getHeroClassRecord(HeroClass.SKELETON_KING).unlockDungeon();
-                //GameData.getInstance().addHeroClass(HeroClass.SKELETON_KING, false);
+                savedGame.getHeroClassRecord(HeroClass.SKELETON_KING).unlockDungeon();
+                savedGame.addHeroClass(HeroClass.SKELETON_KING, false);
                 
                 // enable colosseum for mHero class (exclude skeleton king)
                 if (Feat.EXPERIENCE.in(mHero.feats))
@@ -1010,7 +1013,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         }
 
         // add to equipment catalog, will check in quipmentData
-        //GameData.getInstance().addEquipment(loot);
+        savedGame.addEquipment(loot);
     }
     
     private void learning(HeroClass pastClass) {
@@ -1427,5 +1430,10 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         return true;
     }
 
+    public void test2() {
+        Event win = new Event(EventType.WIN_GOLDEN);
+        mEvents.add(0, win);
+        mAdapter.insert(0);
+    }
 
 }

@@ -1,11 +1,18 @@
 package com.qqhouse.dungeon18plus.gamedata;
 
 import com.badlogic.gdx.Gdx;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.HeroClass;
+import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.GiantRecord;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
+import com.qqhouse.dungeon18plus.struct.Monster;
+import com.qqhouse.dungeon18plus.struct.hero.ScoreHero;
 import com.qqhouse.io.QQSaveGame;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class SaveGame extends QQSaveGame {
 
@@ -80,6 +87,35 @@ public class SaveGame extends QQSaveGame {
     /*
         functions
     */
+    /*
+     * mHero class series
+     */
+    // unlock dungeon
+    private void unlockDungeon(HeroClass heroClass) {
+        for (HeroClassRecord record : mHeroClassData.records)
+            if (record.heroClass == heroClass)
+                record.unlockDungeon();
+    }
+
+    // unlock colosseum
+    public void unlockColosseum(HeroClass heroClass) {
+        for (HeroClassRecord record : mHeroClassData.records)
+            if (record.heroClass == heroClass)
+                record.unlockColosseum();
+    }
+
+	public void addHeroClass(HeroClass heroClass, boolean isColosseum) {
+		HeroClassRecord record = new HeroClassRecord(heroClass);
+		if (isColosseum)
+			record.unlockColosseum();
+		else
+			record.unlockDungeon();
+		if (!mHeroClassData.records.contains(record)) {
+			mHeroClassData.records.add(record);
+			Collections.sort(mHeroClassData.records);
+		}
+	}
+
     public HeroClassRecord getHeroClassRecord(HeroClass heroClass) {
         for (HeroClassRecord record : mHeroClassData.records) {
             if (record.heroClass == heroClass)
@@ -90,13 +126,52 @@ public class SaveGame extends QQSaveGame {
     }
 
 
-    public GiantRecord getGiantRecord(GiantRace race) {
-        for (GiantRecord data : mWildernessData.giants) {
-            if (data.race == race)
-                return data;
+    public void checkUnlockHeroClass() {
+        // XXX 0323 之後需要 unlock manager 吧.
+        if (getMonsterCount() >= 180)
+            unlockDungeon(HeroClass.ASSASSIN);
+        if (getEquipmentCount() >= 30)
+            unlockDungeon(HeroClass.CRUSADER);
+        if (Game.isPremium) {
+            // dungeon
+            unlockDungeon(HeroClass.FAIRY);
+            // colosseum
+            unlockColosseum(HeroClass.FIRE_KNIGHT);
+            unlockColosseum(HeroClass.WATER_KNIGHT);
         }
+    }
 
-        throw new RuntimeException("invalid giant race : " + race);
+    public ArrayList<HeroClass> getAvailableHeroClass(boolean isColosseum) {
+        ArrayList<HeroClass> result = new ArrayList<>();
+        for (HeroClassRecord record : mHeroClassData.records) {
+            if (record.checkUnlock(isColosseum)) {
+                result.add(record.heroClass);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<HeroClass> getHeroClass() {
+        ArrayList<HeroClass> result = new ArrayList<>();
+        for (HeroClassRecord record : mHeroClassData.records)
+            result.add(record.heroClass);
+        return result;
+    }
+
+    public ArrayList<HeroClass> getHeroClassWithSoul() {
+        ArrayList<HeroClass> result = new ArrayList<>();
+        for (HeroClassRecord record : mHeroClassData.records)
+            if (!record.souls.isEmpty())
+                result.add(record.heroClass);
+        return result;
+    }
+
+    public boolean isOpenSoulMaster() {
+        for (HeroClassRecord record : mHeroClassData.records) {
+            if (!record.souls.isEmpty())
+                return true;
+        }
+        return false;
     }
 
     /*
@@ -110,4 +185,110 @@ public class SaveGame extends QQSaveGame {
         return false;
     }
 
+    /*
+     * Equipment series
+     */
+    public ArrayList<Item> getEquipmentData() {
+        return mEquipmentData.equipments;
+    }
+
+    public int getEquipmentCount() {
+        return mEquipmentData.equipments.size();
+    }
+
+    public boolean addEquipment(Item equip) {
+        if (equip.isEquipment() && equip.isNotPremium() && !mEquipmentData.equipments.contains(equip)) {
+            mEquipmentData.equipments.add(equip);
+            Collections.sort(mEquipmentData.equipments);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasEquipment(Item equip) {
+        return mEquipmentData.equipments.contains(equip);
+    }
+
+    /*
+     * Wilderness series
+     */
+    public ArrayList<GiantRace> getAvailableGiant() {
+        ArrayList<GiantRace> result = new ArrayList<>();
+        for (GiantRecord record : mWildernessData.giants)
+            if (record.isUnlocked())
+                result.add(record.race);
+        return result;
+    }
+
+    public ArrayList<GiantRace> getGiant() {
+        ArrayList<GiantRace> result = new ArrayList<>();
+        for (GiantRecord record : mWildernessData.giants)
+            result.add(record.race);
+        return result;
+    }
+
+    public GiantRecord getGiantRecord(GiantRace race) {
+        for (GiantRecord data : mWildernessData.giants) {
+            if (data.race == race)
+                return data;
+        }
+
+        throw new RuntimeException("invalid giant race : " + race);
+    }
+
+    public boolean isGiantDefeated(GiantRace race) {
+        for (GiantRecord data : mWildernessData.giants) {
+            if (data.race == race) {
+                return data.fastWin > 0;
+            }
+        }
+        return false;
+    }
+
+    /*
+     * Monster series.
+     */
+    public ArrayList<Monster> getMonsterData() {
+        return mMonsterData.monsters;
+    }
+
+    public boolean addMonster(Monster monster) {
+        if (!mMonsterData.monsters.contains(monster)) {
+            mMonsterData.monsters.add(monster);
+            Collections.sort(mMonsterData.monsters);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasMonster(final Monster monster) {
+        return mMonsterData.monsters.contains(monster);
+    }
+
+    public int getMonsterCount() {
+        return mMonsterData.monsters.size();
+    }
+
+    /*
+     * Leaderboard series
+     */
+    public ArrayList<ScoreHero> getLeaderboardData() {
+        return mLeaderboardData.heroes;
+    }
+
+    public boolean addScoreHero(ScoreHero hero) {
+
+        if (!mLeaderboardData.heroes.contains(hero)) {
+            mLeaderboardData.heroes.add(hero);
+            Collections.sort(mLeaderboardData.heroes);
+            if (mLeaderboardData.heroes.size() > Game.LEADER_BOARD_SIZE)
+                mLeaderboardData.heroes.remove(Game.LEADER_BOARD_SIZE);
+            return true;
+        }
+        return false;
+    }
+
+    public int getLeaderboardCount() {
+        return mLeaderboardData.heroes.size();
+    }
 }

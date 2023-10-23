@@ -18,14 +18,15 @@ import com.qqhouse.dungeon18plus.struct.campaign.UniqueSkillData;
 
 public class Game {
 
-    // UI Setting
-    // 主流是 19 : 9 , 縮小成 16 : 9 依然好看... 相反的話就很醜....
-    // 在 sharp aquos s2 上是 17 : 9 ...
-    public static final int WIDTH = 360; // in pixel
-    public static final int HEIGHT = 680; // in pixel
-    public static final int UI_MARGIN = 4; // in pixel
 
     public static final class Size {
+        // UI Setting
+        // 主流是 19 : 9 , 縮小成 16 : 9 依然好看... 相反的話就很醜....
+        // 在 sharp aquos s2 上是 17 : 9 ...
+        public static final int WIDTH = 360; // in pixel
+        public static final int HEIGHT = 680; // in pixel
+        public static final int UI_MARGIN = 4; // in pixel
+
         public static final int WIDGET_MARGIN = 2; // margin between widgets
         public static final int INNER_MARGIN = 2;  // margin inside widget
     }
@@ -42,14 +43,14 @@ public class Game {
     public static final String SAVE_FILE = "d18p2";
 
     // game mode, used in HeroClassRecord.flag
-    public static final int GAME_MODE_DUNGEON       = 1<<0;
-    public static final int GAME_MODE_TOWER         = 1<<1;
-    public static final int GAME_MODE_COLOSSEUM     = 1<<2;
-    public static final int GAME_MODE_WILDERNESS    = 1<<3;
-    public static final int GAME_MODE_CASTLE        = 1<<4;
-    public static final int GAME_MODE_LIBRARY       = 1<<5;
-
-
+    public static final class Mode {
+        public static final int DUNGEON    = 1<<0;
+        public static final int TOWER      = 1<<1;
+        public static final int COLOSSEUM  = 1<<2;
+        public static final int WILDERNESS = 1<<3;
+        public static final int CASTLE     = 1<<4;
+        public static final int LIBRARY    = 1<<5;
+    }
 
     // debug flag
     public static final class Debug {
@@ -118,6 +119,7 @@ public class Game {
     /*
      * result
      */
+    // FIXME 移去由各個 manager 自行定義
     public static final class result {
         public static final int process      = 0;
         public static final int win          = -2;
@@ -128,7 +130,9 @@ public class Game {
     /*
        color
      */
-    public static final class color {
+    // 使用 Color 會導致 Color 引用完整的 package name + class name 變成很長一串...
+    // 所以改用 Colour...
+    public static final class Colour {
         public static final Color LIFE       = new Color(0xFFFF60FF);
         public static final Color ATTACK     = new Color(0xFF6060FF);
         public static final Color DEFENSE    = new Color(0x8080FFFF);

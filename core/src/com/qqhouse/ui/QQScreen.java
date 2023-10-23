@@ -188,7 +188,7 @@ public abstract class QQScreen extends InputAdapter {
         dialogMask.bgNormal = new NinePatch(assets.getBackground("black"), 4, 4, 4, 4);
         dialogMask.bgNormal.setColor(new Color(1, 1, 1, 0.5f));
         dialogMask.setPosition(0, 0);
-        dialogMask.setSize(Game.WIDTH, Game.HEIGHT);
+        dialogMask.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
 
         // add click listener to dialogMask , any click on it will dismiss dialog.
         //if (!modal) {
@@ -211,11 +211,11 @@ public abstract class QQScreen extends InputAdapter {
 
         // calculate view's size
         if (customView.matchWidth)
-            customView.setSize(Game.WIDTH, customView.getHeight());
+            customView.setSize(Game.Size.WIDTH, customView.getHeight());
 
         // set position
-        customView.setPosition((Game.WIDTH - customView.getWidth())/2,
-                (Game.HEIGHT - customView.getHeight())/2);
+        customView.setPosition((Game.Size.WIDTH - customView.getWidth())/2,
+                (Game.Size.HEIGHT - customView.getHeight())/2);
 
 
     }
