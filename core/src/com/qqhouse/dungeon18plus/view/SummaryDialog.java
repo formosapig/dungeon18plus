@@ -1,5 +1,8 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GameAlignment;
@@ -25,8 +28,11 @@ public class SummaryDialog extends QQGroup {
     private boolean isWin;
 
     private Assets assets;
-    public SummaryDialog(Assets assets) {
+    private Camera camera;
+    public SummaryDialog(Assets assets, Camera camera) {
         this.assets = assets;
+        this.camera = camera;
+        bgNormal = new NinePatch(assets.getBackground("dialog"), 4, 4, 4, 4);
     }
 
     public void reset(ArrayList<BossKill> kills, boolean isWin) {
@@ -38,17 +44,42 @@ public class SummaryDialog extends QQGroup {
                 assets.getBlockee("fairy"),
                 assets.getFont(Game.Font.NAME20),
                 assets.geti18n("score"));
-        fairy.setPosition(0, 0);
-        fairy.setSize(48 + 8 + 8, QQView.MATCH_PARENT);
+        fairy.setPosition(leftPadding + 4, height - 40 - topPadding);
+        fairy.setSize(QQView.MATCH_PARENT, 40);
         addChild(fairy);
 
+        // list
+        scores = new QQList();
+        scores.setSize(0, 0);
+        scores.setCamera(camera);
+        scores.setAdapter(adapter);
+        addChild(scores);
 
         // button
         done = new QQButton(assets.getBackgroundSet(GameAlignment.NEUTRAL.key));
-        done.setPosition(0, 0);
-        done.setSize(40, QQView.MATCH_PARENT);
+        done.setPosition(leftPadding, bottomPadding);
+        done.setSize(QQView.MATCH_PARENT, 40);
         addChild(done);
 
     }
 
+    /*
+        list view of boss kill....
+     */
+    private QQList.Adapter adapter = new QQList.Adapter() {
+        @Override
+        public int getSize() {
+            return kills.size();
+        }
+
+        @Override
+        public QQView getView(int index) {
+            return new BossKillView();
+        }
+
+        @Override
+        public void updateView(int index, QQView view) {
+
+        }
+    };
 }

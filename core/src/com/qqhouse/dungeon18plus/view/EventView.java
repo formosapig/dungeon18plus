@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -200,6 +201,7 @@ public class EventView extends QQButton implements QQView.IsParent {
             ability.setVisible(false);
         }
 
+        //Gdx.app.error("EventView", "event :" + event.type + ",bg : " + event.type.align.key);
         setBackground(assets.getBackgroundSet(event.type.align.key));
     }
 

@@ -186,7 +186,7 @@ public abstract class QQScreen extends InputAdapter {
         final QQView dialogMask = new QQView();
 
         dialogMask.bgNormal = new NinePatch(assets.getBackground("black"), 4, 4, 4, 4);
-        dialogMask.bgNormal.setColor(new Color(1, 1, 1, 0.5f));
+        dialogMask.bgNormal.setColor(new Color(1, 1, 1, 0.66f));
         dialogMask.setPosition(0, 0);
         dialogMask.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
 
@@ -211,11 +211,13 @@ public abstract class QQScreen extends InputAdapter {
 
         // calculate view's size
         if (customView.matchWidth)
-            customView.setSize(Game.Size.WIDTH, customView.getHeight());
+            customView.setSize(Game.Size.WIDTH - 10 - 10, customView.getHeight());
 
         // set position
         customView.setPosition((Game.Size.WIDTH - customView.getWidth())/2,
                 (Game.Size.HEIGHT - customView.getHeight())/2);
+
+        addView(customView);
 
 
     }
