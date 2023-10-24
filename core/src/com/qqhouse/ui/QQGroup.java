@@ -131,10 +131,11 @@ public class QQGroup extends QQView implements QQView.IsParent {
 
     @Override
     public void arrangeChildren() {
+        // 由下往上排喔....
         if (DIRECT_VERTICAL == direct) {
             // check if view need match parent ...
             int matchChildren = 0;
-            float heightForMatch = height;
+            float heightForMatch = height - topPadding - bottomPadding;
 
             for (QQView v : childrenView) {
                 if (!v.isVisible())
@@ -154,11 +155,12 @@ public class QQGroup extends QQView implements QQView.IsParent {
             }
 
             // reset position
-            float anchorY = 0;
+            float anchorY = bottomPadding;
             for (QQView v : childrenView) {
                 if (!v.isVisible() || v.getHeight() == 0)
                     continue;
-                v.setPosition(v.getX(), anchorY);
+                // 滿版時, 重設 x 的位置, 否則依照 v 原本的設定...
+                v.setPosition(v.matchWidth ? leftPadding : v.getX(), anchorY);
                 anchorY += v.getHeight() + innerMargin;
                 Gdx.app.error("QQGroup", "put v in : " + v.getX() + "," + v.getY() + "@" + v);
                 Gdx.app.error("QQGroup", "    size : " + v.getWidth() + "," + v.getHeight());

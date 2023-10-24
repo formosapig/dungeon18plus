@@ -30,6 +30,7 @@ public class SummaryDialog extends QQGroup {
     private Assets assets;
     private Camera camera;
     public SummaryDialog(Assets assets, Camera camera) {
+        super(DIRECT_VERTICAL, 2);
         this.assets = assets;
         this.camera = camera;
         bgNormal = new NinePatch(assets.getBackground("dialog"), 4, 4, 4, 4);
@@ -40,26 +41,26 @@ public class SummaryDialog extends QQGroup {
         this.isWin = isWin;
 
         // create ...
-        fairy = new TitleBarView(
-                assets.getBlockee("fairy"),
-                assets.getFont(Game.Font.NAME20),
-                assets.geti18n("score"));
-        fairy.setPosition(leftPadding + 4, height - 40 - topPadding);
-        fairy.setSize(QQView.MATCH_PARENT, 40);
-        addChild(fairy);
+        // button
+        done = new QQButton(assets.getBackgroundSet(GameAlignment.NEUTRAL.key));
+        //done.setPosition(leftPadding, bottomPadding);
+        done.setSize(QQView.MATCH_PARENT, 40);
+        addChild(done);
 
         // list
         scores = new QQList();
-        scores.setSize(0, 0);
+        scores.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         scores.setCamera(camera);
         scores.setAdapter(adapter);
         addChild(scores);
 
-        // button
-        done = new QQButton(assets.getBackgroundSet(GameAlignment.NEUTRAL.key));
-        done.setPosition(leftPadding, bottomPadding);
-        done.setSize(QQView.MATCH_PARENT, 40);
-        addChild(done);
+        fairy = new TitleBarView(
+                assets.getBlockee("fairy"),
+                assets.getFont(Game.Font.NAME20),
+                assets.geti18n("score"));
+        //fairy.setPosition(leftPadding + 4, height - 40 - topPadding);
+        fairy.setSize(QQView.MATCH_PARENT, 40);
+        addChild(fairy);
 
     }
 
@@ -74,7 +75,10 @@ public class SummaryDialog extends QQGroup {
 
         @Override
         public QQView getView(int index) {
-            return new BossKillView();
+            final BossKillView v = new BossKillView(assets);
+            v.reset(kills.get(index));
+            v.setSize(300, 60);
+            return v;
         }
 
         @Override

@@ -156,15 +156,14 @@ public class QQView {
     chain function
      */
 
-    public QQView position(float x, float y) {
-        this.x = x;
-        this.y = y;
-        return this;
+    public <T extends QQView> T position(float x, float y) {
+        setPosition(x, y);
+        return (T) this;
     }
 
-    public QQView size(float width, float height) {
-        this.setSize(width, height);
-        return this;
+    public <T extends QQView> T size(float width, float height) {
+        setSize(width, height);
+        return (T) this;
     }
 
     public QQView padding(float all) {
@@ -203,5 +202,4 @@ public class QQView {
      */
     protected IsParent parent = null;
     public void setParent(IsParent parent) {this.parent = parent;}
-
 }

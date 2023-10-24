@@ -262,7 +262,7 @@ public class DungeonScreen extends QQScreen {
         //summary.setPosition(0, 0);
         summary.padding(8);
         // FIXME 在 summary 未決定 size 之前, 所有其內的 view 無法套用 match parent
-        summary.setSize(Game.Size.WIDTH - 8 - 8, Game.Size.HEIGHT * 0.9f);
+        summary.setSize(Game.Size.WIDTH - 12 - 12, Game.Size.HEIGHT * 0.9f);
         summary.reset(manager.killList, isWin);
         //summry.setPressListener();
         openDialog(summary, true);
