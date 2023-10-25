@@ -121,6 +121,15 @@ public class Assets {
         return langBundle.get(key);
     }
 
+    public String formati18n(String key, Object... args) {
+        if (null == langBundle) {
+            manager.load("i18n/dungeon18plus", I18NBundle.class);
+            manager.finishLoading();
+            langBundle = manager.get("i18n/dungeon18plus", I18NBundle.class);
+        }
+        return langBundle.format(key, args);
+    }
+
     public Texture getTexture(String folder, String key) {
         String fileName = folder + "/" + key + ".png";
         if (!manager.contains(fileName, Texture.class)) {

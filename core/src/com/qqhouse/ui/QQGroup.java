@@ -150,7 +150,8 @@ public class QQGroup extends QQView implements QQView.IsParent {
             if (0 < matchChildren) {
                 for (QQView v : childrenView) {
                     if (v.matchHeight && v.isVisible())
-                        v.height = heightForMatch / matchChildren;
+                        v.setSize(v.getWidth(), heightForMatch / matchChildren);
+                        //v.height = heightForMatch / matchChildren;
                 }
             }
 

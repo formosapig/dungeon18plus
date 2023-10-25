@@ -67,6 +67,10 @@ public class QQView {
     protected boolean touchable = true;
     protected NinePatch bgNormal = null;
 
+    public void setBackground(NinePatch bg) {
+        bgNormal = bg;
+    }
+
     // 相對 (0, 0) 的座標, 直接拿來畫即可...
     protected void drawBackground(SpriteBatch batch, float originX, float originY) {
         if (null != bgNormal) {

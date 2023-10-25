@@ -2,6 +2,7 @@ package com.qqhouse.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -87,6 +88,10 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
         }
         maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
+        if (maxScrollY < 0)
+            maxScrollY = 0;
+        Gdx.app.error("QQList", "maxScrollY = " + maxScrollY);
+        Gdx.app.error("QQList", "scrollY = " + scrollY);
     }
 
     public void insert(int index) {
@@ -496,6 +501,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             float posY = anchorY - view.height;
 
             view.setPosition(/*x + */leftPadding, posY + scrollY);
+            Gdx.app.error("QQList", "arrange " + view + "@" + leftPadding + "," + (posY + scrollY));
 
             anchorY = posY - Game.Size.WIDGET_MARGIN;
         }
@@ -515,6 +521,20 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     @Override
     public void addChild(QQView view) {
         childrenView.add(view);
+        view.setParent(this);
+        // calculate child size
+        if (view.matchWidth) {
+            if (wrapWidth)
+                throw new GdxRuntimeException("wrap width with match width child.");
+            view.setSize(width - leftPadding - rightPadding, view.getHeight());
+            //Gdx.app.error("QQList", "reset width : " + (width - leftPadding - rightPadding) + "@" + view);
+        }
+        if (view.matchHeight) {
+            if (wrapHeight)
+                throw new GdxRuntimeException("wrap height with match height child.");
+            view.setSize(view.getWidth(), height - topPadding - bottomPadding);
+        }
+
         // recalculate height
         if (wrapHeight) {
             height = childrenView.size() * view.height

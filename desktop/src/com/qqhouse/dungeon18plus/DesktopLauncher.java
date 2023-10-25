@@ -11,7 +11,7 @@ public class DesktopLauncher {
 		config.setTitle("Dungeon 18+");
 		//config.setWindowedMode(375, 667); // iPhone SE 3
 		config.setWindowedMode(330, 530); // desktop
-		//config.setWindowedMode(Game.WIDTH, Game.HEIGHT);
+		//config.setWindowedMode(Game.Size.WIDTH, Game.Size.HEIGHT);
 		config.useVsync(true);
 		config.setForegroundFPS(60);
 		config.setIdleFPS(10);

@@ -1432,7 +1432,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
     public void test2() {
 
-        killList.add(new BossKill(EventType.CAT_SITH, 95, 1));
+        killList.add(new BossKill(EventType.CAT_SITH, 100, 1));
         killList.add(new BossKill(EventType.BLACK_SLIME, 90, 2));
         killList.add(new BossKill(EventType.DEMON, 5, 11));
         killList.add(new BossKill(EventType.DOOR, 5, 12));

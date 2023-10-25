@@ -51,8 +51,10 @@ public class SummaryDialog extends QQGroup {
         scores = new QQList();
         scores.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         scores.setCamera(camera);
-        scores.setAdapter(adapter);
+        // FIXME 相反的順序就找不到寛度了...
         addChild(scores);
+        scores.setAdapter(adapter);
+        //scores.setBackground(new NinePatch(assets.getBackground("white"), 4, 4, 4, 4));
 
         fairy = new TitleBarView(
                 assets.getBlockee("fairy"),
@@ -77,7 +79,7 @@ public class SummaryDialog extends QQGroup {
         public QQView getView(int index) {
             final BossKillView v = new BossKillView(assets);
             v.reset(kills.get(index));
-            v.setSize(300, 60);
+            v.setSize(QQView.MATCH_PARENT, 64);
             return v;
         }
 
