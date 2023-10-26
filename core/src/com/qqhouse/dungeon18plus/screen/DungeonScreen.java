@@ -38,14 +38,16 @@ public class DungeonScreen extends QQScreen {
         manager.setSpecialAdapter(specialEventAdapter);
     }
 
-    public DungeonScreen(SaveGame savedGame, Viewport viewport, Assets assets) {
+    public DungeonScreen(SaveGame savedGame, Viewport viewport, Assets assets, DungeonCallback callback) {
         super(savedGame, viewport, assets);
+        this.callback = callback;
     }
 
     private HeroView heroView;
     private final ArrayList<ActionView> actionViews = new ArrayList<>();
     private LootInfoView lootInfo;
     private EventInfoView eventInfo;
+    private DungeonCallback callback;
 
     /*
         QQList Adapter ...
@@ -263,8 +265,16 @@ public class DungeonScreen extends QQScreen {
         summary.padding(8);
         // FIXME 在 summary 未決定 size 之前, 所有其內的 view 無法套用 match parent
         summary.setSize(Game.Size.WIDTH - 12 - 12, Game.Size.HEIGHT * 0.9f);
-        summary.reset(manager.killList, isWin);
-        //summry.setPressListener();
+        summary.reset(manager.killList, isWin, new QQPressListener() {
+            @Override
+            public void onPress(int index) {
+                // summary.dismiss();
+                callback.onDungeonResult(false, null);
+                // dialog.dismiss();
+            }
+            @Override
+            public void onLongPress(QQView view) {}
+        });
         openDialog(summary, true);
     }
 

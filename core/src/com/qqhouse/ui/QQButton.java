@@ -1,7 +1,9 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class QQButton extends QQView implements QQView.IsTouchable {
 

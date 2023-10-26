@@ -125,8 +125,6 @@ public class QQGroup extends QQView implements QQView.IsParent {
         height = h - innerMargin + topPadding + bottomPadding;
     }
 
-
-
     private ArrayList<QQView> childrenView = new ArrayList<>();
 
     @Override
@@ -163,8 +161,8 @@ public class QQGroup extends QQView implements QQView.IsParent {
                 // 滿版時, 重設 x 的位置, 否則依照 v 原本的設定...
                 v.setPosition(v.matchWidth ? leftPadding : v.getX(), anchorY);
                 anchorY += v.getHeight() + innerMargin;
-                Gdx.app.error("QQGroup", "put v in : " + v.getX() + "," + v.getY() + "@" + v);
-                Gdx.app.error("QQGroup", "    size : " + v.getWidth() + "," + v.getHeight());
+                //Gdx.app.error("QQGroup", "put v in : " + v.getX() + "," + v.getY() + "@" + v);
+                //Gdx.app.error("QQGroup", "    size : " + v.getWidth() + "," + v.getHeight());
             }
         }
     }

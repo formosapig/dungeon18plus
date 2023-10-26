@@ -93,7 +93,7 @@ public class Main extends QQGameMachine implements
         switch (gameMode) {
             case Game.Mode.DUNGEON: {
                 if (null == dungeon) {
-                    dungeon = new DungeonScreen((SaveGame) savedGame, viewport, assets);
+                    dungeon = new DungeonScreen((SaveGame) savedGame, viewport, assets, this);
                 }
                 dungeon.setHero(hero);
                 changeScreen(dungeon);
@@ -106,7 +106,7 @@ public class Main extends QQGameMachine implements
 
     @Override
     public void onDungeonResult(boolean isWin, ArrayList<BossKill> kills) {
-
+        Gdx.app.error("Main", "on dungeon result.");
 
 
 

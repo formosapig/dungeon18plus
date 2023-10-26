@@ -185,6 +185,7 @@ public abstract class QQScreen extends InputAdapter {
     public void openDialog(QQView customView, boolean modal) {
         final QQView dialogMask = new QQView();
 
+        // FIXME SDK 不能依存於專案, assets 不是能隨時存取到的資源...
         dialogMask.bgNormal = new NinePatch(assets.getBackground("black"), 4, 4, 4, 4);
         dialogMask.bgNormal.setColor(new Color(1, 1, 1, 0.66f));
         dialogMask.setPosition(0, 0);

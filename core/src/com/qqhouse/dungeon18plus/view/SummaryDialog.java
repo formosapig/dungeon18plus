@@ -10,6 +10,7 @@ import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
+import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class SummaryDialog extends QQGroup {
         bgNormal = new NinePatch(assets.getBackground("dialog"), 4, 4, 4, 4);
     }
 
-    public void reset(ArrayList<BossKill> kills, boolean isWin) {
+    public void reset(ArrayList<BossKill> kills, boolean isWin, QQPressListener listener) {
         this.kills = kills;
         this.isWin = isWin;
 
@@ -45,6 +46,7 @@ public class SummaryDialog extends QQGroup {
         done = new QQButton(assets.getBackgroundSet(GameAlignment.NEUTRAL.key));
         //done.setPosition(leftPadding, bottomPadding);
         done.setSize(QQView.MATCH_PARENT, 40);
+        done.addQQClickListener(listener, 0);
         addChild(done);
 
         // list
