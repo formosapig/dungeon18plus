@@ -8,13 +8,19 @@ import com.badlogic.gdx.utils.Align;
 public class QQView {
 
     public interface IsParent {
-        void arrangeChildren();
         void addChild(QQView view);
+        void removeChild(QQView view);
+        void arrangeChildren();
         void drawChildren(SpriteBatch batch, float originX, float originY);
     }
 
     public interface IsTouchable {
         void cancelTouching();
+    }
+
+    public interface PressListener {
+        void onPress(QQView view);
+        void onLongPress(QQView view);
     }
 
     public static final int WRAP_CONTENT = -1;  // 保有 view 的 size
@@ -206,4 +212,11 @@ public class QQView {
      */
     protected IsParent parent = null;
     public void setParent(IsParent parent) {this.parent = parent;}
+
+    /*
+        PressListener
+     */
+    protected PressListener pressListener = null;
+    public void addPressListener(PressListener listener) {this.pressListener = listener;}
+
 }

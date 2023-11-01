@@ -110,7 +110,7 @@ public class TitleScreen extends QQScreen {
         float startY = Game.Size.HEIGHT - margin_y - menu_height;
 
         for (int i = 0; i < menus.size(); ++i) {
-            addView(menus.get(i));
+            addChild(menus.get(i));
             menus.get(i).setPosition(margin_x, startY - (menu_height + menu_margin) * i);
         }
         //Gdx.app.error("TitleScreen", "OnEnter finish.");
@@ -131,7 +131,7 @@ public class TitleScreen extends QQScreen {
     @Override
     public void onLeave() {
         for (QQView view : menus) {
-            removeView(view);
+            removeChild(view);
             view.dispose();
         }
     }

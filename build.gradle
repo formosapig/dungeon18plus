@@ -44,6 +44,10 @@ allprojects {
 project(":desktop") {
     apply plugin: "kotlin"
 
+    //tasks.withType(JavaCompile) {
+    //    options.compilerArgs << "-Xlint:unchecked"
+    //}
+
 
     dependencies {
         implementation project(":core")

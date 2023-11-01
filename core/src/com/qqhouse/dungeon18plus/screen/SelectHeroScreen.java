@@ -53,7 +53,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         title.setPadding(8);
         title.setSize(Game.Size.WIDTH, 48);
         title.setPosition(0, Game.Size.HEIGHT - 48);
-        addView(title);
+        addChild(title);
 
         ArrayList<HeroClass> tmp = new ArrayList<>();
         tmp.add(HeroClass.NOVICE);
@@ -84,7 +84,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
                 position(0, 0).
                 padding(8);
         list.setCamera(getCamera());
-        addView(list);
+        addChild(list);
 
         for (int i = 0, s = tmp.size(); i < s; ++i) {
             HeroClass hero = tmp.get(i);

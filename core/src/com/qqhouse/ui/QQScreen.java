@@ -16,7 +16,7 @@ import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.Assets;
 
-public abstract class QQScreen extends InputAdapter {
+public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
 
     protected final SaveGame savedGame;
     protected final Assets assets;
@@ -141,22 +141,33 @@ public abstract class QQScreen extends InputAdapter {
     abstract public void onLeave();
 
     /*
-    children ...
+        children ... implements QQView.IsParent...
      */
     private SnapshotArray<QQView> childrenView;
 
-    public void addView(QQView view) {
+    // just add.
+    public void addChild(QQView view) {
         childrenView.add(view);
     }
-
-    public void addView(QQView view, float x, float y) {
-        view.setPosition(x, y);
-        childrenView.add(view);
-    }
-
-    public void removeView(QQView view) {
+    public void removeChild(QQView view) {
         childrenView.removeValue(view, true);
     }
+    // do nothing.
+    public void arrangeChildren() {}
+    public void drawChildren(SpriteBatch batch, float originX, float originY) {}
+
+    //public void addView(QQView view) {
+    //    childrenView.add(view);
+    //}
+
+    //public void addView(QQView view, float x, float y) {
+    //    view.setPosition(x, y);
+    //    childrenView.add(view);
+    //}
+
+    //public void removeView(QQView view) {
+    //    childrenView.removeValue(view, true);
+    //}
 
     public final void act(float delta) {
         QQView[] views = childrenView.begin();
@@ -182,14 +193,25 @@ public abstract class QQScreen extends InputAdapter {
     /*
         Dialog series...
      */
+    public void openDialog(QQDialog dialog) {
+        // 1. set dialog size to fit screen
+        dialog.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
+        dialog.setPosition(0, 0); // ...
+
+        // 2. set parent
+        addChild(dialog);
+
+
+    }
+
     public void openDialog(QQView customView, boolean modal) {
-        final QQView dialogMask = new QQView();
+        //final QQView dialogMask = new QQView();
 
         // FIXME SDK 不能依存於專案, assets 不是能隨時存取到的資源...
-        dialogMask.bgNormal = new NinePatch(assets.getBackground("black"), 4, 4, 4, 4);
-        dialogMask.bgNormal.setColor(new Color(1, 1, 1, 0.66f));
-        dialogMask.setPosition(0, 0);
-        dialogMask.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
+        //dialogMask.bgNormal = new NinePatch(assets.getBackground("black"), 4, 4, 4, 4);
+        //dialogMask.bgNormal.setColor(new Color(1, 1, 1, 0.66f));
+        //dialogMask.setPosition(0, 0);
+        //dialogMask.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
 
         // add click listener to dialogMask , any click on it will dismiss dialog.
         //if (!modal) {
@@ -206,19 +228,19 @@ public abstract class QQScreen extends InputAdapter {
         //    });
         //}
 
-        addView(dialogMask);
+        //addView(dialogMask);
 
 
 
         // calculate view's size
-        if (customView.matchWidth)
-            customView.setSize(Game.Size.WIDTH - 10 - 10, customView.getHeight());
+        //if (customView.matchWidth)
+        //    customView.setSize(Game.Size.WIDTH - 10 - 10, customView.getHeight());
 
         // set position
-        customView.setPosition((Game.Size.WIDTH - customView.getWidth())/2,
-                (Game.Size.HEIGHT - customView.getHeight())/2);
+        //customView.setPosition((Game.Size.WIDTH - customView.getWidth())/2,
+        //        (Game.Size.HEIGHT - customView.getHeight())/2);
 
-        addView(customView);
+        //addView(customView);
 
 
     }

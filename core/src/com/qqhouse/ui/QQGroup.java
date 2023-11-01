@@ -193,7 +193,8 @@ public class QQGroup extends QQView implements QQView.IsParent {
         arrangeChildren();
     }
 
-
+    @Override
+    public void removeChild(QQView view) {}
 
 
     @Override

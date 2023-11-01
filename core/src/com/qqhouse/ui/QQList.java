@@ -547,6 +547,9 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     }
 
     @Override
+    public void removeChild(QQView view) {}
+
+    @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {
         batch.flush();
         Rectangle scissors = new Rectangle();

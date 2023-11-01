@@ -148,6 +148,9 @@ public class LootInfoView extends QQView implements QQView.IsParent {
     }
 
     @Override
+    public void removeChild(QQView view) {}
+
+    @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {
         for (QQView view : childrenView) {
             if (view.isVisible()) {
