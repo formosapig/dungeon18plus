@@ -86,10 +86,11 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
         // tell all child dragged ....
 
         QQView[] views = childrenView.items;
-        for (int i = 0, n = childrenView.size; i < n; ++i) {
+        for (int i = childrenView.size - 1; i >= 0; --i) {
             // 傳入相對於 (0, 0) 的座標...
             QQView v = views[i];
-            v.touchDragged(screenPos.x - v.getX(), screenPos.y - v.getY());
+            if (v.touchDragged(screenPos.x - v.getX(), screenPos.y - v.getY()))
+                break;
         }
         return false;
     }
@@ -124,10 +125,11 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     public boolean scrolled (float amountX, float amountY) {
         //Gdx.app.error("QQScreen", "amountX : " + amountX + ", amountY : " + amountY);
         QQView[] views = childrenView.items;
-        for (int i = 0, n = childrenView.size; i < n; ++i) {
+        for (int i = childrenView.size - 1; i >= 0; --i) {
             // 傳入相對於 (0, 0) 的座標...
             QQView v = views[i];
-            v.scrolled(amountX, amountY);
+            if (v.scrolled(amountX, amountY))
+                break;
         }
         return false;
     }
@@ -148,8 +150,10 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     // just add.
     public void addChild(QQView view) {
         childrenView.add(view);
+        view.parent = this;
     }
     public void removeChild(QQView view) {
+        view.parent = null;
         childrenView.removeValue(view, true);
     }
     // do nothing.
@@ -204,7 +208,18 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
 
     }
 
-    public void openDialog(QQView customView, boolean modal) {
+    public void openDialog(QQCustomDialog dialog) {
+        // 1. set dialog size to fit screen
+        //dialog.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
+        //dialog.setPosition(0, 0); // ...
+
+        // 2. set parent
+        addChild(dialog);
+
+
+    }
+
+    private void openDialog(QQView customView, boolean modal) {
         //final QQView dialogMask = new QQView();
 
         // FIXME SDK 不能依存於專案, assets 不是能隨時存取到的資源...

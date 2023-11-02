@@ -16,6 +16,8 @@ import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.view.SummaryDialog;
+import com.qqhouse.ui.QQCustomDialog;
+import com.qqhouse.ui.QQDialog;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
@@ -179,7 +181,8 @@ public class DungeonScreen extends QQScreen {
             @Override
             public void onLongPress(int index) {
                 eventInfo.update(manager.getEvent(index));
-                openDialog(eventInfo, false);
+                QQCustomDialog eventInfoDialog = new QQCustomDialog(assets, eventInfo, false);
+                openDialog(eventInfoDialog);
                 Gdx.app.error("DungeonScreen", "event long press : " + index);
             }
         });
@@ -264,7 +267,7 @@ public class DungeonScreen extends QQScreen {
         //summary.setPosition(0, 0);
         summary.padding(8);
         // FIXME 在 summary 未決定 size 之前, 所有其內的 view 無法套用 match parent
-        summary.setSize(Game.Size.WIDTH - 12 - 12, Game.Size.HEIGHT * 0.9f);
+        summary.setSize(Game.Size.WIDTH - 22 - 22, Game.Size.HEIGHT * 0.8f);
         summary.reset(manager.killList, isWin, new QQPressListener() {
             @Override
             public void onPress(int index) {
@@ -275,7 +278,8 @@ public class DungeonScreen extends QQScreen {
             @Override
             public void onLongPress(QQView view) {}
         });
-        openDialog(summary, true);
+        QQCustomDialog summaryDialog = new QQCustomDialog(assets, summary, true);
+        openDialog(summaryDialog);
     }
 
     @Override
