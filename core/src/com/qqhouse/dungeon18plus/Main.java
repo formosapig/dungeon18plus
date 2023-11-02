@@ -106,8 +106,8 @@ public class Main extends QQGameMachine implements
 
     @Override
     public void onDungeonResult(boolean isWin, ArrayList<BossKill> kills) {
-        Gdx.app.error("Main", "on dungeon result.");
-
+        //Gdx.app.error("Main", "on dungeon result.");
+        changeScreen(title);
 
 
     }

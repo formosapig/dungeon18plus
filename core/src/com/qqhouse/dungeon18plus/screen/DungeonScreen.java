@@ -196,6 +196,7 @@ public class DungeonScreen extends QQScreen {
         addChild(lootInfo);
 
         // action view ...
+        actionViews.clear();
         int actionCount = manager.getActionSlotCount();
         // 由於會縮放,需要注意 int 會導致捨位誤差...
         float actionWidth = ((Game.Size.WIDTH) - (actionCount - 1) * 2) / (float)actionCount;
@@ -272,13 +273,14 @@ public class DungeonScreen extends QQScreen {
             @Override
             public void onPress(int index) {
                 // summary.dismiss();
+                //summaryDialog.dismiss();
                 callback.onDungeonResult(false, null);
                 // dialog.dismiss();
             }
             @Override
             public void onLongPress(QQView view) {}
         });
-        QQCustomDialog summaryDialog = new QQCustomDialog(assets, summary, true);
+        final QQCustomDialog summaryDialog = new QQCustomDialog(assets, summary, true);
         openDialog(summaryDialog);
     }
 
