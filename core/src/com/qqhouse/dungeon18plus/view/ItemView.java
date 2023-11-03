@@ -90,6 +90,8 @@ public class ItemView extends QQView {
         return this;
     }
 
+    // FIXME QQView 有 generic type function, 所以這邊的要檢查型別?
+    // uses unchecked or unsafe operations
     public ItemView size(float width, float height) {
         super.setSize(width, height);
         return this;

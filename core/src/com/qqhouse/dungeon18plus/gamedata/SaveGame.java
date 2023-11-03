@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.gamedata;
 
-import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.HeroClass;
@@ -148,7 +147,7 @@ public class SaveGame extends QQSaveGame {
         }
     }
 
-    public ArrayList<HeroClassRecord> getAvailableHeroClass(int gameMode) {
+    public ArrayList<HeroClassRecord> getAvailableHeroClassRecord(int gameMode) {
         ArrayList<HeroClassRecord> result = new ArrayList<>();
         for (HeroClassRecord record : mHeroClassData.records) {
             if (record.isGameModeAvailable(gameMode)) {

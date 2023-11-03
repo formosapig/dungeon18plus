@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
@@ -9,7 +10,9 @@ import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.view.PreviewView;
 import com.qqhouse.dungeon18plus.view.TitleBarView;
 import com.qqhouse.dungeon18plus.Assets;
+import com.qqhouse.ui.QQCustomDialog;
 import com.qqhouse.ui.QQGroup;
+import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQListView;
 import com.qqhouse.ui.QQScreen;
@@ -40,7 +43,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
     //private BitmapFont fntName;
     //private BitmapFont fntDesc;
     private QQListView list;
-    private ArrayList<HeroClassRecord> availableHero;
+    private ArrayList<HeroClassRecord> availableHeroes;
 
     @Override
     public void onEnter() {
@@ -48,7 +51,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         // initial hero class adapter ...
         savedGame.checkUnlockHeroClass();
 
-        availableHero = savedGame.getAvailableHeroClass(gameMode);
+        availableHeroes = savedGame.getAvailableHeroClassRecord(gameMode);
 
 
         // initial font.
@@ -86,27 +89,48 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         //ScrollPane
 
         // list view of hero preview view
-        list = (QQListView) new QQListView()
-                .size(QQView.MATCH_PARENT, QQView.MATCH_PARENT).
-                position(0, 0);
-        list.setCamera(getCamera());
-        list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
-        group.addChild(list);
+        //list = (QQListView) new QQListView()
+        //        .size(QQView.MATCH_PARENT, QQView.MATCH_PARENT).
+        //        position(0, 0);
+        //list.setCamera(getCamera());
+        //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
+        //group.addChild(list);
 
-        for (int i = 0, s = tmp.size(); i < s; ++i) {
-            HeroClass hero = tmp.get(i);
-            PreviewView view = new PreviewView(
-                    assets.getBackgroundSet(hero.alignment.key), // Alignment decides background.
-                    assets.getBlockee(hero.key),
-                    assets.getFont(Game.Font.NAME20),
-                    assets.geti18n(hero.key),
-                    assets.getFont(Game.Font.HELP14),
-                    assets.geti18n(hero.key+"_help"));
-            view.setPadding(8);
-            view.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-            view.addQQClickListener(this, hero.code);
-            list.addView(view);
-        }
+        //for (int i = 0, s = tmp.size(); i < s; ++i) {
+        //    HeroClass hero = tmp.get(i);
+        //    PreviewView view = new PreviewView(
+        //            assets.getBackgroundSet(hero.alignment.key), // Alignment decides background.
+        //            assets.getBlockee(hero.key),
+        //            assets.getFont(Game.Font.NAME20),
+        //            assets.geti18n(hero.key),
+        //            assets.getFont(Game.Font.HELP14),
+        //            assets.geti18n(hero.key+"_help"));
+        //    view.setPadding(8);
+        //    view.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        //    view.addQQClickListener(this, hero.code);
+        //    list.addView(view);
+        //}
+
+        // list of available heroes ...
+        QQList list = new QQList();
+        //eventList.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
+        list.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
+        group.addChild(list);
+        //eventList.setPosition(0, 64 + 2 + 24 + 2);
+        list.setCamera(getCamera());
+        list.setAdapter(availableHeroesAdapter);
+        list.addListener(new QQList.PressListener() {
+            @Override
+            public void onPress(int index) {
+
+            }
+
+            @Override
+            public void onLongPress(int index) {}
+        });
+        //addView(eventList);
+        //group.addChild(list);
+
 
         // one title view ..., just print select hero ?
         TitleBarView title = new TitleBarView(
@@ -144,4 +168,36 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
     public void onLongPress(QQView view) {
 
     }
+
+    private QQList.Adapter availableHeroesAdapter = new QQList.Adapter() {
+        @Override
+        public int getSize() {
+            return availableHeroes.size();
+        }
+
+        @Override
+        public QQView getView(int index) {
+            HeroClassRecord record = availableHeroes.get(index);
+            PreviewView v = new PreviewView(assets);
+            v.setSize(QQView.MATCH_PARENT, 64);//QQView.WRAP_CONTENT);
+            v.reset(record, gameMode);
+            //PreviewView view = new PreviewView(
+            //        assets.getBackgroundSet(hero.alignment.key), // Alignment decides background.
+            //        assets.getBlockee(hero.key),
+            //        assets.getFont(Game.Font.NAME20),
+            //        assets.geti18n(hero.key),
+            //        assets.getFont(Game.Font.HELP14),
+            //        assets.geti18n(hero.key+"_help"));
+            //view.setPadding(8);
+            //view.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+            //view.addQQClickListener(this, hero.code);
+            //list.addView(view);
+            return v;
+        }
+
+        @Override
+        public void updateView(int index, QQView view) {
+
+        }
+    };
 }
