@@ -659,16 +659,17 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 //            }
             if (EventType.WIN_GOLDEN == evt.type) {
                 // enable skeleton king in dungeon mode
-                savedGame.getHeroClassRecord(HeroClass.SKELETON_KING).unlockDungeon();
-                savedGame.addHeroClass(HeroClass.SKELETON_KING, false);
+                savedGame.unlockGameMode(HeroClass.SKELETON_KING, Game.Mode.DUNGEON);
+                //savedGame.getHeroClassRecord(HeroClass.SKELETON_KING).unlockDungeon();
+                //savedGame.addHeroClass(HeroClass.SKELETON_KING, false);
                 
                 // enable colosseum for mHero class (exclude skeleton king)
                 if (Feat.EXPERIENCE.in(mHero.feats))
-                    classData.unlockColosseum();
+                    classData.unlockGameMode(Game.Mode.COLOSSEUM);
                     //GameData.getInstance().addHeroClass(mHero.heroClass, false);
                 
                 // unlock endless dungeon
-                classData.unlockEndlessDungeon();
+                //classData.unlockEndlessDungeon();
             }
 
             return Game.result.win;

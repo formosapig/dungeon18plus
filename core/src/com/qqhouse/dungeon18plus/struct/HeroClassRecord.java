@@ -11,16 +11,11 @@ import java.util.Collections;
 // 資料物件應該管理資料的儲存以及取得,含有相關羅輯很正常.
 public class HeroClassRecord implements Comparable<HeroClassRecord> {
 
-	// only used in mHero class record.
-	private static final int FLAG_DUNGEON         		= 0x1;
-	private static final int FLAG_ENDLESS_DUNGEON 		= 0x2;
-	private static final int FLAG_COLOSSEUM       		= 0x4;
-	
 	// basic
 	public HeroClass heroClass;
 	
-	// flag reference to G.GAME_MODE_XXXXX and so on...
-	public int flag;
+	// flag reference Game.Mode.XXXX
+	public int gameMode;
 	
 	// dungeon
 	public int highLevel;
@@ -52,16 +47,16 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 	public HeroClassRecord(HeroClass heroClass) {
 		this.heroClass = heroClass;
 		//this.flag |= FLAG_DUNGEON;
-		this.flag = 0;	// nothing unlock in default.
+		this.gameMode = 0;	// nothing unlock in default.
 		this.highLevel = 0;
 		this.highScore = 0;
 		this.maxRound = 0;
 		this.maxSoulSize = Game.HERO_DEFAULT_SOUL_SIZE;
 	}
 	
-	public HeroClassRecord(HeroClass heroClass, int flag, int highLevel, int highScore, int maxRound, int maxSoulSize) {
+	public HeroClassRecord(HeroClass heroClass, int gameMode, int highLevel, int highScore, int maxRound, int maxSoulSize) {
 		this.heroClass = heroClass;
-		this.flag = flag;
+		this.gameMode = gameMode;
 		this.highLevel = highLevel;
 		this.highScore = highScore;
 		this.maxRound = maxRound;
@@ -165,37 +160,16 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 		if (0 >= data.count)
 			souls.remove(index);
 	}
-	
-	// unlock
-	public void unlockDungeon() {
-		flag |= FLAG_DUNGEON;
-	}
-	
-	public void unlockEndlessDungeon() {
-		flag |= FLAG_ENDLESS_DUNGEON;
-	}
-	
-	public void unlockColosseum() {
-		flag |= FLAG_COLOSSEUM;
-	}
-	
-	public boolean isEndlessDungeon() {
-		return (flag & FLAG_ENDLESS_DUNGEON) != 0;
-	}
-	
-	public boolean checkUnlock(boolean isColosseum) {
-		if (isColosseum)
-			return (flag & FLAG_COLOSSEUM) != 0;
-		else
-			return (flag & FLAG_DUNGEON) != 0;
+
+	/*
+		game mode series...
+	 */
+	public void unlockGameMode(int gameMode) {
+		this.gameMode |= gameMode;
 	}
 
-	public void setFlag(int flag) {
-		this.flag |= flag;
-	}
-
-	public boolean checkFlag(int flag) {
-		return (this.flag & flag) != 0;
+	public boolean isGameModeAvailable(int gameMode) {
+		return (this.gameMode & gameMode) != 0;
 	}
 
 	@Override

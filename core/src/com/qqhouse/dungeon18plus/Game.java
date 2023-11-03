@@ -27,7 +27,7 @@ public class Game {
         public static final int HEIGHT = 680; // in pixel
         public static final int UI_MARGIN = 4; // in pixel
 
-        public static final int WIDGET_MARGIN = 2; // margin between widgets
+        public static final int WIDGET_MARGIN = 4; // margin between widgets
         public static final int INNER_MARGIN = 2;  // margin inside widget
     }
 

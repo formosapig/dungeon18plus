@@ -26,7 +26,7 @@ class HeroClassData_1_6_2 extends QQSaveGame.DataPart {
 		ByteBuffer buffer = ByteBuffer.allocate(4096);
 		for (HeroClassRecord record : records) {
             buffer.putInt(record.heroClass.code);
-    		buffer.putInt(record.flag);
+    		buffer.putInt(record.gameMode);
             buffer.putInt(record.highLevel);
     		buffer.putInt(record.highScore);
             buffer.putInt(record.maxRound);
@@ -65,7 +65,7 @@ class HeroClassData_1_6_2 extends QQSaveGame.DataPart {
 		while (buffer.hasRemaining()) {
 		    HeroClassRecord record = new HeroClassRecord();
             record.heroClass = HeroClass.find(buffer.getInt());
-    		record.flag = buffer.getInt();
+    		record.gameMode = buffer.getInt();
     		record.highLevel = buffer.getInt();
     		record.highScore = buffer.getInt();
     		record.maxRound = buffer.getInt();

@@ -237,6 +237,8 @@ public enum Item {
         int CURSED  = 1 << 4;
         int BLESSED = 1 << 5;
 
+        int STATUS = REFINED | CURSED | BLESSED;
+
         // item kind.
         int GEM     = 1 << 8; // gem / crystal, use to gain ability upgrade
         int CRYSTAL = 1 << 9;
@@ -307,6 +309,8 @@ public enum Item {
                 return item;
         throw new RuntimeException("invalid code : " + code);
     }
+
+    public boolean hasStatus() { return (type & Type.STATUS) != 0; }
 
     public boolean isCursed() { return (type & Type.CURSED) != 0; }
 

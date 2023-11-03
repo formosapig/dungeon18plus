@@ -67,7 +67,7 @@ public class Main extends QQGameMachine implements
             case Game.Mode.TOWER:
             case Game.Mode.COLOSSEUM: {
                 if (null == selectHero) {
-                    selectHero = new SelectHeroScreen(viewport, assets, this);
+                    selectHero = new SelectHeroScreen((SaveGame) savedGame, viewport, assets, this);
                 }
                 selectHero.setGameMode(gameMode);
                 changeScreen(selectHero);

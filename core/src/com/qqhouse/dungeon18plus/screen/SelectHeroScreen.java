@@ -1,11 +1,15 @@
 package com.qqhouse.dungeon18plus.screen;
 
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.HeroClass;
+import com.qqhouse.dungeon18plus.gamedata.SaveGame;
+import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.view.PreviewView;
 import com.qqhouse.dungeon18plus.view.TitleBarView;
 import com.qqhouse.dungeon18plus.Assets;
+import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQListView;
 import com.qqhouse.ui.QQScreen;
@@ -19,8 +23,8 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         void onSelectHero(int gameMode, HeroClass hero);
     }
 
-    public SelectHeroScreen(Viewport viewport, Assets assets, SelectHeroCallback callback) {
-        super(null, viewport, assets);
+    public SelectHeroScreen(SaveGame savedGame, Viewport viewport, Assets assets, SelectHeroCallback callback) {
+        super(savedGame, viewport, assets);
         this.callback = callback;
     }
 
@@ -36,25 +40,30 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
     //private BitmapFont fntName;
     //private BitmapFont fntDesc;
     private QQListView list;
+    private ArrayList<HeroClassRecord> availableHero;
 
     @Override
     public void onEnter() {
+
+        // initial hero class adapter ...
+        savedGame.checkUnlockHeroClass();
+
+        availableHero = savedGame.getAvailableHeroClass(gameMode);
+
+
         // initial font.
         // bitmap font...
         //fntTitle = createFont(18, Color.WHITE, "請選擇英雄");
 
-        // one title view ..., just print select hero ?
-        TitleBarView title = new TitleBarView(
-                assets.getBlockee("fairy"),
-                assets.getFont(Game.Font.NAME20),
-                "Select Hero : ");
+        // group of background.
+        QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, Game.Size.INNER_MARGIN);
+        group.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
+        group.setSize(Game.Size.WIDTH - 12 - 12, Game.Size.HEIGHT * 0.9f);
+        group.setPosition(12, Game.Size.HEIGHT * 0.05f);
+        group.setPadding(8);
+        addChild(group);
 
-        //addView(title);
-        title.setPadding(8);
-        title.setSize(Game.Size.WIDTH, 48);
-        title.setPosition(0, Game.Size.HEIGHT - 48);
-        addChild(title);
-
+        // list of heroes
         ArrayList<HeroClass> tmp = new ArrayList<>();
         tmp.add(HeroClass.NOVICE);
         tmp.add(HeroClass.BARBARIAN);
@@ -74,17 +83,15 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         // FIXME hero name must change font color...
         //fntName = createFont("NotoSansTC-Bold.ttf", 20, new Color(0x9E8064FF), "");
         //fntDesc = createFont(14, Color.WHITE, "'");
-
-
         //ScrollPane
 
         // list view of hero preview view
         list = (QQListView) new QQListView()
-                .size(Game.Size.WIDTH, Game.Size.HEIGHT - title.getHeight() - 8).
-                position(0, 0).
-                padding(8);
+                .size(QQView.MATCH_PARENT, QQView.MATCH_PARENT).
+                position(0, 0);
         list.setCamera(getCamera());
-        addChild(list);
+        list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
+        group.addChild(list);
 
         for (int i = 0, s = tmp.size(); i < s; ++i) {
             HeroClass hero = tmp.get(i);
@@ -100,6 +107,20 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
             view.addQQClickListener(this, hero.code);
             list.addView(view);
         }
+
+        // one title view ..., just print select hero ?
+        TitleBarView title = new TitleBarView(
+                assets.getBlockee("fairy"),
+                assets.getFont(Game.Font.NAME20),
+                "Select Hero : ");
+
+        title.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
+        //addView(title);
+        title.setPadding(8);
+        title.setSize(QQView.MATCH_PARENT, 48);
+        title.setPosition(0, Game.Size.HEIGHT - 48);
+        group.addChild(title);
+
     }
 
     @Override

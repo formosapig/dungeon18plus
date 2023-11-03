@@ -56,11 +56,11 @@ public class SaveGame extends QQSaveGame {
             mHeroClassData.records.add(new HeroClassRecord(hc));
 
         // unlock dungeon mode
-        getHeroClassRecord(HeroClass.NOVICE).unlockDungeon();
-        getHeroClassRecord(HeroClass.BARBARIAN).unlockDungeon();
-        getHeroClassRecord(HeroClass.BERSERKER).unlockDungeon();
-        getHeroClassRecord(HeroClass.DRAGOON).unlockDungeon();
-        getHeroClassRecord(HeroClass.THIEF).unlockDungeon();
+        getHeroClassRecord(HeroClass.NOVICE).unlockGameMode(Game.Mode.DUNGEON);
+        getHeroClassRecord(HeroClass.BARBARIAN).unlockGameMode(Game.Mode.DUNGEON);
+        getHeroClassRecord(HeroClass.BERSERKER).unlockGameMode(Game.Mode.DUNGEON);
+        getHeroClassRecord(HeroClass.DRAGOON).unlockGameMode(Game.Mode.DUNGEON);
+        getHeroClassRecord(HeroClass.THIEF).unlockGameMode(Game.Mode.DUNGEON);
 
         // knight have mirror at beginning.
         getHeroClassRecord(HeroClass.EARTH_KNIGHT).yellowMirror = 3;
@@ -90,26 +90,33 @@ public class SaveGame extends QQSaveGame {
     /*
      * mHero class series
      */
+    public void unlockGameMode(HeroClass heroClass, int gameMode) {
+        for (HeroClassRecord record : mHeroClassData.records)
+            if (record.heroClass == heroClass)
+                record.unlockGameMode(gameMode);
+    }
+
+
     // unlock dungeon
     private void unlockDungeon(HeroClass heroClass) {
         for (HeroClassRecord record : mHeroClassData.records)
             if (record.heroClass == heroClass)
-                record.unlockDungeon();
+                record.unlockGameMode(Game.Mode.DUNGEON);
     }
 
     // unlock colosseum
     public void unlockColosseum(HeroClass heroClass) {
         for (HeroClassRecord record : mHeroClassData.records)
             if (record.heroClass == heroClass)
-                record.unlockColosseum();
+                record.unlockGameMode(Game.Mode.COLOSSEUM);
     }
 
 	public void addHeroClass(HeroClass heroClass, boolean isColosseum) {
 		HeroClassRecord record = new HeroClassRecord(heroClass);
 		if (isColosseum)
-			record.unlockColosseum();
+			record.unlockGameMode(Game.Mode.COLOSSEUM);
 		else
-			record.unlockDungeon();
+			record.unlockGameMode(Game.Mode.DUNGEON);
 		if (!mHeroClassData.records.contains(record)) {
 			mHeroClassData.records.add(record);
 			Collections.sort(mHeroClassData.records);
@@ -141,11 +148,11 @@ public class SaveGame extends QQSaveGame {
         }
     }
 
-    public ArrayList<HeroClass> getAvailableHeroClass(boolean isColosseum) {
-        ArrayList<HeroClass> result = new ArrayList<>();
+    public ArrayList<HeroClassRecord> getAvailableHeroClass(int gameMode) {
+        ArrayList<HeroClassRecord> result = new ArrayList<>();
         for (HeroClassRecord record : mHeroClassData.records) {
-            if (record.checkUnlock(isColosseum)) {
-                result.add(record.heroClass);
+            if (record.isGameModeAvailable(gameMode)) {
+                result.add(record);
             }
         }
         return result;
@@ -179,7 +186,7 @@ public class SaveGame extends QQSaveGame {
      */
     public boolean isGameModeUnlocked(int gameMode) {
         for (HeroClassRecord record : mHeroClassData.records) {
-            if (record.checkFlag(gameMode))
+            if (record.isGameModeAvailable(gameMode))
                 return true;
         }
         return false;

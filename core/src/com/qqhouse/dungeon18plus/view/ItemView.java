@@ -18,10 +18,11 @@ public class ItemView extends QQView {
         total size = 32 x 32 (+2) , display quantity's play needs 2 pixel...
      */
 
-    private Texture icon;
+    private Texture icon, status;
     private QQText count;
 
     public ItemView(BitmapFont font, Texture bg) {
+        status = null;
         count = new QQText(font, new NinePatch(bg, 4, 4, 4, 4), 0.5f);
         count.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
         count.setPosition(0, 0);
@@ -30,14 +31,26 @@ public class ItemView extends QQView {
 
     public ItemView(Texture icon, BitmapFont font, Texture bg) {
         this.icon = icon;
+        status = null;
         count = new QQText(font, new NinePatch(bg, 4, 4, 4, 4), 0.5f);
         count.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
         count.setPosition(0, 0);
         count.setPadding(2);
     }
 
+    // cursed / blessed / refined type items are countless.
+    public ItemView(Texture icon, Texture status) {
+        this.icon = icon;
+        this.status = status;
+        count = null;
+    }
+
     public void setIcon(Texture icon) {
         this.icon = icon;
+    }
+
+    public void setStatus(Texture status) {
+        this.status = status;
     }
 
     public void setColor(Color color) {
@@ -56,11 +69,14 @@ public class ItemView extends QQView {
 
     @Override
     protected void drawForeground(SpriteBatch batch, float originX, float originY) {
-        // draw item
+        // draw type if exist, then item
+        if (null != status)
+            batch.draw(status, originX, originY, 32, 32);
         batch.draw(icon, originX, originY, 32, 32);
 
-        // draw count
-        count.draw(batch, originX, originY);
+        // draw count if exist
+        if (null != count)
+            count.draw(batch, originX, originY);
     }
 
     @Override
