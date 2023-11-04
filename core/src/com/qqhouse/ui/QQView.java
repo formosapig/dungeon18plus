@@ -108,26 +108,32 @@ public class QQView {
         this.y = y;
     }
 
-    public void setSize(float width, float height) {
+    public void setSize(float w, float h) {
         // width
-        if (width == QQView.WRAP_CONTENT) {
+        if (w == QQView.WRAP_CONTENT) {
             //calculateContentWidth();
             wrapWidth = true;
-        } else if (width == QQView.MATCH_PARENT) {
+        } else if (w == QQView.MATCH_PARENT) {
             matchWidth = true;
-        } else {
-            this.width = width;
+        } else if (0 < w && this.width != w) {
+            this.width = w;
+            if (this instanceof IsParent) {
+                ((IsParent) this).arrangeChildren();
+            }
         }
         if (wrapWidth)
             resetWrapWidth();
         // height
-        if (height == QQView.WRAP_CONTENT) {
+        if (h == QQView.WRAP_CONTENT) {
             //calculateContentHeight();
             wrapHeight = true;
-        } else if (height == QQView.MATCH_PARENT) {
+        } else if (h == QQView.MATCH_PARENT) {
             matchHeight = true;
-        } else {
-            this.height = height;
+        } else if (0 < h && this.height != h) {
+            this.height = h;
+            if (this instanceof IsParent) {
+                ((IsParent) this).arrangeChildren();
+            }
         }
         if (wrapHeight)
             resetWrapHeight();

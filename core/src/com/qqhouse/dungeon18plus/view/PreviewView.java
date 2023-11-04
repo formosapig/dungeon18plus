@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -76,15 +77,15 @@ public class PreviewView extends QQButton implements QQView.IsParent {
         name = new QQText(assets.getFont(Game.Font.NAME20));
         name.setColor(Game.Colour.RARE);
         name.setText(assets.geti18n(record.heroClass.key));
-        name.setSize(100, 20);
-        name.setPosition(64, 100);
+        //name.setSize(this.width - 64, 24);
+        name.setPosition(64, 32);
         addChild(name);
 
         // scoreOrRound
         if (Game.Mode.DUNGEON == gameMode && 0 < record.highScore) {
             scoreOrRound = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("rank"));
             scoreOrRound.setSize(64, 16);
-            //scoreOrRound.setPosition(...);
+            //scoreOrRound.setPosition(this.width - 64 - 4, 40);
             scoreOrRound.setAlign(Align.right);
             scoreOrRound.setColor(Game.Colour.RANK);
             scoreOrRound.setText(Integer.toString(record.highScore));
@@ -192,7 +193,14 @@ public class PreviewView extends QQButton implements QQView.IsParent {
 
     @Override
     public void arrangeChildren() {
+        if (0 >= this.width || 0 >= this.height)
+            return;
 
+        //Gdx.app.error("PreviewView", "arrangeChildren" + this.width + "," + this.height);
+        name.setSize(this.width - 64, 24);
+        if (null != scoreOrRound) {
+            scoreOrRound.setPosition(this.width - 64 - 4, 40);
+        }
     }
 
     @Override

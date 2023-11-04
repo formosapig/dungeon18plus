@@ -29,10 +29,10 @@ public class ActionView extends QQButton {
     private float iconShiftX, costShiftX;
 
     @Override
-    public void setSize(float width, float height) {
-        super.setSize(width, height);
-        iconShiftX = (width - 32) / 2;
-        costShiftX = (width - cost.getWidth()) / 2;
+    public void setSize(float w, float h) {
+        super.setSize(w, h);
+        iconShiftX = (w - 32) / 2;
+        costShiftX = (w - cost.getWidth()) / 2;
     }
 
     @Override

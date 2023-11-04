@@ -129,6 +129,10 @@ public class QQGroup extends QQView implements QQView.IsParent {
 
     @Override
     public void arrangeChildren() {
+        // do not arrange if size is zero...
+        if (0 >= width || 0 >= height)
+            return;
+
         // 由下往上排喔....
         if (DIRECT_VERTICAL == direct) {
             // check if view need match parent ...
@@ -147,9 +151,11 @@ public class QQGroup extends QQView implements QQView.IsParent {
             // heightForMatch split to matchChildren
             if (0 < matchChildren) {
                 for (QQView v : childrenView) {
-                    if (v.matchHeight && v.isVisible())
+                    if (v.matchHeight && v.isVisible()) {
+                        Gdx.app.error("QQGroup", "v.set size." + v.getWidth() + "," + heightForMatch / matchChildren);
                         v.setSize(v.getWidth(), heightForMatch / matchChildren);
                         //v.height = heightForMatch / matchChildren;
+                    }
                 }
             }
 
@@ -171,20 +177,23 @@ public class QQGroup extends QQView implements QQView.IsParent {
         add child from bottom to top, from left to right ...
      */
     @Override
-    public void addChild(QQView view) {
-        childrenView.add(view);
-        view.setParent(this);
+    public void addChild(QQView child) {
+        childrenView.add(child);
+        child.setParent(this);
         // calculate child size
-        if (view.matchWidth) {
+        if (child.matchWidth) {
             if (wrapWidth)
                 throw new GdxRuntimeException("wrap width with match width child.");
-            view.setSize(width - leftPadding - rightPadding, view.getHeight());
+            if (0 < width)
+                child.setSize(width - leftPadding - rightPadding, child.getHeight());
         }
-        if (view.matchHeight) {
+        if (child.matchHeight) {
             if (wrapHeight)
                 throw new GdxRuntimeException("wrap height with match height child.");
-            view.setSize(view.getWidth(), height - topPadding - bottomPadding);
+            if (0 < height)
+                child.setSize(child.getWidth(), height - topPadding - bottomPadding);
         }
+        // calculate my size
         if (wrapWidth)
             resetWrapWidth();
         if (wrapHeight)

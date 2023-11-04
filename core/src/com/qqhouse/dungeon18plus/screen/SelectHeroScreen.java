@@ -113,10 +113,8 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
 
         // list of available heroes ...
         QQList list = new QQList();
-        //eventList.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
+        list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         list.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
-        group.addChild(list);
-        //eventList.setPosition(0, 64 + 2 + 24 + 2);
         list.setCamera(getCamera());
         list.setAdapter(availableHeroesAdapter);
         list.addListener(new QQList.PressListener() {
@@ -128,8 +126,8 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
             @Override
             public void onLongPress(int index) {}
         });
-        //addView(eventList);
-        //group.addChild(list);
+        group.addChild(list);
+
 
 
         // one title view ..., just print select hero ?

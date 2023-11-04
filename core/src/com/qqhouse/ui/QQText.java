@@ -33,8 +33,8 @@ public class QQText extends QQView{
     }
 
     @Override
-    public void setSize(float width, float height) {
-        super.setSize(width, height);
+    public void setSize(float w, float h) {
+        super.setSize(w, h);
         rearrange();
     }
 

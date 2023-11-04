@@ -61,14 +61,14 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         set size should trigger rearrange ...
      */
     @Override
-    public void setSize(float width, float height) {
-        super.setSize(width, height);
+    public void setSize(float w, float h) {
+        super.setSize(w, h);
         rearrangeChildren();
         float totalHeight = - Game.Size.WIDGET_MARGIN;
         for (QQView v : childrenView) {
             totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
         }
-        maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
+        maxScrollY = totalHeight - h + bottomPadding + topPadding; // padding not counting.
     }
 
 
@@ -516,7 +516,30 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     private ArrayList<QQView> childrenView = new ArrayList<>();
 
     @Override
-    public void arrangeChildren() {}
+    public void arrangeChildren() {
+
+        Gdx.app.error("QQList", "arrangeChildren : " + width + "," + height);
+        if (0 >= this.width || 0 >= this.height)
+            return;
+
+        // from top to bottom...
+        float anchorY = this.height - topPadding;
+        for (QQView child : childrenView) {
+
+            // match width
+            if (child.matchWidth && 0 >= child.width)
+                child.setSize(this.width - leftPadding - rightPadding, child.getHeight());
+
+            anchorY -= child.height;
+
+            // reset position
+            child.setPosition(leftPadding, anchorY + scrollY);
+
+            // widget margin
+            anchorY -= Game.Size.WIDGET_MARGIN;
+        }
+
+    }
 
     @Override
     public void addChild(QQView view) {
