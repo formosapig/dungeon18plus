@@ -2,6 +2,7 @@ package com.qqhouse.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -14,8 +15,9 @@ public class QQText extends QQView{
     protected BitmapFont font;
     protected Color color = null;
     protected String text = "";
+    private String truncate = null;
     protected float shiftX, shiftY;
-    private float alpha = 1; // 0 ~ 1
+    //private float alpha = 1; // 0 ~ 1
 
     public QQText(BitmapFont font) {
         this.font = font;
@@ -29,7 +31,7 @@ public class QQText extends QQView{
     public QQText(BitmapFont font, NinePatch background, float alpha) {
         this.font = font;
         this.bgNormal = background;
-        this.alpha = alpha;
+        this.bgNormal.setColor(new Color(1, 1, 1, alpha));
     }
 
     @Override
@@ -57,6 +59,11 @@ public class QQText extends QQView{
     public void setText(String text) {
         this.text = text;
         rearrange();
+    }
+
+    public void setTruncate(String truncate) {
+        this.truncate = truncate;
+        //rearrange();
     }
 
 
@@ -97,16 +104,16 @@ public class QQText extends QQView{
         }
     }
 
-    @Override
-    public void drawBackground(SpriteBatch batch, float originX, float originY) {
-        if (null != bgNormal) {
-            Color tmp = batch.getColor();
-            batch.setColor(1, 1, 1, alpha);
-            bgNormal.draw(batch, originX, originY, width, height);
-            batch.setColor(1, 1, 1, 1);
-            batch.flush();
-        }
-    }
+    //@Override
+    //public void drawBackground(SpriteBatch batch, float originX, float originY) {
+    //    if (null != bgNormal) {
+    //        Color tmp = batch.getColor();
+    //        batch.setColor(1, 1, 1, alpha);
+    //        bgNormal.draw(batch, originX, originY, width, height);
+    //        batch.setColor(1, 1, 1, 1);
+    //        batch.flush();
+    //    }
+    //}
 
 
     @Override
@@ -114,7 +121,10 @@ public class QQText extends QQView{
         if (null != color) {
             font.setColor(color);
         }
-        font.draw(batch, text, originX + shiftX, originY + shiftY);
+        if (null != truncate)
+            font.draw(batch, text, originX + shiftX, originY + shiftY, 0, text.length(), width, align, false, "...");
+        else
+            font.draw(batch, text, originX + shiftX, originY + shiftY);
     }
 
     @Override

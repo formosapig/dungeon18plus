@@ -59,7 +59,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         //fntTitle = createFont(18, Color.WHITE, "請選擇英雄");
 
         // group of background.
-        QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, Game.Size.INNER_MARGIN);
+        QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, Game.Size.WIDGET_MARGIN);
         group.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         group.setSize(Game.Size.WIDTH - 12 - 12, Game.Size.HEIGHT * 0.9f);
         group.setPosition(12, Game.Size.HEIGHT * 0.05f);
@@ -113,7 +113,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
 
         // list of available heroes ...
         QQList list = new QQList();
-        list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
+        //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         list.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         list.setCamera(getCamera());
         list.setAdapter(availableHeroesAdapter);
@@ -136,9 +136,9 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
                 assets.getFont(Game.Font.NAME20),
                 "Select Hero : ");
 
-        title.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
+        //title.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         //addView(title);
-        title.setPadding(8);
+        title.setPadding(4);
         title.setSize(QQView.MATCH_PARENT, 48);
         title.setPosition(0, Game.Size.HEIGHT - 48);
         group.addChild(title);

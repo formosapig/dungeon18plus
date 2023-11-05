@@ -13,6 +13,7 @@ import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQIconText;
+import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
@@ -24,7 +25,7 @@ public class PreviewView extends QQButton implements QQView.IsParent {
     private BitmapFont fntName, fntDesc;
     private String name1, desc;
 
-    private Texture blockee;
+    private QQImage blockee;
     private QQText level, name, help;
     private QQIconText scoreOrRound;
     private Assets assets;
@@ -60,7 +61,10 @@ public class PreviewView extends QQButton implements QQView.IsParent {
         setBackground(assets.getBackgroundSet(record.heroClass.alignment.key));
 
         // icon
-        blockee = assets.getBlockee(record.heroClass.key);
+        blockee = new QQImage(assets.getBlockee(record.heroClass.key));
+        //blockee.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
+        blockee.setPosition(8, 8);
+        addChild(blockee);
 
         // level
         if (Game.Mode.DUNGEON == gameMode && 0 < record.highLevel) {
@@ -84,15 +88,15 @@ public class PreviewView extends QQButton implements QQView.IsParent {
         // scoreOrRound
         if (Game.Mode.DUNGEON == gameMode && 0 < record.highScore) {
             scoreOrRound = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("rank"));
-            scoreOrRound.setSize(64, 16);
+            scoreOrRound.setSize(54, 16);
             //scoreOrRound.setPosition(this.width - 64 - 4, 40);
             scoreOrRound.setAlign(Align.right);
             scoreOrRound.setColor(Game.Colour.RANK);
-            scoreOrRound.setText(Integer.toString(record.highScore));
+            scoreOrRound.setText(Integer.toString(record.highScore + 1000));
             addChild(scoreOrRound);
         } else if (Game.Mode.COLOSSEUM == gameMode && 0 < record.maxRound) {
             scoreOrRound = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("cost_soul"));
-            scoreOrRound.setSize(64, 16);
+            scoreOrRound.setSize(54, 16);
             //scoreOrRound.setPosition(...);
             scoreOrRound.setAlign(Align.right);
             scoreOrRound.setColor(Game.Colour.ROUND);
@@ -103,8 +107,11 @@ public class PreviewView extends QQButton implements QQView.IsParent {
         // help
         help = new QQText(assets.getFont(Game.Font.HELP14));
         help.setText(assets.geti18n(record.heroClass.key + "_help"));
-
-
+        help.setTruncate("...");
+        help.setAlign(Align.left);
+        help.setPosition(64, 8);
+        //help.setWrapWidth();
+        addChild(help);
 
     }
 
@@ -197,10 +204,11 @@ public class PreviewView extends QQButton implements QQView.IsParent {
             return;
 
         //Gdx.app.error("PreviewView", "arrangeChildren" + this.width + "," + this.height);
-        name.setSize(this.width - 64, 24);
+        name.setSize(this.width - 64 - 8, 24);
         if (null != scoreOrRound) {
-            scoreOrRound.setPosition(this.width - 64 - 4, 40);
+            scoreOrRound.setPosition(this.width - scoreOrRound.getWidth() - 8, 40);
         }
+        help.setSize(this.width - 64 - 8, 24);
     }
 
     @Override
