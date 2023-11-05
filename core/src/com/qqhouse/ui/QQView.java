@@ -51,6 +51,7 @@ public class QQView {
     private QQAnimation animation;
     public void applyAnimation(QQAnimation animation) {
         if (null != this.animation) {
+            // FIXME 出現這行然後當掉, 要研究一下為什麼...
             Gdx.app.error("QQView", "I am working.");
         }
         this.animation = animation;

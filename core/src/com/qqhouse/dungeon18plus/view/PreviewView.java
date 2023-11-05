@@ -92,7 +92,7 @@ public class PreviewView extends QQButton implements QQView.IsParent {
             //scoreOrRound.setPosition(this.width - 64 - 4, 40);
             scoreOrRound.setAlign(Align.right);
             scoreOrRound.setColor(Game.Colour.RANK);
-            scoreOrRound.setText(Integer.toString(record.highScore + 1000));
+            scoreOrRound.setText(Integer.toString(record.highScore/* + 1000*/));
             addChild(scoreOrRound);
         } else if (Game.Mode.COLOSSEUM == gameMode && 0 < record.maxRound) {
             scoreOrRound = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("cost_soul"));

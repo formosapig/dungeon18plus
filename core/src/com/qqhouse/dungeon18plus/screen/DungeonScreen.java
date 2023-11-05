@@ -126,8 +126,8 @@ public class DungeonScreen extends QQScreen {
         // group ( event, special event ), just a container...
         QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, 2);
         // FIXME 使用 match_parent 以及 Screen 內含 QQView ...
-        group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
-        group.setPosition(0, 64 + 2 + 24 + 2);
+        group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 24 - 64 - Game.Size.WIDGET_MARGIN * 3);
+        group.setPosition(0, 64 + Game.Size.WIDGET_MARGIN * 2 + 24);
         addChild(group);
 
         // special event list
@@ -192,7 +192,7 @@ public class DungeonScreen extends QQScreen {
         // message view ...
         lootInfo = new LootInfoView(assets);
         lootInfo.setSize(Game.Size.WIDTH, 24);
-        lootInfo.setPosition(0, 64 + 2);
+        lootInfo.setPosition(0, 64 + Game.Size.WIDGET_MARGIN);
         addChild(lootInfo);
 
         // action view ...
@@ -221,7 +221,7 @@ public class DungeonScreen extends QQScreen {
                         // update status...
                         update();
                     }
-                    debug();
+                    //debug();
                 }
 
                 @Override

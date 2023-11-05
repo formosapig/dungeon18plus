@@ -152,7 +152,7 @@ public class QQGroup extends QQView implements QQView.IsParent {
             if (0 < matchChildren) {
                 for (QQView v : childrenView) {
                     if (v.matchHeight && v.isVisible()) {
-                        Gdx.app.error("QQGroup", "v.set size." + v.getWidth() + "," + heightForMatch / matchChildren);
+                        //Gdx.app.error("QQGroup", "v.set size." + v.getWidth() + "," + heightForMatch / matchChildren);
                         v.setSize(v.getWidth(), heightForMatch / matchChildren);
                         //v.height = heightForMatch / matchChildren;
                     }

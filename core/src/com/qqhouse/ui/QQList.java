@@ -57,18 +57,30 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     private float touchY, scrollY, maxScrollY, previousScrollY; // vertical only.
     private IsTouchable hitBeforeScroll = null;
 
+    private void calculateMaxScrollY() {
+        float totalHeight = 0;
+        for (QQView child : childrenView) {
+            totalHeight += child.height + Game.Size.WIDGET_MARGIN;
+        }
+        totalHeight -= Game.Size.WIDGET_MARGIN;
+        maxScrollY = totalHeight - (this.height - this.topPadding - this.bottomPadding);
+        if (maxScrollY <0)
+            maxScrollY = 0;
+    }
+
     /*
         set size should trigger rearrange ...
      */
     @Override
     public void setSize(float w, float h) {
         super.setSize(w, h);
-        rearrangeChildren();
-        float totalHeight = - Game.Size.WIDGET_MARGIN;
-        for (QQView v : childrenView) {
-            totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
-        }
-        maxScrollY = totalHeight - h + bottomPadding + topPadding; // padding not counting.
+        calculateMaxScrollY();
+        //rearrangeChildren();
+        //float totalHeight = - Game.Size.WIDGET_MARGIN;
+        //for (QQView v : childrenView) {
+        //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
+        //}
+        //maxScrollY = totalHeight - h + bottomPadding + topPadding; // padding not counting.
     }
 
 
@@ -408,7 +420,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             return false;
         // TODO 有時候會有一個位移等於零的 touchDragged 事件發生...真奇怪.
         // TODO 當位移大於某一個值時, 才觸發 scroll 事件...
-        //Gdx.app.error("QQList", "touchDragged : " + (relativeY - touchY));
+        Gdx.app.error("QQList", "touchDragged : " + (relativeY - touchY));
         // 1. do scroll ...
         float moveDelta = relativeY - touchY;
         scrollY += moveDelta;
@@ -418,7 +430,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         rearrangeChildren();
 
         // cancel touching and long press counter..
-        if (null != hitBeforeScroll && moveDelta > 0.01f) {
+        if (null != hitBeforeScroll && Math.abs(moveDelta) > 0.01f) {
             //Gdx.app.error("QQList", "cancelTouching@" + hitBeforeScroll);
             hitBeforeScroll.cancelTouching();
         }
@@ -518,7 +530,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     @Override
     public void arrangeChildren() {
 
-        Gdx.app.error("QQList", "arrangeChildren : " + width + "," + height);
+        //Gdx.app.error("QQList", "arrangeChildren : " + width + "," + height);
         if (0 >= this.width || 0 >= this.height)
             return;
 
@@ -538,6 +550,8 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             // widget margin
             anchorY -= Game.Size.WIDGET_MARGIN;
         }
+
+        // calculate maxScrollY
 
     }
 
