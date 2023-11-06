@@ -59,8 +59,12 @@ public class QQView {
         animation.start();
     }
 
-    public void removeAnimation() {
-        this.animation = null;
+    public boolean removeAnimation() {
+        if (null != this.animation) {
+            this.animation = null;
+            return true;
+        }
+        return false;
     }
 
     public void act(float delta) {
