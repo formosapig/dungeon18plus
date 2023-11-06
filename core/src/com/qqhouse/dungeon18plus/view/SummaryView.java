@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.qqhouse.dungeon18plus.Assets;
@@ -15,22 +14,15 @@ import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
 
-public class SummaryDialog extends QQGroup {
-
-    // fairy title view to tell score....
-    private TitleBarView fairy;
-
-    // list view list scores ...
-    private QQList scores;
-    private QQButton done; // victory / failed.
+public class SummaryView extends QQGroup {
 
     // data
     private ArrayList<BossKill> kills;
     private boolean isWin;
 
-    private Assets assets;
-    private Camera camera;
-    public SummaryDialog(Assets assets, Camera camera) {
+    private final Assets assets;
+    private final Camera camera;
+    public SummaryView(Assets assets, Camera camera) {
         super(DIRECT_VERTICAL, 2);
         this.assets = assets;
         this.camera = camera;
@@ -43,22 +35,23 @@ public class SummaryDialog extends QQGroup {
 
         // create ...
         // button
-        done = new QQButton(assets.getBackgroundSet(GameAlignment.NEUTRAL.key));
+        // TODO QQButton can add image / text ...
+        QQButton done = new QQButton(assets.getBackgroundSet(GameAlignment.NEUTRAL.key));
         //done.setPosition(leftPadding, bottomPadding);
         done.setSize(QQView.MATCH_PARENT, 40);
         done.addQQClickListener(listener, 0);
         addChild(done);
 
         // list
-        scores = new QQList();
+        QQList scores = new QQList();
         scores.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         scores.setCamera(camera);
         // FIXME 相反的順序就找不到寛度了...
-        addChild(scores);
         scores.setAdapter(adapter);
+        addChild(scores);
         //scores.setBackground(new NinePatch(assets.getBackground("white"), 4, 4, 4, 4));
 
-        fairy = new TitleBarView(
+        TitleBarView fairy = new TitleBarView(
                 assets.getBlockee("fairy"),
                 assets.getFont(Game.Font.NAME20),
                 assets.geti18n("score"));
@@ -71,7 +64,7 @@ public class SummaryDialog extends QQGroup {
     /*
         list view of boss kill....
      */
-    private QQList.Adapter adapter = new QQList.Adapter() {
+    private final QQList.Adapter adapter = new QQList.Adapter() {
         @Override
         public int getSize() {
             return kills.size();

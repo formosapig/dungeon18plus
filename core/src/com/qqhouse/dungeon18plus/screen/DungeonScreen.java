@@ -15,9 +15,8 @@ import com.qqhouse.dungeon18plus.view.EventView;
 import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
 import com.qqhouse.dungeon18plus.Assets;
-import com.qqhouse.dungeon18plus.view.SummaryDialog;
+import com.qqhouse.dungeon18plus.view.SummaryView;
 import com.qqhouse.ui.QQCustomDialog;
-import com.qqhouse.ui.QQDialog;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
@@ -263,8 +262,12 @@ public class DungeonScreen extends QQScreen {
         }
     }
 
+    private QQCustomDialog summaryDialog;
     private void endGame(boolean isWin) {
-        SummaryDialog summary = new SummaryDialog(assets, getCamera());
+
+        //final QQCustomDialog summaryDialog;
+
+        SummaryView summary = new SummaryView(assets, getCamera());
         //summary.setPosition(0, 0);
         summary.padding(8);
         // FIXME 在 summary 未決定 size 之前, 所有其內的 view 無法套用 match parent
@@ -274,13 +277,14 @@ public class DungeonScreen extends QQScreen {
             public void onPress(int index) {
                 // summary.dismiss();
                 //summaryDialog.dismiss();
+                summaryDialog.dismiss();
                 callback.onDungeonResult(false, null);
                 // dialog.dismiss();
             }
             @Override
             public void onLongPress(QQView view) {}
         });
-        final QQCustomDialog summaryDialog = new QQCustomDialog(assets, summary, true);
+        summaryDialog = new QQCustomDialog(assets, summary, true);
         openDialog(summaryDialog);
     }
 

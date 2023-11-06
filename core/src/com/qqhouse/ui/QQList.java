@@ -11,6 +11,8 @@ import com.qqhouse.dungeon18plus.Game;
 
 import java.util.ArrayList;
 
+
+// TODO QQList should extends QQList ?
 public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchable {
 
 
@@ -33,17 +35,16 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         public abstract void updateView(int index, QQView view);
     }
 
-    //public QQList() {
-    //}
-
     private float touchY = -1, scrollY, maxScrollY, previousScrollY; // vertical only.
     private IsTouchable hitBeforeScroll;// = null;
     // animation period in second
-    private static final float animPeriod = 0.222f;    // in sec
+    private static final float animVPeriod = 0.14f;    // in sec
+    private static final float animHPeriod = 0.21f;
 
     private void calculateMaxScrollY() {
         float totalHeight = 0;
         for (QQView child : childrenView) {
+            // FIXME SDK component can not use Game.Size.WIDGET_MARGIN
             totalHeight += child.height + Game.Size.WIDGET_MARGIN;
         }
         totalHeight -= Game.Size.WIDGET_MARGIN;
@@ -95,7 +96,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         insertIndex = index;
         float preDelay = 0;
         if (removeIndex >= 0) {
-            Gdx.app.error("QQList.insert", "remove then insert...");
+            //Gdx.app.error("QQList.insert", "remove then insert...");
             // remove then inser...
             // 1. cancel all animation ...
             for (QQView child : childrenView) {
@@ -110,15 +111,15 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                 //             V
                 //  remove -1  V
                 //  remove
-                moveDownward(insertIndex, removeIndex - 1, animPeriod);
-                preDelay = animPeriod;
+                moveDownward(insertIndex, removeIndex - 1, animVPeriod);
+                preDelay = animVPeriod;
             } else if (removeIndex < insertIndex) {
                 // remove
                 // remove +1 ^
                 //           ^
                 // insert    ^
-                moveUpward(removeIndex, insertIndex, animPeriod);
-                preDelay = animPeriod;
+                moveUpward(removeIndex, insertIndex, animVPeriod);
+                preDelay = animVPeriod;
             } else {
                 // remove insert no move....
             }
@@ -160,7 +161,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
         // set default position before animation
         insertOne.setPosition(-this.width, getIndexChildY(index));
-        insertOne.applyAnimation(new InsertAnimation(this.width / animPeriod, 0f, animPeriod + preDelay).listener(
+        insertOne.applyAnimation(new InsertAnimation(this.width / animHPeriod, 0f, animHPeriod + preDelay).listener(
                 new QQAnimation.AnimationListener() {
                     @Override
                     public void onAnimationStart(QQView target) {
@@ -193,7 +194,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         // FIXME remove not resetWrapHeight ...
         removeIndex = index;
         removeTarget = childrenView.remove(index);
-        removeTarget.applyAnimation(new RemoveAnimation(this.width / animPeriod, this.width).listener(
+        removeTarget.applyAnimation(new RemoveAnimation(this.width / animHPeriod, this.width).listener(
                 new QQAnimation.AnimationListener() {
                     @Override
                     public void onAnimationStart(QQView target) {
@@ -224,10 +225,10 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         // 先做一個永遠是下面往上移的版本來看看 ...
         float gap = removeTarget.getHeight() + Game.Size.WIDGET_MARGIN;
         if (scrollY > gap && (maxScrollY - scrollY) < gap) {
-            moveDownward(0, index - 1, animPeriod);
+            moveDownward(0, index - 1, animVPeriod);
             //scrollY -= gap;
         } else
-            moveUpward(index, childrenView.size() - 1, animPeriod);
+            moveUpward(index, childrenView.size() - 1, animVPeriod);
 
     }
 
@@ -236,7 +237,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         for (int i = start; i <= end; ++i) {
             QQView child = childrenView.get(i);
             float gap = child.getHeight() + Game.Size.WIDGET_MARGIN;
-            child.applyAnimation(new MoveVerticalAnimation(-gap / animPeriod, gap, delay)
+            child.applyAnimation(new MoveVerticalAnimation(-gap / animVPeriod, gap, delay)
                     .listener(new QQAnimation.AnimationListener() {
                         @Override
                         public void onAnimationStart(QQView target) {
@@ -259,7 +260,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         for (int i = start; i < end; ++i) {
             QQView child = childrenView.get(i);
             float gap = child.getHeight() + Game.Size.WIDGET_MARGIN;
-            child.applyAnimation(new MoveVerticalAnimation(gap / animPeriod, gap, delay)
+            child.applyAnimation(new MoveVerticalAnimation(gap / animVPeriod, gap, delay)
                     .listener(new QQAnimation.AnimationListener() {
                         @Override
                         public void onAnimationStart(QQView target) {
@@ -398,7 +399,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                     // TODO 改一個寫法, 感覺計算太複雜了. 效果OK
                     float shift = Math.abs(delta * velocity);
                     float rate = (shift + distance) / shift;
-                    Gdx.app.error("QQList.goOn", "distance = " + distance + ",rate = " + rate);
+                    //Gdx.app.error("QQList.goOn", "distance = " + distance + ",rate = " + rate);
                     float y = target.getY() + (delta * velocity) * rate;
                     target.setPosition(target.getX(), y);
                     return false;
@@ -421,8 +422,10 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     // get (x, y) relative to my position
     @Override
     public boolean touchDown(float relativeX, float relativeY) {
-        if (0 < animLock)
+        if (0 < animLock) {
+            Gdx.app.error("QQList.touchDown", "animLock = " + animLock);
             return false;
+        }
         // 1. keep touch down position for scroll
         //touchDownPos = new Vector2(relativeX, relativeY);
         touchY = relativeY;
@@ -454,8 +457,10 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
      */
     @Override
     public boolean touchUp(float relativeX, float relativeY) {
-        if (0 < animLock)
+        if (0 < animLock) {
+            Gdx.app.error("QQList.touchUp", "animLock = " + animLock);
             return false;
+        }
         touchY = -1;
         // long press reset
         longPressIndex =  -1;
