@@ -21,13 +21,14 @@ public class BossKillView extends AssetGroup {
 
     public BossKillView(Assets assets) {
         super(assets);
-        padding(Game.Size.BLOCKEE_PADDING);
+        setPadding(4, 4, Game.Size.BLOCKEE_PADDING, Game.Size.BLOCKEE_PADDING);
     }
 
     public void reset(BossKill kill) {
         //Gdx.app.error("BossKillView.reset()", "width = " + this.width);
         //icon = assets.getBlockee(kill.boss.icon);
         QQImage icon = new QQImage(assets.getBlockee(kill.boss.icon));
+        icon.setBackground(assets.getNinePatchBG(kill.boss.align.key));
         //icon.setSize(32, 32);
         icon.setPosition(leftPadding, bottomPadding);
         addChild(icon);

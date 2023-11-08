@@ -24,7 +24,7 @@ public class SummaryView extends QQGroup {
     private final Assets assets;
     private final Camera camera;
     public SummaryView(Assets assets, Camera camera) {
-        super(DIRECT_VERTICAL, 2);
+        super(DIRECT_VERTICAL, Game.Size.WIDGET_MARGIN);
         this.assets = assets;
         this.camera = camera;
         bgNormal = new NinePatch(assets.getBackground("dialog"), 4, 4, 4, 4);
@@ -92,7 +92,7 @@ public class SummaryView extends QQGroup {
         public QQView getView(int index) {
             final BossKillView v = new BossKillView(assets);
             v.reset(kills.get(index));
-            v.setSize(QQView.MATCH_PARENT, 64);
+            v.setSize(QQView.MATCH_PARENT, 56);
             return v;
         }
 

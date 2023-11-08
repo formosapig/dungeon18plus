@@ -79,6 +79,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         if (0 < maxHeight && h >= maxHeight)
             h = maxHeight;
         this.height = h;
+        Gdx.app.error("QQList.resetWrapHeight", "height = " + this.height + "maxHeight = " + maxHeight);
         if (null != parent)
             parent.arrangeChildren();
     }
