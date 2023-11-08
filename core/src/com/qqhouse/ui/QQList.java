@@ -69,6 +69,20 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         //maxScrollY = totalHeight - h + bottomPadding + topPadding; // padding not counting.
     }
 
+    @Override
+    public void resetWrapHeight() {
+        // 假設都插入或新增好了
+        float h = topPadding + bottomPadding;
+        for (QQView child : childrenView)
+            h += child.height + Game.Size.WIDGET_MARGIN;
+        h -= Game.Size.WIDGET_MARGIN;
+        if (0 < maxHeight && h >= maxHeight)
+            h = maxHeight;
+        this.height = h;
+        if (null != parent)
+            parent.arrangeChildren();
+    }
+
 
     /*
         Adapter series
@@ -153,12 +167,8 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         childrenView.add(index, insertOne);
         // FIXME 不能直接 arrangeChild ...這一段要修...
         if (wrapHeight) {
-            height = childrenView.size() * insertOne.height
-                    + (childrenView.size() - 1) * Game.Size.WIDGET_MARGIN
-                    + topPadding
-                    + bottomPadding;
-            if (null != parent)
-                parent.arrangeChildren();
+            resetWrapHeight();
+            // TODO should call calculateMaxScrollY ?
         }
 
         // set default position before animation
@@ -219,12 +229,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
                         //target = null;
                         if (wrapHeight) {
-                            height = childrenView.size() * removeTarget.height
-                                    + (childrenView.size() - 1) * Game.Size.WIDGET_MARGIN
-                                    + topPadding
-                                    + bottomPadding;
-                            if (null != parent)
-                                parent.arrangeChildren();
+                            resetWrapHeight();
                         }
                         removeTarget = null;
                     }
@@ -636,31 +641,25 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     }
 
     @Override
-    public void addChild(QQView view) {
-        childrenView.add(view);
-        view.setParent(this);
+    public void addChild(QQView child) {
+        childrenView.add(child);
+        child.setParent(this);
         // calculate child size
-        if (view.matchWidth) {
+        if (child.matchWidth) {
             if (wrapWidth)
                 throw new GdxRuntimeException("wrap width with match width child.");
-            view.setSize(width - leftPadding - rightPadding, view.getHeight());
+            child.setSize(width - leftPadding - rightPadding, child.getHeight());
             //Gdx.app.error("QQList", "reset width : " + (width - leftPadding - rightPadding) + "@" + view);
         }
-        if (view.matchHeight) {
+        if (child.matchHeight) {
             if (wrapHeight)
                 throw new GdxRuntimeException("wrap height with match height child.");
-            view.setSize(view.getWidth(), height - topPadding - bottomPadding);
+            child.setSize(child.getWidth(), height - topPadding - bottomPadding);
         }
 
         // recalculate height
-        if (wrapHeight) {
-            height = childrenView.size() * view.height
-                    + (childrenView.size() - 1) * Game.Size.WIDGET_MARGIN
-                    + topPadding
-                    + bottomPadding;
-            if (null != parent)
-                parent.arrangeChildren();
-        }
+        if (wrapHeight)
+            resetWrapHeight();
     }
 
     @Override

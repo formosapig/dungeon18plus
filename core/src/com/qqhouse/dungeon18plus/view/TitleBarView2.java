@@ -20,12 +20,14 @@ public class TitleBarView2 extends AssetGroup {
     }
 
     public void reset(String iconKey, String nameKey, String resourceKey, Color color, String value) {
-        icon = new QQImage(assets.getBlockee(iconKey));
-        icon.setSize(32, 32); // 預設是 32 x 32 的 blockee...
-        icon.setPosition(leftPadding, bottomPadding);
-        addChild(icon);
+        if (null != iconKey) {
+            icon = new QQImage(assets.getBlockee(iconKey));
+            icon.setSize(32, 32); // 預設是 32 x 32 的 blockee...
+            icon.setPosition(leftPadding, bottomPadding);
+            addChild(icon);
+        }
 
-        resource = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon32(resourceKey));
+        resource = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16(resourceKey));
         //resource.setSize(QQView.WRAP_CONTENT, 32);
         //resource.setPosition(this.width - resource.getWidth() - rightPadding, bottomPadding);
         resource.setColor(color);
@@ -44,8 +46,8 @@ public class TitleBarView2 extends AssetGroup {
         // FIXME random order set data can still arrange children correctly.
         if (null == resource || null == name)
             return;
-        resource.setSize(QQView.WRAP_CONTENT, 32);
-        resource.setPosition(this.width - resource.getWidth() - rightPadding, bottomPadding);
+        resource.setSize(QQView.WRAP_CONTENT, 16);
+        resource.setPosition(this.width - resource.getWidth() - rightPadding, bottomPadding + 8);
 
         name.setSize(resource.getX() - innerMargin * 2 - (leftPadding + 32), 32);
         name.setPosition(leftPadding + 32 + innerMargin, bottomPadding);

@@ -1435,8 +1435,16 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
         killList.add(new BossKill(EventType.CAT_SITH, 100, 1));
         killList.add(new BossKill(EventType.BLACK_SLIME, 90, 2));
-        killList.add(new BossKill(EventType.DEMON, 5, 11));
         killList.add(new BossKill(EventType.DOOR, 5, 12));
+        killList.add(new BossKill(EventType.DOOR, 5, 12));
+        killList.add(new BossKill(EventType.DOOR, 5, 12));
+        killList.add(new BossKill(EventType.DOOR, 5, 12));
+        killList.add(new BossKill(EventType.DOOR, 5, 12));
+        killList.add(new BossKill(EventType.DOOR, 5, 12));
+        killList.add(new BossKill(EventType.DOOR, 5, 12));
+        killList.add(new BossKill(EventType.DOOR, 5, 12));
+        killList.add(new BossKill(EventType.DOOR, 5, 12));
+        killList.add(new BossKill(EventType.DEMON, 5, 11));
 
         Event win = new Event(EventType.WIN_GOLDEN);
         mEvents.add(0, win);

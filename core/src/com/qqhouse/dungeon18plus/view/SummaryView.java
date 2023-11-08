@@ -48,6 +48,7 @@ public class SummaryView extends QQGroup {
         QQList scores = new QQList();
         //scores.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         scores.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        scores.setMaxHeight(400);
         scores.setCamera(camera);
         scores.setAdapter(adapter);
         addChild(scores);
@@ -62,17 +63,18 @@ public class SummaryView extends QQGroup {
         //addChild(fairy);
 
         // total score
-        int score = 1000;
+        int score = 0;
         for (BossKill bk : kills)
             score += bk.score;
         TitleBarView2 fairy = new TitleBarView2(assets);
         fairy.setSize(QQView.MATCH_PARENT, 40);
         fairy.setPosition(leftPadding + 4, height - 40 - topPadding);
         fairy.setPadding(4, 4, 4, 8);
-        fairy.reset("fairy", "score", "rank", Game.Colour.RANK, Integer.toString(score));
+        fairy.reset(null, "score", "rank", Game.Colour.RANK, Integer.toString(score));
+        fairy.setBackground(assets.getNinePatchBG("underline"));
+
         //fairy.setPadding(4);
 
-        //fairy.setBackground(assets.getNinePatchBG("help"));
 
         addChild(fairy);
     }

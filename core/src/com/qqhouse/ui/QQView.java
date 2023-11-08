@@ -107,6 +107,7 @@ public class QQView {
     protected float y;
     protected float width;
     protected float height;
+    protected float maxWidth, maxHeight; // > 0 = set, should consider this.
 
     public void setPosition(float x, float y) {
         this.x = x;
@@ -146,7 +147,8 @@ public class QQView {
 
     protected void resetWrapWidth() {}
     protected void resetWrapHeight() {}
-
+    public void setMaxWidth(float w) {this.maxWidth = w;}
+    public void setMaxHeight(float h) {this.maxHeight = h;}
 
     public float getX() {return x;}
     public float getY() {return y;}

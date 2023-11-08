@@ -16,7 +16,7 @@ import com.qqhouse.ui.QQText;
 public class BossKillView extends AssetGroup {
 
     private Texture icon;
-    private QQIconText score; // FIXME use QQText is ok... no rank icon.
+    private QQText score; // FIXME use QQText is ok... no rank icon.
     private QQText help;
 
     public BossKillView(Assets assets) {
@@ -25,14 +25,14 @@ public class BossKillView extends AssetGroup {
     }
 
     public void reset(BossKill kill) {
-        Gdx.app.error("BossKillView.reset()", "width = " + this.width);
+        //Gdx.app.error("BossKillView.reset()", "width = " + this.width);
         //icon = assets.getBlockee(kill.boss.icon);
         QQImage icon = new QQImage(assets.getBlockee(kill.boss.icon));
+        //icon.setSize(32, 32);
         icon.setPosition(leftPadding, bottomPadding);
         addChild(icon);
 
-        score = new QQIconText(assets.getFont(Game.Font.DIGITAL16),
-                assets.getIcon32("rank"));
+        score = new QQText(assets.getFont(Game.Font.DIGITAL16));
         score.setText(Integer.toString(kill.score));
         //score.setPosition(262, 34);
         score.setColor(Game.Colour.RANK);
@@ -49,7 +49,7 @@ public class BossKillView extends AssetGroup {
         //help.setBackground(new NinePatch(assets.getBackground("blessed"), 4, 4, 4, 4));
         addChild(help);
 
-        bgNormal = new NinePatch(assets.getBackground(kill.boss.align.key), 4, 4, 4, 4);
+        //bgNormal = new NinePatch(assets.getBackground(kill.boss.align.key), 4, 4, 4, 4);
         //Gdx.app.error("BossKillView", "boss kill view width = " + width);
     }
 
