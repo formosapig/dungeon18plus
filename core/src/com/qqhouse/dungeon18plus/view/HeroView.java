@@ -113,11 +113,11 @@ public class HeroView extends QQButton implements QQView.IsParent {
             exp.setPercent(hero.exp * 100/ hero.maxExp);
         }
 
-        lifeText.setText(Integer.toString(hero.life));
-        attackText.setText(Integer.toString(hero.attack));
+        lifeText.setText(hero.displayLife());
+        attackText.setText(hero.displayAttack());
         //attackText.setText("199x2");
-        defenseText.setText(Integer.toString(hero.defense));
-        speedText.setText(Integer.toString(hero.speed));
+        defenseText.setText(hero.displayDefense());
+        speedText.setText(hero.displaySpeed());
         keyItem.setText(Integer.toString(hero.key));
         coinItem.setText(Integer.toString(hero.coin));
         starItem.setText(Integer.toString(hero.star));

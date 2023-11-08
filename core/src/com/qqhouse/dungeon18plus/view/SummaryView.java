@@ -7,6 +7,7 @@ import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GameAlignment;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.ui.QQButton;
+import com.qqhouse.ui.QQButtonEx;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQPressListener;
@@ -36,29 +37,44 @@ public class SummaryView extends QQGroup {
         // create ...
         // button
         // TODO QQButton can add image / text ...
-        QQButton done = new QQButton(assets.getBackgroundSet(GameAlignment.NEUTRAL.key));
+        QQButtonEx done = new QQButtonEx(assets.getBackgroundSet(GameAlignment.NEUTRAL.key));
         //done.setPosition(leftPadding, bottomPadding);
         done.setSize(QQView.MATCH_PARENT, 40);
         done.addQQClickListener(listener, 0);
+        done.setText(assets.getFont(Game.Font.NAME20), assets.geti18n(isWin ? "win" : "lose"));
         addChild(done);
 
         // list
         QQList scores = new QQList();
-        scores.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
+        //scores.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
+        scores.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         scores.setCamera(camera);
-        // FIXME 相反的順序就找不到寛度了...
         scores.setAdapter(adapter);
         addChild(scores);
         //scores.setBackground(new NinePatch(assets.getBackground("white"), 4, 4, 4, 4));
 
-        TitleBarView fairy = new TitleBarView(
-                assets.getBlockee("fairy"),
-                assets.getFont(Game.Font.NAME20),
-                assets.geti18n("score"));
+        //TitleBarView fairy = new TitleBarView(
+        //        assets.getBlockee("fairy"),
+        //        assets.getFont(Game.Font.NAME20),
+        //        assets.geti18n("score"));
         //fairy.setPosition(leftPadding + 4, height - 40 - topPadding);
-        fairy.setSize(QQView.MATCH_PARENT, 40);
-        addChild(fairy);
+        //fairy.setSize(QQView.MATCH_PARENT, 40);
+        //addChild(fairy);
 
+        // total score
+        int score = 1000;
+        for (BossKill bk : kills)
+            score += bk.score;
+        TitleBarView2 fairy = new TitleBarView2(assets);
+        fairy.setSize(QQView.MATCH_PARENT, 40);
+        fairy.setPosition(leftPadding + 4, height - 40 - topPadding);
+        fairy.setPadding(4, 4, 4, 8);
+        fairy.reset("fairy", "score", "rank", Game.Colour.RANK, Integer.toString(score));
+        //fairy.setPadding(4);
+
+        //fairy.setBackground(assets.getNinePatchBG("help"));
+
+        addChild(fairy);
     }
 
     /*

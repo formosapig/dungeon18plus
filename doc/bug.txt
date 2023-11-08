@@ -1,7 +1,15 @@
-QQList.java
-[V] QQList 最上面的 view 在移出時, 會超出裁剪範圍, 最下面的不會.可以把 QQList 的 item 移半個, 再點擊就可以看到了.
-    (將 removeView 移到 scissor 的範圍內就好了, 本來設在範圍外要營造移出去的效果, 但後來想想沒必要)
-[] QQList remove 的動畫, 往下移時, 最後計算位置會算錯...
-[] DungeonScreen specialEvent 改變時, event list 會各種錯亂...
-[V] 動畫不在畫面內的要處理一下, 不然按鍵會變得很不順, 按下去沒有反應.
-    (檢查 insert 是否在畫面內, 不在畫面內沒有動畫...)
+# DungeonScreen specialEvent 改變時, event list 會各種錯亂...
+# 能力的數字會變色...奇怪了...
+
+----------------------------------------------------------------------------------------------------
+# QQList 最上面的 view 在移出時, 會超出裁剪範圍, 最下面的不會.可以把 QQList 的 item 移半個, 再點擊就可以看到了.
+  (將 removeView 移到 scissor 的範圍內就好了, 本來設在範圍外要營造移出去的效果, 但後來想想沒必要)
+# 動畫不在畫面內的要處理一下, 不然按鍵會變得很不順, 按下去沒有反應.
+  (檢查 insert 是否在畫面內, 不在畫面內沒有動畫...)
+# QQList remove 的動畫, 往下移時, 最後計算位置會算錯...
+  (設置一個變數 changeScrollY, 要各個地方檢查, 最後動畫結束時再將 scrollY 做加減)
+# 在事件消到不會再增加時, 最後一個會頓頓的, 還會 delay...
+  (moveDownward 的 start 及 end 計算錯誤, end 應該為 inclusive)
+
+
+

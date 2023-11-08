@@ -220,7 +220,7 @@ public class DungeonScreen extends QQScreen {
                         // update status...
                         update();
                     }
-                    //debug();
+                    debug();
                 }
 
                 @Override
@@ -271,15 +271,14 @@ public class DungeonScreen extends QQScreen {
         //summary.setPosition(0, 0);
         summary.padding(8);
         // FIXME 在 summary 未決定 size 之前, 所有其內的 view 無法套用 match parent
-        summary.setSize(Game.Size.WIDTH - 22 - 22, Game.Size.HEIGHT * 0.8f);
+        //summary.setSize(Game.Size.WIDTH - 22 - 22, Game.Size.HEIGHT * 0.8f);
+        summary.setSize(Game.Size.WIDTH - Game.Size.DIALOG_MARGIN * 2, QQView.WRAP_CONTENT);
         summary.reset(manager.killList, isWin, new QQPressListener() {
             @Override
             public void onPress(int index) {
-                // summary.dismiss();
+                // do not need dismiss dialog, beacuse onLeave will remove all children view.
                 //summaryDialog.dismiss();
-                summaryDialog.dismiss();
                 callback.onDungeonResult(false, null);
-                // dialog.dismiss();
             }
             @Override
             public void onLongPress(QQView view) {}
@@ -290,6 +289,6 @@ public class DungeonScreen extends QQScreen {
 
     @Override
     public void onLeave() {
-
+        removeAllChildren();
     }
 }

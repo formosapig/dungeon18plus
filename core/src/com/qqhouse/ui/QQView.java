@@ -122,7 +122,7 @@ public class QQView {
             matchWidth = true;
         } else if (0 < w && this.width != w) {
             this.width = w;
-            if (this instanceof IsParent) {
+            if (this instanceof IsParent && 0 < this.height) {
                 ((IsParent) this).arrangeChildren();
             }
         }
@@ -136,7 +136,7 @@ public class QQView {
             matchHeight = true;
         } else if (0 < h && this.height != h) {
             this.height = h;
-            if (this instanceof IsParent) {
+            if (this instanceof IsParent && 0 < this.width) {
                 ((IsParent) this).arrangeChildren();
             }
         }

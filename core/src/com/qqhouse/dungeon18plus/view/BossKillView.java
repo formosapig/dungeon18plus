@@ -10,35 +10,40 @@ import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQIconText;
+import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQText;
 
-public class BossKillView extends QQGroup {
+public class BossKillView extends AssetGroup {
 
     private Texture icon;
-    private QQIconText score;
+    private QQIconText score; // FIXME use QQText is ok... no rank icon.
     private QQText help;
-    private Assets assets;
 
     public BossKillView(Assets assets) {
-        this.assets = assets;
+        super(assets);
+        padding(Game.Size.BLOCKEE_PADDING);
     }
 
     public void reset(BossKill kill) {
-        icon = assets.getBlockee(kill.boss.icon);
+        Gdx.app.error("BossKillView.reset()", "width = " + this.width);
+        //icon = assets.getBlockee(kill.boss.icon);
+        QQImage icon = new QQImage(assets.getBlockee(kill.boss.icon));
+        icon.setPosition(leftPadding, bottomPadding);
+        addChild(icon);
 
         score = new QQIconText(assets.getFont(Game.Font.DIGITAL16),
                 assets.getIcon32("rank"));
         score.setText(Integer.toString(kill.score));
-        score.setPosition(262, 34);
+        //score.setPosition(262, 34);
         score.setColor(Game.Colour.RANK);
         score.setAlign(Align.right);
-        score.setSize(50, 24);
+        //score.setSize(50, 24);
         //score.setBackground(new NinePatch(assets.getBackground("blessed"), 4, 4, 4, 4));
         addChild(score);
 
         help = new QQText(assets.getFont(Game.Font.HELP14));
         help.setText(assets.formati18n("kill_turn", kill.turn));
-        help.setSize(248, 24);
+        //help.setSize(248, 24);
         help.setAlign(Align.left);
         help.setPosition(64, 6);
         //help.setBackground(new NinePatch(assets.getBackground("blessed"), 4, 4, 4, 4));
@@ -49,10 +54,21 @@ public class BossKillView extends QQGroup {
     }
 
     @Override
+    public void arrangeChildren() {
+        if (0 == width || 0 == height)
+            return;
+        //Gdx.app.error("BossKillView.arrangeChildren()", "width = " + this.width);
+        score.setSize(50, 24);
+        score.setPosition(this.width - rightPadding - score.getWidth(), 34);
+
+        help.setSize(this.width - rightPadding - 64, 24);
+    }
+
+    @Override
     public void drawForeground(SpriteBatch batch, float originX, float originY) {
 
         // draw icon
-        batch.draw(icon, originX + 8, originY + 8);//(int)(originX + iconShiftX), (int)(originY + iconShiftY), 48, 48);
+        //batch.draw(icon, originX + 8, originY + 8);//(int)(originX + iconShiftX), (int)(originY + iconShiftY), 48, 48);
 
         // draw name
         //fntName.setColor(Game.Colour.RARE);

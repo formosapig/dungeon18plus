@@ -87,6 +87,9 @@ public class Assets {
         return manager.get(fileName, Texture.class);
     }
 
+    public NinePatch getNinePatchBG(String key) {
+        return new NinePatch(getBackground(key), 4, 4, 4, 4);
+    }
     //public BitmapFont getFont(String fontName, int fontSize) {
     //    String fileName = String.format("%s%d.ttf", fontName, fontSize);
     //    if (!manager.contains(fileName)) {

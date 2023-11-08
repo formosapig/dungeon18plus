@@ -160,6 +160,11 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     public void arrangeChildren() {}
     public void drawChildren(SpriteBatch batch, float originX, float originY) {}
 
+    // extra use
+    public void removeAllChildren() {
+        childrenView.clear();
+    }
+
     //public void addView(QQView view) {
     //    childrenView.add(view);
     //}

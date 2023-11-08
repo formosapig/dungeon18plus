@@ -30,7 +30,7 @@ public class QQGroup extends QQView implements QQView.IsParent {
         this.innerMargin = innerMargin;
     }
 
-    private float innerMargin = 0;
+    protected float innerMargin = 0;
     public void setInnerMargin(float margin) {this.innerMargin = margin;}
 
     private void rearrange() {
@@ -198,6 +198,7 @@ public class QQGroup extends QQView implements QQView.IsParent {
             resetWrapWidth();
         if (wrapHeight)
             resetWrapHeight();
+
         // arrange child...
         arrangeChildren();
     }
