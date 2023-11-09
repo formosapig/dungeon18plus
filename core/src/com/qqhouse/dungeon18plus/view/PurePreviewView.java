@@ -1,22 +1,11 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
-import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
-import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
-
-import java.util.ArrayList;
 
 public class PurePreviewView extends AssetGroup {
 
@@ -74,7 +63,8 @@ public class PurePreviewView extends AssetGroup {
 
         // decide this.height
         this.height = Math.max(topPadding + bottomPadding + 24 + help.getHeight(), 64);
-        Gdx.app.error("PurePreviewView.resetWrapHeight", "this.height = " + this.height);
+        Game.trace(this, "resetWrapHeight h=%.0f", this.height);
+        //Gdx.app.error("PurePreviewView.resetWrapHeight", "this.height = " + this.height);
     }
 
     /*
@@ -90,7 +80,20 @@ public class PurePreviewView extends AssetGroup {
     }
 
     @Override
+    public void awareOfChildSizeChanged() {
+        if (wrapHeight) {
+            final float preHeight = this.height;
+            resetWrapHeight();
+            if (preHeight != this.height) {
+
+                arrangeChildren();
+            }
+        }
+    }
+
+    @Override
     public void arrangeChildren() {
+        Game.trace(this, "arrangeChildren %.0f,%.0f", this.width, this.height);
         if (0 >= this.width || 0 >= this.height)
             return;
 

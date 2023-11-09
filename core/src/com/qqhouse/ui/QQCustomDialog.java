@@ -8,16 +8,14 @@ import com.qqhouse.dungeon18plus.Game;
 
 public class QQCustomDialog extends QQView implements QQView.IsParent {
 
-    // FIXME 不能使用專案專屬資源, 因為QQ系列算是 SDK..
-    private Assets assets;
-    public QQCustomDialog(Assets assets, QQView customView, boolean isModal) {
-        this.assets = assets;
+    public QQCustomDialog() {
+        //this.assets = assets;
 
-        final QQView dialogMask = new QQView();
+        //final QQView dialogMask = new QQView();
 
         // FIXME SDK 不能依存於專案, assets 不是能隨時存取到的資源...
-        bgNormal = new NinePatch(assets.getBackground("black"), 4, 4, 4, 4);
-        bgNormal.setColor(new Color(1, 1, 1, 0.66f));
+        //bgNormal = new NinePatch(assets.getBackground("black"), 4, 4, 4, 4);
+        //bgNormal.setColor(new Color(1, 1, 1, 0.66f));
         setPosition(0, 0);
         setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
         //dialogMask.bgNormal = new NinePatch(assets.getBackground("black"), 4, 4, 4, 4);
@@ -25,6 +23,22 @@ public class QQCustomDialog extends QQView implements QQView.IsParent {
         //dialogMask.setPosition(0, 0);
         //dialogMask.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
 
+
+
+        // calculate view's size
+        //if (customView.matchWidth)
+        //    customView.setSize(Game.Size.WIDTH - Game.Size.DIALOG_MARGIN * 2, customView.getHeight());
+
+        // set position
+        //customView.setPosition((Game.Size.WIDTH - customView.getWidth())/2,
+        //        (Game.Size.HEIGHT - customView.getHeight())/2);
+
+        //addChild(customView);
+
+
+    }
+
+    protected void setModal(boolean isModal) {
         // add click listener to dialogMask , any click on it will dismiss dialog.
         if (!isModal) {
             addPressListener(new QQView.PressListener() {
@@ -37,18 +51,20 @@ public class QQCustomDialog extends QQView implements QQView.IsParent {
                 public void onLongPress(QQView view) {}
             });
         }
+    }
+
+    protected void setCustomView(QQView view) {
+        customView = view;
 
         // calculate view's size
         if (customView.matchWidth)
-            customView.setSize(Game.Size.WIDTH - 10 - 10, customView.getHeight());
+            customView.setSize(Game.Size.WIDTH - Game.Size.DIALOG_MARGIN * 2, customView.getHeight());
 
         // set position
         customView.setPosition((Game.Size.WIDTH - customView.getWidth())/2,
                 (Game.Size.HEIGHT - customView.getHeight())/2);
 
         addChild(customView);
-
-
     }
 
     // remove dialog from parent.

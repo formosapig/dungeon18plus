@@ -22,7 +22,7 @@ public class Game {
         Gdx.app.error(classInfo.substring(classInfo.lastIndexOf(".")+1), String.format(Locale.US, format, param));
     }
 
-    public static void log1(Object obj, String format, Object... param) {
+    public static void trace(Object obj, String format, Object... param) {
         String clsInfo = obj.toString();
         Gdx.app.error(clsInfo.substring(clsInfo.lastIndexOf(".") + 1), String.format(Locale.US, format, param));
     }

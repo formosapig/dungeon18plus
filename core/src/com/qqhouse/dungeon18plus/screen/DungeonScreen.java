@@ -10,6 +10,7 @@ import com.qqhouse.dungeon18plus.struct.ActionSlot;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.view.ActionView;
+import com.qqhouse.dungeon18plus.view.EventInfoDialog;
 import com.qqhouse.dungeon18plus.view.EventInfoView;
 import com.qqhouse.dungeon18plus.view.EventView;
 import com.qqhouse.dungeon18plus.view.HeroView;
@@ -48,6 +49,7 @@ public class DungeonScreen extends QQScreen {
     private final ArrayList<ActionView> actionViews = new ArrayList<>();
     private LootInfoView lootInfo;
     private EventInfoView eventInfo;
+    private EventInfoDialog eventInfoDialog;
     private DungeonCallback callback;
 
     /*
@@ -181,10 +183,11 @@ public class DungeonScreen extends QQScreen {
             public void onLongPress(int index) {
                 Gdx.app.error("DungeonScreen", "event long press : " + index);
                 //eventInfo.setSize(320, 480);
-                eventInfo.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-                eventInfo.update(manager.getEvent(index));
+                //eventInfo.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+                //eventInfo.update(manager.getEvent(index));
 
-                QQCustomDialog eventInfoDialog = new QQCustomDialog(assets, eventInfo, false);
+                //QQCustomDialog eventInfoDialog = new QQCustomDialog(assets, eventInfo, false);
+                eventInfoDialog.update(manager.getEvent(index));
                 openDialog(eventInfoDialog);
             }
         });
@@ -235,9 +238,10 @@ public class DungeonScreen extends QQScreen {
             addChild(action);
         }
 
-        // event info
-        eventInfo = new EventInfoView(assets);
-        eventInfo.setBackground(assets.getNinePatchBG("help"));
+        // event info dialog
+        eventInfoDialog = new EventInfoDialog(assets);
+        //eventInfo = new EventInfoView(assets);
+        //eventInfo.setBackground(assets.getNinePatchBG("help"));
 
         update();
     }
@@ -286,7 +290,8 @@ public class DungeonScreen extends QQScreen {
             @Override
             public void onLongPress(QQView view) {}
         });
-        summaryDialog = new QQCustomDialog(assets, summary, true);
+        // FIXME use new customdialog system....
+        //summaryDialog = new QQCustomDialog(assets, summary, true);
         openDialog(summaryDialog);
     }
 

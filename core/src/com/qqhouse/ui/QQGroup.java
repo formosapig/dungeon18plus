@@ -1,13 +1,10 @@
 package com.qqhouse.ui;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.Game;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class QQGroup extends QQView implements QQView.IsParent {
 
@@ -171,7 +168,7 @@ public class QQGroup extends QQView implements QQView.IsParent {
     public void notifyChildrenSizeChanged(float width, float height) {
         if (childrenView.isEmpty())
             return;
-        Game.log1(this, "QQGroup.notifyChildren... w:%.0f, h:%.0f", width, height);
+        Game.trace(this, "QQGroup.notifyChildren... w:%.0f, h:%.0f", width, height);
         for (QQView child : childrenView) {
             if (child.matchWidth && 0 < width) {
                 child.setSize(width - leftPadding - rightPadding, child.getHeight());
@@ -200,7 +197,8 @@ public class QQGroup extends QQView implements QQView.IsParent {
 
     @Override
     public void arrangeChildren() {
-        Gdx.app.error("QQGroup.arrangeChildren", String.format(Locale.US, "%s w:%4.2f,h:%4.2f", this, width, height));
+        //Gdx.app.error("QQGroup.arrangeChildren", String.format(Locale.US, "%s w:%4.2f,h:%4.2f", this, width, height));
+        Game.trace(this, "arrangeChildren() (%.0f,%.0f)", this.width, this.height);
         // no children = return
         if (childrenView.isEmpty())
             return;

@@ -1,16 +1,12 @@
 package com.qqhouse.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Game;
-
-import javax.swing.GroupLayout;
 
 public class QQText extends QQView {
 
@@ -41,7 +37,7 @@ public class QQText extends QQView {
 
     @Override
     public void setSize(float w, float h) {
-        Game.log1(this, "QQText.setSize w:%.0f, h:%.0f", w, h);
+        Game.trace(this, "QQText.setSize w:%.0f, h:%.0f", w, h);
         super.setSize(w, h);
         rearrange();
     }

@@ -25,7 +25,7 @@ public class EventInfoView extends AssetGroup {
     public EventInfoView(Assets assets) {
         super(assets, QQGroup.DIRECT_VERTICAL);
         setPadding(Game.Size.BLOCKEE_PADDING);
-        setBackground(assets.getNinePatchBG("dialog"));
+        //setBackground(assets.getNinePatchBG("dialog"));
 
         preview = new PurePreviewView(assets);
         preview.reset();
