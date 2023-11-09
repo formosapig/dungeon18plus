@@ -27,6 +27,7 @@ public class SummaryView extends QQGroup {
         super(DIRECT_VERTICAL, Game.Size.WIDGET_MARGIN);
         this.assets = assets;
         this.camera = camera;
+        setPadding(Game.Size.BLOCKEE_PADDING);
         bgNormal = new NinePatch(assets.getBackground("dialog"), 4, 4, 4, 4);
     }
 

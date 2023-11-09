@@ -18,6 +18,14 @@ import com.qqhouse.dungeon18plus.struct.campaign.UniqueSkillData;
 
 public class Game {
 
+    public static void log(String classInfo, String format, Object... param) {
+        Gdx.app.error(classInfo.substring(classInfo.lastIndexOf(".")+1), String.format(Locale.US, format, param));
+    }
+
+    public static void log1(Object obj, String format, Object... param) {
+        String clsInfo = obj.toString();
+        Gdx.app.error(clsInfo.substring(clsInfo.lastIndexOf(".") + 1), String.format(Locale.US, format, param));
+    }
 
     public static final class Size {
         // UI Setting

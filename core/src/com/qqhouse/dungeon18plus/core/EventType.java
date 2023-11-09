@@ -331,14 +331,13 @@ public enum EventType {
 	private static final int TYPE_SHOW_EQUIPMENT_DATA = TYPE_SHOP;
 					
 	// data				
+	private final int type;
 	public final int code;
 	public final String icon;
-	public final GameAlignment align;
-	//public final String bg;	// background.
 	public final String name;
 	public final String help;
-	private final int type;
-	
+	public final GameAlignment align;
+
 	EventType(int code, int type, String icon, GameAlignment align, String name, String help) {
 		this.code = code;
 		this.type = type;

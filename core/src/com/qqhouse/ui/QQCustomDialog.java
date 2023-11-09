@@ -73,14 +73,18 @@ public class QQCustomDialog extends QQView implements QQView.IsParent {
     }
 
     @Override
-    public void removeChild(QQView view) {
+    public void removeChild(QQView view) {}
+
+    @Override
+    public void notifyChildrenSizeChanged(float width, float height) {}
+
+    @Override
+    public void awareOfChildSizeChanged() {
 
     }
 
     @Override
-    public void arrangeChildren() {
-
-    }
+    public void arrangeChildren() {}
 
     @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {

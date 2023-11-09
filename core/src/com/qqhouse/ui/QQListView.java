@@ -218,6 +218,16 @@ public class QQListView extends QQView implements QQView.IsParent, QQView.IsTouc
     @Override
     public void removeChild(QQView view) {}
 
+    @Override
+    public void notifyChildrenSizeChanged(float width, float height) {
+
+    }
+
+    @Override
+    public void awareOfChildSizeChanged() {
+
+    }
+
 
     @Override
     public void drawChildren(SpriteBatch batch, float relativeX, float relativeY) {

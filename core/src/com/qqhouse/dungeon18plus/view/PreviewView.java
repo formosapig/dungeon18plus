@@ -106,8 +106,7 @@ public class PreviewView extends QQButton implements QQView.IsParent {
 
         // help
         help = new QQText(assets.getFont(Game.Font.HELP14));
-        help.setText(assets.geti18n(record.heroClass.key + "_help"));
-        help.setTruncate("...");
+        help.setText(assets.geti18n(record.heroClass.key + "_help"), "...");
         help.setAlign(Align.left);
         help.setPosition(64, 8);
         //help.setWrapWidth();
@@ -195,6 +194,16 @@ public class PreviewView extends QQButton implements QQView.IsParent {
 
     @Override
     public void removeChild(QQView view) {
+
+    }
+
+    @Override
+    public void notifyChildrenSizeChanged(float width, float height) {
+
+    }
+
+    @Override
+    public void awareOfChildSizeChanged() {
 
     }
 

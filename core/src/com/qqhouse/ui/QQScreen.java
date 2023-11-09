@@ -148,16 +148,29 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     private SnapshotArray<QQView> childrenView;
 
     // just add.
+    @Override
     public void addChild(QQView view) {
         childrenView.add(view);
         view.parent = this;
     }
+
+    @Override
     public void removeChild(QQView view) {
         view.parent = null;
         childrenView.removeValue(view, true);
     }
+
     // do nothing.
+    @Override
+    public void notifyChildrenSizeChanged(float width, float height) {}
+
+    @Override
+    public void awareOfChildSizeChanged() {}
+
+    @Override
     public void arrangeChildren() {}
+
+    @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {}
 
     // extra use

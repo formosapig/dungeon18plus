@@ -9,5 +9,9 @@ public class AssetGroup extends QQGroup {
     public AssetGroup(Assets assets) {
         this.assets = assets;
     }
+    public AssetGroup(Assets assets, int direct) {
+        super(direct);
+        this.assets = assets;
+    }
 
 }

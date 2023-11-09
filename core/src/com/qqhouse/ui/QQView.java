@@ -4,12 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
+import com.qqhouse.dungeon18plus.Game;
+
+import java.util.Locale;
 
 public class QQView {
 
     public interface IsParent {
         void addChild(QQView view);
         void removeChild(QQView view);
+        void notifyChildrenSizeChanged(float width, float height);
+        void awareOfChildSizeChanged();
         void arrangeChildren();
         void drawChildren(SpriteBatch batch, float originX, float originY);
     }
@@ -115,6 +120,8 @@ public class QQView {
     }
 
     public void setSize(float w, float h) {
+        Game.log1(this, "QQView.setSize w:%.0f, h:%.0f", w, h);
+        //Gdx.app.error("QQView.setSize", String.format(Locale.US, "%s w:%4.2f, h:%4.2f", this, w, h));
         // width
         if (w == QQView.WRAP_CONTENT) {
             //calculateContentWidth();
@@ -123,12 +130,16 @@ public class QQView {
             matchWidth = true;
         } else if (0 < w && this.width != w) {
             this.width = w;
-            if (this instanceof IsParent && 0 < this.height) {
-                ((IsParent) this).arrangeChildren();
+            if (this instanceof IsParent) {
+                ((IsParent) this).notifyChildrenSizeChanged(this.width, this.height);
+                //((IsParent) this).arrangeChildren();
             }
         }
-        if (wrapWidth)
+        if (wrapWidth && this.width == 0) {
             resetWrapWidth();
+            if (null != parent)
+                parent.awareOfChildSizeChanged();
+        }
         // height
         if (h == QQView.WRAP_CONTENT) {
             //calculateContentHeight();
@@ -137,12 +148,21 @@ public class QQView {
             matchHeight = true;
         } else if (0 < h && this.height != h) {
             this.height = h;
-            if (this instanceof IsParent && 0 < this.width) {
-                ((IsParent) this).arrangeChildren();
+            if (this instanceof IsParent) {
+                ((IsParent) this).notifyChildrenSizeChanged(this.width, this.height);
+                //((IsParent) this).arrangeChildren();
             }
         }
-        if (wrapHeight)
+        if (wrapHeight && 0 == this.height) {
             resetWrapHeight();
+            if (null != parent)
+                parent.awareOfChildSizeChanged();
+        }
+
+        if (0 < this.width && 0 < this.height && this instanceof IsParent) {
+            ((IsParent) this).arrangeChildren();
+        }
+        Game.log1(this, "QQView.setSize width:%.0f, height:%.0f", this.width, this.height);
     }
 
     protected void resetWrapWidth() {}

@@ -34,6 +34,16 @@ public class QQButtonEx extends QQButton implements QQView.IsParent {
     public void removeChild(QQView view) {}
 
     @Override
+    public void notifyChildrenSizeChanged(float width, float height) {
+
+    }
+
+    @Override
+    public void awareOfChildSizeChanged() {
+
+    }
+
+    @Override
     public void arrangeChildren() {
         if (text != null) {
             text.setSize(this.width, this.height);

@@ -179,10 +179,13 @@ public class DungeonScreen extends QQScreen {
 
             @Override
             public void onLongPress(int index) {
+                Gdx.app.error("DungeonScreen", "event long press : " + index);
+                //eventInfo.setSize(320, 480);
+                eventInfo.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
                 eventInfo.update(manager.getEvent(index));
+
                 QQCustomDialog eventInfoDialog = new QQCustomDialog(assets, eventInfo, false);
                 openDialog(eventInfoDialog);
-                Gdx.app.error("DungeonScreen", "event long press : " + index);
             }
         });
         //addView(eventList);
@@ -233,7 +236,8 @@ public class DungeonScreen extends QQScreen {
         }
 
         // event info
-        eventInfo = new EventInfoView();
+        eventInfo = new EventInfoView(assets);
+        eventInfo.setBackground(assets.getNinePatchBG("help"));
 
         update();
     }
@@ -269,7 +273,6 @@ public class DungeonScreen extends QQScreen {
 
         SummaryView summary = new SummaryView(assets, getCamera());
         //summary.setPosition(0, 0);
-        summary.padding(8);
         // FIXME 在 summary 未決定 size 之前, 所有其內的 view 無法套用 match parent
         //summary.setSize(Game.Size.WIDTH - 22 - 22, Game.Size.HEIGHT * 0.8f);
         summary.setSize(Game.Size.WIDTH - Game.Size.DIALOG_MARGIN * 2, QQView.WRAP_CONTENT);

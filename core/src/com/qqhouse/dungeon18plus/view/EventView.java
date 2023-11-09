@@ -94,7 +94,8 @@ public class EventView extends QQButton implements QQView.IsParent {
         cost.setSize(64, 32);
         cost.setPosition(64, 24);
         cost.setAlign(Align.left);
-        cost.setColorText(costColor, costValue);
+        cost.setColor(costColor);
+        cost.setText(costValue);
         childrenView.add(cost);
 
         // item ...
@@ -173,7 +174,8 @@ public class EventView extends QQButton implements QQView.IsParent {
         }
         //QQIconText cost = new QQIconText(assets.getFont("whitrabt"), new NinePatch(assets.getBackground("blessed")), costIcon);
         cost.setIcon(costIcon);
-        cost.setColorText(costColor, costValue);
+        cost.setColor(costColor);
+        cost.setText(costValue);
 
         // item ...
         if (event.loot != Item.NONE) {
@@ -239,6 +241,16 @@ public class EventView extends QQButton implements QQView.IsParent {
 
     @Override
     public void removeChild(QQView view) {}
+
+    @Override
+    public void notifyChildrenSizeChanged(float width, float height) {
+
+    }
+
+    @Override
+    public void awareOfChildSizeChanged() {
+
+    }
 
     @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {

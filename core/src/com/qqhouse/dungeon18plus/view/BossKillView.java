@@ -13,6 +13,7 @@ import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQText;
 
+// TODO 要改名, 跟 struct/BossKill 一起.
 public class BossKillView extends AssetGroup {
 
     private Texture icon;
@@ -21,7 +22,7 @@ public class BossKillView extends AssetGroup {
 
     public BossKillView(Assets assets) {
         super(assets);
-        setPadding(4, 4, Game.Size.BLOCKEE_PADDING, Game.Size.BLOCKEE_PADDING);
+        setPadding(4, 4, 4, Game.Size.BLOCKEE_PADDING);
     }
 
     public void reset(BossKill kill) {

@@ -72,6 +72,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     @Override
     public void resetWrapHeight() {
         // 假設都插入或新增好了
+        // FIXME 1109 會有 - 的 height 出現, 因為沒有任何 child ..
         float h = topPadding + bottomPadding;
         for (QQView child : childrenView)
             h += child.height + Game.Size.WIDGET_MARGIN;
@@ -665,6 +666,14 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
     @Override
     public void removeChild(QQView view) {}
+
+    @Override
+    public void notifyChildrenSizeChanged(float width, float height) {}
+
+    @Override
+    public void awareOfChildSizeChanged() {
+
+    }
 
     @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {

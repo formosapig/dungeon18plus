@@ -8,15 +8,20 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
+import com.qqhouse.dungeon18plus.Game;
 
-public class QQText extends QQView{
+import javax.swing.GroupLayout;
+
+public class QQText extends QQView {
 
 
     protected BitmapFont font;
-    protected Color color = null;
+    protected Color color = Color.WHITE;
     protected String text = "";
     private String truncate = null;
+    private boolean wrap = false;
     protected float shiftX, shiftY;
+
     //private float alpha = 1; // 0 ~ 1
 
     public QQText(BitmapFont font) {
@@ -36,6 +41,7 @@ public class QQText extends QQView{
 
     @Override
     public void setSize(float w, float h) {
+        Game.log1(this, "QQText.setSize w:%.0f, h:%.0f", w, h);
         super.setSize(w, h);
         rearrange();
     }
@@ -50,7 +56,7 @@ public class QQText extends QQView{
         this.color = color;
     }
 
-    public void setColorText(Color color, String text) {
+    private void setColorText(Color color, String text) {
         this.color = color;
         this.text = text;
         rearrange();
@@ -58,31 +64,58 @@ public class QQText extends QQView{
 
     public void setText(String text) {
         this.text = text;
+        wrap = false;
+        truncate = null;
         rearrange();
     }
 
-    public void setTruncate(String truncate) {
+    public void setText(String text, boolean wrap) {
+        this.text = text;
+        this.wrap = wrap;
+        truncate = null;
+        rearrange();
+    }
+
+    public void setText(String text, String truncate) {
+        this.text = text;
+        wrap = false;
+        this.truncate = truncate;
+        rearrange();
+    }
+
+    private void setTruncate(String truncate) {
         this.truncate = truncate;
         //rearrange();
     }
 
+    private void setWrap(boolean wrap) {
+        this.wrap = wrap;
+    }
 
     protected void rearrange() {
         if (null == text)
             return;
 
         GlyphLayout glyphs = new GlyphLayout();
-        glyphs.setText(font, text);
+        if (null != truncate)
+            glyphs.setText(font, text, 0, text.length(), color, this.width, align, wrap, truncate);
+        else {
+            glyphs.setText(font, text, 0, text.length(), color, this.width, Align.topLeft, wrap, null);
+        }
 
         // wrap width
         if (wrapWidth) {
             width = glyphs.width + leftPadding + rightPadding;
             //Gdx.app.error("QQText", "wrapWidth = " + width);
+            if (null != parent)
+                parent.awareOfChildSizeChanged();
         }
 
         if (wrapHeight) {
             height = glyphs.height + topPadding + bottomPadding;
             //Gdx.app.error("QQText", "wrapHeight = " + height);
+            if (null != parent)
+                parent.awareOfChildSizeChanged();
         }
 
         // shift x
@@ -122,9 +155,12 @@ public class QQText extends QQView{
             font.setColor(color);
         }
         if (null != truncate)
-            font.draw(batch, text, originX + shiftX, originY + shiftY, 0, text.length(), width, align, false, "...");
-        else
-            font.draw(batch, text, originX + shiftX, originY + shiftY);
+            font.draw(batch, text, originX + shiftX, originY + shiftY, 0, text.length(), width, Align.topLeft, false, truncate);
+        else {
+            //GroupLayout.Alignment
+            font.draw(batch, text, originX + shiftX, originY + shiftY, this.width, Align.left, wrap);
+            //font.draw(batch, text, originX + shiftX, originY + shiftY);
+        }
     }
 
     @Override
