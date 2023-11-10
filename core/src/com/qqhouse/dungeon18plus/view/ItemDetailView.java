@@ -53,6 +53,8 @@ public class ItemDetailView extends AssetGroup {
 
         name.setText(assets.geti18n(item.name));
 
+        upgrade.update(item.upgrade);
+
         help.setText(assets.geti18n(item.help), true);
     }
 

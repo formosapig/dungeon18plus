@@ -15,8 +15,8 @@ import java.util.Locale;
 public class AbilityView extends QQView implements QQView.IsParent {
 
     private Assets assets;
-    private QQIconText life, attack, defense, speed;
-    private final int VARIER_FILTER = Varier.Type.LIFE | Varier.Type.ATTACK | Varier.Type.DEFENSE | Varier.Type.SPEED;
+    private QQIconText life, attack, defense, speed, coin;
+    private final int VARIER_FILTER = Varier.Type.LIFE | Varier.Type.ATTACK | Varier.Type.DEFENSE | Varier.Type.SPEED | Varier.Type.COIN;
 
 
     public AbilityView(Assets assets) {
@@ -53,6 +53,14 @@ public class AbilityView extends QQView implements QQView.IsParent {
         speed.setAlign(Align.right);
         speed.setWrapWidth(true);
         childrenView.add(speed);
+
+        coin = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("cost_coin"));
+        coin.setSize(48, 16);
+        coin.setPosition(192, 0);
+        coin.setColor(Game.Colour.RARE);
+        coin.setAlign(Align.right);
+        coin.setWrapWidth(true);
+        childrenView.add(coin);
     }
 
     //@Override
@@ -93,6 +101,7 @@ public class AbilityView extends QQView implements QQView.IsParent {
         attack.setVisible(false);
         defense.setVisible(false);
         speed.setVisible(false);
+        coin.setVisible(false);
 
         for (Varier var : variers) {
             if ((var.type & VARIER_FILTER) == 0)
@@ -121,6 +130,9 @@ public class AbilityView extends QQView implements QQView.IsParent {
             } else if (var.isSpeed()) {
                 speed.setVisible(true);
                 speed.setText(result);
+            } else {
+                coin.setVisible(true);
+                coin.setText(result);
             }
         }
         rearrange();
