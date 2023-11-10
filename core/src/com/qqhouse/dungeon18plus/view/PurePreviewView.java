@@ -15,7 +15,7 @@ public class PurePreviewView extends AssetGroup {
     public PurePreviewView(Assets assets) {
         super(assets);
         setPadding(Game.Size.BLOCKEE_PADDING);
-        setBackground(assets.getNinePatchBG("blessed"));
+        //setBackground(assets.getNinePatchBG("blessed"));
     }
 
     public void reset() {//String blockeeKey, String alignmentKey) {
@@ -65,13 +65,17 @@ public class PurePreviewView extends AssetGroup {
         this.height = Math.max(topPadding + bottomPadding + 24 + help.getHeight(), 64);
         Game.trace(this, "resetWrapHeight h=%.0f", this.height);
         //Gdx.app.error("PurePreviewView.resetWrapHeight", "this.height = " + this.height);
+
+        if (null != parent)
+            parent.onChildSizeChanged(this);
+
     }
 
     /*
         IsParent series
      */
     @Override
-    public void notifyChildrenSizeChanged(float width, float height) {
+    public void onParentSizeChanged(float width, float height) {
         // set name, help's width after get this.width
         // 64 = leftPadding(8) + blockee Size (48) + blockeePadding (8)
         float w = this.width - 64 - rightPadding;
@@ -80,7 +84,7 @@ public class PurePreviewView extends AssetGroup {
     }
 
     @Override
-    public void awareOfChildSizeChanged() {
+    public void onChildSizeChanged(QQView child) {
         if (wrapHeight) {
             final float preHeight = this.height;
             resetWrapHeight();

@@ -30,9 +30,13 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         public void updateAll() {
             list.updateAll();
         }
+
         public abstract int getSize();
         public abstract QQView getView(int index);
         public abstract void updateView(int index, QQView view);
+
+        // callback
+        public void onAnimationEnd() {}
     }
 
     private float touchY = -1, scrollY, maxScrollY, previousScrollY; // vertical only.
@@ -326,6 +330,9 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
             if (maxScrollY < 0)
                 maxScrollY = 0;
+            // on animation end
+            if (null != adapter)
+                adapter.onAnimationEnd();
         } else if (0 > animLock) {
             throw new GdxRuntimeException("animation lock error.");
         }
@@ -665,13 +672,13 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     }
 
     @Override
-    public void removeChild(QQView view) {}
+    public void removeChild(QQView child) {}
 
     @Override
-    public void notifyChildrenSizeChanged(float width, float height) {}
+    public void onParentSizeChanged(float width, float height) {}
 
     @Override
-    public void awareOfChildSizeChanged() {
+    public void onChildSizeChanged(QQView child) {
 
     }
 

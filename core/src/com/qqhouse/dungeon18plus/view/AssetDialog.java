@@ -1,14 +1,13 @@
 package com.qqhouse.dungeon18plus.view;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.ui.QQCustomDialog;
 
-public class CustomDialog extends QQCustomDialog {
+public class AssetDialog extends QQCustomDialog {
 
     private Assets assets;
-    public CustomDialog(Assets assets) {
+    public AssetDialog(Assets assets) {
         super();
         this.assets = assets;
 

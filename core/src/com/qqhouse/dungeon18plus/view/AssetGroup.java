@@ -13,5 +13,9 @@ public class AssetGroup extends QQGroup {
         super(direct);
         this.assets = assets;
     }
+    public AssetGroup(Assets assets, int direct, int margin) {
+        super(direct, margin);
+        this.assets = assets;
+    }
 
 }

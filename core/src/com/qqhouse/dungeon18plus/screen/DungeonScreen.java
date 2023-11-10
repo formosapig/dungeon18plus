@@ -16,6 +16,7 @@ import com.qqhouse.dungeon18plus.view.EventView;
 import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
 import com.qqhouse.dungeon18plus.Assets;
+import com.qqhouse.dungeon18plus.view.SummaryDialog;
 import com.qqhouse.dungeon18plus.view.SummaryView;
 import com.qqhouse.ui.QQCustomDialog;
 import com.qqhouse.ui.QQPressListener;
@@ -80,6 +81,28 @@ public class DungeonScreen extends QQScreen {
             v.update(manager.getEvent(index));
 
         }
+
+        // animation end, then update event value.
+        @Override
+        public void onAnimationEnd() {
+            Gdx.app.error("DungeonScreen", "event animation end.");
+            eventAdapter.updateAll();
+            specialEventAdapter.updateAll();
+
+            // 1. heroview
+            //heroView.update(manager.getHero());
+
+            // 2. event list
+            //eventAdapter.updateAll();
+            //specialEventAdapter.updateAll();
+            // 3. loof info
+            //lootInfo.update(manager.eventResult);
+            // 4. action list
+            //for (int i = 0, s = actionViews.size(); i < s; ++i) {
+            //    actionViews.get(i).setEnable(manager.canDoAction(i));
+            //}
+
+        }
     };
 
     private final QQList.Adapter specialEventAdapter = new QQList.Adapter() {
@@ -106,6 +129,14 @@ public class DungeonScreen extends QQScreen {
             v.update(manager.getSpecialEvent(index));
             //Gdx.app.error("DungeonScreen", "SpecialAdapter.updateView : " + index + " = " + v.getX() + "," + v.getX());
 
+        }
+
+        // animation end, then update event value.
+        @Override
+        public void onAnimationEnd() {
+            Gdx.app.error("DungeonScreen", "special event animation end.");
+            eventAdapter.updateAll();
+            specialEventAdapter.updateAll();
         }
     };
 
@@ -244,6 +275,8 @@ public class DungeonScreen extends QQScreen {
         //eventInfo.setBackground(assets.getNinePatchBG("help"));
 
         update();
+        eventAdapter.updateAll();
+        specialEventAdapter.updateAll();
     }
 
     private void debug() {
@@ -260,8 +293,8 @@ public class DungeonScreen extends QQScreen {
         heroView.update(manager.getHero());
 
         // 2. event list
-        eventAdapter.updateAll();
-        specialEventAdapter.updateAll();
+        //eventAdapter.updateAll();
+        //specialEventAdapter.updateAll();
         // 3. loof info
         lootInfo.update(manager.eventResult);
         // 4. action list
@@ -270,29 +303,17 @@ public class DungeonScreen extends QQScreen {
         }
     }
 
-    private QQCustomDialog summaryDialog;
     private void endGame(boolean isWin) {
-
-        //final QQCustomDialog summaryDialog;
-
-        SummaryView summary = new SummaryView(assets, getCamera());
-        //summary.setPosition(0, 0);
-        // FIXME 在 summary 未決定 size 之前, 所有其內的 view 無法套用 match parent
-        //summary.setSize(Game.Size.WIDTH - 22 - 22, Game.Size.HEIGHT * 0.8f);
-        summary.setSize(Game.Size.WIDTH - Game.Size.DIALOG_MARGIN * 2, QQView.WRAP_CONTENT);
-        summary.reset(manager.killList, isWin, new QQPressListener() {
+        SummaryDialog dialog = new SummaryDialog(assets, getCamera());
+        dialog.reset(manager.killList, isWin, new QQPressListener() {
             @Override
             public void onPress(int index) {
-                // do not need dismiss dialog, beacuse onLeave will remove all children view.
-                //summaryDialog.dismiss();
                 callback.onDungeonResult(false, null);
             }
             @Override
             public void onLongPress(QQView view) {}
         });
-        // FIXME use new customdialog system....
-        //summaryDialog = new QQCustomDialog(assets, summary, true);
-        openDialog(summaryDialog);
+        openDialog(dialog);
     }
 
     @Override

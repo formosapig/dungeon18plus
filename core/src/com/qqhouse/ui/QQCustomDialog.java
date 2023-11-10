@@ -77,6 +77,7 @@ public class QQCustomDialog extends QQView implements QQView.IsParent {
 
 
 
+
     /*
         IsParent series...
      */
@@ -86,17 +87,22 @@ public class QQCustomDialog extends QQView implements QQView.IsParent {
     @Override
     public void addChild(QQView view) {
         customView = view;
+        view.parent = this;
     }
 
     @Override
     public void removeChild(QQView view) {}
 
     @Override
-    public void notifyChildrenSizeChanged(float width, float height) {}
+    public void onParentSizeChanged(float width, float height) {}
 
     @Override
-    public void awareOfChildSizeChanged() {
-
+    public void onChildSizeChanged(QQView child) {
+        // 1. my size does not change.
+        // 2. change child position only.
+        // set position
+        customView.setPosition((Game.Size.WIDTH - customView.getWidth())/2,
+                (Game.Size.HEIGHT - customView.getHeight())/2);
     }
 
     @Override

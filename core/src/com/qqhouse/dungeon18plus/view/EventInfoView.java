@@ -3,6 +3,7 @@ package com.qqhouse.dungeon18plus.view;
 import com.badlogic.gdx.graphics.Texture;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQIconText;
@@ -11,21 +12,19 @@ import com.qqhouse.ui.QQView;
 
 public class EventInfoView extends AssetGroup {
 
-    private Texture Blockee;
-    private QQText name;
-    private QQText help;
-    private QQIconText exp;
-    private ItemView loot;
-    private QQText lootName;
-    private QQText lootHelp;
-    private AbilityView lootUpgrade;
-
+    private ItemDetailView item;
     private PurePreviewView preview;
 
     public EventInfoView(Assets assets) {
-        super(assets, QQGroup.DIRECT_VERTICAL);
+        super(assets, QQGroup.DIRECT_VERTICAL, Game.Size.INNER_MARGIN);
         setPadding(Game.Size.BLOCKEE_PADDING);
         //setBackground(assets.getNinePatchBG("dialog"));
+
+        item = new ItemDetailView(assets);
+        item.reset();
+        item.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        addChild(item);
+
 
         preview = new PurePreviewView(assets);
         preview.reset();
@@ -34,8 +33,13 @@ public class EventInfoView extends AssetGroup {
     }
 
     public void update(Event event) {
+        item.setVisible(event.loot != Item.NONE);
+        if (Item.NONE != event.loot )
+            item.update(event.loot, true);
         preview.update(event.type.icon, event.type.align.key);
 
+        if (null != parent)
+            parent.onChildSizeChanged(this);
     }
 
 }

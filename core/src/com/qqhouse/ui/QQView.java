@@ -9,10 +9,10 @@ import com.qqhouse.dungeon18plus.Game;
 public class QQView {
 
     public interface IsParent {
-        void addChild(QQView view);
-        void removeChild(QQView view);
-        void notifyChildrenSizeChanged(float width, float height);
-        void awareOfChildSizeChanged();
+        void addChild(QQView child);
+        void removeChild(QQView child);
+        void onParentSizeChanged(float width, float height);
+        void onChildSizeChanged(QQView child);
         void arrangeChildren();
         void drawChildren(SpriteBatch batch, float originX, float originY);
     }
@@ -129,14 +129,14 @@ public class QQView {
         } else if (0 < w && this.width != w) {
             this.width = w;
             if (this instanceof IsParent) {
-                ((IsParent) this).notifyChildrenSizeChanged(this.width, this.height);
+                ((IsParent) this).onParentSizeChanged(this.width, this.height);
                 //((IsParent) this).arrangeChildren();
             }
         }
         if (wrapWidth && this.width == 0) {
             resetWrapWidth();
             if (null != parent)
-                parent.awareOfChildSizeChanged();
+                parent.onChildSizeChanged(this);
         }
         // height
         if (h == QQView.WRAP_CONTENT) {
@@ -147,14 +147,14 @@ public class QQView {
         } else if (0 < h && this.height != h) {
             this.height = h;
             if (this instanceof IsParent) {
-                ((IsParent) this).notifyChildrenSizeChanged(this.width, this.height);
+                ((IsParent) this).onParentSizeChanged(this.width, this.height);
                 //((IsParent) this).arrangeChildren();
             }
         }
         if (wrapHeight && 0 == this.height) {
             resetWrapHeight();
             if (null != parent)
-                parent.awareOfChildSizeChanged();
+                parent.onChildSizeChanged(this);
         }
 
         if (0 < this.width && 0 < this.height && this instanceof IsParent) {

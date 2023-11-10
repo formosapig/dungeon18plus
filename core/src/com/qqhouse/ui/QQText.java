@@ -104,14 +104,14 @@ public class QQText extends QQView {
             width = glyphs.width + leftPadding + rightPadding;
             //Gdx.app.error("QQText", "wrapWidth = " + width);
             if (null != parent)
-                parent.awareOfChildSizeChanged();
+                parent.onChildSizeChanged(this);
         }
 
         if (wrapHeight) {
             height = glyphs.height + topPadding + bottomPadding;
             //Gdx.app.error("QQText", "wrapHeight = " + height);
             if (null != parent)
-                parent.awareOfChildSizeChanged();
+                parent.onChildSizeChanged(this);
         }
 
         // shift x

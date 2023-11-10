@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.Game;
@@ -165,7 +166,7 @@ public class QQGroup extends QQView implements QQView.IsParent {
     public void removeChild(QQView view) {}
 
     @Override
-    public void notifyChildrenSizeChanged(float width, float height) {
+    public void onParentSizeChanged(float width, float height) {
         if (childrenView.isEmpty())
             return;
         Game.trace(this, "QQGroup.notifyChildren... w:%.0f, h:%.0f", width, height);
@@ -180,7 +181,7 @@ public class QQGroup extends QQView implements QQView.IsParent {
     }
 
     @Override
-    public void awareOfChildSizeChanged() {
+    public void onChildSizeChanged(QQView child) {
         if (DIRECT_VERTICAL == direct) {
 
 
@@ -191,8 +192,12 @@ public class QQGroup extends QQView implements QQView.IsParent {
         // TODO 1109 好像還沒處理完整...
         if (wrapWidth)
             resetWrapWidth();
-        if (wrapHeight)
+        if (wrapHeight) {
+            final float preH = this.height;
             resetWrapHeight();
+            if (preH != this.height)
+                arrangeChildren();
+        }
     }
 
     @Override
@@ -243,8 +248,10 @@ public class QQGroup extends QQView implements QQView.IsParent {
                 // 滿版時, 重設 x 的位置, 否則依照 v 原本的設定...
                 v.setPosition(v.matchWidth ? leftPadding : v.getX(), anchorY);
                 anchorY += v.getHeight() + innerMargin;
-                //Gdx.app.error("QQGroup", "put v in : " + v.getX() + "," + v.getY() + "@" + v);
-                //Gdx.app.error("QQGroup", "    size : " + v.getWidth() + "," + v.getHeight());
+                Gdx.app.error("QQGroup", "put v in : " + v.getX() + "," + v.getY() + "@" + v);
+                Gdx.app.error("QQGroup", "    size : " + v.getWidth() + "," + v.getHeight());
+                Gdx.app.error("QQGroup", "innerMagrin : " + innerMargin);
+
             }
         }
     }

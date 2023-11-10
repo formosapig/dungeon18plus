@@ -145,10 +145,10 @@ public class HeroView extends QQButton implements QQView.IsParent {
     public void removeChild(QQView view) {}
 
     @Override
-    public void notifyChildrenSizeChanged(float width, float height) {}
+    public void onParentSizeChanged(float width, float height) {}
 
     @Override
-    public void awareOfChildSizeChanged() {
+    public void onChildSizeChanged(QQView child) {
 
     }
 

@@ -6,7 +6,6 @@ import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GameAlignment;
 import com.qqhouse.dungeon18plus.struct.BossKill;
-import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQButtonEx;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
@@ -78,6 +77,10 @@ public class SummaryView extends QQGroup {
 
 
         addChild(fairy);
+
+        resetWrapHeight();
+        if (null != parent)
+            parent.onChildSizeChanged(this);
     }
 
     /*
