@@ -170,8 +170,8 @@ public class QQView {
 
     public float getX() {return x;}
     public float getY() {return y;}
-    public float getWidth() {return width;}
-    public float getHeight() {return height;}
+    public float getWidth() {return visible ? width : 0;}
+    public float getHeight() {return visible ? height : 0;}
 
     /*
         padding. top, bottom, left, right
@@ -227,7 +227,11 @@ public class QQView {
         visible
      */
     private boolean visible = true;
-    public void setVisible(boolean visible) {this.visible = visible;}
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+        if (null != parent)
+            parent.onChildSizeChanged(this);
+    }
     public boolean isVisible() {return this.visible;}
 
     /*

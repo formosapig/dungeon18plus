@@ -55,7 +55,10 @@ public class ItemDetailView extends AssetGroup {
 
         upgrade.update(item.upgrade);
 
-        help.setText(assets.geti18n(item.help), true);
+        // help maybe null
+        if (null != item.help)
+            help.setText(assets.geti18n(item.help), true);
+        help.setVisible(null != item.help);
     }
 
     @Override
@@ -67,9 +70,9 @@ public class ItemDetailView extends AssetGroup {
         this.height =
                 topPadding +
                 name.getHeight() +
-                upgrade.getHeight() +
                 Game.Size.INNER_MARGIN +
-                help.getHeight() +
+                upgrade.getHeight() +
+                (help.isVisible() ? (Game.Size.INNER_MARGIN + help.getHeight()) : 0)  +
                 bottomPadding;
         Gdx.app.error("ItemDetailView", "resetWrapHeight = " + this.height);
         // parent...
@@ -108,11 +111,11 @@ public class ItemDetailView extends AssetGroup {
         if (0 == width || 0 == height)
             return;
         // item icon
-        icon.setPosition(leftPadding, height - topPadding - 32);
+        icon.setPosition(leftPadding, height - topPadding - 36);
         // name
         name.setPosition(leftPadding + 40, height - topPadding - 24);
         // upgrade
-        upgrade.setPosition(leftPadding + 40, height - topPadding - 40);
+        upgrade.setPosition(leftPadding + 40, height - topPadding - 42);
         // help
         help.setPosition(leftPadding, bottomPadding);
     }

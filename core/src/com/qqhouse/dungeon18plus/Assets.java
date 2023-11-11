@@ -116,6 +116,8 @@ public class Assets {
     }
 
     public String geti18n(String key) {
+        if (null == key || "" == key)
+            return "";
         if (null == langBundle) {
             manager.load("i18n/dungeon18plus", I18NBundle.class);
             manager.finishLoading();

@@ -22,6 +22,9 @@ public class AbilityView extends QQView implements QQView.IsParent {
     public AbilityView(Assets assets) {
         this.assets = assets;
 
+        // align right ...
+        align = Align.right;
+
         life = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("life"));
         life.setSize(48, 16);
         life.setPosition(0, 0);
@@ -61,6 +64,7 @@ public class AbilityView extends QQView implements QQView.IsParent {
         coin.setAlign(Align.right);
         coin.setWrapWidth(true);
         childrenView.add(coin);
+        coin.setVisible(false);
     }
 
     //@Override

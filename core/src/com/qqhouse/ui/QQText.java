@@ -89,6 +89,7 @@ public class QQText extends QQView {
     }
 
     protected void rearrange() {
+        // text = "" 時, 還是會有一定的高度
         if (null == text)
             return;
 
