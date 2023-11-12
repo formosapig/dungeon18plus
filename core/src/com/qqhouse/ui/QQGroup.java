@@ -2,6 +2,7 @@ package com.qqhouse.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.Game;
 
@@ -128,7 +129,7 @@ public class QQGroup extends QQView implements QQView.IsParent {
         height = h - innerMargin + topPadding + bottomPadding;
     }
 
-    private ArrayList<QQView> childrenView = new ArrayList<>();
+    protected ArrayList<QQView> childrenView = new ArrayList<>();
 
 
 
@@ -187,6 +188,9 @@ public class QQGroup extends QQView implements QQView.IsParent {
 
 
 
+        } else if (DIRECT_HORIZONTAL == direct){
+            float w = 1.7f;
+
         }
 
         // TODO 1109 好像還沒處理完整...
@@ -226,7 +230,7 @@ public class QQGroup extends QQView implements QQView.IsParent {
                 else // TODO if height == 0 ? should consider this.
                     heightForMatch -= v.getHeight();
                 if (v.matchWidth && 0 == v.width)
-                    v.setSize(this.width - leftPadding - rightPadding, v.getWidth());
+                    v.setSize(this.width - leftPadding - rightPadding, v.getHeight());
             }
 
             // heightForMatch split to matchChildren
@@ -253,9 +257,58 @@ public class QQGroup extends QQView implements QQView.IsParent {
                 Gdx.app.error("QQGroup", "innerMagrin : " + innerMargin);
 
             }
+        } else if (DIRECT_HORIZONTAL == direct) {
+            arrangeChildrenHorizontally();
         }
     }
 
+    private void arrangeChildrenHorizontally() {
+        // 由左至右 ...
+        // check if view need match parent ...
+        int matchChildren = 0;
+        float widthForMatch = width - leftPadding - rightPadding;
+
+        for (QQView child : childrenView) {
+            if (!child.isVisible())
+                continue;
+            if (child.matchWidth)
+                matchChildren++;
+            else // TODO if height == 0 ? should consider this.
+                widthForMatch -= child.getHeight();
+            if (child.matchHeight && 0 == child.height)
+                child.setSize(child.getWidth(), height - topPadding - bottomPadding);
+        }
+
+        // widthForMatch split to matchChildren
+        if (0 < matchChildren) {
+            for (QQView v : childrenView) {
+                if (v.matchWidth && v.isVisible()) {
+                    //Gdx.app.error("QQGroup", "v.set size." + v.getWidth() + "," + heightForMatch / matchChildren);
+                    v.setSize(widthForMatch / matchChildren, v.getHeight());
+                    //v.height = heightForMatch / matchChildren;
+                }
+            }
+        }
+
+        // get total width
+        float totalWidth = 0;
+        for (QQView cv : childrenView) {
+            totalWidth += cv.getWidth() + innerMargin;
+        }
+        totalWidth -= innerMargin;
+
+        float x = 0;
+        if (Align.isRight(align)) {
+            x = width - leftPadding - rightPadding - totalWidth;
+        } else if (Align.isCenterHorizontal(align)) {
+            x = (width - leftPadding - rightPadding - totalWidth) / 2;
+        }
+
+        for (QQView cv : childrenView) {
+            cv.setPosition(x, 0);
+            x += cv.getWidth() + innerMargin;
+        }
+    }
 
     @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {

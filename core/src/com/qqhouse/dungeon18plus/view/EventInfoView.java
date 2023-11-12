@@ -3,6 +3,7 @@ package com.qqhouse.dungeon18plus.view;
 import com.badlogic.gdx.graphics.Texture;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.core.EventType;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.ui.QQGroup;
@@ -34,8 +35,10 @@ public class EventInfoView extends AssetGroup {
 
     public void update(Event event) {
         item.setVisible(event.loot != Item.NONE);
-        if (Item.NONE != event.loot )
-            item.update(event.loot, true);
+        if (Item.NONE != event.loot ) {
+ //           if (event.type == EventType.DOOR || event.type.isMonster())
+            item.update(event.loot, (event.type == EventType.DOOR || event.type.isMonster()) && event.loot.isEquipment());
+        }
         preview.update(event.type.icon, event.type.align.key);
 
         if (null != parent)

@@ -17,7 +17,7 @@ public enum Item {
     KEY( 0x42A9564D, "key", "key", "key_help", Type.NONE,0),
 
     // COIN
-    COPPER_COIN( 0x2CD45554, "copper_coin", "copper_coin", "coin_help", Type.NONE, 0),
+    COPPER_COIN( 0x2CD45554, "copper_coin", "copper_coin", "coin_help", Type.NONE, 0, COIN_1),
     SILVER_COIN( 0x6B178FC4, "silver_coin", "silver_coin", "coin_help", Type.NONE, 0),
     GOLDEN_COIN( 0x51EF4A9D, "golden_coin", "golden_coin", "coin_help", Type.NONE, 0),
 
@@ -272,6 +272,7 @@ public enum Item {
     public final String icon;
     public final String name;
     public final String help;
+    public final String unknown; // information when unknown.
     @Type
     private final int type;
     public final int price;
@@ -284,6 +285,7 @@ public enum Item {
         this.icon = icon;
         this.name = name;
         this.help = help;
+        this.unknown = null;
         this.type = type;
         this.price = price;
         this.skill = skill;
@@ -297,6 +299,7 @@ public enum Item {
         this.icon = icon;
         this.name = name;
         this.help = help;
+        this.unknown = null;
         this.type = type;
         this.price = price;
         this.skill = UltimateSkill.NONE;

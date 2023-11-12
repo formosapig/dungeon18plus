@@ -1,5 +1,8 @@
 package com.qqhouse.dungeon18plus.struct;
 
+import com.badlogic.gdx.graphics.Color;
+import com.qqhouse.dungeon18plus.Game;
+
 import java.util.Locale;
 
 public class Varier {
@@ -60,6 +63,8 @@ public class Varier {
 
     public static final Varier COUNT          = new Varier(Type.COUNT, 1); // use 1
 
+    public static final Varier COIN_1         = new Varier(Type.COIN | Type.OFFSET, 1);
+
     public static final Varier LIFE_N99       = new Varier(Type.LIFE | Type.OFFSET, -99);
     public static final Varier LIFE_N50       = new Varier(Type.LIFE | Type.OFFSET, -50);
     public static final Varier LIFE_N40       = new Varier(Type.LIFE | Type.OFFSET, -40);
@@ -74,7 +79,7 @@ public class Varier {
     public static final Varier LIFE_250       = new Varier(Type.LIFE | Type.OFFSET, 250);
 
     // add 50% life
-    public static final Varier LIFE_100P       = new Varier(Type.LIFE | Type.PERCENT, 100);
+    public static final Varier LIFE_100P      = new Varier(Type.LIFE | Type.PERCENT, 100);
     // ring of life, set life = 999
     public static final Varier LIFE_S999      = new Varier(Type.LIFE | Type.SET, 999);
 
@@ -219,7 +224,7 @@ public class Varier {
 
 
     // get icon
-    public String getIcon() {
+    public String getIconKey() {
         switch (getPureType()) {
             case Type.LIFE: return "icon32_life";
             case Type.ATTACK: return "icon32_attack";
@@ -251,24 +256,24 @@ public class Varier {
                 throw new RuntimeException(String.format(Locale.US, "unhandle type : %08X.", type));
         }
     }
-    public int getDisplayColor() {
+    public Color getColor() {
         switch (getPureType()) {
             case Type.LIFE:
-            case Type.HEAL: return 0;//R.color.life;
-            case Type.ATTACK: return 0;//0R.color.attack;
-            case Type.DEFENSE: return 0;//R.color.defense;
-            case Type.SPEED: return 0;//R.color.speed;
-            case Type.DAMAGE: return 0;//R.color.damage;
+            case Type.HEAL: return Game.Colour.LIFE;
+            case Type.ATTACK: return Game.Colour.ATTACK;
+            case Type.DEFENSE: return Game.Colour.DEFENSE;
+            case Type.SPEED: return Game.Colour.SPEED;
+            case Type.DAMAGE: return Game.Colour.DAMAGE;
             case Type.KEY:
             case Type.COIN:
             case Type.STAR:
-            case Type.SOUL: return 0;//R.color.rare;
+            case Type.SOUL: return Game.Colour.RARE;
             default:
                 throw new RuntimeException(String.format(Locale.US, "unhandle type : %08X.", type));
         }
     }
 
-    public String getDisplayValue(boolean withPlus) {
+    public String getText(boolean withPlus) {
         if (isSet())
             return "=" + value;
         else if (isPercent())

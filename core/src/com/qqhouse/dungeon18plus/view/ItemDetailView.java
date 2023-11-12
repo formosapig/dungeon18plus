@@ -9,11 +9,13 @@ import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
+import org.jetbrains.annotations.NotNull;
+
 public class ItemDetailView extends AssetGroup {
 
     private ItemView icon;
     private QQText name, help;
-    private AbilityView upgrade;
+    private VarierView upgrade;
 
 
     public ItemDetailView(Assets assets) {
@@ -31,7 +33,7 @@ public class ItemDetailView extends AssetGroup {
         name.setColor(Game.Colour.RARE);
         addChild(name);
 
-        upgrade = new AbilityView(assets);
+        upgrade = new VarierView(assets);
         addChild(upgrade);
 
         help = new QQText(assets.getFont(Game.Font.HELP14));
@@ -42,22 +44,29 @@ public class ItemDetailView extends AssetGroup {
         bgNormal = assets.getNinePatchBG("special");
     }
 
-    public void update(Item item, boolean isUnknown) {
+    public void update(@NotNull Item item, boolean isUnknown) {
         Gdx.app.error("ItemDetailView", "update : " + item);
         // item...
         icon.setIcon(assets.getItem(item.icon));
-
         if (!isUnknown) {
-            //icon.setStatus(...);
+            if (item.isBlessed())
+                icon.setStatus(assets.getBackground("blessed"));
+            else if (item.isCursed())
+                icon.setStatus(assets.getBackground("cursed"));
+            else if (item.isRefined())
+                icon.setStatus(assets.getBackground("refined"));
         }
 
         name.setText(assets.geti18n(item.name));
 
-        upgrade.update(item.upgrade);
+        //upgrade.update(item.upgrade);
+        if (!isUnknown)
+            upgrade.update(item.upgrade);
+        upgrade.setVisible(!isUnknown);
 
         // help maybe null
         if (null != item.help)
-            help.setText(assets.geti18n(item.help), true);
+            help.setText(assets.geti18n(isUnknown ? item.unknown : item.help), true);
         help.setVisible(null != item.help);
     }
 

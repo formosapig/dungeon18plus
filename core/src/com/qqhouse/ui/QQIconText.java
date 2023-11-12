@@ -8,12 +8,18 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
+import com.qqhouse.dungeon18plus.Game;
 
 /*
     icon's size = this.height x this.height ...
  */
 
 public class QQIconText extends QQText {
+
+    public QQIconText(BitmapFont font) {
+        super(font);
+    }
+
     public QQIconText(BitmapFont font, Texture icon) {
         super(font);
         this.icon = icon;
@@ -30,6 +36,14 @@ public class QQIconText extends QQText {
 
     public void setIcon(Texture icon) {
         this.icon = icon;
+    }
+
+    @Override
+    public void resetWrapWidth() {
+        GlyphLayout glyphs = new GlyphLayout();
+        glyphs.setText(font, text);
+
+        width = icon.getWidth() + Game.Size.INNER_MARGIN + glyphs.width;
     }
 
     @Override
