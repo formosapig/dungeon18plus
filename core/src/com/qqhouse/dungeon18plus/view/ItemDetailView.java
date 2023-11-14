@@ -78,12 +78,13 @@ public class ItemDetailView extends AssetGroup {
         // decide this.height
         this.height =
                 topPadding +
-                name.getHeight() +
-                Game.Size.INNER_MARGIN +
-                upgrade.getHeight() +
+                Math.max(32, name.getHeight() + (upgrade.isVisible() ? (upgrade.getHeight() + Game.Size.INNER_MARGIN) : 0)) +
+                //name.getHeight() +
+                //Game.Size.INNER_MARGIN +
+                //upgrade.getHeight() +
                 (help.isVisible() ? (Game.Size.INNER_MARGIN + help.getHeight()) : 0)  +
                 bottomPadding;
-        Gdx.app.error("ItemDetailView", "resetWrapHeight = " + this.height);
+        //Gdx.app.error("ItemDetailView", "resetWrapHeight = " + this.height);
         // parent...
         if (null != parent)
             parent.onChildSizeChanged(this);
