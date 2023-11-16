@@ -18,11 +18,8 @@ import com.qqhouse.dungeon18plus.struct.campaign.UniqueSkillData;
 
 public class Game {
 
-    public static void log(String classInfo, String format, Object... param) {
-        Gdx.app.error(classInfo.substring(classInfo.lastIndexOf(".")+1), String.format(Locale.US, format, param));
-    }
-
     public static void trace(Object obj, String format, Object... param) {
+        if (!Debug.TRACE) return;
         String clsInfo = obj.toString();
         Gdx.app.error(clsInfo.substring(clsInfo.lastIndexOf(".") + 1), String.format(Locale.US, format, param));
     }
@@ -89,6 +86,8 @@ public class Game {
         public static final boolean AUTOMAGIC_WILDERNESS_CAMPAIGN   = true;
         // fill up random soul
         public static final boolean FILL_UP_RANDOM_SOUL             = true;
+        // Log QQView series's trace info
+        public static final boolean TRACE                           = false;
     }
 
     /*

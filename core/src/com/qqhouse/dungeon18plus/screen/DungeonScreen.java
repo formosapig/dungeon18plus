@@ -85,10 +85,11 @@ public class DungeonScreen extends QQScreen {
         // animation end, then update event value.
         @Override
         public void onAnimationEnd() {
-            Gdx.app.error("DungeonScreen", "event animation end.");
-            eventAdapter.updateAll();
-            specialEventAdapter.updateAll();
-
+            //Gdx.app.error("DungeonScreen", "event animation end.");
+            //eventAdapter.updateAll();
+            //specialEventAdapter.updateAll();
+            //lootInfo.update(manager.eventResult);
+            update();
             // 1. heroview
             //heroView.update(manager.getHero());
 
@@ -134,9 +135,12 @@ public class DungeonScreen extends QQScreen {
         // animation end, then update event value.
         @Override
         public void onAnimationEnd() {
-            Gdx.app.error("DungeonScreen", "special event animation end.");
-            eventAdapter.updateAll();
-            specialEventAdapter.updateAll();
+            //Gdx.app.error("DungeonScreen", "special event animation end.");
+            update();
+            //eventAdapter.updateAll();
+            //specialEventAdapter.updateAll();
+            //lootInfo.update(manager.eventResult);
+
         }
     };
 
@@ -174,7 +178,7 @@ public class DungeonScreen extends QQScreen {
             public void onPress(int index) {
                 if (manager.isSpecialEventDoable(index)) {
                     int result = manager.doSpecialEvent(index);
-                    update();
+                    //update();
                     if (Game.result.process > result) {
                         endGame(Game.result.win == result);
                     }
@@ -203,7 +207,7 @@ public class DungeonScreen extends QQScreen {
                     //Gdx.app.error("DungeonScreen", " do event.");
                     int result = manager.doEvent();
                     //Gdx.app.error("DungeonScreen", " update.");
-                    update();
+                    //update();
                     if (Game.result.process > result) {
                         endGame(Game.result.win == result);
                     }
@@ -257,7 +261,7 @@ public class DungeonScreen extends QQScreen {
                         // update status...
                         update();
                     }
-                    debug();
+                    //debug();
                 }
 
                 @Override
@@ -275,8 +279,8 @@ public class DungeonScreen extends QQScreen {
         //eventInfo.setBackground(assets.getNinePatchBG("help"));
 
         update();
-        eventAdapter.updateAll();
-        specialEventAdapter.updateAll();
+        //eventAdapter.updateAll();
+        //specialEventAdapter.updateAll();
     }
 
     private void debug() {
@@ -293,8 +297,8 @@ public class DungeonScreen extends QQScreen {
         heroView.update(manager.getHero());
 
         // 2. event list
-        //eventAdapter.updateAll();
-        //specialEventAdapter.updateAll();
+        eventAdapter.updateAll();
+        specialEventAdapter.updateAll();
         // 3. loof info
         lootInfo.update(manager.eventResult);
         // 4. action list
