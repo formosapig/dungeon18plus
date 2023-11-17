@@ -819,6 +819,9 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     }
 
     private void upgradeEndGameEventWithWinLevel(int winLevel) {
+        if (mEvents.isEmpty())
+            return;
+
         final Event evt = mEvents.get(0);
 
         if (evt.type.endGame()) {

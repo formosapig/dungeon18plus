@@ -26,6 +26,7 @@ import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class DungeonScreen extends QQScreen {
 
@@ -85,6 +86,7 @@ public class DungeonScreen extends QQScreen {
         // animation end, then update event value.
         @Override
         public void onAnimationEnd() {
+            Gdx.app.error("DungeonScreen", String.format(Locale.US, "onAnimationEnd %d", manager.getEventCount()));
             //Gdx.app.error("DungeonScreen", "event animation end.");
             //eventAdapter.updateAll();
             //specialEventAdapter.updateAll();

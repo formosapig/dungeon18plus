@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.Game;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 // TODO QQList should extends QQList ?
@@ -140,6 +141,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                 // remove +1 ^
                 //           ^
                 // insert    ^
+                Gdx.app.error("QQList", String.format(Locale.US, "MoveUpward rI : %d , iI : %d", removeIndex, insertIndex));
                 moveUpward(removeIndex, insertIndex - 1, animHPeriod);
                 preDelay = animVPeriod;
             } else {
@@ -247,8 +249,11 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         if (scrollY > gap && (maxScrollY - scrollY) < gap) {
             moveDownward(0, index - 1, animHPeriod);
             changeScrollY = -gap;
-        } else
+        } else {
+            Gdx.app.error("QQList", String.format(Locale.US, "MoveUpward index : %d", index));
+
             moveUpward(index, childrenView.size() - 1, animHPeriod);
+        }
 
     }
 
@@ -331,8 +336,10 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             if (maxScrollY < 0)
                 maxScrollY = 0;
             // on animation end
-            if (null != adapter)
+            if (null != adapter) {
+                Gdx.app.error("QQList", String.format(Locale.US, "adapter.onAnimationEnd %d", childrenView.size()));
                 adapter.onAnimationEnd();
+            }
         } else if (0 > animLock) {
             throw new GdxRuntimeException("animation lock error.");
         }
