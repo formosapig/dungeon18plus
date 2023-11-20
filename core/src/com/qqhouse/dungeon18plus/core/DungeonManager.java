@@ -541,6 +541,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         case Game.cost.damage:
             return mHero.life > evt.costValue;
         case Game.cost.none:
+        case Game.cost.block:
             return true;
         case Game.cost.never:
             return false;
@@ -865,8 +866,10 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             /*
              * feat : block
              */
-            if (Feat.BLOCK.in(mHero.feats) && evt.costValue <= (mHero.level + 3))
+            if (Feat.BLOCK.in(mHero.feats) && evt.costValue < (mHero.level + 3)) {
+                evt.costType = Game.cost.block;
                 evt.costValue = 0;
+            }
             /*
              * feat : life leech
              */
@@ -952,6 +955,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         switch(evt.costType) {
         case Game.cost.none:
         case Game.cost.never:
+        case Game.cost.block:
             break;
         case Game.cost.key:
             mHero.key -= evt.costValue;

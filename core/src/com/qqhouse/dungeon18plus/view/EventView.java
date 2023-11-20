@@ -88,6 +88,9 @@ public class EventView extends QQButton implements QQView.IsParent {
                     costValue = String.format(Locale.US, "%d", event.costValue);
                 }
                 break;
+            case Game.cost.block:
+                costIcon = assets.getIcon32("defense");
+                break;
         }
         //QQIconText cost = new QQIconText(assets.getFont("whitrabt"), new NinePatch(assets.getBackground("blessed")), costIcon);
         cost = new QQIconText(assets.getFont(Game.Font.EVENT_COST), costIcon);
@@ -170,6 +173,9 @@ public class EventView extends QQButton implements QQView.IsParent {
                     costColor = Game.Colour.DAMAGE;
                     costValue = String.format(Locale.US, "%d", event.costValue);
                 }
+                break;
+            case Game.cost.block:
+                costIcon = assets.getIcon32("defense");
                 break;
         }
         //QQIconText cost = new QQIconText(assets.getFont("whitrabt"), new NinePatch(assets.getBackground("blessed")), costIcon);

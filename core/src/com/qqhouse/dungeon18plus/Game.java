@@ -183,6 +183,7 @@ public class Game {
         public static final int star    = 3; // cost star/soul
         public static final int damage  = 4; // battle and cost life
         public static final int never   = 5; // can pay any cost
+        public static final int block   = 6; // block, no damage.
     }
 
     // zako data

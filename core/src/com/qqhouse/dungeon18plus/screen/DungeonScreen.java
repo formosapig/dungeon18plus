@@ -258,12 +258,12 @@ public class DungeonScreen extends QQScreen {
             action.addQQClickListener(new QQPressListener() {
                 @Override
                 public void onPress(int index) {
-                    Gdx.app.error("DungeonScreen", "press action.");
+                    //Gdx.app.error("DungeonScreen", "press action.");
                     if (manager.canDoAction(index)) {
                         manager.doAction(index);
                         // update status...
                         update();
-                        Gdx.app.error("DungeonScreen", "do action and update.");
+                        //Gdx.app.error("DungeonScreen", "do action and update.");
                     }
                     //debug();
                 }
