@@ -73,7 +73,7 @@ public class Game {
         // test help message
         public static final boolean TEST_HELP                       = false;
         // powerful start mHero
-        public static final boolean QUICK_GAME                      = false;
+        public static final boolean QUICK_GAME                      = true;
         // bluetooth function...
         public static final boolean BLUETOOTH                       = true;
         // test special potion

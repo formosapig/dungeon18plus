@@ -318,6 +318,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         animLock++;
         //Gdx.app.error("QQList", "animation lock++ : " + animationLock );
     }
+
     private void decreaseAnimationLock() {
         animLock--;
         //Gdx.app.error("QQList", "animation lock-- : " + animationLock );
@@ -542,6 +543,8 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         Gdx.app.error("QQList", "touchDragged : " + (relativeY - touchY));
         // 1. do scroll ...
         float moveDelta = relativeY - touchY;
+        if (3 >= Math.abs(moveDelta))
+            return false;
         scrollY += moveDelta;
         touchY = relativeY;
         if (scrollY < 0) scrollY = 0;

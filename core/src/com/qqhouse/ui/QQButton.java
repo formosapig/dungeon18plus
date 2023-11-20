@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import java.util.Locale;
+
 public class QQButton extends QQView implements QQView.IsTouchable {
 
     public static class BackgroundSet {
@@ -20,9 +22,6 @@ public class QQButton extends QQView implements QQView.IsTouchable {
 
     public QQButton(BackgroundSet set) {
         setBackground(set);
-        //bgNormal = new NinePatch(assets.getTexture("button", buttonKey + "_up"), 4, 4, 4, 4);
-        //bgPressed = new NinePatch(assets.getTexture("button", buttonKey + "_down"), 4, 4, 4, 4);
-        //bgDisable = new NinePatch(assets.getTexture("button", "disable"), 4, 4, 4, 4);
     }
 
     public QQButton() {}
@@ -84,6 +83,7 @@ public class QQButton extends QQView implements QQView.IsTouchable {
 
     @Override
     public boolean touchDown(float x, float y) {
+        //Gdx.app.error("QQButton", String.format(Locale.US, "touchDown. enable:%b, touchable:%b", enable, touchable));
         if (enable && touchable) {
             pressed = true;
         }
@@ -93,9 +93,12 @@ public class QQButton extends QQView implements QQView.IsTouchable {
     @Override
     public boolean touchUp(float x, float y) {
         //Gdx.app.error("TEST", "touch up : " + this + "@" + TimeUtils.millis());
+        //Gdx.app.error("QQButton", String.format(Locale.US, "touchUp enable:%b, touchable:%b", enable, touchable));
         if (!enable || !touchable)
             return false;
+        //Gdx.app.error("QQButton", String.format(Locale.US, "touchUp pressed:%b", pressed));
         if (pressed) {
+            longPressCounter = 0;
             pressed = false;
             if (null != clickListener) {
                 clickListener.onPress(index);
@@ -109,6 +112,7 @@ public class QQButton extends QQView implements QQView.IsTouchable {
 
     @Override
     public boolean touchDragged(float x, float y) {
+        //Gdx.app.error("QQButton", "touchDragged.");
         if (pressed && null == hit(x, y)) {
             pressed = false;
         }
@@ -121,6 +125,7 @@ public class QQButton extends QQView implements QQView.IsTouchable {
     @Override
     public void cancelTouching() {
         if (pressed) {
+            //Gdx.app.error("QQButton", "cancelTouching.");
             pressed = false;
         }
     }

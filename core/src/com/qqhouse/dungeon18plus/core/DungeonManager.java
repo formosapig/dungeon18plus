@@ -99,10 +99,10 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
 
         if (Game.Debug.QUICK_GAME) {
-            mHero.getBody().life = mHero.getLimit().life;
-            mHero.getBody().attack = mHero.getLimit().attack;
-            mHero.getBody().defense = mHero.getLimit().defense;
-            mHero.getBody().speed = mHero.getLimit().speed;
+            //mHero.getBody().life = mHero.getLimit().life;
+            //mHero.getBody().attack = mHero.getLimit().attack;
+            //mHero.getBody().defense = mHero.getLimit().defense;
+            //mHero.getBody().speed = mHero.getLimit().speed;
             mHero.key = 999;
             mHero.coin = 999;
             mHero.star = 999;
