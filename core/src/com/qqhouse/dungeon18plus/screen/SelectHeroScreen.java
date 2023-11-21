@@ -52,8 +52,8 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         // group of background.
         QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, Game.Size.WIDGET_MARGIN);
         group.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
-        group.setSize(Game.Size.WIDTH - 12 - 12, Game.Size.HEIGHT * 0.9f);
-        group.setPosition(12, Game.Size.HEIGHT * 0.05f);
+        group.setSize(Game.Size.WIDTH - 12 - 12, QQView.WRAP_CONTENT);//Game.Size.HEIGHT * 0.9f);
+        //group.setPosition(12, Game.Size.HEIGHT * 0.05f);
         group.setPadding(8);
         addChild(group);
 
@@ -61,7 +61,8 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         // TODO 1105 list : wrapContent and have max height.
         QQList list = new QQList();
         //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
-        list.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
+        list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 48 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4
+        list.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         list.setCamera(getCamera());
         list.setAdapter(availableHeroesAdapter);
         list.addListener(new QQList.PressListener() {
@@ -84,8 +85,11 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         //addView(title);
         title.setPadding(4);
         title.setSize(QQView.MATCH_PARENT, 48);
-        title.setPosition(0, Game.Size.HEIGHT - 48);
+        //title.setPosition(0, Game.Size.HEIGHT - 48);
         group.addChild(title);
+
+        // group set size
+        group.setPosition(12, (Game.Size.HEIGHT - group.getHeight()) / 2);
 
     }
 
