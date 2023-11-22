@@ -1,3 +1,30 @@
+--------------- 20231122(三) ---------------
+Memory management from stack overflow
+
+That behavior is perfectly normal, assuming it does not start to affect your runtime performance (Garbage collection can affect your frame time).
+There are many ways to mitigate runtime allocation of objects, one of which is to avoid creating new ones at a time that can affect game-play.
+
+[ Loading screens ]
+Use a loading screen to pre-allocate and dispose of large objects or vast amounts of small ones, this will ensure that when you get to processing the game's rendering and logic your program will not have to wait for memory allocation/GC pauses for those.
+
+[ Object pooling ]
+You can, for example, pre-instantiate objects in a cache pool, and instead of creating new ones simply borrow those instances, use them as you see fit, and when you don't need them anymore you can release them back to the pool to be used once again.
+LibGDX has an effective tool for this, right out of the box, and in fact makes extensive use of it. You can read more about it and how to use it here.
+For example, I often do a lot of coordinate projections back and forth between screen space and world space, and this involves using a lot of temporary Vector2 objects to store intermediate values. At the end of the program execution I get a report of usage (custom debug code, not included in release builds) that tells me if all borrowers from a specific Pool have returned their instances, how many times the type was borrowed, and how many actual instances were allocated:
+TYPE <Vector2Poolable> [OK] -> Borrowed [45948], Returned [45948], Free [38], Peak free [38]
+This is from 60 seconds of execution, as you can see I only ever instantiated 38 Vector2Poolable objects, which have been used ~46k times in that time span.
+Make no mistake, the goal here is not strictly on saving memory usage, the key takeaway here is that I avoided dumping on the JVM the burden of figuring out and managing ~50k small instances per minute. This can quickly pile up and start affecting your frame time.
+
+[ Strings are your enemy ]
+Strings in Java are Objects that are backed internally by a char array. Since arrays are immutable (cannot grow), Strings are immutable as well. Whenever a change to a String is made, an entirely new String is created. This means that what appear as very inexpensive operations, repeated at 60 times per second, can generate a lot of work for the GC.
+This is more evident when concatenating strings via the + operator, this causes at least one allocation.
+The best practice is to do concatenations using something like LibGDX's StringBuilder class, and reuse it as much as possible (you can have one per class if you're not concerned with concurrency, and you can wrap one in a ThreadLocal variable otherwise). StringBuilder's approach is similare to Pooling as it grows the backing store only when needed so that at some point during execution it will not have to reallocate memory for your string manipulation needs.
+Do not underestimate the impact of strings manipulation on Garbage Collection, it's not by chance that most Scene2D.ui classes within Libgdx (such as Label) accept a StringBuilder instance directly, so that updating them does not even require allocating a String from the StringBuilder's buffer in order to use it (as seen here, allocations are minimized by simply copying data around in existing buffers)
+
+[ Final thoughts ] You don't know what you don't know and this is why, especially in game development and regardless of the language used, you are strongly encouraged to Profile your code and memory allocation. Solutions to have a look at what's going on during runtime in your program exist, these are some of my favorites:
+JVisualVM Completely free, sufficient for most profiling tasks.
+YourKit Java Profiler Requires a license and can easily be too expensive for non professional developers, but it's one of the most powerful tools I've ever used to profile java applications. Definitely worth having a look with a trial.
+
 --------------- 20231116(四) ---------------
 - 又拖了一個星期, 喔耶...白吃柯文哲跑去簽什麼侯柯配...笑死...
 - {公主連結} 似似花（夏日） -> 128 Polly 幫忙抽的, 日期忘了...

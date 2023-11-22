@@ -20,7 +20,7 @@ public class Event /*extends Ability*/ {
 
 	public Event(EventType type) {
 	    this.type = type;
-	    costType = Game.cost.none;
+	    costType = Game.Cost.NONE;
 	    costValue = 0;
 	    loot = Item.NONE;
 	    itemCount = 0;

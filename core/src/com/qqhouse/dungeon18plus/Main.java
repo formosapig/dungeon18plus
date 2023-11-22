@@ -34,7 +34,7 @@ public class Main extends QQGameMachine implements
     @Override
     public void create() {
         //Gdx.app.error("Main", "Main.create()");
-        initial(Game.Size.WIDTH, Game.Size.HEIGHT);
+        initial(Game.Size.WIDTH, Game.Size.HEIGHT, true);
 
         // save game
         savedGame = new SaveGame(Game.SAVE_FILE);

@@ -153,13 +153,13 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
     
     private boolean isEventDoable(Event evt) {
 		switch(evt.costType) {
-		case Game.cost.none:
+		case Game.Cost.NONE:
 			return true;
-		case Game.cost.coin:
+		case Game.Cost.COIN:
 			return mHero.coin >= evt.costValue;
-		case Game.cost.damage:
+		case Game.Cost.DAMAGE:
 			return (mHero.life > evt.costValue) || Game.Debug.QUICK_GAME;
-		case Game.cost.never:
+		case Game.Cost.NEVER:
 			return false;
 		default:
 			throw new RuntimeException("invalid cost type : " + evt.costType);
@@ -261,7 +261,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 				if (evt instanceof VariedHero) {
 					enhanceGladiator((VariedHero)evt, mHero);
                 }
-				evt.costType = Game.cost.damage;
+				evt.costType = Game.Cost.DAMAGE;
 				evt.costValue = battle(mHero, (BattleEvent)evt);
 				if (mHero.life > evt.costValue)
 					isEnd = false;
@@ -313,9 +313,9 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
     
     private void payForEvent(Event evt, EventResult result) {
 		switch(evt.costType) {
-		case Game.cost.none:
+		case Game.Cost.NONE:
 			break;
-		case Game.cost.damage:
+		case Game.Cost.DAMAGE:
 		    if (evt instanceof VariedHero) {
                 Ability contrast = ((VariedHero)evt).getAbility();
                 // RAGE
@@ -351,7 +351,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
                 }
             }
 			break;
-		case Game.cost.coin:
+		case Game.Cost.COIN:
 		    mHero.coin -= evt.costValue;
 		    break;
 		default:

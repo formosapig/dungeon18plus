@@ -11,7 +11,7 @@ public class ColosseumShop extends Event {
     public ColosseumShop(Item equip) {
         super(EventType.MERCHANT);
         this.loot = equip;
-        this.costType = Game.cost.coin;
+        this.costType = Game.Cost.COIN;
         this.costValue = equip.price;
     }
 

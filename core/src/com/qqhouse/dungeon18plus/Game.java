@@ -73,12 +73,12 @@ public class Game {
         // test help message
         public static final boolean TEST_HELP                       = false;
         // powerful start mHero
-        public static final boolean QUICK_GAME                      = true;
+        public static final boolean QUICK_GAME                      = false;
         // bluetooth function...
         public static final boolean BLUETOOTH                       = true;
         // test special potion
         public static final boolean SPECIAL_POTION                  = true;
-        // creat galidator
+        // create gladiator
         public static final boolean CREATE_GLADIATOR                = false;
         // calculate collectable equipment
         public static final boolean COLLECTABLE_EQUIPMENT           = true;
@@ -176,14 +176,14 @@ public class Game {
     /*
      * cost type
      */
-    public static final class cost {
-        public static final int none    = 0; // cost nothing
-        public static final int key     = 1; // cost key
-        public static final int coin    = 2; // cost coin
-        public static final int star    = 3; // cost star/soul
-        public static final int damage  = 4; // battle and cost life
-        public static final int never   = 5; // can pay any cost
-        public static final int block   = 6; // block, no damage.
+    public static final class Cost {
+        public static final int NONE   = 0; // cost nothing
+        public static final int KEY    = 1; // cost key
+        public static final int COIN   = 2; // cost coin
+        public static final int STAR   = 3; // cost star/soul
+        public static final int DAMAGE = 4; // battle and cost life
+        public static final int NEVER  = 5; // can pay any cost
+        public static final int BLOCK  = 6; // block, no damage.
     }
 
     // zako data

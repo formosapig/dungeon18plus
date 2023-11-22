@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -61,23 +60,23 @@ public class EventView extends QQButton implements QQView.IsParent {
         Color costColor = Color.WHITE;
         String costValue = "";
         switch (event.costType) {
-            case Game.cost.key:
+            case Game.Cost.KEY:
                 costIcon = assets.getItem("key");
                 costColor = Game.Colour.RARE;
                 costValue = String.format(Locale.US, "%d", event.costValue);
                 break;
-            case Game.cost.coin:
+            case Game.Cost.COIN:
                 costIcon = assets.getItem("copper_coin");
                 costColor = Game.Colour.RARE;
                 costValue = String.format(Locale.US, "%d", event.costValue);
                 break;
-            case Game.cost.none:
+            case Game.Cost.NONE:
                 costIcon = assets.getIcon32("win");
                 break;
-            case Game.cost.never:
+            case Game.Cost.NEVER:
                 costIcon = assets.getIcon32("lose");
                 break;
-            case Game.cost.damage:
+            case Game.Cost.DAMAGE:
                 if (event.costValue < 0) {
                     costIcon = assets.getIcon32("life");
                     costColor = Game.Colour.LIFE;
@@ -88,7 +87,7 @@ public class EventView extends QQButton implements QQView.IsParent {
                     costValue = String.format(Locale.US, "%d", event.costValue);
                 }
                 break;
-            case Game.cost.block:
+            case Game.Cost.BLOCK:
                 costIcon = assets.getIcon32("defense");
                 break;
         }
@@ -147,23 +146,23 @@ public class EventView extends QQButton implements QQView.IsParent {
         Color costColor = Color.WHITE;
         String costValue = "";
         switch (event.costType) {
-            case Game.cost.key:
+            case Game.Cost.KEY:
                 costIcon = assets.getItem("key");
                 costColor = Game.Colour.RARE;
                 costValue = String.format(Locale.US, "%d", event.costValue);
                 break;
-            case Game.cost.coin:
+            case Game.Cost.COIN:
                 costIcon = assets.getItem("copper_coin");
                 costColor = Game.Colour.RARE;
                 costValue = String.format(Locale.US, "%d", event.costValue);
                 break;
-            case Game.cost.none:
+            case Game.Cost.NONE:
                 costIcon = assets.getIcon32("win");
                 break;
-            case Game.cost.never:
+            case Game.Cost.NEVER:
                 costIcon = assets.getIcon32("lose");
                 break;
-            case Game.cost.damage:
+            case Game.Cost.DAMAGE:
                 if (event.costValue < 0) {
                     costIcon = assets.getIcon32("life");
                     costColor = Game.Colour.LIFE;
@@ -174,7 +173,7 @@ public class EventView extends QQButton implements QQView.IsParent {
                     costValue = String.format(Locale.US, "%d", event.costValue);
                 }
                 break;
-            case Game.cost.block:
+            case Game.Cost.BLOCK:
                 costIcon = assets.getIcon32("defense");
                 break;
         }
