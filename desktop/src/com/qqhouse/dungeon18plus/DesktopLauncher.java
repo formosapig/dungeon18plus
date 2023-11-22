@@ -12,9 +12,16 @@ public class DesktopLauncher {
 		//config.setWindowedMode(375, 667); // iPhone SE 3
 		config.setWindowedMode(330, 530); // desktop
 		//config.setWindowedMode(Game.Size.WIDTH, Game.Size.HEIGHT);
-		config.useVsync(true);
+		// break fps-limit
+		config.useVsync(false);
+		config.setForegroundFPS(0);
+		config.setIdleFPS(0);
+
+		// normal setting
+		//config.useVsync(true);
 		//config.setForegroundFPS(60);
 		//config.setIdleFPS(10);
+
 		//config.setDecorated(false);
 		config.setResizable(false);
 		//new Lwjgl3Application(new Dungeon18Plus(), config);
