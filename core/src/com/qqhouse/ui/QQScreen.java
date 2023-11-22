@@ -200,12 +200,15 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     }
 
     public final void draw(SpriteBatch batch) {
-        QQView[] views = childrenView.begin();
-        for (int i = 0, n = childrenView.size; i < n; ++i) {
+        for (QQView child : childrenView)
+            child.draw(batch, 0, 0);
+
+        //QQView[] views = childrenView.begin();
+        //for (int i = 0, n = childrenView.size; i < n; ++i) {
             // screen base is 0, 0
-            views[i].draw(batch, 0, 0);
-        }
-        childrenView.end();
+          //  views[i].draw(batch, 0, 0);
+        //}
+        //childrenView.end();
     }
 
     public void pause() {}

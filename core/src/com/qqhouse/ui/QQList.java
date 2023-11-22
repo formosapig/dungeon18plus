@@ -692,14 +692,17 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
     }
 
+    private Rectangle scissors;
     @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {
         batch.flush();
-        Rectangle scissors = new Rectangle();
-        Rectangle clipBounds = new Rectangle(originX, originY, width, height);
-        // QQList 變成 sub view 時, 座標又變換了....
-        //Rectangle clipBounds = new Rectangle(x, y, width, height);
-        ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
+        if (null == scissors) {
+            scissors = new Rectangle();
+            Rectangle clipBounds = new Rectangle(originX, originY, width, height);
+            // QQList 變成 sub view 時, 座標又變換了....
+            //Rectangle clipBounds = new Rectangle(x, y, width, height);
+            ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
+        }
         if (ScissorStack.pushScissors(scissors)) {
             for (QQView view : childrenView)
                 view.draw(batch, originX, originY);

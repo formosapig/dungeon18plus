@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.StringBuilder;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.io.QQSaveGame;
@@ -27,9 +28,13 @@ public abstract class QQGameMachine implements ApplicationListener {
     private OrthographicCamera camera;
     protected Viewport viewport;
     protected QQSaveGame savedGame;
+    private boolean debug = true;
     private BitmapFont font;
+    private StringBuilder builder;
+    private long screenStartTime;
+    private long screenStartJavaHeap;
 
-    protected void initial(int width, int height, boolean debug) {
+    protected void initial(int width, int height) {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, width, height);
@@ -40,6 +45,7 @@ public abstract class QQGameMachine implements ApplicationListener {
 
         if (debug) {
             font = new BitmapFont();
+            builder = new StringBuilder();
         }
     }
 
@@ -85,6 +91,11 @@ public abstract class QQGameMachine implements ApplicationListener {
         }
 
         current = screen;
+        if (debug) {
+            screenStartTime = TimeUtils.millis();
+            screenStartJavaHeap = Gdx.app.getJavaHeap();
+        }
+
 
         current.onEnter();
         Gdx.input.setInputProcessor(current);
@@ -122,11 +133,14 @@ public abstract class QQGameMachine implements ApplicationListener {
         current.draw(batch);
 
         if (null != font) {
-            String info = String.format(Locale.US, "FPS:%d Mem:%dK, %dK",
-                    Gdx.graphics.getFramesPerSecond(),
-                    Gdx.app.getJavaHeap() / 1024,
-                    Gdx.app.getNativeHeap() / 1024);
-            font.draw(batch, info, 4, 16);
+
+
+
+            builder.clear();
+            builder.append("FPS:").append(Gdx.graphics.getFramesPerSecond())
+                    .append(" Java:").append(Gdx.app.getJavaHeap() / 1024)
+                    .append(" Native:").append(Gdx.app.getNativeHeap() / 1024);
+            font.draw(batch, builder, 4, 16);
         }
 
         batch.end();

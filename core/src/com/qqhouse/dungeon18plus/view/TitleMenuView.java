@@ -29,20 +29,10 @@ public class TitleMenuView extends QQButton {
 
     @Override
     public void drawForeground(SpriteBatch batch, float originX, float originY) {
-        //Color c = batch.getColor();
-        // 可以改變 alpha 值唷~~~~ 或是套用整個紅色之類的,很好玩...
-
-        //batch.setColor(1f,0.8f,0.8f,1);//c.r, c.g, c.b, 0.1f);
-
         // draw blockee
         batch.draw(blockee, originX + 8, originY + 8);
 
-        //batch.setColor(1,1,1,1);//c.r, c.g, c.b, 1);
-        // draw font...
-        //master.getFont().getData().setScale(0.71f, 0.5f);
-        font.setColor(Game.Colour.RARE);
         font.draw(batch, menu, (int)(originX + menuShiftX), (int)(originY + menuShiftY));
-        //batch.draw();
     }
 
 

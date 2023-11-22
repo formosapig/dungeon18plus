@@ -21,11 +21,9 @@ import java.util.ArrayList;
 
 public class PreviewView extends QQButton implements QQView.IsParent {
 
-    private Texture icon;
     private BitmapFont fntName, fntDesc;
     private String name1, desc;
 
-    private QQImage blockee;
     private QQText level, name, help;
     private QQIconText scoreOrRound;
     private Assets assets;
@@ -61,7 +59,7 @@ public class PreviewView extends QQButton implements QQView.IsParent {
         setBackground(assets.getBackgroundSet(record.heroClass.alignment.key));
 
         // icon
-        blockee = new QQImage(assets.getBlockee(record.heroClass.key));
+        QQImage blockee = new QQImage(assets.getBlockee(record.heroClass.key));
         //blockee.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         blockee.setPosition(8, 8);
         addChild(blockee);
@@ -163,21 +161,6 @@ public class PreviewView extends QQButton implements QQView.IsParent {
         //Gdx.app.error("TEST", "desc shift = " + descShiftX + "," + descShiftY);
 
 
-    }
-
-
-    @Override
-    public void drawForeground(SpriteBatch batch, float originX, float originY) {
-
-        // draw icon
-        //batch.draw(icon, (int)(originX + iconShiftX), (int)(originY + iconShiftY), 48, 48);
-
-        // draw name
-        //fntName.setColor(Game.Colour.RARE);
-        //fntName.draw(batch, name, originX + nameShiftX, originY + nameShiftY);
-
-        // draw desc
-        //fntDesc.draw(batch, desc, originX + descShiftX, originY + descShiftY, 0, 50, descW, Align.topLeft, true, null);
     }
 
     @Override

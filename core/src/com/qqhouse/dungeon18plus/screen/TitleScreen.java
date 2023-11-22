@@ -35,6 +35,7 @@ public class TitleScreen extends QQScreen {
         // bitmap font...
         //font = createFont(28, new Color(0x9E8064FF), "地下城巫師塔圓形競技場荒原魔王城圖書館");
         BitmapFont fnt = assets.getFont(Game.Font.TITLE28);
+        fnt.setColor(Game.Colour.RARE);
         //Gdx.app.error("TitleScreen", "font created.");
 
         menus = new ArrayList<QQView>();
