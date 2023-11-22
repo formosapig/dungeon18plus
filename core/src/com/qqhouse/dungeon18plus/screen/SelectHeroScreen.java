@@ -58,7 +58,6 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         addChild(group);
 
         // list of available heroes ...
-        // TODO 1105 list : wrapContent and have max height.
         QQList list = new QQList();
         //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 48 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4

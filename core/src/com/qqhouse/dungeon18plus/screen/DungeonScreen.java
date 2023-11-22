@@ -265,7 +265,7 @@ public class DungeonScreen extends QQScreen {
                         update();
                         //Gdx.app.error("DungeonScreen", "do action and update.");
                     }
-                    //debug();
+                    debug();
                 }
 
                 @Override
@@ -292,8 +292,8 @@ public class DungeonScreen extends QQScreen {
         //for (int i = 0; i < manager.getEventCount(); ++i) {
         //    Gdx.app.error("DungeonScreen", String.format("Event %2d = %s", i, manager.getEvent(i).toString()));
         //}
-        //manager.test();
-        manager.test2();
+        manager.test();
+        //manager.test2();
     }
 
     private void update() {

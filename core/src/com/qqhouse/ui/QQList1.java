@@ -628,8 +628,6 @@ public class QQList1 extends QQGroup implements QQView.IsTouchable {
     /*
         IsParent series
      */
-    private final ArrayList<QQView> childrenView = new ArrayList<>();
-
     @Override
     public void arrangeChildren() {
 

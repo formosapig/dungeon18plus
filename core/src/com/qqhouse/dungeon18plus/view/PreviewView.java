@@ -205,7 +205,7 @@ public class PreviewView extends QQButton implements QQView.IsParent {
 
     @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {
-        for (QQView v : childrenViews)
-            v.draw(batch, originX, originY);
+        for (QQView child : childrenViews)
+            child.draw(batch, originX, originY);
     }
 }

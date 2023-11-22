@@ -1435,6 +1435,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         Event shop = new Event(EventType.FAIRY);
         mSpecialEvents.add(0, shop);
         specialEventAdapter.insert(0);//mSpecialAdapter.insert(0);//mSpecialEvents.size() - 1);
+        Gdx.app.error("DungeonManager", "test");
         return true;
     }
 

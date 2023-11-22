@@ -259,10 +259,7 @@ public class EventView extends QQButton implements QQView.IsParent {
 
     @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {
-        for (QQView view : childrenView) {
-            if (view.isVisible()) {
-                view.draw(batch, originX, originY);
-            }
-        }
+        for (QQView child : childrenView)
+            child.draw(batch, originX, originY);
     }
 }

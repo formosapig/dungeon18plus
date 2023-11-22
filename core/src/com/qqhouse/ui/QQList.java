@@ -696,13 +696,15 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {
         batch.flush();
-        if (null == scissors) {
+        // TODO height will change .... so scissors will cut wrong area.
+        //if (null == scissors) {
             scissors = new Rectangle();
             Rectangle clipBounds = new Rectangle(originX, originY, width, height);
             // QQList 變成 sub view 時, 座標又變換了....
             //Rectangle clipBounds = new Rectangle(x, y, width, height);
             ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
-        }
+            Gdx.app.error("QQList", "clipBounds = " + width + "," + height);
+        //}
         if (ScissorStack.pushScissors(scissors)) {
             for (QQView view : childrenView)
                 view.draw(batch, originX, originY);

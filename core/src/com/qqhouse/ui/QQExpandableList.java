@@ -3,7 +3,7 @@ package com.qqhouse.ui;
 import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Game;
 
-public class QQExpandableList extends QQGroup implements QQView.IsTouchable {
+public class QQExpandableList extends QQList1 implements QQView.IsTouchable {
 
     /*
         adapter ...
