@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;

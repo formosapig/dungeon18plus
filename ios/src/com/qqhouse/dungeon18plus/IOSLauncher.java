@@ -5,13 +5,13 @@ import org.robovm.apple.uikit.UIApplication;
 
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
-import com.qqhouse.dungeon18plus.Dungeon18Plus;
+import com.qqhouse.dungeon18plus.Main;
 
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new Dungeon18Plus(), config);
+        return new IOSApplication(new Main(), config);
     }
 
     public static void main(String[] argv) {

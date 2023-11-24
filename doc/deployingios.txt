@@ -1,0 +1,43 @@
+Last year, I’ve wrote an article on how to deploy libGDX games to iOS in 2019. Well, 2020 already has had some time, and because Apple loves to break things, my old guide is already outdated although I gave some updates. Time for a fresh update! This article will serve you even if you did not read the old article. That’s why I repeat an important sentence from the last article here: after a steep start, deploying a libGDX game to iOS is easy and you can expect your game to run without problems.
+(Some other repetitions will come, but hey, it’s been a year and you probably forgot most of it.)
+
+What you need
+There’s at least one thing you need to deploy to iOS: a Mac to compile. iOS 13 is the latest and greatest, and to use its SDK (which is mandatory), you need a Mac running Mojave or Catalina. So you need a Mac or Mac Mini from 2012 or newer. Depending on how capable your Mac is, you can test your game on iOS on the simulator. But beware: some services like IAPs or push notifications are not available on the simulator, and your game will run choppy. So I recommend you to test your game on a real device. You don’t have to own the test device — if someone is willing to lend you an iPhone, iPad or iPod for a while, Apple will let you deploy your game on it.
+
+Okay, one other thing is important: you don’t only need a Mac, you need MacOS running. What’s the difference? Well, say you are not satisfied with the experience MacOS is giving you and you installed Ubuntu on your Mac to have a more capable OS running. What should you do? Help is on the way: If you are running Ubuntu Linux, you can set up a VM with a running MacOS catalina with only two command lines in your terminal. Of course, you could do that even when you run your Ubuntu on a PC, but that would be illegal, and that’s why you don’t do that even if you could. And who wants to use a PC when you can have a Mac with the same performance for way more money?
+
+I recommend you to spice up the VM with at least 6GB RAM, otherwise the simulator will not run and IntelliJ will have problems.
+
+What you do not need
+Same as last year: You do not need to pay something to Apple in order to test your game on iOS. You can deploy to the iOS simulator without problems, and you can deploy to an iOS device connected to your Mac with a so-called “free provisioning profile”. This is for testing purposes and the app will only work for a week, then you need to compile and deploy again to get it working again.
+
+You still need the costly developer account when you want to publish your game on the app store, or when you want to use Apple’s services like Game Center, IAPs or the push notification service.
+
+Multi OS Engine or RoboVM?
+Last year’s article has some information on why there are two iOS backends for libGDX, and why I have chosen RoboVM as the weapon to use. Read it up if you are interested.
+
+Getting RoboVM to work
+Here is a quick step by step guide on how to deploy to iOS with RoboVM:
+
+Generate your iOS module (for RoboVM, not moe)
+You can skip this step if you generated your iOS subproject from the beginning of your project. If you did not do so, just generate a new libGDX project from the setup tool and merge the settings.gradle, main build.gradle and the ios subfolder. At the time writing, you should use RoboVM 2.3.10-SNAPSHOT. Check the changelog as this may change in when Apple will break something again. Pay attention: The RoboVM build tools and RoboVM dependencies must use the same version!
+Install the RoboVM plugin into Android Studio
+Grab the plugin from the download site. Pay attention: You must use the same version as the RoboVM version you defined in your build.gradle file, again. Install the plug in into Android Studio with the “Install plugin from disk” button in the plugins settings.
+Install Xcode
+Install Xcode from App Store, RoboVM needs it to compile and sign your game. You’ll also need it for the next step.
+Set up a provisioning profile
+This is only needed if you want to deploy on a real device, you can skip this step for the simulator.
+If you already have a paid developer account and want to use Apple services, you can use an own provisioning profile you created in Apple’s backend. Or, if you don’t want to pay (for now), you can use the free provisioning. In any case, you should add your Apple account to Xcode, then create an empty project with the same app id as used in the robovm.properties file of your project. Choose to let Xcode manage the provisioning profile. Xcode will search for the correct (paid) provisioning profile or will create a free provisioning profile, link your app id and a device connected to your Mac to it. Because only the connected device will get linked, you have to repeat this step for every other device you connect and want to run your game on. Save the Xcode project for this case.
+Create iOS run configurations
+Back in Android Studio, you need to create some Run configurations for iOS. Go to Run/Edit configurations and add (+) a RoboVM iOS configuration. Either choose the Simulator and a x86 architecture, or choose “Attached device” with “arm64” and choose your signing identity and provisioning profile from step 4.
+If you’ve made any mistakes in step 4 or 5, launching your game on a real device will stop on verification (40%).
+It is important that your run configuration contains the steps “Build” and “Build RoboVM app”. This should be the case automatically, but …
+Done
+You are done, hit the run button and let the magic happen!
+If you have something to add to this guide, please use the comment section.
+
+You will need to do some extra steps if you want to compile an ipa file to upload to the store. The ipa file needs to be signed and use yet another provisioning profile, but if you get this far you’ll manage these difficulties, too.
+
+Things you’ll need to change to your game
+Last year’s article contains a list of things you probably need to adapt to iOS. If you’ve made this far and your game is running on the simulator or an iDevice, and you plan to release it on iOS, read it up.
+

@@ -265,7 +265,7 @@ public class DungeonScreen extends QQScreen {
                         update();
                         //Gdx.app.error("DungeonScreen", "do action and update.");
                     }
-                    debug();
+                    //debug();
                 }
 
                 @Override
