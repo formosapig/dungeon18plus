@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.Main;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.Assets;
 
@@ -55,7 +56,7 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
         //Gdx.app.error("TEST", "touchDown : " + screenPos.x + "," + screenPos.y);
 
         // swipe right
-        touchDownX = screenPos.x;
+        touchDown = screenPos.cpy();
 
         // 後加入的疊在上面, 所以先收到事件...
         QQView[] views = childrenView.items;//.begin();
@@ -88,13 +89,15 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
 
         // tell all child dragged ....
         //Gdx.app.error("QQScreen", "touchDragged : " + screenPos.x + "," + screenPos.y);
-        if (null != callback && -1 != touchDownX ) {
-            swipeRightX = screenPos.x - touchDownX;
-            if (0 > swipeRightX)
-                swipeRightX = 0;
-            if ((totalWidth / 8) < swipeRightX) {
-                touchDownX = -1;
+        if (null != callback && null != touchDown) {
+            if ((totalWidth / 8) < Math.abs(screenPos.y - touchDown.y)) {
+                // cancel swipe right
+                touchDown = null;
+                return false;
+            }
+            if ((totalWidth / 8) < (screenPos.x - touchDown.x)) {
                 swipingRight = true;
+                swipeRightX = 0;
                 return false;
             }
         }
@@ -118,9 +121,7 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
         Vector2 screenPos = screenToStageCoordinates(new Vector2(screenX, screenY));
         //Gdx.app.error("QQScreen", "touchUp = " + screenPos.x + "," + screenPos.y);
 
-        // cancel touchDownX ?
-        touchDownX = -1;
-        swipeRightX = 0;
+        touchDown = null;
 
         QQView[] views = childrenView.items;
         QQView target = null;
@@ -175,7 +176,7 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     private SwipeRightCallback callback;
     private boolean swipingRight;
     private float swipeRightX;
-    private float touchDownX = -1;
+    private Vector2 touchDown = new Vector2();
 
 
 
