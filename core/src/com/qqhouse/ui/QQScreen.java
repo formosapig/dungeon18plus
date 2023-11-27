@@ -3,14 +3,10 @@ package com.qqhouse.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
@@ -18,10 +14,10 @@ import com.qqhouse.dungeon18plus.Assets;
 
 public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
 
+
     protected final SaveGame savedGame;
     protected final Assets assets;
     private Viewport viewport;
-
 
     public QQScreen(SaveGame savedGame, Viewport viewport, Assets assets) {
         this.savedGame = savedGame;
@@ -51,10 +47,15 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
 
     @Override
     public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+        if (swipingRight)
+            return false;
         // detect touch down.
         //Gdx.app.error("TEST", "touchDown : " + screenX + "," + screenY);
         Vector2 screenPos = screenToStageCoordinates(new Vector2(screenX, screenY));
         //Gdx.app.error("TEST", "touchDown : " + screenPos.x + "," + screenPos.y);
+
+        // swipe right
+        touchDownX = screenPos.x;
 
         // 後加入的疊在上面, 所以先收到事件...
         QQView[] views = childrenView.items;//.begin();
@@ -79,11 +80,25 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     }
 
     public boolean touchDragged (int screenX, int screenY, int pointer) {
+        if (swipingRight)
+            return false;
         //Gdx.app.error("QQScreen", "touchDragged : " + screenX + "," + screenY);
         Vector2 screenPos = screenToStageCoordinates(new Vector2(screenX, screenY));
-        //Gdx.app.error("QQScreen", "touchDragged : " + screenPos.x + "," + screenPos.y);
+        //Gdx.app.error("QQScreen", "touchDragged = " + screenPos.x + "," + screenPos.y);
 
         // tell all child dragged ....
+        //Gdx.app.error("QQScreen", "touchDragged : " + screenPos.x + "," + screenPos.y);
+        if (null != callback && -1 != touchDownX ) {
+            swipeRightX = screenPos.x - touchDownX;
+            if (0 > swipeRightX)
+                swipeRightX = 0;
+            if ((totalWidth / 8) < swipeRightX) {
+                touchDownX = -1;
+                swipingRight = true;
+                return false;
+            }
+        }
+
 
         QQView[] views = childrenView.items;
         for (int i = childrenView.size - 1; i >= 0; --i) {
@@ -96,8 +111,16 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     }
 
     public boolean touchUp (int screenX, int screenY, int pointer, int button) {
-        //Gdx.app.error("QQScreen", "touchUp()");
+        if (swipingRight)
+            return false;
+
+        //Gdx.app.error("QQScreen", "touchUp");
         Vector2 screenPos = screenToStageCoordinates(new Vector2(screenX, screenY));
+        //Gdx.app.error("QQScreen", "touchUp = " + screenPos.x + "," + screenPos.y);
+
+        // cancel touchDownX ?
+        touchDownX = -1;
+        swipeRightX = 0;
 
         QQView[] views = childrenView.items;
         QQView target = null;
@@ -123,6 +146,8 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
 
     @Override
     public boolean scrolled (float amountX, float amountY) {
+        if (swipingRight)
+            return false;
         //Gdx.app.error("QQScreen", "amountX : " + amountX + ", amountY : " + amountY);
         QQView[] views = childrenView.items;
         for (int i = childrenView.size - 1; i >= 0; --i) {
@@ -133,6 +158,26 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
         }
         return false;
     }
+
+    /*
+        popup series...
+     */
+    public interface SwipeRightCallback {
+        void onSwipeRight();
+    }
+
+    public void setSwipeRightCallback(SwipeRightCallback callback, float totalWidth) {
+        this.callback = callback;
+        this.totalWidth = totalWidth;
+    }
+
+    private float totalWidth = 500;
+    private SwipeRightCallback callback;
+    private boolean swipingRight;
+    private float swipeRightX;
+    private float touchDownX = -1;
+
+
 
     public boolean touchCancelled (int screenX, int screenY, int pointer, int button) {
         return false;
@@ -197,11 +242,20 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
             views[i].act(delta);
         }
         childrenView.end();
+
+        if (swipingRight) {
+            swipeRightX += delta * (totalWidth / 0.33);
+            if (swipeRightX >= totalWidth) {
+                swipingRight = false;
+                swipeRightX = 0;
+                callback.onSwipeRight();
+            }
+        }
     }
 
     public final void draw(SpriteBatch batch) {
         for (QQView child : childrenView)
-            child.draw(batch, 0, 0);
+            child.draw(batch, 0 + swipeRightX, 0);
 
         //QQView[] views = childrenView.begin();
         //for (int i = 0, n = childrenView.size; i < n; ++i) {

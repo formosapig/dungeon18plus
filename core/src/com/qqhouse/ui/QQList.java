@@ -703,7 +703,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             // QQList 變成 sub view 時, 座標又變換了....
             //Rectangle clipBounds = new Rectangle(x, y, width, height);
             ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
-            Gdx.app.error("QQList", "clipBounds = " + width + "," + height);
+            //Gdx.app.error("QQList", "clipBounds = " + width + "," + height);
         //}
         if (ScissorStack.pushScissors(scissors)) {
             for (QQView view : childrenView)

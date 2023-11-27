@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
@@ -8,6 +9,7 @@ import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.ui.QQGameMachine;
+import com.qqhouse.ui.QQScreen;
 
 import java.util.ArrayList;
 
@@ -69,6 +71,13 @@ public class Main extends QQGameMachine implements
                     selectHero = new SelectHeroScreen((SaveGame) savedGame, viewport, assets, this);
                 }
                 selectHero.setGameMode(gameMode);
+                selectHero.setSwipeRightCallback(new QQScreen.SwipeRightCallback() {
+                    @Override
+                    public void onSwipeRight() {
+                        Gdx.app.error("Main", "Popup select Hero!!!!");
+                        changeScreen(title);
+                    }
+                }, Game.Size.WIDTH);
                 changeScreen(selectHero);
             }
                 break;
@@ -95,6 +104,12 @@ public class Main extends QQGameMachine implements
                     dungeon = new DungeonScreen((SaveGame) savedGame, viewport, assets, this);
                 }
                 dungeon.setHero(hero);
+                dungeon.setSwipeRightCallback(new QQScreen.SwipeRightCallback() {
+                    @Override
+                    public void onSwipeRight() {
+                        changeScreen(title);
+                    }
+                }, Game.Size.WIDTH);
                 changeScreen(dungeon);
             }
                 break;
