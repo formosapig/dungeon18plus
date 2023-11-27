@@ -172,6 +172,10 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
         this.totalWidth = totalWidth;
     }
 
+    public void setSwipeRightCallback(SwipeRightCallback callback) {
+        this.callback = callback;
+    }
+
     private float totalWidth = 500;
     private SwipeRightCallback callback;
     private boolean swipingRight;

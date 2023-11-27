@@ -312,6 +312,10 @@ public class DungeonScreen extends QQScreen {
     }
 
     private void endGame(boolean isWin) {
+        // disable swipe right.
+        setSwipeRightCallback(null);
+
+        // call summary dialog.
         SummaryDialog dialog = new SummaryDialog(assets, getCamera());
         dialog.reset(manager.killList, isWin, new QQPressListener() {
             @Override
