@@ -74,7 +74,6 @@ public class Main extends QQGameMachine implements
                 selectHero.setSwipeRightCallback(new QQScreen.SwipeRightCallback() {
                     @Override
                     public void onSwipeRight() {
-                        Gdx.app.error("Main", "Popup select Hero!!!!");
                         changeScreen(title);
                     }
                 }, Game.Size.WIDTH);
