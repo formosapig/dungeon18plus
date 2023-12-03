@@ -56,7 +56,16 @@ public class Game {
         public static final int COLOSSEUM  = 1<<2;
         public static final int WILDERNESS = 1<<3;
         public static final int CASTLE     = 1<<4;
-        public static final int LIBRARY    = 1<<5;
+        public static final int GALLERY    = 1<<5;
+    }
+
+    public static final class GalleryAction {
+        public static final int EQUIPMENT_CATALOG = 1;
+        public static final int MONSTER_ALBUM = 2;
+        public static final int DUNGEON_LEADERBOARD = 3;
+        public static final int WILDERNESS_LEGION = 4;
+        public static final int HERO_CLASS_ALBUM = 5;
+        public static final int GIANT_ALBUM = 6;
     }
 
     // debug flag

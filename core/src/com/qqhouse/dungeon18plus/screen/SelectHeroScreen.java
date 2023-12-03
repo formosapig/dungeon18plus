@@ -93,7 +93,9 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
     }
 
     @Override
-    public void onLeave() {}
+    public void onLeave() {
+        removeAllChildren();
+    }
 
     /*
         click to select hero class...

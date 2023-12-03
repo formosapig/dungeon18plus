@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.screen.DungeonScreen;
+import com.qqhouse.dungeon18plus.screen.GalleryScreen;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
 import com.qqhouse.dungeon18plus.struct.BossKill;
@@ -16,7 +17,8 @@ import java.util.ArrayList;
 public class Main extends QQGameMachine implements
         TitleScreen.TitleCallback,
         SelectHeroScreen.SelectHeroCallback,
-        DungeonScreen.DungeonCallback {
+        DungeonScreen.DungeonCallback,
+        GalleryScreen.GalleryCallback {
 
     public static final int STATE_TITLE       = 0;
     public static final int STATE_SELECT_HERO = 1;
@@ -27,6 +29,7 @@ public class Main extends QQGameMachine implements
     private TitleScreen title;
     private SelectHeroScreen selectHero;
     private DungeonScreen dungeon;
+    private GalleryScreen gallery;
     private Assets assets;
 
 
@@ -86,8 +89,10 @@ public class Main extends QQGameMachine implements
                 int a = 0;
             }
                 break;
-            case Game.Mode.LIBRARY: {
-                float a = 0.0f;
+            case Game.Mode.GALLERY: {
+                if (null == gallery) {
+                    gallery = new GalleryScreen(viewport, assets, this);
+                }
             }
                 break;
             default:
@@ -122,6 +127,11 @@ public class Main extends QQGameMachine implements
         //Gdx.app.error("Main", "on dungeon result.");
         changeScreen(title);
 
+
+    }
+
+    @Override
+    public void onGalleryAction(int action) {
 
     }
 }

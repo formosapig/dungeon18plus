@@ -101,8 +101,8 @@ public class TitleScreen extends QQScreen {
                 // 下面這行 code 把 texture 變成灰階的了,笑死
                 //new Texture(Gdx.files.internal("blockee/merchant.png"), Pixmap.Format.LuminanceAlpha, true),
                 fnt,
-                assets.geti18n("library"))
-                .qqListener(clickListener, Game.Mode.LIBRARY)
+                assets.geti18n("gallery"))
+                .qqListener(clickListener, Game.Mode.GALLERY)
                 .size(menu_width, menu_height));
         //Gdx.app.error("TitleScreen", "library menu added.");
 
