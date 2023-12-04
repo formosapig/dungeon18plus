@@ -139,6 +139,22 @@ public class Main extends QQGameMachine implements
 
     @Override
     public void onGalleryAction(int action) {
+        switch (action) {
+            case Game.GalleryAction.EQUIPMENT_CATALOG:
 
+                break;
+            case Game.GalleryAction.MONSTER_GUIDE:
+                break;
+            case Game.GalleryAction.DUNGEON_LEADERBOARD:
+                break;
+            case Game.GalleryAction.WILDERNESS_BARRACK:
+                break;
+            case Game.GalleryAction.HERO_ALBUM:
+                break;
+            case Game.GalleryAction.GIANT_ALBUM:
+                break;
+            default:
+                throw new GdxRuntimeException("Gallery action doesn't exist. : " + action);
+        }
     }
 }

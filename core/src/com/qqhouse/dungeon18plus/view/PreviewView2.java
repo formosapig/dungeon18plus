@@ -42,10 +42,10 @@ public class PreviewView2 extends AssetButton implements QQView.IsParent {
         setBackground(assets.getBackgroundSet(bgKey));
 
         // icon
-        QQImage blockee = new QQImage(assets.getBlockee(iconKey));
+        icon = new QQImage(assets.getBlockee(iconKey));
         //blockee.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
-        blockee.setPosition(8, 8);
-        addChild(blockee);
+        icon.setPosition(8, 8);
+        addChild(icon);
 
         // name
         name = new QQText(assets.getFont(Game.Font.NAME20));
@@ -69,16 +69,11 @@ public class PreviewView2 extends AssetButton implements QQView.IsParent {
 
     @Override
     protected void resetWrapHeight() {
-        Gdx.app.error("PreviewView2", "resetWrapHeight : " + width);
-        //Gdx.app.error("PreviewView2", "width = " + width + "@" + this);
         // if width not set, can not calculate height of font with multi line.
         if (0 == width) // QQView.MATCH_PARENT == width)
             return;
 
         // Text will calculate their height ...
-        Gdx.app.error("PreviewView2", "resetWrapHeight name : " + name.getWidth() + "," + name.getHeight());
-        Gdx.app.error("PreviewView2", "resetWrapHeight help : " + help.getWidth() + "," + help.getHeight());
-
         float h = topPadding + bottomPadding + name.getHeight() + help.getHeight() + Game.Size.INNER_MARGIN;
         this.height = Math.max(48 + 8 + 8, h);
     }
@@ -96,42 +91,25 @@ public class PreviewView2 extends AssetButton implements QQView.IsParent {
     }
 
     @Override
-    public void removeChild(QQView view) {
-
-    }
+    public void removeChild(QQView view) {}
 
     @Override
     public void onParentSizeChanged(float width, float height) {
-        Gdx.app.error("PreviewView2", "onParentSizeChanged : " + width + "," + height);
         if (0 < width) {
             // name = fix height.
             name.setSize(width - 64 - 8, 24);
-
             // help...
             help.setSize(width - 64 - 8, QQView.WRAP_CONTENT);
-            Gdx.app.error("PreviewView2", "help setSize : " + help.getWidth() + "," + help.getHeight());
         }
     }
 
     @Override
-    public void onChildSizeChanged(QQView child) {
-
-    }
+    public void onChildSizeChanged(QQView child) {}
 
     @Override
     public void arrangeChildren() {
-        Gdx.app.error("PreviewView2", "arrangeChildren" + this.width + "," + this.height);
-        if (0 >= this.width || 0 >= this.height)
-            return;
-
+        icon.setPosition(leftPadding, height - topPadding - 48);
         name.setPosition(64, this.height - 32);
-
-
-        //name.setSize(this.width - 64 - 8, 24);
-        //if (null != scoreOrRound) {
-        //    scoreOrRound.setPosition(this.width - scoreOrRound.getWidth() - 8, 40);
-        //}
-        //help.setSize(this.width - 64 - 8, QQView.WRAP_CONTENT);
     }
 
     @Override

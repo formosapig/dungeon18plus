@@ -140,7 +140,7 @@ public abstract class QQGameMachine implements ApplicationListener {
             builder.append("FPS:").append(Gdx.graphics.getFramesPerSecond())
                     .append(" Java:").append(Gdx.app.getJavaHeap() / 1024)
                     .append(" Native:").append(Gdx.app.getNativeHeap() / 1024);
-            font.draw(batch, builder, 4, 16);
+            font.draw(batch, builder, 4, 20);
         }
 
         batch.end();

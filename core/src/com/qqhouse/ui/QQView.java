@@ -26,6 +26,14 @@ public class QQView {
         void onLongPress(QQView view);
     }
 
+    // for convenient
+    public static class PressAdapter implements PressListener {
+        @Override
+        public void onPress(QQView view) {}
+        @Override
+        public void onLongPress(QQView view) {}
+    }
+
     public static final int WRAP_CONTENT = -1;  // 保有 view 的 size
     public static final int MATCH_PARENT  = -2;  // 最大的填充 parent 的 size
 

@@ -7,6 +7,7 @@ import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.PreviewView2;
 import com.qqhouse.ui.QQGroup;
+import com.qqhouse.ui.QQGroup2;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
@@ -26,7 +27,7 @@ public class GalleryScreen extends QQScreen {
     public void onEnter() {
 
         // group of background.
-        QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, Game.Size.WIDGET_MARGIN);
+        QQGroup2 group = new QQGroup2(QQGroup.DIRECT_VERTICAL, Game.Size.WIDGET_MARGIN);
         group.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         group.setSize(Game.Size.WIDTH - 12 - 12, QQView.WRAP_CONTENT);//Game.Size.HEIGHT * 0.9f);
         //group.setPosition(12, Game.Size.HEIGHT * 0.05f);
@@ -36,49 +37,91 @@ public class GalleryScreen extends QQScreen {
         // equipment collect.
         if (0 < savedGame.getEquipmentCount()) {
             // equipment preview ... ?
-            PreviewView2 test = new PreviewView2(assets);
-            test.reset("merchant", "merchant", "equipment_catalog_help", "special");
-            test.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-            group.addChild(test);
+            PreviewView2 tmp = new PreviewView2(assets);
+            tmp.reset("merchant", "merchant", "equipment_catalog_help", "special");
+            tmp.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+            tmp.addPressListener(new QQView.PressAdapter() {
+                @Override
+                public void onPress(QQView view) {
+                    if (null != callback)
+                        callback.onGalleryAction(Game.GalleryAction.EQUIPMENT_CATALOG);
+                }
+            });
+            group.addChild(tmp);
         }
 
         // monster collect
         if (0 < savedGame.getMonsterCount()) {
-            PreviewView2 test = new PreviewView2(assets);
-            test.reset("skeleton", "skeleton", "monster_guide_help", "ordinary");
-            test.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-            group.addChild(test);
+            PreviewView2 tmp = new PreviewView2(assets);
+            tmp.reset("skeleton", "skeleton", "monster_guide_help", "ordinary");
+            tmp.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+            tmp.addPressListener(new QQView.PressAdapter() {
+                @Override
+                public void onPress(QQView view) {
+                    if (null != callback)
+                        callback.onGalleryAction(Game.GalleryAction.MONSTER_GUIDE);
+                }
+            });
+            group.addChild(tmp);
         }
 
         // leader board.
         if (0 < savedGame.getLeaderboardCount()) {
-            PreviewView2 test = new PreviewView2(assets);
-            test.reset("novice", "old_hero", "leaderboard_help", "lawful");
-            test.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-            group.addChild(test);
+            PreviewView2 tmp = new PreviewView2(assets);
+            tmp.reset("novice", "old_hero", "leaderboard_help", "lawful");
+            tmp.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+            tmp.addPressListener(new QQView.PressAdapter() {
+                @Override
+                public void onPress(QQView view) {
+                    if (null != callback)
+                        callback.onGalleryAction(Game.GalleryAction.DUNGEON_LEADERBOARD);
+                }
+            });
+            group.addChild(tmp);
         }
 
         // barrack.
         if (0 < savedGame.getBarrackCount()) {
-            PreviewView2 test = new PreviewView2(assets);
-            test.reset("crusader", "crusader", "barrack_help", "lawful");
-            test.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-            group.addChild(test);
+            PreviewView2 tmp = new PreviewView2(assets);
+            tmp.reset("crusader", "crusader", "barrack_help", "lawful");
+            tmp.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+            tmp.addPressListener(new QQView.PressAdapter() {
+                @Override
+                public void onPress(QQView view) {
+                    if (null != callback)
+                        callback.onGalleryAction(Game.GalleryAction.WILDERNESS_BARRACK);
+                }
+            });
+            group.addChild(tmp);
         }
 
         // hero album, must have.
-        PreviewView2 test1 = new PreviewView2(assets);
-        test1.reset("fairy", "fairy", "hero_album_help", "neutral");
-        test1.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-        group.addChild(test1);
+        PreviewView2 tmp2 = new PreviewView2(assets);
+        tmp2.reset("fairy", "fairy", "hero_album_help", "neutral");
+        tmp2.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        tmp2.addPressListener(new QQView.PressAdapter() {
+            @Override
+            public void onPress(QQView view) {
+                if (null != callback)
+                    callback.onGalleryAction(Game.GalleryAction.HERO_ALBUM);
+            }
+        });
+        group.addChild(tmp2);
 
 
         // giant album
         if (savedGame.isOpenGiantAlbum()) {
-            PreviewView2 test = new PreviewView2(assets);
-            test.reset("valkyrie", "valkyrie", "giant_album_help", "neutral");
-            test.setSize(QQView.MATCH_PARENT, 64);
-            group.addChild(test);
+            PreviewView2 tmp = new PreviewView2(assets);
+            tmp.reset("valkyrie", "valkyrie", "giant_album_help", "neutral");
+            tmp.setSize(QQView.MATCH_PARENT, 64);
+            tmp.addPressListener(new QQView.PressAdapter() {
+                @Override
+                public void onPress(QQView view) {
+                    if (null != callback)
+                        callback.onGalleryAction(Game.GalleryAction.GIANT_ALBUM);
+                }
+            });
+            group.addChild(tmp);
         }
 
         // group set size

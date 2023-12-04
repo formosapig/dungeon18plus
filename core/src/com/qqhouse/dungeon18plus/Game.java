@@ -61,10 +61,10 @@ public class Game {
 
     public static final class GalleryAction {
         public static final int EQUIPMENT_CATALOG = 1;
-        public static final int MONSTER_ALBUM = 2;
+        public static final int MONSTER_GUIDE = 2;
         public static final int DUNGEON_LEADERBOARD = 3;
-        public static final int WILDERNESS_LEGION = 4;
-        public static final int HERO_CLASS_ALBUM = 5;
+        public static final int WILDERNESS_BARRACK = 4;
+        public static final int HERO_ALBUM = 5;
         public static final int GIANT_ALBUM = 6;
     }
 
