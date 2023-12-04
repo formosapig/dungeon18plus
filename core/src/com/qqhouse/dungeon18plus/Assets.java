@@ -52,7 +52,7 @@ public class Assets {
             long t = TimeUtils.millis();
             manager.load(fileName, Texture.class, ttParam);
             manager.finishLoadingAsset(fileName);
-            Gdx.app.error("Assets", String.format(Locale.US, "getBlockee(%S) : %d", key, (TimeUtils.millis() - t)));
+            //Gdx.app.error("Assets", String.format(Locale.US, "getBlockee(%S) : %d", key, (TimeUtils.millis() - t)));
         }
         return manager.get(fileName, Texture.class);
     }
@@ -63,7 +63,7 @@ public class Assets {
             long t = TimeUtils.millis();
             manager.load(fileName, Texture.class, ttParam);
             manager.finishLoadingAsset(fileName);
-            Gdx.app.error("Assets", String.format(Locale.US, "getIcon16(%S) : %d", key, (TimeUtils.millis() - t)));
+            //Gdx.app.error("Assets", String.format(Locale.US, "getIcon16(%S) : %d", key, (TimeUtils.millis() - t)));
         }
         return manager.get(fileName, Texture.class);
     }
@@ -74,7 +74,7 @@ public class Assets {
             long t = TimeUtils.millis();
             manager.load(fileName, Texture.class, ttParam);
             manager.finishLoadingAsset(fileName);
-            Gdx.app.error("Assets", String.format(Locale.US, "getIcon32(%S) : %d", key, (TimeUtils.millis() - t)));
+            //Gdx.app.error("Assets", String.format(Locale.US, "getIcon32(%S) : %d", key, (TimeUtils.millis() - t)));
         }
         return manager.get(fileName, Texture.class);
     }
@@ -85,7 +85,7 @@ public class Assets {
             long t = TimeUtils.millis();
             manager.load(fileName, Texture.class, ttParam);
             manager.finishLoadingAsset(fileName);
-            Gdx.app.error("Assets", String.format(Locale.US, "getItem(%S) : %d", key, (TimeUtils.millis() - t)));
+            //Gdx.app.error("Assets", String.format(Locale.US, "getItem(%S) : %d", key, (TimeUtils.millis() - t)));
         }
         return manager.get(fileName, Texture.class);
     }
@@ -96,7 +96,7 @@ public class Assets {
             long t = TimeUtils.millis();
             manager.load(fileName, Texture.class, ttParam);
             manager.finishLoadingAsset(fileName);
-            Gdx.app.error("Assets", String.format(Locale.US, "getBackground(%S) : %d", key, (TimeUtils.millis() - t)));
+            //Gdx.app.error("Assets", String.format(Locale.US, "getBackground(%S) : %d", key, (TimeUtils.millis() - t)));
         }
         return manager.get(fileName, Texture.class);
     }
@@ -104,7 +104,7 @@ public class Assets {
     public NinePatch getNinePatchBG(String key) {
         long t = TimeUtils.millis();
         NinePatch np = new NinePatch(getBackground(key), 4, 4, 4, 4);
-        Gdx.app.error("Assets", String.format(Locale.US, "getNinePatchBG(%S) : %d", key, (TimeUtils.millis() - t)));
+        //Gdx.app.error("Assets", String.format(Locale.US, "getNinePatchBG(%S) : %d", key, (TimeUtils.millis() - t)));
 
         return np;//new NinePatch(getBackground(key), 4, 4, 4, 4);
     }
@@ -141,7 +141,7 @@ public class Assets {
             manager.load("i18n/dungeon18plus", I18NBundle.class);
             manager.finishLoading();
             langBundle = manager.get("i18n/dungeon18plus", I18NBundle.class);
-            Gdx.app.error("Assets", String.format(Locale.US, "geti18n(%S) : %d", key, (TimeUtils.millis() - t)));
+            //Gdx.app.error("Assets", String.format(Locale.US, "geti18n(%S) : %d", key, (TimeUtils.millis() - t)));
         }
         return langBundle.get(key);
     }
@@ -152,7 +152,7 @@ public class Assets {
             manager.load("i18n/dungeon18plus", I18NBundle.class);
             manager.finishLoading();
             langBundle = manager.get("i18n/dungeon18plus", I18NBundle.class);
-            Gdx.app.error("Assets", String.format(Locale.US, "formati18n(%S) : %d", key, (TimeUtils.millis() - t)));
+            //Gdx.app.error("Assets", String.format(Locale.US, "formati18n(%S) : %d", key, (TimeUtils.millis() - t)));
 
         }
         return langBundle.format(key, args);
@@ -164,7 +164,7 @@ public class Assets {
             long t = TimeUtils.millis();
             manager.load(fileName, Texture.class, ttParam);
             manager.finishLoadingAsset(fileName);
-            Gdx.app.error("Assets", String.format(Locale.US, "getTexture(%s/%S) : %d",folder, key, (TimeUtils.millis() - t)));
+            //Gdx.app.error("Assets", String.format(Locale.US, "getTexture(%s/%S) : %d",folder, key, (TimeUtils.millis() - t)));
         }
         return manager.get(fileName, Texture.class);
     }
@@ -197,7 +197,7 @@ public class Assets {
             // fixed size ?! FIXME white rabbit 的 1 沒有 fixed width ... 導致浪費效能...
             //BitmapFont font = manager.get(fileName, BitmapFont.class);
             //font.setFixedWidthGlyphs(FreeTypeFontGenerator.DEFAULT_CHARS);
-            Gdx.app.error("Assets", String.format(Locale.US, "getFont(%S) : %d", fontName, (TimeUtils.millis() - t)));
+            //Gdx.app.error("Assets", String.format(Locale.US, "getFont(%S) : %d", fontName, (TimeUtils.millis() - t)));
 
         }
         return manager.get(fileName, BitmapFont.class);
@@ -214,7 +214,7 @@ public class Assets {
             long t = TimeUtils.millis();
             manager.load(fileName, Texture.class, ttParam);
             manager.finishLoadingAsset(fileName);
-            Gdx.app.error("Assets", String.format(Locale.US, "getButton(%S) : %d", key, (TimeUtils.millis() - t)));
+            //Gdx.app.error("Assets", String.format(Locale.US, "getButton(%S) : %d", key, (TimeUtils.millis() - t)));
 
         }
         return manager.get(fileName, Texture.class);
@@ -228,7 +228,7 @@ public class Assets {
             set.pressed = new NinePatch(getButton(key + "_down"), 4, 4, 4, 4);
             set.disable = new NinePatch(getButton("disable"), 4, 4, 4, 4);
             buttonBackgroundSets.put(key, set);
-            Gdx.app.error("Assets", String.format(Locale.US, "getBackgroundSet(%S) : %d", key, (TimeUtils.millis() - t)));
+            //Gdx.app.error("Assets", String.format(Locale.US, "getBackgroundSet(%S) : %d", key, (TimeUtils.millis() - t)));
 
         }
         return buttonBackgroundSets.get(key);

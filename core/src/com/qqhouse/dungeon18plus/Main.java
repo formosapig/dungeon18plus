@@ -91,8 +91,15 @@ public class Main extends QQGameMachine implements
                 break;
             case Game.Mode.GALLERY: {
                 if (null == gallery) {
-                    gallery = new GalleryScreen(viewport, assets, this);
+                    gallery = new GalleryScreen((SaveGame)savedGame, viewport, assets, this);
                 }
+                gallery.setSwipeRightCallback(new QQScreen.SwipeRightCallback() {
+                    @Override
+                    public void onSwipeRight() {
+                        changeScreen(title);
+                    }
+                }, Game.Size.WIDTH);
+                changeScreen(gallery);
             }
                 break;
             default:

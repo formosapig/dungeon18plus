@@ -8,6 +8,7 @@ import com.qqhouse.dungeon18plus.struct.GiantRecord;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.struct.Monster;
 import com.qqhouse.dungeon18plus.struct.hero.ScoreHero;
+import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.io.QQSaveGame;
 
 import java.util.ArrayList;
@@ -216,7 +217,7 @@ public class SaveGame extends QQSaveGame {
     }
 
     /*
-     * Wilderness series
+     * Wilderness and giant series
      */
     public ArrayList<GiantRace> getAvailableGiant() {
         ArrayList<GiantRace> result = new ArrayList<>();
@@ -250,6 +251,15 @@ public class SaveGame extends QQSaveGame {
         }
         return false;
     }
+
+    public boolean isOpenGiantAlbum() {
+        for (GiantRecord gr : mWildernessData.giants) {
+            if (0 < gr.exp)
+                return true;
+        }
+        return false;
+    }
+
 
     /*
      * Monster series.
@@ -296,5 +306,43 @@ public class SaveGame extends QQSaveGame {
 
     public int getLeaderboardCount() {
         return mLeaderboardData.heroes.size();
+    }
+
+    /*
+     * Veteran (Barrack/Legion) series
+     */
+    public ArrayList<Veteran> getBarrackData() {
+        return mVeteranData.barrack;
+    }
+
+    public ArrayList<Veteran> getLegionData() {
+        return mVeteranData.legion;
+    }
+
+    public int getBarrackCount() {
+        return mVeteranData.barrack.size();
+    }
+
+    public int getLegionCount() {
+        return mVeteranData.legion.size();
+    }
+
+    public int veteranLoseLife(int index) {
+        return --mVeteranData.legion.get(index).round;
+    }
+
+    public void veteranRestInPeace() {
+        for (int i = mVeteranData.legion.size() - 1; i >= 0; --i) {
+            if (0 >= mVeteranData.legion.get(i).round)
+                mVeteranData.legion.remove(i);
+        }
+    }
+
+    public void addVeteranToBarrack(int position, Veteran veteran) {
+        if (position < mVeteranData.barrack.size())
+            mVeteranData.barrack.set(position, veteran);
+        else
+            mVeteranData.barrack.add(veteran);
+        Collections.sort(mVeteranData.barrack);
     }
 }

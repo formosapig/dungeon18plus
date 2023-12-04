@@ -35,6 +35,10 @@ public class QQText extends QQView {
         this.bgNormal.setColor(new Color(1, 1, 1, alpha));
     }
 
+    public BitmapFont getFont() {
+        return this.font;
+    }
+
     @Override
     public void setSize(float w, float h) {
         Game.trace(this, "QQText.setSize w:%.0f, h:%.0f", w, h);
@@ -63,6 +67,10 @@ public class QQText extends QQView {
         wrap = false;
         truncate = null;
         rearrange();
+    }
+
+    public String getText() {
+        return this.text;
     }
 
     public void setText(String text, boolean wrap) {
