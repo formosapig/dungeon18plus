@@ -43,7 +43,7 @@ public class QQIconText extends QQText {
         GlyphLayout glyphs = new GlyphLayout();
         glyphs.setText(font, text);
 
-        width = icon.getWidth() + Game.Size.INNER_MARGIN + glyphs.width;
+        width = (null != icon ? icon.getWidth() : 0) + Game.Size.INNER_MARGIN + glyphs.width;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class QQIconText extends QQText {
 
         // width
         if (wrapWidth) {
-            width = icon.getWidth() + 2 + glyphs.width;
+            width = (null != icon ? icon.getWidth() : 0) + 2 + glyphs.width;
         }
 
         // shift x
@@ -77,7 +77,8 @@ public class QQIconText extends QQText {
 
     @Override
     public void drawForeground(SpriteBatch batch, float originX, float originY) {
-        batch.draw(icon, originX, originY, height, height);
+        if (null != icon)
+            batch.draw(icon, originX, originY, height, height);
         super.drawForeground(batch, originX, originY);
     }
 

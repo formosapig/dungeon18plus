@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.screen.DungeonScreen;
+import com.qqhouse.dungeon18plus.screen.EquipmentCatalogScreen;
 import com.qqhouse.dungeon18plus.screen.GalleryScreen;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
@@ -30,6 +31,7 @@ public class Main extends QQGameMachine implements
     private SelectHeroScreen selectHero;
     private DungeonScreen dungeon;
     private GalleryScreen gallery;
+    private EquipmentCatalogScreen equipmentCatalog;
     private Assets assets;
 
 
@@ -140,8 +142,19 @@ public class Main extends QQGameMachine implements
     @Override
     public void onGalleryAction(int action) {
         switch (action) {
-            case Game.GalleryAction.EQUIPMENT_CATALOG:
+            case Game.GalleryAction.EQUIPMENT_CATALOG: {
+                if (null == equipmentCatalog) {
+                    equipmentCatalog = new EquipmentCatalogScreen((SaveGame) savedGame, viewport, assets);
+                }
+                equipmentCatalog.setSwipeRightCallback(new QQScreen.SwipeRightCallback() {
+                    @Override
+                    public void onSwipeRight() {
+                        changeScreen(gallery);
+                    }
+                }, Game.Size.WIDTH);
+                changeScreen(equipmentCatalog);
 
+            }
                 break;
             case Game.GalleryAction.MONSTER_GUIDE:
                 break;

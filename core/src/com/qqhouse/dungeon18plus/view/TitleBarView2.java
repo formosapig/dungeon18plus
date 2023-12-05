@@ -27,7 +27,10 @@ public class TitleBarView2 extends AssetGroup {
             addChild(icon);
         }
 
-        resource = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16(resourceKey));
+        if (null == resourceKey)
+            resource = new QQIconText(assets.getFont(Game.Font.DIGITAL16));
+        else
+            resource = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16(resourceKey));
         //resource.setSize(QQView.WRAP_CONTENT, 32);
         //resource.setPosition(this.width - resource.getWidth() - rightPadding, bottomPadding);
         resource.setColor(color);
@@ -44,8 +47,10 @@ public class TitleBarView2 extends AssetGroup {
     @Override
     public void arrangeChildren() {
         // FIXME random order set data can still arrange children correctly.
-        if (null == resource || null == name)
+        if (null == icon || null == resource || null == name)
             return;
+        icon.setPosition(leftPadding, bottomPadding);
+
         resource.setSize(QQView.WRAP_CONTENT, 16);
         resource.setPosition(this.width - resource.getWidth() - rightPadding, bottomPadding + 8);
 

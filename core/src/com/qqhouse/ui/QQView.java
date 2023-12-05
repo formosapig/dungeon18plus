@@ -190,13 +190,13 @@ public class QQView {
         bottomPadding = bottom;
         leftPadding = left;
         rightPadding = right;
+        if (this instanceof IsParent) {
+            ((IsParent) this).arrangeChildren();
+        }
     }
 
     public void setPadding(float all) {
-        topPadding = all;
-        bottomPadding = all;
-        leftPadding = all;
-        rightPadding = all;
+        setPadding(all, all, all, all);
     }
 
     public void dispose() {}
