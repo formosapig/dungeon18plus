@@ -1,17 +1,16 @@
 package com.qqhouse.dungeon18plus;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.screen.DungeonScreen;
 import com.qqhouse.dungeon18plus.screen.EquipmentCatalogScreen;
 import com.qqhouse.dungeon18plus.screen.GalleryScreen;
+import com.qqhouse.dungeon18plus.screen.MonsterGuideScreen;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.ui.QQGameMachine;
-import com.qqhouse.ui.QQScreen;
 
 import java.util.ArrayList;
 
@@ -32,6 +31,7 @@ public class Main extends QQGameMachine implements
     private DungeonScreen dungeon;
     private GalleryScreen gallery;
     private EquipmentCatalogScreen equipmentCatalog;
+    private MonsterGuideScreen monsterGuide;
     private Assets assets;
 
 
@@ -54,15 +54,7 @@ public class Main extends QQGameMachine implements
         // title screen first
         title = new TitleScreen((SaveGame) savedGame, viewport, assets, this);
 
-        changeScreen(title);
-
-        // add states....
-        //addState(STATE_TITLE, new TitleScreen((SaveGame) savedGame, viewport, this));
-        //addState(STATE_SELECT_HERO, new SelectHeroScreen(viewport));
-
-        // enter title (default state)
-        //changeState(STATE_TITLE);
-        //Gdx.app.error("Main", "Main.create() end.");
+        setRoot(title);
     }
 
     @Override
@@ -76,13 +68,7 @@ public class Main extends QQGameMachine implements
                     selectHero = new SelectHeroScreen((SaveGame) savedGame, viewport, assets, this);
                 }
                 selectHero.setGameMode(gameMode);
-                selectHero.setSwipeRightCallback(new QQScreen.SwipeRightCallback() {
-                    @Override
-                    public void onSwipeRight() {
-                        changeScreen(title);
-                    }
-                }, Game.Size.WIDTH);
-                changeScreen(selectHero);
+                push(selectHero);
             }
                 break;
             case Game.Mode.WILDERNESS:
@@ -95,13 +81,7 @@ public class Main extends QQGameMachine implements
                 if (null == gallery) {
                     gallery = new GalleryScreen((SaveGame)savedGame, viewport, assets, this);
                 }
-                gallery.setSwipeRightCallback(new QQScreen.SwipeRightCallback() {
-                    @Override
-                    public void onSwipeRight() {
-                        changeScreen(title);
-                    }
-                }, Game.Size.WIDTH);
-                changeScreen(gallery);
+                push(gallery);
             }
                 break;
             default:
@@ -117,13 +97,8 @@ public class Main extends QQGameMachine implements
                     dungeon = new DungeonScreen((SaveGame) savedGame, viewport, assets, this);
                 }
                 dungeon.setHero(hero);
-                dungeon.setSwipeRightCallback(new QQScreen.SwipeRightCallback() {
-                    @Override
-                    public void onSwipeRight() {
-                        changeScreen(title);
-                    }
-                }, Game.Size.WIDTH);
-                changeScreen(dungeon);
+                // go from select hero, pop select hero first then push dungeon...
+                swap(dungeon);
             }
                 break;
             default:
@@ -133,10 +108,7 @@ public class Main extends QQGameMachine implements
 
     @Override
     public void onDungeonResult(boolean isWin, ArrayList<BossKill> kills) {
-        //Gdx.app.error("Main", "on dungeon result.");
-        changeScreen(title);
-
-
+        popup();
     }
 
     @Override
@@ -146,17 +118,15 @@ public class Main extends QQGameMachine implements
                 if (null == equipmentCatalog) {
                     equipmentCatalog = new EquipmentCatalogScreen((SaveGame) savedGame, viewport, assets);
                 }
-                equipmentCatalog.setSwipeRightCallback(new QQScreen.SwipeRightCallback() {
-                    @Override
-                    public void onSwipeRight() {
-                        changeScreen(gallery);
-                    }
-                }, Game.Size.WIDTH);
-                changeScreen(equipmentCatalog);
-
+                push(equipmentCatalog);
             }
                 break;
-            case Game.GalleryAction.MONSTER_GUIDE:
+            case Game.GalleryAction.MONSTER_GUIDE: {
+                if (null == monsterGuide) {
+                    monsterGuide = new MonsterGuideScreen((SaveGame) savedGame, viewport, assets);
+                }
+                push(monsterGuide);
+            }
                 break;
             case Game.GalleryAction.DUNGEON_LEADERBOARD:
                 break;

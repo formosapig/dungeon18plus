@@ -2,7 +2,6 @@ package com.qqhouse.ui;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,8 +13,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.io.QQSaveGame;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
+import java.util.Stack;
 
 public abstract class QQGameMachine implements ApplicationListener {
 
@@ -33,6 +32,8 @@ public abstract class QQGameMachine implements ApplicationListener {
     private StringBuilder builder;
     private long screenStartTime;
     private long screenStartJavaHeap;
+    private Stack<QQScreen> screens;
+    private float width;
 
     protected void initial(int width, int height) {
         batch = new SpriteBatch();
@@ -40,8 +41,10 @@ public abstract class QQGameMachine implements ApplicationListener {
         camera.setToOrtho(false, width, height);
         viewport = new StretchViewport(width, height, camera);
 
-        // insert empty screen...
-        mScreens = new HashMap<Integer, QQScreen>();
+        this.width = width;
+
+        screens = new Stack<>();
+
 
         if (debug) {
             font = new BitmapFont();
@@ -49,64 +52,70 @@ public abstract class QQGameMachine implements ApplicationListener {
         }
     }
 
-    /*
-        state machine series...
-     */
-    private Map<Integer, QQScreen> mScreens;
-    private int mState;
-    private QQScreen mCurrentScreen;
     private QQScreen current;
 
-    protected void addState(int state, QQScreen screen) {
-        if (mScreens.containsKey(state)) {
-            Gdx.app.error("Game Engine", "duplicate state.");
-            return;
-        }
-        mScreens.put(state, screen);
+    protected void setRoot(QQScreen screen) {
+        current = screen;
+        screens.push(screen);
+
+        current.onEnter();
+        Gdx.input.setInputProcessor(current);
+        //Gdx.app.error("QQgameMachine", "Screen Stack : " + screens.size());
     }
 
-    // change current state to target state
-    public void changeState(int targetState) {
-        // current state onLeave
-        Gdx.input.setInputProcessor(null);
-        if (null != mCurrentScreen) {
-            mCurrentScreen.onLeave();
-        }
-
-        // change state
-        mState = targetState;
-        mCurrentScreen = mScreens.get(mState);
-
-        // current state onEnter
-        if (null != mCurrentScreen) {
-            mCurrentScreen.onEnter();
-            Gdx.input.setInputProcessor(mCurrentScreen);
-        }
-    }
-
-    protected void changeScreen(QQScreen screen) {
+    protected void push(QQScreen screen) {
         Gdx.input.setInputProcessor(null);
         if (null != current) {
             current.onLeave();
         }
 
         current = screen;
-        if (debug) {
-            screenStartTime = TimeUtils.millis();
-            screenStartJavaHeap = Gdx.app.getJavaHeap();
-        }
-
+        current.setSwipeRightCallback(callback, width);
+        screens.push(screen);
 
         current.onEnter();
         Gdx.input.setInputProcessor(current);
+        //Gdx.app.error("QQgameMachine", "Screen Stack : " + screens.size());
     }
 
-    // get game state.
-    public int getState() {
-        return mState;
+    protected void swap(QQScreen screen) {
+        Gdx.input.setInputProcessor(null);
+        if (null != current) {
+            current.onLeave();
+        }
+
+        screens.pop();
+
+        current = screen;
+        current.setSwipeRightCallback(callback, width);
+        screens.push(screen);
+
+        current.onEnter();
+        Gdx.input.setInputProcessor(current);
+        //Gdx.app.error("QQgameMachine", "Screen Stack : " + screens.size());
     }
 
-    public QQScreen getScreen() { return mCurrentScreen; }
+    protected void popup() {
+        Gdx.input.setInputProcessor(null);
+        if (null != current) {
+            current.onLeave();
+        }
+
+        screens.pop();
+
+        current = screens.peek();
+
+        current.onEnter();
+        Gdx.input.setInputProcessor(current);
+        //Gdx.app.error("QQgameMachine", "Screen Stack : " + screens.size());
+    }
+
+    private QQScreen.SwipeRightCallback callback = new QQScreen.SwipeRightCallback() {
+        @Override
+        public void onSwipeRight() {
+            popup();
+        }
+    };
 
     /*
         Application Listener
@@ -133,9 +142,6 @@ public abstract class QQGameMachine implements ApplicationListener {
         current.draw(batch);
 
         if (null != font) {
-
-
-
             builder.clear();
             builder.append("FPS:").append(Gdx.graphics.getFramesPerSecond())
                     .append(" Java:").append(Gdx.app.getJavaHeap() / 1024)

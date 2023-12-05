@@ -8,14 +8,15 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
-import com.qqhouse.dungeon18plus.Game;
 
 /*
     icon's size = this.height x this.height ...
+    icon may be null.
  */
 
 public class QQIconText extends QQText {
 
+    private static final int innerMargin = 2;
     public QQIconText(BitmapFont font) {
         super(font);
     }
@@ -43,7 +44,7 @@ public class QQIconText extends QQText {
         GlyphLayout glyphs = new GlyphLayout();
         glyphs.setText(font, text);
 
-        width = (null != icon ? icon.getWidth() : 0) + Game.Size.INNER_MARGIN + glyphs.width;
+        width = (null != icon ? height + innerMargin : 0) + glyphs.width;
     }
 
     @Override
@@ -53,16 +54,16 @@ public class QQIconText extends QQText {
 
         // width
         if (wrapWidth) {
-            width = (null != icon ? icon.getWidth() : 0) + 2 + glyphs.width;
+            width = (null != icon ? height + innerMargin : 0) + glyphs.width;
         }
 
         // shift x
         if (Align.isCenterHorizontal(align)) {
-            shiftX = (height + 2 + width - glyphs.width) / 2;
+            shiftX = ((null != icon ? height + 2 : 0) + width - glyphs.width) / 2;
         } else if (Align.isRight(align)) {
             shiftX = width - glyphs.width;
         } else {
-            shiftX = height + 2;
+            shiftX = (null != icon ? height + 2 : 0);
         }
 
         // shift y

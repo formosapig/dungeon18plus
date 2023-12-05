@@ -5,6 +5,7 @@ import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
+import com.qqhouse.dungeon18plus.struct.Monster;
 import com.qqhouse.dungeon18plus.view.ItemDetailView;
 import com.qqhouse.dungeon18plus.view.TitleBarView2;
 import com.qqhouse.ui.QQList;
@@ -13,28 +14,27 @@ import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
 
-public class EquipmentCatalogScreen extends QQScreen {
+public class MonsterGuideScreen extends QQScreen {
 
-    public EquipmentCatalogScreen(SaveGame savedGame, Viewport viewport, Assets assets) {
+    public MonsterGuideScreen(SaveGame savedGame, Viewport viewport, Assets assets) {
         super(savedGame, viewport, assets);
     }
 
-    private ArrayList<Item> equipments;
-
+    private ArrayList<Monster> monsters;
 
     @Override
     public void onEnter() {
 
         // data
-        equipments = savedGame.getEquipmentData();
+        monsters = savedGame.getMonsterData();
 
         // title bar with merchant and equipment count...
         TitleBarView2 merchant = new TitleBarView2(assets);
-        merchant.reset("merchant", "merchant", null, Game.Colour.COUNT, Integer.toString(equipments.size()));
+        merchant.reset("skeleton", "skeleton", null, Game.Colour.COUNT, Integer.toString(monsters.size()));
         merchant.setSize(Game.Size.WIDTH, 48);
         merchant.setPosition(0, Game.Size.HEIGHT - 48);
         merchant.setPadding(8);
-        merchant.setBackground(assets.getNinePatchBG("special"));
+        merchant.setBackground(assets.getNinePatchBG("ordinary"));
         addChild(merchant);
 
         // split line...
@@ -68,15 +68,15 @@ public class EquipmentCatalogScreen extends QQScreen {
 
         @Override
         public int getSize() {
-            return equipments.size();
+            return monsters.size();
         }
 
         @Override
         public QQView getView(int index) {
             ItemDetailView view = new ItemDetailView(assets);
-            view.reset();
-            view.update(equipments.get(index), false);
-            view.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+            //view.reset();
+            //view.update(monsters.get(index), false);
+            //view.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
 
             return view;
         }
