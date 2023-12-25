@@ -39,8 +39,8 @@ public class EquipmentCatalogScreen extends QQScreen {
 
         // split line...
         QQView line = new QQView();
-        line.setSize(Game.Size.WIDTH, 4);
-        line.setPosition(0, Game.Size.HEIGHT - 48 - 4 - Game.Size.WIDGET_MARGIN);
+        line.setSize(Game.Size.WIDTH - Game.Size.WIDGET_MARGIN, 4);
+        line.setPosition(Game.Size.WIDGET_MARGIN / 2, Game.Size.HEIGHT - 48 - 4 - Game.Size.WIDGET_MARGIN);
         line.setBackground(assets.getNinePatchBG("white"));
         addChild(line);
 

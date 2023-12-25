@@ -102,7 +102,6 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
             }
         }
 
-
         QQView[] views = childrenView.items;
         for (int i = childrenView.size - 1; i >= 0; --i) {
             // 傳入相對於 (0, 0) 的座標...

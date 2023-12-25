@@ -7,7 +7,9 @@ import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.Monster;
 import com.qqhouse.dungeon18plus.view.ItemDetailView;
+import com.qqhouse.dungeon18plus.view.MonsterView;
 import com.qqhouse.dungeon18plus.view.TitleBarView2;
+import com.qqhouse.ui.QQGrid;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
@@ -45,14 +47,15 @@ public class MonsterGuideScreen extends QQScreen {
         addChild(line);
 
         // equipment adapter ....
-        QQList list = new QQList();
+        QQGrid grid = new QQGrid();
         //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         //list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 48 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4
-        list.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 48 - 8 - 4);
-        list.setPosition(0, 0);
-        list.setCamera(getCamera());
-        list.setAdapter(adapter);
-        addChild(list);
+        grid.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 48 - 8 - 4);
+        grid.setPosition(0, 0);
+        grid.setCamera(getCamera());
+        grid.setNumColumns(4);
+        grid.setAdapter(adapter);
+        addChild(grid);
 
     }
 
@@ -64,7 +67,7 @@ public class MonsterGuideScreen extends QQScreen {
     /*
         QQList.Adapter series...
      */
-    private QQList.Adapter adapter = new QQList.Adapter() {
+    private QQGrid.Adapter adapter = new QQGrid.Adapter() {
 
         @Override
         public int getSize() {
@@ -73,12 +76,10 @@ public class MonsterGuideScreen extends QQScreen {
 
         @Override
         public QQView getView(int index) {
-            ItemDetailView view = new ItemDetailView(assets);
-            //view.reset();
-            //view.update(monsters.get(index), false);
-            //view.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-
-            return view;
+            MonsterView monster = new MonsterView(assets);
+            monster.reset(monsters.get(index));
+            monster.setSize(64, 64);
+            return monster;
         }
 
         @Override
