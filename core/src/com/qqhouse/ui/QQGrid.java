@@ -56,16 +56,21 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
         scroll series.
      */
 
-    private void calculateMaxScrollY() {
+    private float getTotalHeight() {
         float totalHeight = 0;
         for (QQView child : childrenView) {
             // FIXME SDK component can not use Game.Size.WIDGET_MARGIN
             totalHeight += child.height + Game.Size.WIDGET_MARGIN;
         }
         totalHeight -= Game.Size.WIDGET_MARGIN;
-        maxScrollY = totalHeight - (this.height - this.topPadding - this.bottomPadding);
-        if (maxScrollY <0)
+        return totalHeight;
+    }
+
+    private void calculateMaxScrollY() {
+        maxScrollY = getTotalHeight() - (this.height - this.topPadding - this.bottomPadding);
+        if (maxScrollY < 0) {
             maxScrollY = 0;
+        }
     }
 
     /*
@@ -75,12 +80,6 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
     public void setSize(float w, float h) {
         super.setSize(w, h);
         calculateMaxScrollY();
-        //rearrangeChildren();
-        //float totalHeight = - Game.Size.WIDGET_MARGIN;
-        //for (QQView v : childrenView) {
-        //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
-        //}
-        //maxScrollY = totalHeight - h + bottomPadding + topPadding; // padding not counting.
     }
 
     @Override
@@ -111,15 +110,7 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
             addChild(adapter.getView(i));
         }
         arrangeChildren();
-        float totalHeight = - Game.Size.WIDGET_MARGIN;
-        for (QQView v : childrenView) {
-            totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
-        }
-        maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
-        if (maxScrollY < 0)
-            maxScrollY = 0;
-        //Gdx.app.error("QQList", "maxScrollY = " + maxScrollY);
-        //Gdx.app.error("QQList", "scrollY = " + scrollY);
+        calculateMaxScrollY();
     }
 
     private int insertIndex = -1;
@@ -649,19 +640,26 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
         // from top to bottom...
         float anchorY = this.height - topPadding + scrollY;
+        int column = 0;
         for (QQView child : childrenView) {
 
             // match width
             if (child.matchWidth && 0 >= child.width)
                 child.setSize(this.width - leftPadding - rightPadding, child.getHeight());
 
-            anchorY -= child.height;
+            if (0 == column) {
+                anchorY -= child.height;
+            }
 
             // reset position
-            child.setPosition(leftPadding, anchorY/* + scrollY*/);
+            child.setPosition(leftPadding + column * 80, anchorY/* + scrollY*/);
 
-            // widget margin
-            anchorY -= Game.Size.WIDGET_MARGIN;
+            if (numColumns == ++column) {
+
+                // widget margin
+                anchorY -= Game.Size.WIDGET_MARGIN;
+                column = 0;
+            }
         }
 
         // calculate maxScrollY
@@ -673,16 +671,8 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
         childrenView.add(child);
         child.setParent(this);
         // calculate child size
-        if (child.matchWidth) {
-            if (wrapWidth)
-                throw new GdxRuntimeException("wrap width with match width child.");
-            child.setSize(width - leftPadding - rightPadding, child.getHeight());
-            //Gdx.app.error("QQList", "reset width : " + (width - leftPadding - rightPadding) + "@" + view);
-        }
-        if (child.matchHeight) {
-            if (wrapHeight)
-                throw new GdxRuntimeException("wrap height with match height child.");
-            child.setSize(child.getWidth(), height - topPadding - bottomPadding);
+        if (child.matchWidth || child.matchHeight) {
+            throw new GdxRuntimeException("match parent does not support in QQGrid.");
         }
 
         // recalculate height
