@@ -53,7 +53,7 @@ public class MonsterGuideScreen extends QQScreen {
         grid.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 48 - 8 - 4);
         grid.setPosition(0, 0);
         grid.setCamera(getCamera());
-        grid.setNumColumns(4);
+        grid.setNumColumns(5);
         grid.setAdapter(adapter);
         addChild(grid);
 

@@ -57,13 +57,11 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
      */
 
     private float getTotalHeight() {
-        float totalHeight = 0;
-        for (QQView child : childrenView) {
-            // FIXME SDK component can not use Game.Size.WIDGET_MARGIN
-            totalHeight += child.height + Game.Size.WIDGET_MARGIN;
-        }
-        totalHeight -= Game.Size.WIDGET_MARGIN;
-        return totalHeight;
+        if (childrenView.isEmpty())
+            return 0;
+        QQView firstChild = childrenView.get(0);
+        int numRows = ((childrenView.size() - 1) / numColumns) + 1;
+        return numRows * firstChild.height + (numRows - 1) * Game.Size.WIDGET_MARGIN;
     }
 
     private void calculateMaxScrollY() {
@@ -635,12 +633,13 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
     public void arrangeChildren() {
 
         //Gdx.app.error("QQList", "arrangeChildren : " + width + "," + height);
-        if (0 >= this.width || 0 >= this.height)
+        if (0 >= this.width || 0 >= this.height || childrenView.isEmpty())
             return;
 
         // from top to bottom...
         float anchorY = this.height - topPadding + scrollY;
         int column = 0;
+        float columnWidth = (width - leftPadding - rightPadding - childrenView.get(0).width) / (numColumns - 1);
         for (QQView child : childrenView) {
 
             // match width
@@ -652,7 +651,7 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
             }
 
             // reset position
-            child.setPosition(leftPadding + column * 80, anchorY/* + scrollY*/);
+            child.setPosition(leftPadding + column * columnWidth, anchorY/* + scrollY*/);
 
             if (numColumns == ++column) {
 
