@@ -12,7 +12,7 @@ import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
 
-public class MonsterView extends AssetGroup implements QQView.IsParent {
+public class MonsterView extends AssetGroup /*implements QQView.IsParent*/ {
 
     private QQImage icon;
     private QQText level;
@@ -40,6 +40,7 @@ public class MonsterView extends AssetGroup implements QQView.IsParent {
     /*
         IsParent series
      */
+    /*
     private ArrayList<QQView> childrenView = new ArrayList<>();
 
     @Override
@@ -70,5 +71,5 @@ public class MonsterView extends AssetGroup implements QQView.IsParent {
         for (QQView child : childrenView)
             child.draw(batch, originX, originY);
     }
-
+    */
 }

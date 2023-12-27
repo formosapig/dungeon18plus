@@ -8,6 +8,7 @@ import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.view.PreviewView;
+import com.qqhouse.dungeon18plus.view.PreviewView2;
 import com.qqhouse.dungeon18plus.view.TitleBarView;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.ui.QQCustomDialog;
@@ -126,6 +127,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
             PreviewView v = new PreviewView(assets);
             v.setSize(QQView.MATCH_PARENT, 64);//QQView.WRAP_CONTENT);
             v.reset(record, gameMode);
+
             //PreviewView view = new PreviewView(
             //        assets.getBackgroundSet(hero.alignment.key), // Alignment decides background.
             //        assets.getBlockee(hero.key),

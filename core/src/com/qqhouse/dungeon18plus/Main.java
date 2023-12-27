@@ -6,6 +6,7 @@ import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.screen.DungeonScreen;
 import com.qqhouse.dungeon18plus.screen.EquipmentCatalogScreen;
 import com.qqhouse.dungeon18plus.screen.GalleryScreen;
+import com.qqhouse.dungeon18plus.screen.LeaderboardScreen;
 import com.qqhouse.dungeon18plus.screen.MonsterGuideScreen;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
@@ -32,10 +33,8 @@ public class Main extends QQGameMachine implements
     private GalleryScreen gallery;
     private EquipmentCatalogScreen equipmentCatalog;
     private MonsterGuideScreen monsterGuide;
+    private LeaderboardScreen leaderboard;
     private Assets assets;
-
-
-
 
     @Override
     public void create() {
@@ -129,6 +128,10 @@ public class Main extends QQGameMachine implements
             }
                 break;
             case Game.GalleryAction.DUNGEON_LEADERBOARD:
+                if (null == leaderboard) {
+                    leaderboard = new LeaderboardScreen((SaveGame) savedGame, viewport, assets);
+                }
+                push(leaderboard);
                 break;
             case Game.GalleryAction.WILDERNESS_BARRACK:
                 break;
