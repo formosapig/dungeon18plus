@@ -1,8 +1,10 @@
 package com.qqhouse.dungeon18plus;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.qqhouse.dungeon18plus.core.ColosseumManager;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
+import com.qqhouse.dungeon18plus.screen.ColosseumScreen;
 import com.qqhouse.dungeon18plus.screen.DungeonScreen;
 import com.qqhouse.dungeon18plus.screen.EquipmentCatalogScreen;
 import com.qqhouse.dungeon18plus.screen.GalleryScreen;
@@ -19,6 +21,7 @@ public class Main extends QQGameMachine implements
         TitleScreen.TitleCallback,
         SelectHeroScreen.SelectHeroCallback,
         DungeonScreen.DungeonCallback,
+        ColosseumScreen.ColosseumCallback,
         GalleryScreen.GalleryCallback {
 
     public static final int STATE_TITLE       = 0;
@@ -30,6 +33,7 @@ public class Main extends QQGameMachine implements
     private TitleScreen title;
     private SelectHeroScreen selectHero;
     private DungeonScreen dungeon;
+    private ColosseumScreen colosseum;
     private GalleryScreen gallery;
     private EquipmentCatalogScreen equipmentCatalog;
     private MonsterGuideScreen monsterGuide;
@@ -100,6 +104,15 @@ public class Main extends QQGameMachine implements
                 swap(dungeon);
             }
                 break;
+            case Game.Mode.COLOSSEUM: {
+                if (null == colosseum) {
+                    colosseum = new ColosseumScreen((SaveGame) savedGame, viewport, assets, this);
+                }
+                colosseum.setHero(hero);
+                // go from select hero, pop select hero first then push dungeon...
+                swap(colosseum);
+            }
+            break;
             default:
                 throw new GdxRuntimeException("Unsupported game mode." + gameMode);
         }
@@ -108,6 +121,11 @@ public class Main extends QQGameMachine implements
     @Override
     public void onDungeonResult(boolean isWin, ArrayList<BossKill> kills) {
         popup();
+    }
+
+    @Override
+    public void onColosseumResult(boolean isWin, ArrayList<BossKill> kills) {
+
     }
 
     @Override

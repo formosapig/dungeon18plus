@@ -51,7 +51,7 @@ public class MainMenuScreen implements Screen {
                     game.setScreen(new TowerScreen(game));
                     break;
                 case "COLOSSEUM":
-                    game.setScreen(new ColosseumScreen(game));
+                    //game.setScreen(new ColosseumScreen(game));
                     break;
                 case "CASTLE":
                     game.setScreen(new CastleScreen(game));

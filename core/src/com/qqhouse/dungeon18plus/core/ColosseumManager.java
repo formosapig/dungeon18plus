@@ -1,6 +1,7 @@
 package com.qqhouse.dungeon18plus.core;
 
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.Ability;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.EventInfo;
@@ -14,6 +15,7 @@ import com.qqhouse.dungeon18plus.struct.event.VariedHero;
 import com.qqhouse.dungeon18plus.struct.hero.ColosseumHero;
 import com.qqhouse.dungeon18plus.struct.hero.Hero;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
+import com.qqhouse.ui.QQList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,11 +39,12 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
     public final EventResult eventResult = new EventResult();
     private final EventInfo mEventInfo = new EventInfo();
     private int mEventIndex;
+	private SaveGame savedGame;
 
-    public ColosseumManager(HeroClass heroClass) {
+    public ColosseumManager(HeroClass heroClass, SaveGame savedGame) {
 		
 		// class record
-		HeroClassRecord record = null;//GameData.getInstance().getHeroClassRecord(heroClass);
+		HeroClassRecord record = savedGame.getHeroClassRecord(heroClass);
 
 		// create Hero
         mHero = new ColosseumHero();
@@ -109,6 +112,8 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 			GladiatorCreator.create(gladiator, gladiatorClass, mHero.round);
 
 			mEvents.add(0, gladiator);
+			if (null != adapter)
+				adapter.insert(0);
 			//if (null != mAdapter)
             //   mAdapter.insert(0);
 			
@@ -133,6 +138,8 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
                         }
                     }
 					mEvents.add(pos, shop);
+					adapter.insert(pos);
+					// FIXME must support multi insert/remove function.
                     //if (null != mAdapter)
                     //    mAdapter.insert(pos);
 				}
@@ -144,6 +151,14 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 		}
 		
     }
+
+	/*
+		data source for event adapter
+	 */
+	private QQList.Adapter adapter;
+	public void setAdapter(QQList.Adapter adapter) {
+		this.adapter = adapter;
+	}
 
     public void doAction(int index) {
         eventResult.clear();
@@ -171,6 +186,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 		
 		// remove it first
 		mEvents.remove(mEventIndex);
+		adapter.remove(mEventIndex);
 		//mAdapter.remove(mEventIndex);
 
 		// pay cost

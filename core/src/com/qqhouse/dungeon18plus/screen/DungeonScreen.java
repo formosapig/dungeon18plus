@@ -92,6 +92,7 @@ public class DungeonScreen extends QQScreen {
             //specialEventAdapter.updateAll();
             //lootInfo.update(manager.eventResult);
             update();
+            // FIXME consider new item change status immediately....looks strange.
             // 1. heroview
             //heroView.update(manager.getHero());
 

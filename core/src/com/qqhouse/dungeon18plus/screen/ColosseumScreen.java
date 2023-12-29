@@ -1,66 +1,261 @@
 package com.qqhouse.dungeon18plus.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Dungeon18Plus;
+import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.core.ColosseumManager;
+import com.qqhouse.dungeon18plus.core.DungeonManager;
+import com.qqhouse.dungeon18plus.core.HeroClass;
+import com.qqhouse.dungeon18plus.gamedata.SaveGame;
+import com.qqhouse.dungeon18plus.struct.ActionSlot;
+import com.qqhouse.dungeon18plus.struct.BossKill;
+import com.qqhouse.dungeon18plus.struct.event.Event;
+import com.qqhouse.dungeon18plus.view.ActionView;
+import com.qqhouse.dungeon18plus.view.EventInfoDialog;
+import com.qqhouse.dungeon18plus.view.EventInfoView;
+import com.qqhouse.dungeon18plus.view.EventView;
+import com.qqhouse.dungeon18plus.view.HeroView;
+import com.qqhouse.dungeon18plus.view.LootInfoView;
+import com.qqhouse.dungeon18plus.view.SummaryDialog;
+import com.qqhouse.ui.QQGroup;
+import com.qqhouse.ui.QQList;
+import com.qqhouse.ui.QQPressListener;
+import com.qqhouse.ui.QQScreen;
+import com.qqhouse.ui.QQView;
 
-public class ColosseumScreen implements Screen {
-    private final Dungeon18Plus game;
+import java.util.ArrayList;
+import java.util.Locale;
 
-    private OrthographicCamera camera;
-    private Viewport viewport;
-
-    private Stage stage;
-    // ui components
-    //private Button btnDungeon;
-
-    //Texture img;
-
-    public ColosseumScreen(final Dungeon18Plus game) {
-        this.game = game;
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 480, 640);
-        viewport = new StretchViewport(480, 640, camera);
-        //viewport = new FitViewport(480, 640, camera);
-        //viewport = new FillViewport(480, 640, camera);
-        stage = new Stage(viewport, game.batch);
-    }
-    @Override
-    public void show() {
-
-    }
-
-    @Override
-    public void render(float delta) {
-
+public class ColosseumScreen extends QQScreen {
+    public interface ColosseumCallback {
+        void onColosseumResult(boolean isWin, ArrayList<BossKill> kills);
     }
 
-    @Override
-    public void resize(int width, int height) {
+    private ColosseumManager manager;
 
+    public void setHero(HeroClass hero) {
+        manager = new ColosseumManager(hero, savedGame);
+        manager.setAdapter(eventAdapter);
+    }
+
+    public ColosseumScreen(SaveGame savedGame, Viewport viewport, Assets assets, ColosseumScreen.ColosseumCallback callback) {
+        super(savedGame, viewport, assets);
+        this.callback = callback;
+    }
+
+    private HeroView heroView;
+    private final ArrayList<ActionView> actionViews = new ArrayList<>();
+    private LootInfoView lootInfo;
+    private EventInfoView eventInfo;
+    private EventInfoDialog eventInfoDialog;
+    private ColosseumScreen.ColosseumCallback callback;
+
+    /*
+        QQList Adapter ...
+     */
+    private final QQList.Adapter eventAdapter = new QQList.Adapter() {
+
+        @Override
+        public int getSize() {
+            return manager.getEventCount();
+        }
+
+        @Override
+        public EventView getView(int index) {
+            Event event = manager.getEvent(index);
+
+            EventView evt = new EventView(assets);
+            evt.setSize(Game.Size.WIDTH, 64);
+            evt.reset(event);
+            evt.update(event);
+            return evt;
+        }
+
+        @Override
+        public void updateView(int index, QQView view) {
+            EventView v = (EventView) view;
+            v.setEnable(manager.isEventDoable(index));
+            v.update(manager.getEvent(index));
+
+        }
+
+        // animation end, then update event value.
+        @Override
+        public void onAnimationEnd() {
+            Gdx.app.error("DungeonScreen", String.format(Locale.US, "onAnimationEnd %d", manager.getEventCount()));
+            //Gdx.app.error("DungeonScreen", "event animation end.");
+            //eventAdapter.updateAll();
+            //specialEventAdapter.updateAll();
+            //lootInfo.update(manager.eventResult);
+            update();
+            // 1. heroview
+            //heroView.update(manager.getHero());
+
+            // 2. event list
+            //eventAdapter.updateAll();
+            //specialEventAdapter.updateAll();
+            // 3. loof info
+            //lootInfo.update(manager.eventResult);
+            // 4. action list
+            //for (int i = 0, s = actionViews.size(); i < s; ++i) {
+            //    actionViews.get(i).setEnable(manager.canDoAction(i));
+            //}
+
+        }
+    };
+
+    @Override
+    public void onEnter() {
+
+        // hero view ...
+        heroView = new HeroView(assets);
+        heroView.setPadding(8);
+        heroView.setPosition(0, Game.Size.HEIGHT - 64);
+        //heroView.setSize(QQView.FILL_PARENT, 64);
+        heroView.setSize(Game.Size.WIDTH, 64);
+        heroView.reset(manager.getHero());
+        //heroView.setData(manager.getHero());
+        addChild(heroView);
+
+        // group ( event, special event ), just a container...
+        QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, 2);
+        // FIXME 使用 match_parent 以及 Screen 內含 QQView ...
+        group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 24 - 64 - Game.Size.WIDGET_MARGIN * 3);
+        group.setPosition(0, 64 + Game.Size.WIDGET_MARGIN * 2 + 24);
+        addChild(group);
+
+        // event listview ...
+        QQList eventList = new QQList();
+        //eventList.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
+        eventList.setSize(Game.Size.WIDTH, QQView.MATCH_PARENT);
+        //eventList.setPosition(0, 64 + 2 + 24 + 2);
+        eventList.setCamera(getCamera());
+        eventList.setAdapter(eventAdapter);
+        eventList.addListener(new QQList.PressListener() {
+            @Override
+            public void onPress(int index) {
+                if (manager.isEventDoable(index)) {
+                    //Gdx.app.error("DungeonScreen", " do event.");
+                    int result = manager.doEvent();
+                    //Gdx.app.error("DungeonScreen", " update.");
+                    //update();
+                    if (Game.result.process > result) {
+                        endGame(Game.result.win == result);
+                    }
+                }
+            }
+
+            @Override
+            public void onLongPress(int index) {
+                Gdx.app.error("DungeonScreen", "event long press : " + index);
+                //eventInfo.setSize(320, 480);
+                //eventInfo.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+                //eventInfo.update(manager.getEvent(index));
+
+                //QQCustomDialog eventInfoDialog = new QQCustomDialog(assets, eventInfo, false);
+                eventInfoDialog.update(manager.getEvent(index));
+                openDialog(eventInfoDialog);
+            }
+        });
+        //addView(eventList);
+        group.addChild(eventList);
+
+        // message view ...
+        lootInfo = new LootInfoView(assets);
+        lootInfo.setSize(Game.Size.WIDTH, 24);
+        lootInfo.setPosition(0, 64 + Game.Size.WIDGET_MARGIN);
+        addChild(lootInfo);
+
+        // action view ...
+        actionViews.clear();
+        int actionCount = manager.getActionSlotCount();
+        // 由於會縮放,需要注意 int 會導致捨位誤差...
+        float actionWidth = ((Game.Size.WIDTH) - (actionCount - 1) * 2) / (float)actionCount;
+
+        for (int i = 0; i < actionCount; ++i) {
+            ActionSlot slot = manager.getActionSlot(i);
+
+            ActionView action = new ActionView(
+                    assets.getBackgroundSet(manager.getHero().heroClass.alignment.key),
+                    assets.getIcon32(manager.getActionSlot(i).action.key),
+                    assets.getFont(Game.Font.LEVEL16),
+                    assets.getIcon16(slot.action.cost.getIcon16Key()),
+                    slot.action.cost.value
+            );
+            action.setSize(actionWidth, 64);
+            action.setPosition((actionWidth + 2) * i, 0);
+            action.addQQClickListener(new QQPressListener() {
+                @Override
+                public void onPress(int index) {
+                    //Gdx.app.error("DungeonScreen", "press action.");
+                    if (manager.canDoAction(index)) {
+                        manager.doAction(index);
+                        // update status...
+                        update();
+                        //Gdx.app.error("DungeonScreen", "do action and update.");
+                    }
+                    //debug();
+                }
+
+                @Override
+                public void onLongPress(QQView view) {
+
+                }
+            }, i);
+            actionViews.add(action);
+            addChild(action);
+        }
+
+        // event info dialog
+        eventInfoDialog = new EventInfoDialog(assets);
+        //eventInfo = new EventInfoView(assets);
+        //eventInfo.setBackground(assets.getNinePatchBG("help"));
+
+        update();
+        //eventAdapter.updateAll();
+        //specialEventAdapter.updateAll();
+    }
+
+    private void update() {
+        // 1. heroview
+        heroView.update(manager.getHero());
+
+        // 2. event list
+        eventAdapter.updateAll();
+
+        // 3. loof info
+        lootInfo.update(manager.eventResult);
+        // 4. action list
+        for (int i = 0, s = actionViews.size(); i < s; ++i) {
+            actionViews.get(i).setEnable(manager.canDoAction(i));
+        }
+    }
+
+    private void endGame(boolean isWin) {
+        // disable swipe right.
+        setSwipeRightCallback(null);
+
+        // call summary dialog.
+        SummaryDialog dialog = new SummaryDialog(assets, getCamera());
+        //dialog.reset(manager.killList, isWin, new QQPressListener() {
+        //    @Override
+        //    public void onPress(int index) {
+        //        callback.onColosseumResult(false, null);
+        //    }
+        //    @Override
+        //    public void onLongPress(QQView view) {}
+        //});
+        openDialog(dialog);
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-        stage.dispose();
+    public void onLeave() {
+        removeAllChildren();
     }
 }
