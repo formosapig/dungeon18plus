@@ -47,14 +47,17 @@ public class TitleBarView2 extends AssetGroup {
     @Override
     public void arrangeChildren() {
         // FIXME random order set data can still arrange children correctly.
-        if (null == icon || null == resource || null == name)
-            return;
-        icon.setPosition(leftPadding, bottomPadding);
+        if (null != icon)
+            icon.setPosition(leftPadding, bottomPadding);
 
-        resource.setSize(QQView.WRAP_CONTENT, 16);
-        resource.setPosition(this.width - resource.getWidth() - rightPadding, bottomPadding + 8);
+        if (null != resource) {
+            resource.setSize(QQView.WRAP_CONTENT, 16);
+            resource.setPosition(this.width - resource.getWidth() - rightPadding, bottomPadding + 8);
+        }
 
-        name.setSize(resource.getX() - innerMargin * 2 - (leftPadding + 32), 32);
-        name.setPosition(leftPadding + 32 + innerMargin, bottomPadding);
+        if (null != name) {
+            name.setSize(resource.getX() - innerMargin * 2 - (leftPadding + 32), 32);
+            name.setPosition(leftPadding + 32 + innerMargin, bottomPadding);
+        }
     }
 }
