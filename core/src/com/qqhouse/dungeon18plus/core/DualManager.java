@@ -110,7 +110,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 			legion.nextLife = legion.maxLife;
 			// fast character can use skill fast.
 			legion.coolDown = mRand.nextInt(legion.speed * 10);
-			// FIXME 0629 send legion data to away.
+			// XXX 0629 send legion data to away.
 			
 		}
 		
@@ -372,7 +372,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		}
 	}
 	
-	// FIXME 0420 BUG 發生,滑動 history 時顯示有內容更新但未呼叫 notifyDataSetChanged. 檢查或注意一下
+	// XXX 0420 BUG 發生,滑動 history 時顯示有內容更新但未呼叫 notifyDataSetChanged. 檢查或注意一下
 	// tick
 	public void tick() {
 		if ((state & BATTLE) == 0)
@@ -800,7 +800,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 	 */
 	/*
 	public void setLANManager(LANManager mgr) {
-		// FIXME 0627 fix this.
+		// XXX 0627 fix this.
 	}*/
 
 	/*

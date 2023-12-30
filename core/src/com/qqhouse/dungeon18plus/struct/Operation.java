@@ -252,7 +252,7 @@ public class Operation {
 		typeIcons.put(GOLDEN_COIN, "item_golden_coin"); // use bigger coin to match giant soul.
 		typeIcons.put(DAMAGE, "icon16_damage");
 
-		// FIXME 注意!要跟顏色的設定一致.
+		// XXX 注意!要跟顏色的設定一致. 似乎沒有使用到
 		typeColors = new TreeMap<Integer, Integer>();
 		typeColors.put(LIFE, 0xFFFFFF60);
 		typeColors.put(ATTACK, 0xFFFF6060);

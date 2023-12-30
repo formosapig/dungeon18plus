@@ -46,7 +46,6 @@ public class TitleBarView2 extends AssetGroup {
 
     @Override
     public void arrangeChildren() {
-        // FIXME random order set data can still arrange children correctly.
         if (null != icon)
             icon.setPosition(leftPadding, bottomPadding);
 

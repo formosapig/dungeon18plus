@@ -16,8 +16,7 @@ import com.qqhouse.ui.QQText;
 // TODO 要改名, 跟 struct/BossKill 一起.
 public class BossKillView extends AssetGroup {
 
-    private Texture icon;
-    private QQText score; // FIXME use QQText is ok... no rank icon.
+    private QQText score;
     private QQText help;
 
     public BossKillView(Assets assets) {
@@ -27,7 +26,6 @@ public class BossKillView extends AssetGroup {
 
     public void reset(BossKill kill) {
         //Gdx.app.error("BossKillView.reset()", "width = " + this.width);
-        //icon = assets.getBlockee(kill.boss.icon);
         QQImage icon = new QQImage(assets.getBlockee(kill.boss.icon));
         icon.setBackground(assets.getNinePatchBG(kill.boss.align.key));
         //icon.setSize(32, 32);
@@ -64,20 +62,6 @@ public class BossKillView extends AssetGroup {
         score.setPosition(this.width - rightPadding - score.getWidth(), 34);
 
         help.setSize(this.width - rightPadding - 64, 24);
-    }
-
-    @Override
-    public void drawForeground(SpriteBatch batch, float originX, float originY) {
-
-        // draw icon
-        //batch.draw(icon, originX + 8, originY + 8);//(int)(originX + iconShiftX), (int)(originY + iconShiftY), 48, 48);
-
-        // draw name
-        //fntName.setColor(Game.Colour.RARE);
-        //fntName.draw(batch, name, originX + nameShiftX, originY + nameShiftY);
-
-        // draw desc
-        //fntDesc.draw(batch, desc, originX + descShiftX, originY + descShiftY, 0, 50, descW, Align.topLeft, true, null);
     }
 
 }

@@ -293,7 +293,7 @@ public class DungeonScreen extends QQScreen {
         //for (int i = 0; i < manager.getEventCount(); ++i) {
         //    Gdx.app.error("DungeonScreen", String.format("Event %2d = %s", i, manager.getEvent(i).toString()));
         //}
-        manager.test();
+        //manager.test();
         //manager.test2();
     }
 
