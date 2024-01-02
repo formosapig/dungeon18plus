@@ -108,8 +108,12 @@ public class PreviewView2 extends AssetButton implements QQView.IsParent {
 
     @Override
     public void arrangeChildren() {
-        icon.setPosition(leftPadding, height - topPadding - 48);
-        name.setPosition(64, this.height - 32);
+        if (null != icon) {
+            icon.setPosition(leftPadding, height - topPadding - 48);
+        }
+        if (null != name) {
+            name.setPosition(64, this.height - 32);
+        }
     }
 
     @Override
