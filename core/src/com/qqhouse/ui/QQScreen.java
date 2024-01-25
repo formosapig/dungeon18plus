@@ -87,6 +87,7 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
         Vector2 screenPos = screenToStageCoordinates(new Vector2(screenX, screenY));
         //Gdx.app.error("QQScreen", "touchDragged = " + screenPos.x + "," + screenPos.y);
 
+        // TODO change event notify order. most top one first, ...
         // tell all child dragged ....
         //Gdx.app.error("QQScreen", "touchDragged : " + screenPos.x + "," + screenPos.y);
         if (null != callback && null != touchDown) {

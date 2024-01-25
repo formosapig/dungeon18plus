@@ -448,7 +448,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         eventResult.clear();
         doAction(index, eventResult);
         isEndAfterUpdateExtraValue(false);
-        // TODO 理清 notifyDataSeetChanged() 的流程,有一些 notifyChange 的 call 並不會引起動畫,所以就得 call notifyDataSetChanged
+        // TODO 理清 notifyDataSetChanged() 的流程,有一些 notifyChange 的 call 並不會引起動畫,所以就得 call notifyDataSetChanged
         // 但其它 case 其實會正常運作的.
         //mAdapter.notifyDataSetChanged();
     }
@@ -534,7 +534,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         case Game.Cost.KEY:
             return mHero.key >= evt.costValue;
         case Game.Cost.COIN:
-            // TODO check equpi with all type attribute, pure attack & max attack cap ???
+            // TODO check equip with all type attribute, pure attack & max attack cap ???
             return mHero.coin >= evt.costValue && (!evt.loot.isPureSpeed() || mHero.getLimit().speed < mHero.speed || EventType.MERCHANT != evt.type);
         case Game.Cost.STAR:
             return mHero.star >= evt.costValue;
@@ -614,7 +614,6 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 upgradeEndGameEventWithWinLevel(WIN_LEVEL_NORMAL);
             }
 
-            // TODO list kill and score in dungeon adapter ... not change screen.
             // record kill list
             int score = evt.getScore();
             killList.add(new BossKill(evt.type, score, evt.getTurn()));

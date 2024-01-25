@@ -68,7 +68,7 @@ public class SaveGame extends QQSaveGame {
         getHeroClassRecord(HeroClass.WATER_KNIGHT).blueMirror = 3;
         getHeroClassRecord(HeroClass.WIND_KNIGHT).greenMirror = 3;
 
-        // TODO 0407 BT to exchange giant list.
+        // TODO 0125 (QRCode + UrlScheme) to exchange giant list and so on.
         mWildernessData.giants.clear();
         for (GiantRace race : GiantRace.values()) {
             mWildernessData.giants.add(new GiantRecord(race));
@@ -134,7 +134,7 @@ public class SaveGame extends QQSaveGame {
 
 
     public void checkUnlockHeroClass() {
-        // XXX 0323 之後需要 unlock manager 吧.
+        // XXX 0125 need unlock manager.
         if (getMonsterCount() >= 180)
             unlockDungeon(HeroClass.ASSASSIN);
         if (getEquipmentCount() >= 30)
