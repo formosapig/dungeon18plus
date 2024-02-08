@@ -93,13 +93,13 @@ public class DungeonScreen extends QQScreen {
             //lootInfo.update(manager.eventResult);
             update();
             // FIXME consider new item change status immediately....looks strange.
-            // 1. heroview
+            // 1. hero view
             //heroView.update(manager.getHero());
 
             // 2. event list
             //eventAdapter.updateAll();
             //specialEventAdapter.updateAll();
-            // 3. loof info
+            // 3. loot info
             //lootInfo.update(manager.eventResult);
             // 4. action list
             //for (int i = 0, s = actionViews.size(); i < s; ++i) {
@@ -298,13 +298,13 @@ public class DungeonScreen extends QQScreen {
     }
 
     private void update() {
-        // 1. heroview
+        // 1. hero view
         heroView.update(manager.getHero());
 
         // 2. event list
         eventAdapter.updateAll();
         specialEventAdapter.updateAll();
-        // 3. loof info
+        // 3. loot info
         lootInfo.update(manager.eventResult);
         // 4. action list
         for (int i = 0, s = actionViews.size(); i < s; ++i) {

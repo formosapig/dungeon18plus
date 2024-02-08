@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
@@ -8,14 +7,11 @@ import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.view.PreviewView;
-import com.qqhouse.dungeon18plus.view.PreviewView2;
 import com.qqhouse.dungeon18plus.view.TitleBarView;
 import com.qqhouse.dungeon18plus.Assets;
-import com.qqhouse.ui.QQCustomDialog;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQPressListener;
-import com.qqhouse.ui.QQListView;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
@@ -29,7 +25,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         void onSelectHero(int gameMode, HeroClass hero);
     }
 
-    private SelectHeroCallback callback;
+    private final SelectHeroCallback callback;
     private int gameMode;
     private ArrayList<HeroClassRecord> availableHeroes;
 
@@ -115,7 +111,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
 
     }
 
-    private QQList.Adapter availableHeroesAdapter = new QQList.Adapter() {
+    private final QQList.Adapter availableHeroesAdapter = new QQList.Adapter() {
         @Override
         public int getSize() {
             return availableHeroes.size();
@@ -132,9 +128,9 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
             //        assets.getBackgroundSet(hero.alignment.key), // Alignment decides background.
             //        assets.getBlockee(hero.key),
             //        assets.getFont(Game.Font.NAME20),
-            //        assets.geti18n(hero.key),
+            //        assets.getI18n(hero.key),
             //        assets.getFont(Game.Font.HELP14),
-            //        assets.geti18n(hero.key+"_help"));
+            //        assets.getI18n(hero.key+"_help"));
             //view.setPadding(8);
             //view.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
             //view.addQQClickListener(this, hero.code);

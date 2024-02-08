@@ -1,16 +1,10 @@
 package com.qqhouse.dungeon18plus.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
-import com.qqhouse.dungeon18plus.Dungeon18Plus;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.ColosseumManager;
-import com.qqhouse.dungeon18plus.core.DungeonManager;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
@@ -54,7 +48,7 @@ public class ColosseumScreen extends QQScreen {
     private LootInfoView lootInfo;
     private EventInfoView eventInfo;
     private EventInfoDialog eventInfoDialog;
-    private ColosseumScreen.ColosseumCallback callback;
+    private final ColosseumScreen.ColosseumCallback callback;
 
     /*
         QQList Adapter ...
@@ -94,13 +88,13 @@ public class ColosseumScreen extends QQScreen {
             //specialEventAdapter.updateAll();
             //lootInfo.update(manager.eventResult);
             update();
-            // 1. heroview
+            // 1. hero view
             //heroView.update(manager.getHero());
 
             // 2. event list
             //eventAdapter.updateAll();
             //specialEventAdapter.updateAll();
-            // 3. loof info
+            // 3. loot info
             //lootInfo.update(manager.eventResult);
             // 4. action list
             //for (int i = 0, s = actionViews.size(); i < s; ++i) {
@@ -223,13 +217,13 @@ public class ColosseumScreen extends QQScreen {
     }
 
     private void update() {
-        // 1. heroview
+        // 1. hero view
         heroView.update(manager.getHero());
 
         // 2. event list
         eventAdapter.updateAll();
 
-        // 3. loof info
+        // 3. loot info
         lootInfo.update(manager.eventResult);
         // 4. action list
         for (int i = 0, s = actionViews.size(); i < s; ++i) {

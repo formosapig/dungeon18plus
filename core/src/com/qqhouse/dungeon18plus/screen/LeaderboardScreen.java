@@ -3,10 +3,8 @@ package com.qqhouse.dungeon18plus.screen;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
-import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.hero.ScoreHero;
-import com.qqhouse.dungeon18plus.view.ItemDetailView;
 import com.qqhouse.dungeon18plus.view.ScoreHeroView;
 import com.qqhouse.dungeon18plus.view.TitleBarView2;
 import com.qqhouse.ui.QQList;
@@ -66,7 +64,7 @@ public class LeaderboardScreen extends QQScreen {
     /*
         QQList.Adapter series...
      */
-    private QQList.Adapter adapter = new QQList.Adapter() {
+    private final QQList.Adapter adapter = new QQList.Adapter() {
 
         @Override
         public int getSize() {

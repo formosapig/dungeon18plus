@@ -17,7 +17,7 @@ public class GalleryScreen extends QQScreen {
         void onGalleryAction(int action);
     }
 
-    private GalleryCallback callback;
+    private final GalleryCallback callback;
     public GalleryScreen(SaveGame saveGame, Viewport viewport, Assets assets, GalleryCallback callback) {
         super(saveGame, viewport, assets);
         this.callback = callback;

@@ -38,7 +38,7 @@ public class TitleScreen extends QQScreen {
         fnt.setColor(Game.Colour.RARE);
         //Gdx.app.error("TitleScreen", "font created.");
 
-        menus = new ArrayList<QQView>();
+        menus = new ArrayList<>();
 
         // Dungeon : default.
         float menu_width = 240;

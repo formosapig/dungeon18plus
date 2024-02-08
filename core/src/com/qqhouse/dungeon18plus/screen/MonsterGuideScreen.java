@@ -3,14 +3,11 @@ package com.qqhouse.dungeon18plus.screen;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
-import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.Monster;
-import com.qqhouse.dungeon18plus.view.ItemDetailView;
 import com.qqhouse.dungeon18plus.view.MonsterView;
 import com.qqhouse.dungeon18plus.view.TitleBarView2;
 import com.qqhouse.ui.QQGrid;
-import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
@@ -67,7 +64,7 @@ public class MonsterGuideScreen extends QQScreen {
     /*
         QQList.Adapter series...
      */
-    private QQGrid.Adapter adapter = new QQGrid.Adapter() {
+    private final QQGrid.Adapter adapter = new QQGrid.Adapter() {
 
         @Override
         public int getSize() {

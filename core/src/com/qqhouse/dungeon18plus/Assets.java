@@ -108,7 +108,8 @@ public class Assets {
 
         return np;//new NinePatch(getBackground(key), 4, 4, 4, 4);
     }
-    //public BitmapFont getFont(String fontName, int fontSize) {
+
+    // public BitmapFont getFont(String fontName, int fontSize) {
     //    String fileName = String.format("%s%d.ttf", fontName, fontSize);
     //    if (!manager.contains(fileName)) {
     //        FreetypeFontLoader.FreeTypeFontLoaderParameter param = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
@@ -119,7 +120,7 @@ public class Assets {
     //        param.fontParameters.characters += "";
     //        manager.load(fileName, BitmapFont.class, param);
     //        manager.finishLoadingAsset(fileName);
-    //        // fixed size ?! FIXME white rabbit 的 1 沒有 fixed width ... 導致浪費效能...
+    //        // fixed size ?! white rabbit 的 1 沒有 fixed width ... 導致浪費效能...
     //        BitmapFont font = manager.get(fileName, BitmapFont.class);
     //        font.setFixedWidthGlyphs(FreeTypeFontGenerator.DEFAULT_CHARS);
     //    }
@@ -194,7 +195,7 @@ public class Assets {
             param.fontParameters.characters += "";
             manager.load(fileName, BitmapFont.class, param);
             manager.finishLoadingAsset(fileName);
-            // fixed size ?! FIXME white rabbit 的 1 沒有 fixed width ... 導致浪費效能...
+            // fixed size ?! white rabbit 的 1 沒有 fixed width ... 導致浪費效能...
             //BitmapFont font = manager.get(fileName, BitmapFont.class);
             //font.setFixedWidthGlyphs(FreeTypeFontGenerator.DEFAULT_CHARS);
             //Gdx.app.error("Assets", String.format(Locale.US, "getFont(%S) : %d", fontName, (TimeUtils.millis() - t)));

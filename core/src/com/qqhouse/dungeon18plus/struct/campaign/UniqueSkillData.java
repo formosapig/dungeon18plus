@@ -13,7 +13,7 @@ public final class UniqueSkillData {
 	// auto trigger.
 	public final boolean auto;
 	
-	// can use or not. TODO I don't like to put this filed here.
+	// can use or not. TODO I don't like to put this field here.
 	public boolean isMastery;
 	public int mastery;
 	
