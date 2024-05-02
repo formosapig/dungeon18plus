@@ -122,7 +122,21 @@ public abstract class QQGameMachine implements ApplicationListener {
      */
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        Gdx.app.error("QQGameMachine", "width, height =" + width + "," + height);
+        Gdx.app.error("QQGameMachine", "screenX, screenY =" + viewport.getScreenX() + "," + viewport.getScreenY());
+        //viewport.setScreenY(Gdx.graphics.getSafeInsetBottom());
+        //viewport.setScreenX(Gdx.graphics.getSafeInsetLeft());
+        viewport.setScreenBounds(Gdx.graphics.getSafeInsetLeft(),
+                Gdx.graphics.getSafeInsetBottom(),
+                width - Gdx.graphics.getSafeInsetLeft() - Gdx.graphics.getSafeInsetRight(),
+                height - Gdx.graphics.getSafeInsetTop() - Gdx.graphics.getSafeInsetBottom());
+        viewport.apply(false);
+        Gdx.app.error("QQGameMachine", "screenX, screenY =" + viewport.getScreenX() + "," + viewport.getScreenY());
+
+        //viewport.update(width - Gdx.graphics.getSafeInsetLeft() - Gdx.graphics.getSafeInsetRight(),
+        //        height - Gdx.graphics.getSafeInsetTop() - Gdx.graphics.getSafeInsetBottom());
+        Gdx.app.error("QQGameMachine", "screenX, screenY =" + viewport.getScreenX() + "," + viewport.getScreenY());
+
     }
 
     //private boolean firstRender = false;

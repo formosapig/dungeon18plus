@@ -30,6 +30,7 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     public Camera getCamera() {
         return viewport.getCamera();
     }
+    public Viewport getViewport() { return viewport; }
 
     // input processor
 

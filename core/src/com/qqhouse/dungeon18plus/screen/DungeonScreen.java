@@ -153,6 +153,7 @@ public class DungeonScreen extends QQScreen {
     public void onEnter() {
 
         // hero view ...
+        Gdx.app.error("DungeonScreen", "onEnter");
         heroView = new HeroView(assets);
         heroView.setPadding(8);
         heroView.setPosition(0, Game.Size.HEIGHT - 64);
@@ -171,10 +172,12 @@ public class DungeonScreen extends QQScreen {
 
         // special event list
         QQList specialEventList = new QQList();
+        specialEventList.setViewport(getViewport());
         //specialEventList.setSize(Game.WIDTH, QQView.WRAP_CONTENT);//64 + 64 + 2 + 2 + 2);
         specialEventList.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         specialEventList.setPosition(0, 0);
         specialEventList.setCamera(getCamera());
+
         specialEventList.setAdapter(specialEventAdapter);
         specialEventList.addListener(new QQList.PressListener() {
             @Override
@@ -198,6 +201,8 @@ public class DungeonScreen extends QQScreen {
 
         // event listview ...
         QQList eventList = new QQList();
+        eventList.setViewport(getViewport());
+
         //eventList.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
         eventList.setSize(Game.Size.WIDTH, QQView.MATCH_PARENT);
         //eventList.setPosition(0, 64 + 2 + 24 + 2);
@@ -298,6 +303,7 @@ public class DungeonScreen extends QQScreen {
     }
 
     private void update() {
+        //Gdx.app.error("DungeonScreen", "update");
         // 1. hero view
         heroView.update(manager.getHero());
 

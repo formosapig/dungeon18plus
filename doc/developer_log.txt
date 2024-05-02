@@ -1,3 +1,18 @@
+--------------- 20240502(四) ---------------
+- 在專案目錄下有一個 .git 的隱藏目錄，修改內部的 config file. 近增以下
+[user]
+        name = xxxx
+        email = xxxx
+-
+
+--------------- 20240430(二) ---------------
+- 在 Mac 內要執行 desktop 模組時，需要加設一個 VM 的參數 -XstartOnFirstThread
+- 要設定要 Xcode 跑好像需要很多憑証有的沒有的，可能要先申請一個開發者帳號了。
+- 直接去 plugin 的 market place 下載最近版本的 mobiVM plugin 使用即可。
+- iOS 的 simulator 不會抓 exception 反而是直接 crash，此題無解？
+
+
+
 --------------- 20240206(二) ---------------
 - 公司準備裁員 30%.
 -

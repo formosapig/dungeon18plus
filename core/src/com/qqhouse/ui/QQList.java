@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
 
 import java.util.ArrayList;
@@ -622,9 +623,11 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
     //private Rectangle scissorArea;
     private Camera camera;
+    private Viewport viewport;
     public void setCamera(Camera camera) {
         this.camera = camera;
     }
+    public void setViewport(Viewport viewport) {this.viewport = viewport; }
 
     /*
         IsParent series
@@ -688,9 +691,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     public void onParentSizeChanged(float width, float height) {}
 
     @Override
-    public void onChildSizeChanged(QQView child) {
-
-    }
+    public void onChildSizeChanged(QQView child) {}
 
     private Rectangle scissors;
     @Override
@@ -702,7 +703,10 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             Rectangle clipBounds = new Rectangle(originX, originY, width, height);
             // QQList 變成 sub view 時, 座標又變換了....
             //Rectangle clipBounds = new Rectangle(x, y, width, height);
-            ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
+            //ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
+            // 因為 iPhone 12 的 notch ， viewport 的 screenX / screenY 可能會有一個 offset 值。
+            ScissorStack.calculateScissors(viewport.getCamera(), viewport.getScreenX(), viewport.getScreenY(), viewport.getScreenWidth(), viewport.getScreenHeight(), batch.getTransformMatrix(), clipBounds, scissors);
+
             //Gdx.app.error("QQList", "clipBounds = " + width + "," + height);
         //}
         if (ScissorStack.pushScissors(scissors)) {

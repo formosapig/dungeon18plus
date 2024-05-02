@@ -60,6 +60,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 48 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4
         list.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         list.setCamera(getCamera());
+        list.setViewport(getViewport());
         list.setAdapter(availableHeroesAdapter);
         list.addListener(new QQList.PressListener() {
             @Override

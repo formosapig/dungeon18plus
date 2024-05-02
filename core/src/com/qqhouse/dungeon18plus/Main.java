@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.core.ColosseumManager;
 import com.qqhouse.dungeon18plus.core.HeroClass;
@@ -58,6 +59,10 @@ public class Main extends QQGameMachine implements
         title = new TitleScreen((SaveGame) savedGame, viewport, assets, this);
 
         setRoot(title);
+        Gdx.app.error("Main.java", "SafeInsetTop : " + Gdx.graphics.getSafeInsetTop());
+        Gdx.app.error("Main.java", "SafeInsetBottom : " + Gdx.graphics.getSafeInsetBottom());
+        Gdx.app.error("Main.java", "SafeInsetLeft : " + Gdx.graphics.getSafeInsetLeft());
+        Gdx.app.error("Main.java", "SafeInsetRight : " + Gdx.graphics.getSafeInsetRight());
     }
 
     @Override
