@@ -153,7 +153,6 @@ public class DungeonScreen extends QQScreen {
     public void onEnter() {
 
         // hero view ...
-        Gdx.app.error("DungeonScreen", "onEnter");
         heroView = new HeroView(assets);
         heroView.setPadding(8);
         heroView.setPosition(0, Game.Size.HEIGHT - 64);
@@ -171,8 +170,7 @@ public class DungeonScreen extends QQScreen {
         addChild(group);
 
         // special event list
-        QQList specialEventList = new QQList();
-        specialEventList.setViewport(getViewport());
+        QQList specialEventList = new QQList(getViewport());
         //specialEventList.setSize(Game.WIDTH, QQView.WRAP_CONTENT);//64 + 64 + 2 + 2 + 2);
         specialEventList.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         specialEventList.setPosition(0, 0);
@@ -200,9 +198,7 @@ public class DungeonScreen extends QQScreen {
         group.addChild(specialEventList);
 
         // event listview ...
-        QQList eventList = new QQList();
-        eventList.setViewport(getViewport());
-
+        QQList eventList = new QQList(getViewport());
         //eventList.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
         eventList.setSize(Game.Size.WIDTH, QQView.MATCH_PARENT);
         //eventList.setPosition(0, 64 + 2 + 24 + 2);
@@ -323,7 +319,7 @@ public class DungeonScreen extends QQScreen {
         setSwipeRightCallback(null);
 
         // call summary dialog.
-        SummaryDialog dialog = new SummaryDialog(assets, getCamera());
+        SummaryDialog dialog = new SummaryDialog(assets, getViewport());
         dialog.reset(manager.killList, isWin, new QQPressListener() {
             @Override
             public void onPress(int index) {

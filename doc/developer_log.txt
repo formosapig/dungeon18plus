@@ -1,9 +1,14 @@
 --------------- 20240502(四) ---------------
 - 在專案目錄下有一個 .git 的隱藏目錄，修改內部的 config file. 近增以下
 [user]
-        name = xxxx
-        email = xxxx
--
+        name = xxxx.yyyy.zzzz
+        email = xxxx.yyyy.zzzz
+- 盤點一下還沒有完成的功能。至少要完成這些部份才能夠上線。
+  1. dungeon mode => ok.
+  2. colosseum mode => x
+  3. wilderness mode => x
+  4. gallery > fairy => x
+- App Icon Generator 的網站上直接製做符合各種尺寸的 iOS / Android icon ...
 
 --------------- 20240430(二) ---------------
 - 在 Mac 內要執行 desktop 模組時，需要加設一個 VM 的參數 -XstartOnFirstThread

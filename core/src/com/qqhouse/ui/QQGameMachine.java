@@ -126,8 +126,10 @@ public abstract class QQGameMachine implements ApplicationListener {
         Gdx.app.error("QQGameMachine", "screenX, screenY =" + viewport.getScreenX() + "," + viewport.getScreenY());
         //viewport.setScreenY(Gdx.graphics.getSafeInsetBottom());
         //viewport.setScreenX(Gdx.graphics.getSafeInsetLeft());
+        // camera 的世界座標 0,0 在左下角
+        // viewport 的世界座標 0,0 在左上角 ... 笑死...
         viewport.setScreenBounds(Gdx.graphics.getSafeInsetLeft(),
-                Gdx.graphics.getSafeInsetBottom(),
+                Gdx.graphics.getSafeInsetTop(),
                 width - Gdx.graphics.getSafeInsetLeft() - Gdx.graphics.getSafeInsetRight(),
                 height - Gdx.graphics.getSafeInsetTop() - Gdx.graphics.getSafeInsetBottom());
         viewport.apply(false);

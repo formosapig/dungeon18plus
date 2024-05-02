@@ -45,12 +45,11 @@ public class EquipmentCatalogScreen extends QQScreen {
         addChild(line);
 
         // equipment adapter ....
-        QQList list = new QQList();
+        QQList list = new QQList(getViewport());
         //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         //list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 48 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4
         list.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 48 - 8 - 4);
         list.setPosition(0, 0);
-        list.setCamera(getCamera());
         list.setAdapter(adapter);
         addChild(list);
 

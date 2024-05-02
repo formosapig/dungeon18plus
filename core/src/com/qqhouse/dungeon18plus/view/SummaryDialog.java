@@ -1,6 +1,7 @@
 package com.qqhouse.dungeon18plus.view;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.BossKill;
@@ -14,12 +15,12 @@ public class SummaryDialog extends AssetDialog {
 
     private SummaryView summary;
 
-    public SummaryDialog(Assets assets, Camera camera) {
+    public SummaryDialog(Assets assets, Viewport viewport) {
         super(assets);
 
         setModal(true);
 
-        summary = new SummaryView(assets, camera);
+        summary = new SummaryView(assets, viewport);
         summary.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
 
         setCustomView(summary);

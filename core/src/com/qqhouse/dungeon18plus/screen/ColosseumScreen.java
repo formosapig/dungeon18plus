@@ -125,11 +125,10 @@ public class ColosseumScreen extends QQScreen {
         addChild(group);
 
         // event listview ...
-        QQList eventList = new QQList();
+        QQList eventList = new QQList(getViewport());
         //eventList.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
         eventList.setSize(Game.Size.WIDTH, QQView.MATCH_PARENT);
         //eventList.setPosition(0, 64 + 2 + 24 + 2);
-        eventList.setCamera(getCamera());
         eventList.setAdapter(eventAdapter);
         eventList.addListener(new QQList.PressListener() {
             @Override
@@ -236,7 +235,7 @@ public class ColosseumScreen extends QQScreen {
         setSwipeRightCallback(null);
 
         // call summary dialog.
-        SummaryDialog dialog = new SummaryDialog(assets, getCamera());
+        SummaryDialog dialog = new SummaryDialog(assets, getViewport());
         //dialog.reset(manager.killList, isWin, new QQPressListener() {
         //    @Override
         //    public void onPress(int index) {

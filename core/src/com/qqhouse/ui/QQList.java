@@ -17,6 +17,10 @@ import java.util.Locale;
 // TODO QQList should extends QQList ?
 public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchable {
 
+    private final Viewport viewport;
+    public QQList(Viewport viewport) {
+        this.viewport = viewport;
+    }
 
     public static abstract class Adapter {
         private QQList list;
@@ -623,11 +627,9 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
     //private Rectangle scissorArea;
     private Camera camera;
-    private Viewport viewport;
     public void setCamera(Camera camera) {
         this.camera = camera;
     }
-    public void setViewport(Viewport viewport) {this.viewport = viewport; }
 
     /*
         IsParent series

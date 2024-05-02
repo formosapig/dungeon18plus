@@ -55,12 +55,10 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         addChild(group);
 
         // list of available heroes ...
-        QQList list = new QQList();
+        QQList list = new QQList(getViewport());
         //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 48 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4
         list.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-        list.setCamera(getCamera());
-        list.setViewport(getViewport());
         list.setAdapter(availableHeroesAdapter);
         list.addListener(new QQList.PressListener() {
             @Override

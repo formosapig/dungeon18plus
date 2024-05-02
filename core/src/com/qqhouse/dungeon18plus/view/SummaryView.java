@@ -2,6 +2,7 @@ package com.qqhouse.dungeon18plus.view;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GameAlignment;
@@ -21,11 +22,11 @@ public class SummaryView extends QQGroup {
     private boolean isWin;
 
     private final Assets assets;
-    private final Camera camera;
-    public SummaryView(Assets assets, Camera camera) {
+    private final Viewport viewport;
+    public SummaryView(Assets assets, Viewport viewport) {
         super(DIRECT_VERTICAL, Game.Size.WIDGET_MARGIN);
         this.assets = assets;
-        this.camera = camera;
+        this.viewport = viewport;
         setPadding(Game.Size.BLOCKEE_PADDING);
         bgNormal = new NinePatch(assets.getBackground("dialog"), 4, 4, 4, 4);
     }
@@ -45,11 +46,10 @@ public class SummaryView extends QQGroup {
         addChild(done);
 
         // list
-        QQList scores = new QQList();
+        QQList scores = new QQList(viewport);
         //scores.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         scores.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         scores.setMaxHeight(400);
-        scores.setCamera(camera);
         scores.setAdapter(adapter);
         addChild(scores);
         //scores.setBackground(new NinePatch(assets.getBackground("white"), 4, 4, 4, 4));
