@@ -1,3 +1,13 @@
+--------------- 20240503(五) ---------------
+- 很白爛，我這台 mac 只安裝了 libgdx 的專案，結果這個專案無法自產 android debug keystore ....
+  後來我開了一個阿雜空白小專案再執行一下，就解決了。超白爛。
+- 使用 android studio > Resource Manager > + > Image Asset 去製做 adaptive icon ，
+  但是效果不太滿意，先這樣。以後有空再改。
+- iOS loading screen 修改 iOS module 內的 data ，有一個叫 Logo.imageset 裹面就是了。
+- 過河卒子，勇往直前。
+
+
+
 --------------- 20240502(四) ---------------
 - 在專案目錄下有一個 .git 的隱藏目錄，修改內部的 config file. 近增以下
 [user]
