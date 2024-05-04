@@ -9,6 +9,7 @@ import com.qqhouse.dungeon18plus.screen.ColosseumScreen;
 import com.qqhouse.dungeon18plus.screen.DungeonScreen;
 import com.qqhouse.dungeon18plus.screen.EquipmentCatalogScreen;
 import com.qqhouse.dungeon18plus.screen.GalleryScreen;
+import com.qqhouse.dungeon18plus.screen.HeroAlbumScreen;
 import com.qqhouse.dungeon18plus.screen.LeaderboardScreen;
 import com.qqhouse.dungeon18plus.screen.MonsterGuideScreen;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
@@ -39,6 +40,7 @@ public class Main extends QQGameMachine implements
     private EquipmentCatalogScreen equipmentCatalog;
     private MonsterGuideScreen monsterGuide;
     private LeaderboardScreen leaderboard;
+    private HeroAlbumScreen heroAlbum;
     private Assets assets;
 
     @Override
@@ -59,10 +61,10 @@ public class Main extends QQGameMachine implements
         title = new TitleScreen((SaveGame) savedGame, viewport, assets, this);
 
         setRoot(title);
-        Gdx.app.error("Main.java", "SafeInsetTop : " + Gdx.graphics.getSafeInsetTop());
-        Gdx.app.error("Main.java", "SafeInsetBottom : " + Gdx.graphics.getSafeInsetBottom());
-        Gdx.app.error("Main.java", "SafeInsetLeft : " + Gdx.graphics.getSafeInsetLeft());
-        Gdx.app.error("Main.java", "SafeInsetRight : " + Gdx.graphics.getSafeInsetRight());
+        //Gdx.app.error("Main.java", "SafeInsetTop : " + Gdx.graphics.getSafeInsetTop());
+        //Gdx.app.error("Main.java", "SafeInsetBottom : " + Gdx.graphics.getSafeInsetBottom());
+        //Gdx.app.error("Main.java", "SafeInsetLeft : " + Gdx.graphics.getSafeInsetLeft());
+        //Gdx.app.error("Main.java", "SafeInsetRight : " + Gdx.graphics.getSafeInsetRight());
     }
 
     @Override
@@ -159,6 +161,10 @@ public class Main extends QQGameMachine implements
             case Game.GalleryAction.WILDERNESS_BARRACK:
                 break;
             case Game.GalleryAction.HERO_ALBUM:
+                if (null == heroAlbum) {
+                    heroAlbum = new HeroAlbumScreen((SaveGame) savedGame, viewport, assets);
+                }
+                push(heroAlbum);
                 break;
             case Game.GalleryAction.GIANT_ALBUM:
                 break;

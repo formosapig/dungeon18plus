@@ -27,7 +27,7 @@ public abstract class QQGameMachine implements ApplicationListener {
     private OrthographicCamera camera;
     protected Viewport viewport;
     protected QQSaveGame savedGame;
-    private boolean debug = true;
+    private boolean debug = false;
     private BitmapFont font;
     private StringBuilder builder;
     private long screenStartTime;
@@ -122,8 +122,8 @@ public abstract class QQGameMachine implements ApplicationListener {
      */
     @Override
     public void resize(int width, int height) {
-        Gdx.app.error("QQGameMachine", "width, height =" + width + "," + height);
-        Gdx.app.error("QQGameMachine", "screenX, screenY =" + viewport.getScreenX() + "," + viewport.getScreenY());
+        //Gdx.app.error("QQGameMachine", "width, height =" + width + "," + height);
+        //Gdx.app.error("QQGameMachine", "screenX, screenY =" + viewport.getScreenX() + "," + viewport.getScreenY());
         //viewport.setScreenY(Gdx.graphics.getSafeInsetBottom());
         //viewport.setScreenX(Gdx.graphics.getSafeInsetLeft());
         // camera 的世界座標 0,0 在左下角
@@ -133,11 +133,11 @@ public abstract class QQGameMachine implements ApplicationListener {
                 width - Gdx.graphics.getSafeInsetLeft() - Gdx.graphics.getSafeInsetRight(),
                 height - Gdx.graphics.getSafeInsetTop() - Gdx.graphics.getSafeInsetBottom());
         viewport.apply(false);
-        Gdx.app.error("QQGameMachine", "screenX, screenY =" + viewport.getScreenX() + "," + viewport.getScreenY());
+        //Gdx.app.error("QQGameMachine", "screenX, screenY =" + viewport.getScreenX() + "," + viewport.getScreenY());
 
         //viewport.update(width - Gdx.graphics.getSafeInsetLeft() - Gdx.graphics.getSafeInsetRight(),
         //        height - Gdx.graphics.getSafeInsetTop() - Gdx.graphics.getSafeInsetBottom());
-        Gdx.app.error("QQGameMachine", "screenX, screenY =" + viewport.getScreenX() + "," + viewport.getScreenY());
+        //Gdx.app.error("QQGameMachine", "screenX, screenY =" + viewport.getScreenX() + "," + viewport.getScreenY());
 
     }
 

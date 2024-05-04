@@ -96,7 +96,7 @@ public class TitleScreen extends QQScreen {
         }
 
         // Library : default
-        menus.add(new TitleMenuView(assets.getBackgroundSet(LAWFUL.key),
+        menus.add(new TitleMenuView(assets.getBackgroundSet(SPECIAL.key),
                 assets.getBlockee("merchant"),
                 // 下面這行 code 把 texture 變成灰階的了,笑死
                 //new Texture(Gdx.files.internal("blockee/merchant.png"), Pixmap.Format.LuminanceAlpha, true),
