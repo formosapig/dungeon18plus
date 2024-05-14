@@ -5,8 +5,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GameAlignment;
+import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
+import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.ui.QQButtonEx;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 public class MasterView extends QQGroup {
 
     // data
+    private Veteran veteran;
     private ArrayList<EquipmentMastery> backpack;
 
     private final Assets assets;
@@ -30,7 +33,8 @@ public class MasterView extends QQGroup {
         bgNormal = new NinePatch(assets.getBackground("dialog"), 4, 4, 4, 4);
     }
 
-    public void reset(ArrayList<EquipmentMastery> backpack, QQPressListener listener) {
+    public void reset(Veteran veteran, ArrayList<EquipmentMastery> backpack, QQPressListener listener) {
+        this.veteran = veteran;
         this.backpack = backpack;
 
         // create ...
@@ -77,7 +81,18 @@ public class MasterView extends QQGroup {
         @Override
         public QQView getView(int index) {
             final EquipmentMasteryView v = new EquipmentMasteryView(assets);
-            v.reset(backpack.get(index));
+            EquipmentMastery em = backpack.get(index);
+            // check isMastery
+            boolean isMastery = false;
+
+            for (Item equip: veteran.heroClass.masteryEquipment) {
+                if (em.equipment.equals(equip)) {
+                    isMastery = true;
+                    break;
+                }
+            }
+
+            v.reset(em, isMastery, veteran);
             v.setSize(QQView.MATCH_PARENT, 48);
             return v;
         }

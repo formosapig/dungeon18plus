@@ -191,7 +191,7 @@ public enum UltimateSkill {
 	 */
 	WOODEN_STAFF( "item_wooden_staff",          0x3F619D0B, 350, 220, new OpSt(DG_LIF,  120,  120,   1,   1)),
 	MITHRIL_STAFF( "item_mithril_staff",        0x9B74E27C, 350, 350, new OpSt(DG_LIF,  120,  120,   1,   1),
-                                                                                new OpSt(AS_LIF,  100,  200,  ME,  ME)),
+			                                                          new OpSt(AS_LIF,  100,  200,  ME,  ME)),
 	YGGDRASIL_STAFF( "item_yggdrasil_staff",    0x8109B870, 350, 220, new OpSt(DG_LIF,  120,  200,   1,   2),
                                                                       new OpSt(AS_LIF,  100,  200,   1,   3)),
 	

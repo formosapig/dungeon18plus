@@ -237,7 +237,7 @@ public class ColosseumScreen extends QQScreen {
 
         // call summary dialog.
         MasterDialog dialog = new MasterDialog(assets, getViewport());
-        dialog.reset(manager.backpack, new QQPressListener() {
+        dialog.reset(manager.createVeteran(), manager.backpack, new QQPressListener() {
             @Override
             public void onPress(int index) {
                 callback.onColosseumResult(false, null);

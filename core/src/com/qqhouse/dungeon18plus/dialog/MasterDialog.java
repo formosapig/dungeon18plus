@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
+import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.dungeon18plus.view.MasterView;
 import com.qqhouse.dungeon18plus.view.SummaryView;
 import com.qqhouse.ui.QQPressListener;
@@ -26,7 +27,7 @@ public class MasterDialog extends AssetDialog {
         setCustomView(master);
     }
 
-    public void reset(ArrayList<EquipmentMastery> backpack, QQPressListener listener) {
-        master.reset(backpack, listener);
+    public void reset(Veteran veteran, ArrayList<EquipmentMastery> backpack, QQPressListener listener) {
+        master.reset(veteran, backpack, listener);
     }
 }
