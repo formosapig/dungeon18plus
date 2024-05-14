@@ -10,15 +10,13 @@ import com.qqhouse.dungeon18plus.struct.ActionSlot;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.view.ActionView;
-import com.qqhouse.dungeon18plus.view.EventInfoDialog;
+import com.qqhouse.dungeon18plus.dialog.EventInfoDialog;
 import com.qqhouse.dungeon18plus.view.EventInfoView;
 import com.qqhouse.dungeon18plus.view.EventView;
 import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
 import com.qqhouse.dungeon18plus.Assets;
-import com.qqhouse.dungeon18plus.view.SummaryDialog;
-import com.qqhouse.dungeon18plus.view.SummaryView;
-import com.qqhouse.ui.QQCustomDialog;
+import com.qqhouse.dungeon18plus.dialog.SummaryDialog;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
@@ -174,7 +172,6 @@ public class DungeonScreen extends QQScreen {
         //specialEventList.setSize(Game.WIDTH, QQView.WRAP_CONTENT);//64 + 64 + 2 + 2 + 2);
         specialEventList.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         specialEventList.setPosition(0, 0);
-        specialEventList.setCamera(getCamera());
 
         specialEventList.setAdapter(specialEventAdapter);
         specialEventList.addListener(new QQList.PressListener() {
@@ -202,7 +199,7 @@ public class DungeonScreen extends QQScreen {
         //eventList.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
         eventList.setSize(Game.Size.WIDTH, QQView.MATCH_PARENT);
         //eventList.setPosition(0, 64 + 2 + 24 + 2);
-        eventList.setCamera(getCamera());
+        //eventList.setCamera(getCamera());
         eventList.setAdapter(eventAdapter);
         eventList.addListener(new QQList.PressListener() {
             @Override

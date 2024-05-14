@@ -42,7 +42,9 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 	private SaveGame savedGame;
 
     public ColosseumManager(HeroClass heroClass, SaveGame savedGame) {
-		
+
+		// saved game
+		this.savedGame = savedGame;
 		// class record
 		HeroClassRecord record = savedGame.getHeroClassRecord(heroClass);
 
@@ -59,13 +61,14 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 		// no more limit, max round = 40;
 		if (mHero.coin > 150)
             mHero.coin = 150;
-        mHero.star = 50;
+		mHero.coin = 999;
+		mHero.star = 50;
         mHero.key = 0;
         mHero.round = 0;
 
 		// initial shops
 		mShopItems.clear();
-		//mShopItems.addAll(GameData.getInstance().getEquipmentData());
+		mShopItems.addAll(savedGame.getEquipmentData());
 		if (Game.isPremium) {
 			mShopItems.add(Item.YGGDRASIL_DAGGER);
 			mShopItems.add(Item.YGGDRASIL_SWORD);
@@ -138,10 +141,10 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
                         }
                     }
 					mEvents.add(pos, shop);
-					adapter.insert(pos);
+					//adapter.insert(pos);
 					// FIXME must support multi insert/remove function.
-                    //if (null != mAdapter)
-                    //    mAdapter.insert(pos);
+                    if (null != adapter)
+                        adapter.insert(pos);
 				}
 			}
 		} else {
@@ -381,9 +384,9 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 
 		// save equipment to backpack
 		if (loot.isEquipment()) {
-			//final int mastery = GameData.getInstance().getHeroClassRecord(mHero.heroClass).getMastery(loot);
-			//backpack.add(new EquipmentMastery(loot,
-			//	G.MASTERY_NOT_FOUND == mastery ? addMastery() : mastery / 2));
+			final int mastery = savedGame.getHeroClassRecord(mHero.heroClass).getMastery(loot);
+			backpack.add(new EquipmentMastery(loot,
+				Game.MASTERY_NOT_FOUND == mastery ? addMastery() : mastery / 2));
 			Collections.sort(backpack);
 		}
 		

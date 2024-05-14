@@ -623,14 +623,6 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         this.listener = listener;
     }
 
-
-
-    //private Rectangle scissorArea;
-    private Camera camera;
-    public void setCamera(Camera camera) {
-        this.camera = camera;
-    }
-
     /*
         IsParent series
      */

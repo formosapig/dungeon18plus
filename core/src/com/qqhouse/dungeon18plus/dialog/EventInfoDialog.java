@@ -1,7 +1,8 @@
-package com.qqhouse.dungeon18plus.view;
+package com.qqhouse.dungeon18plus.dialog;
 
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.struct.event.Event;
+import com.qqhouse.dungeon18plus.view.EventInfoView;
 import com.qqhouse.ui.QQView;
 
 public class EventInfoDialog extends AssetDialog {

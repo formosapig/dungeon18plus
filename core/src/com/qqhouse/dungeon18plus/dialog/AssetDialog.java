@@ -1,4 +1,4 @@
-package com.qqhouse.dungeon18plus.view;
+package com.qqhouse.dungeon18plus.dialog;
 
 import com.badlogic.gdx.graphics.Color;
 import com.qqhouse.dungeon18plus.Assets;

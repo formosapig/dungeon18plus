@@ -6,17 +6,18 @@ import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.ColosseumManager;
 import com.qqhouse.dungeon18plus.core.HeroClass;
+import com.qqhouse.dungeon18plus.dialog.MasterDialog;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.view.ActionView;
-import com.qqhouse.dungeon18plus.view.EventInfoDialog;
+import com.qqhouse.dungeon18plus.dialog.EventInfoDialog;
 import com.qqhouse.dungeon18plus.view.EventInfoView;
 import com.qqhouse.dungeon18plus.view.EventView;
 import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
-import com.qqhouse.dungeon18plus.view.SummaryDialog;
+import com.qqhouse.dungeon18plus.dialog.SummaryDialog;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQPressListener;
@@ -235,15 +236,15 @@ public class ColosseumScreen extends QQScreen {
         setSwipeRightCallback(null);
 
         // call summary dialog.
-        SummaryDialog dialog = new SummaryDialog(assets, getViewport());
-        //dialog.reset(manager.killList, isWin, new QQPressListener() {
-        //    @Override
-        //    public void onPress(int index) {
-        //        callback.onColosseumResult(false, null);
-        //    }
-        //    @Override
-        //    public void onLongPress(QQView view) {}
-        //});
+        MasterDialog dialog = new MasterDialog(assets, getViewport());
+        dialog.reset(manager.backpack, new QQPressListener() {
+            @Override
+            public void onPress(int index) {
+                callback.onColosseumResult(false, null);
+            }
+            @Override
+            public void onLongPress(QQView view) {}
+        });
         openDialog(dialog);
     }
 
