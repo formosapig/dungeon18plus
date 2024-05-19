@@ -228,7 +228,7 @@ public class Game {
 
 
     // if buy premium.
-    public static boolean isPremium = false;
+    public static boolean isPremium = false || Debug.PREMIUM;
 
     public void start() {
 

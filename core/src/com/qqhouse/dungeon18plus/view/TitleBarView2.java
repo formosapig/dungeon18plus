@@ -19,6 +19,19 @@ public class TitleBarView2 extends AssetGroup {
         //setPadding(4);
     }
 
+    public void reset(String iconKey, String nameKey) {
+        if (null != iconKey) {
+            icon = new QQImage(assets.getBlockee(iconKey));
+            icon.setSize(32, 32); // 預設是 32 x 32 的 blockee...
+            icon.setPosition(leftPadding, bottomPadding);
+            addChild(icon);
+        }
+
+        name = new QQText(assets.getFont(Game.Font.NAME20));
+        name.setText(assets.geti18n(nameKey));
+        addChild(name);
+    }
+
     public void reset(String iconKey, String nameKey, String resourceKey, Color color, String value) {
         if (null != iconKey) {
             icon = new QQImage(assets.getBlockee(iconKey));
@@ -55,8 +68,10 @@ public class TitleBarView2 extends AssetGroup {
         }
 
         if (null != name) {
-            name.setSize(resource.getX() - innerMargin * 2 - (leftPadding + 32), 32);
-            name.setPosition(leftPadding + 32 + innerMargin, bottomPadding);
+            //name.setSize(resource.getX() - innerMargin * 2 - (leftPadding + 32), 32);
+            //name.setPosition(leftPadding + 32 + innerMargin, bottomPadding);
+            name.setSize(QQView.WRAP_CONTENT, 32);
+            name.setPosition((this.width - name.getWidth()) / 2, bottomPadding);
         }
     }
 }

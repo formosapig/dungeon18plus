@@ -691,6 +691,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             Event evt = mEvents.get(i);
             if (EventType.DOOR == evt.type) {
                 mEvents.remove(i);
+                // fixme clear all doors will makes crash, because QQList does not support multi insert / delete.
                 //mAdapter.remove(i);
             }
         }

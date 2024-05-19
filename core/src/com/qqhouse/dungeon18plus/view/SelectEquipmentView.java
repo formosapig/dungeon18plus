@@ -6,7 +6,6 @@ import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GameAlignment;
 import com.qqhouse.dungeon18plus.core.Item;
-import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.ui.QQButtonEx;
@@ -17,15 +16,17 @@ import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
 
-public class MasterView extends QQGroup {
+public class SelectEquipmentView extends QQGroup {
 
     // data
     private Veteran veteran;
     private ArrayList<EquipmentMastery> backpack;
 
+    private VeteranView vv;
+
     private final Assets assets;
     private final Viewport viewport;
-    public MasterView(Assets assets, Viewport viewport) {
+    public SelectEquipmentView(Assets assets, Viewport viewport) {
         super(DIRECT_VERTICAL, Game.Size.WIDGET_MARGIN);
         this.assets = assets;
         this.viewport = viewport;
@@ -37,31 +38,42 @@ public class MasterView extends QQGroup {
         this.veteran = veteran;
         this.backpack = backpack;
 
-        // create ...
-        // button
-        // TODO QQButton can add image / text ...
-        QQButtonEx done = new QQButtonEx(assets.getBackgroundSet(GameAlignment.NEUTRAL.key));
-        //done.setPosition(leftPadding, bottomPadding);
-        done.setSize(QQView.MATCH_PARENT, 40);
-        done.addQQClickListener(listener, 0);
-        //done.setText(assets.getFont(Game.Font.NAME20), assets.geti18n(isWin ? "win" : "lose"));
-        addChild(done);
+        // veteran
+        vv = new VeteranView(assets);
+        vv.setSize(QQView.MATCH_PARENT, 64);
+        vv.addQQClickListener(listener, 0);
+        vv.reset(veteran);
+        addChild(vv);
 
         // list
-        QQList scores = new QQList(viewport);
+        QQList equips = new QQList(viewport);
         //scores.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
-        scores.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-        scores.setMaxHeight(400);
-        scores.setAdapter(adapter);
-        addChild(scores);
+        equips.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        equips.setMaxHeight(400);
+        equips.setAdapter(adapter);
+        equips.addListener(new QQList.PressListener() {
+            @Override
+            public void onPress(int index) {
+                // set UniqueSkill
+                veteran.equipment = backpack.get(index).equipment;
+                veteran.mastery = backpack.get(index).mastery;
+                vv.reset(veteran);
+            }
+
+            @Override
+            public void onLongPress(int index) {
+
+            }
+        });
+        addChild(equips);
         //scores.setBackground(new NinePatch(assets.getBackground("white"), 4, 4, 4, 4));
 
-        TitleBarView master = new TitleBarView(
-                assets.getBlockee("sword_master"),
-                assets.getFont(Game.Font.NAME20),
-                assets.geti18n("score"));
+        TitleBarView2 master = new TitleBarView2(assets);
+        master.reset("sword_master", "colosseum_master");
         master.setPosition(leftPadding + 4, height - 40 - topPadding);
-        master.setSize(QQView.MATCH_PARENT, 40);
+        master.setSize(QQView.MATCH_PARENT, 48);
+        master.setPadding(8);
+        master.setBackground(assets.getNinePatchBG("neutral"));
         addChild(master);
 
         resetWrapHeight();
@@ -80,7 +92,7 @@ public class MasterView extends QQGroup {
 
         @Override
         public QQView getView(int index) {
-            final EquipmentMasteryView v = new EquipmentMasteryView(assets);
+            final UniqueSkillView v = new UniqueSkillView(assets);
             EquipmentMastery em = backpack.get(index);
             // check isMastery
             boolean isMastery = false;

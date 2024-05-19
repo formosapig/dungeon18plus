@@ -65,6 +65,7 @@ public class Main extends QQGameMachine implements
         //Gdx.app.error("Main.java", "SafeInsetBottom : " + Gdx.graphics.getSafeInsetBottom());
         //Gdx.app.error("Main.java", "SafeInsetLeft : " + Gdx.graphics.getSafeInsetLeft());
         //Gdx.app.error("Main.java", "SafeInsetRight : " + Gdx.graphics.getSafeInsetRight());
+
     }
 
     @Override
