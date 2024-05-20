@@ -8,7 +8,7 @@ public enum Item {
     NONE( 0x55D42055, "", "", "", Type.NONE, 0),
 
     // SOUL
-    SOUL( 0x2F5D69C7, "icon32_soul", "", "", Type.NONE, 0),
+    SOUL( 0x2F5D69C7, "soul", "soul", "soul_help", Type.NONE, 0),
 
     // STAR
     STAR( 0x71F2B299, "star", "star", "star_help", Type.NONE, 0),

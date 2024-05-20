@@ -39,13 +39,7 @@ public class UniqueSkillView extends AssetGroupButton {
     public void reset(EquipmentMastery mastery, boolean isMastery, Ability base) {
         // initial all item.
         if (null != mastery) {
-            item = new ItemView(assets.getItem(mastery.equipment.icon));
-            if (mastery.equipment.isBlessed())
-                item.setStatus(assets.getBackground("blessed"));
-            else if (mastery.equipment.isCursed())
-                item.setStatus(assets.getBackground("cursed"));
-            else if (mastery.equipment.isRefined())
-                item.setStatus(assets.getBackground("refined"));
+            item = ItemView.create(assets, mastery.equipment);
             item.setSize(32, 32);
             item.setPosition(8, 8);
             //item.setPosition(leftPadding, bottomPadding);

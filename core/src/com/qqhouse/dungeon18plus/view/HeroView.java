@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Feat;
+import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.hero.ColosseumHero;
 import com.qqhouse.dungeon18plus.struct.hero.DungeonHero;
 import com.qqhouse.ui.QQButton;
@@ -33,7 +34,7 @@ public class HeroView extends QQButton implements QQView.IsParent {
      */
     private Texture hero;
     private QQIconText lifeText, attackText, defenseText, speedText;
-    private ItemView keyItem, coinItem, starItem;
+    private ItemView soulItem, keyItem, coinItem, starItem;
     private QQText level;
     private QQProgress exp;
 
@@ -174,13 +175,12 @@ public class HeroView extends QQButton implements QQView.IsParent {
         speedText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "speed"))
                 .size(72, 16).position(280, 6).color(Game.Colour.SPEED).attach(this);
 
-        // Soul ...
-
-        // key item
-        //keyItem = new ItemView(assets.getTexture("item", "key"), assets.getFont(Game.Font.DIGITAL16))
-        //        .color(Game.color.COUNT).size(32, 32).position(212, 26).attach(this);
-        keyItem = new ItemView(assets.getTexture("item", "key"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                .color(Game.Colour.COUNT).size(32, 32).position(212, 26).attach(this);
+        // Round use Item.SOUL
+        soulItem = ItemView.create(assets, Item.SOUL, 0);
+        soulItem.setColor(Game.Colour.COUNT);
+        soulItem.setSize(32, 32);
+        soulItem.setPosition(64, 26);
+        addChild(soulItem);
 
         // coin
         coinItem = new ItemView(assets.getTexture("item", "copper_coin"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
@@ -198,14 +198,12 @@ public class HeroView extends QQButton implements QQView.IsParent {
 
         lifeText.setText(hero.displayLife());
         attackText.setText(hero.displayAttack());
-        //attackText.setText("199x2");
         defenseText.setText(hero.displayDefense());
         speedText.setText(hero.displaySpeed());
-        keyItem.setText(Integer.toString(hero.key));
+
+        soulItem.setText(Integer.toString(hero.round));
         coinItem.setText(Integer.toString(hero.coin));
         starItem.setText(Integer.toString(hero.star));
-        // level
-        // exp...
     }
 
     @Override

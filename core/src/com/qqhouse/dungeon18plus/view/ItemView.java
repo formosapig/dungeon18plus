@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.qqhouse.dungeon18plus.Assets;
+import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
@@ -106,6 +109,25 @@ public class ItemView extends QQView {
     public ItemView attach(IsParent parent) {
         parent.addChild(this);
         return this;
+    }
+
+    /*
+        ItemView creator
+     */
+    public static ItemView create(Assets assets, Item item) {
+        ItemView iv = new ItemView(assets.getItem(item.icon));
+        if (item.isBlessed())
+            iv.setStatus(assets.getBackground("blessed"));
+        else if (item.isCursed())
+            iv.setStatus(assets.getBackground("cursed"));
+        else if (item.isRefined())
+            iv.setStatus(assets.getBackground("refined"));
+        return iv;
+    }
+
+    public static ItemView create(Assets assets, Item item, int count) {
+        ItemView iv = new ItemView(assets.getItem(item.icon), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"));
+        return iv;
     }
 
 }
