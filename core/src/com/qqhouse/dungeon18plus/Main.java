@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.core.ColosseumManager;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
+import com.qqhouse.dungeon18plus.screen.BarrackScreen;
 import com.qqhouse.dungeon18plus.screen.ColosseumScreen;
 import com.qqhouse.dungeon18plus.screen.DungeonScreen;
 import com.qqhouse.dungeon18plus.screen.EquipmentCatalogScreen;
@@ -12,9 +13,11 @@ import com.qqhouse.dungeon18plus.screen.GalleryScreen;
 import com.qqhouse.dungeon18plus.screen.HeroAlbumScreen;
 import com.qqhouse.dungeon18plus.screen.LeaderboardScreen;
 import com.qqhouse.dungeon18plus.screen.MonsterGuideScreen;
+import com.qqhouse.dungeon18plus.screen.PopupScreen;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
 import com.qqhouse.dungeon18plus.struct.BossKill;
+import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.ui.QQGameMachine;
 
 import java.util.ArrayList;
@@ -22,9 +25,9 @@ import java.util.ArrayList;
 public class Main extends QQGameMachine implements
         TitleScreen.TitleCallback,
         SelectHeroScreen.SelectHeroCallback,
-        DungeonScreen.DungeonCallback,
         ColosseumScreen.ColosseumCallback,
-        GalleryScreen.GalleryCallback {
+        GalleryScreen.GalleryCallback,
+        PopupScreen {
 
     public static final int STATE_TITLE       = 0;
     public static final int STATE_SELECT_HERO = 1;
@@ -40,6 +43,7 @@ public class Main extends QQGameMachine implements
     private EquipmentCatalogScreen equipmentCatalog;
     private MonsterGuideScreen monsterGuide;
     private LeaderboardScreen leaderboard;
+    private BarrackScreen barrack;
     private HeroAlbumScreen heroAlbum;
     private Assets assets;
 
@@ -127,13 +131,17 @@ public class Main extends QQGameMachine implements
     }
 
     @Override
-    public void onDungeonResult(boolean isWin, ArrayList<BossKill> kills) {
-        popup();
-    }
-
-    @Override
-    public void onColosseumResult(boolean isWin, ArrayList<BossKill> kills) {
-
+    public void onColosseumResult(Veteran veteran) {
+        if (null == veteran) {
+            popup();
+        } else {
+            popup();
+            if (null == barrack) {
+                barrack = new BarrackScreen((SaveGame) savedGame, viewport, assets, this);
+            }
+            barrack.setVeteran(veteran);
+            push(barrack);
+        }
     }
 
     @Override
@@ -153,13 +161,19 @@ public class Main extends QQGameMachine implements
                 push(monsterGuide);
             }
                 break;
-            case Game.GalleryAction.DUNGEON_LEADERBOARD:
+            case Game.GalleryAction.DUNGEON_LEADERBOARD: {
                 if (null == leaderboard) {
                     leaderboard = new LeaderboardScreen((SaveGame) savedGame, viewport, assets);
                 }
                 push(leaderboard);
+            }
                 break;
-            case Game.GalleryAction.WILDERNESS_BARRACK:
+            case Game.GalleryAction.WILDERNESS_BARRACK: {
+                if (null == barrack) {
+                    barrack = new BarrackScreen((SaveGame) savedGame, viewport, assets, this);
+                }
+                push(barrack);
+            }
                 break;
             case Game.GalleryAction.HERO_ALBUM:
                 if (null == heroAlbum) {
@@ -172,5 +186,10 @@ public class Main extends QQGameMachine implements
             default:
                 throw new GdxRuntimeException("Gallery action doesn't exist. : " + action);
         }
+    }
+
+    @Override
+    public void onPopupScreen() {
+        popup();
     }
 }

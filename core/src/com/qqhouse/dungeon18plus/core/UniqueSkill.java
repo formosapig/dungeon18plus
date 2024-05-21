@@ -7,7 +7,7 @@ import static com.qqhouse.dungeon18plus.struct.Operation.*;
 import static com.qqhouse.dungeon18plus.struct.Operation2.ALL;
 import static com.qqhouse.dungeon18plus.struct.Operation2.ME;
 
-public enum UltimateSkill {
+public enum UniqueSkill {
 
 	/*
 	 * 基礎
@@ -263,6 +263,9 @@ public enum UltimateSkill {
 	 */
 	NONE( "", 0x3E488434, 0, 0);
 
+	// operation2 num
+	public static final int MAX_OPERATIONS = 2;
+
 	// operation set
 	private static class OpSt {
 		final int type;
@@ -282,7 +285,7 @@ public enum UltimateSkill {
 	/*
 	 * constructor
 	 */
-	UltimateSkill(String icon, int code, int coolDownMin, int coolDownMax, OpSt... operationSets) {
+	UniqueSkill(String icon, int code, int coolDownMin, int coolDownMax, OpSt... operationSets) {
 		this.icon = icon;
 		this.bg = "";
 		this.code = code;
@@ -291,7 +294,7 @@ public enum UltimateSkill {
 		this.operationSets = operationSets;
 	}
 
-	UltimateSkill(String icon, String bg, int code, int coolDownMin, int coolDownMax, OpSt... operationSets) {
+	UniqueSkill(String icon, String bg, int code, int coolDownMin, int coolDownMax, OpSt... operationSets) {
         this.icon = icon;
         this.bg = bg;
         this.code = code;
@@ -317,8 +320,8 @@ public enum UltimateSkill {
 	/*
 	 * find
 	 */
-	public static UltimateSkill find(final int code) {
-		for (UltimateSkill us : UltimateSkill.values())
+	public static UniqueSkill find(final int code) {
+		for (UniqueSkill us : UniqueSkill.values())
 			if (us.code == code)
 				return us;
 		throw new RuntimeException("invalid code : " + code);

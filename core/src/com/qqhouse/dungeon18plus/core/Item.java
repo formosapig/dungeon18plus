@@ -70,120 +70,120 @@ public enum Item {
 
     // DAGGER
     WOODEN_DAGGER( 0x22DAFA3E, "wooden_dagger", "wooden_dagger", "wooden_help",
-            Type.NORMAL | Type.DAGGER, 30, UltimateSkill.WOODEN_DAGGER, LIFE_15, ATTACK_1, SPEED_1 ),
+            Type.NORMAL | Type.DAGGER, 30, UniqueSkill.WOODEN_DAGGER, LIFE_15, ATTACK_1, SPEED_1 ),
     IRON_DAGGER( 0x05BB4ADB, "iron_dagger", "iron_dagger", null,
-            Type.NORMAL | Type.DAGGER, 40, UltimateSkill.IRON_DAGGER, ATTACK_4, SPEED_1),
+            Type.NORMAL | Type.DAGGER, 40, UniqueSkill.IRON_DAGGER, ATTACK_4, SPEED_1),
     IRON_DAGGER_1( 0xEB5020CE, "iron_dagger", "iron_dagger_1", "iron_1_help",
-            Type.REFINED | Type.DAGGER, 50, UltimateSkill.IRON_DAGGER_1, ATTACK_6, SPEED_2),
+            Type.REFINED | Type.DAGGER, 50, UniqueSkill.IRON_DAGGER_1, ATTACK_6, SPEED_2),
     WIND_DAGGER( 0xF3FE45BB, "wind_dagger", "wind_dagger", null,
-            Type.NORMAL | Type.DAGGER, 50, UltimateSkill.WIND_DAGGER, ATTACK_2, SPEED_3),
+            Type.NORMAL | Type.DAGGER, 50, UniqueSkill.WIND_DAGGER, ATTACK_2, SPEED_3),
     MITHRIL_DAGGER( 0x334C939B, "mithril_dagger", "mithril_dagger", "mithril_help",
-            Type.NORMAL | Type.DAGGER, 50, UltimateSkill.MITHRIL_DAGGER, LIFE_50, ATTACK_3, SPEED_2),
+            Type.NORMAL | Type.DAGGER, 50, UniqueSkill.MITHRIL_DAGGER, LIFE_50, ATTACK_3, SPEED_2),
     SHADOW_DAGGER(0x7BDC7012, "shadow_dagger", "shadow_dagger", "shadow_dagger_help",
-            Type.CURSED | Type.DAGGER, 75, UltimateSkill.SHADOW_DAGGER, LIFE_N50, ATTACK_16, SPEED_2),
+            Type.CURSED | Type.DAGGER, 75, UniqueSkill.SHADOW_DAGGER, LIFE_N50, ATTACK_16, SPEED_2),
     YGGDRASIL_DAGGER(0x18837AC0, "yggdrasil_dagger", "yggdrasil_dagger", "yggdrasil_help",
-            Type.BLESSED | Type.DAGGER | Type.PREMIUM, 110, UltimateSkill.YGGDRASIL_DAGGER, LIFE_150, ATTACK_10, SPEED_5),
+            Type.BLESSED | Type.DAGGER | Type.PREMIUM, 110, UniqueSkill.YGGDRASIL_DAGGER, LIFE_150, ATTACK_10, SPEED_5),
 
     // SWORD
     WOODEN_SWORD(0x78311C02, "wooden_sword", "wooden_sword", "wooden_help",
-            Type.NORMAL | Type.SWORD, 30, UltimateSkill.WOODEN_SWORD, LIFE_15, ATTACK_3),
+            Type.NORMAL | Type.SWORD, 30, UniqueSkill.WOODEN_SWORD, LIFE_15, ATTACK_3),
     IRON_SWORD(0xBBDDD8D6, "iron_sword", "iron_sword", null,
-            Type.NORMAL | Type.SWORD, 40, UltimateSkill.IRON_SWORD, ATTACK_6),
+            Type.NORMAL | Type.SWORD, 40, UniqueSkill.IRON_SWORD, ATTACK_6),
     IRON_SWORD_1(0xBA875A26, "iron_sword", "iron_sword_1", "iron_1_help",
-            Type.REFINED | Type.SWORD, 50, UltimateSkill.IRON_SWORD_1, ATTACK_10),
+            Type.REFINED | Type.SWORD, 50, UniqueSkill.IRON_SWORD_1, ATTACK_10),
     GREAT_SWORD(0xA58D8E6E, "great_sword", "great_sword", null,
-            Type.NORMAL | Type.SWORD, 50, UltimateSkill.GREAT_SWORD, ATTACK_9, SPEED_N3),
+            Type.NORMAL | Type.SWORD, 50, UniqueSkill.GREAT_SWORD, ATTACK_9, SPEED_N3),
     MITHRIL_SWORD(0xE8B343FA, "mithril_sword", "mithril_sword", "mithril_help",
-            Type.NORMAL | Type.SWORD, 50, UltimateSkill.MITHRIL_SWORD, LIFE_50, ATTACK_7),
+            Type.NORMAL | Type.SWORD, 50, UniqueSkill.MITHRIL_SWORD, LIFE_50, ATTACK_7),
     FIRE_SWORD(0xCD5765FC, "fire_sword", "fire_sword", "fire_sword_help",
-            Type.NORMAL | Type.SWORD, 75, UltimateSkill.FIRE_SWORD, ATTACK_20, DEFENSE_N5),
+            Type.NORMAL | Type.SWORD, 75, UniqueSkill.FIRE_SWORD, ATTACK_20, DEFENSE_N5),
     ICE_SWORD(0x15FE199F, "ice_sword", "ice_sword", "ice_sword_help",
-            Type.NORMAL | Type.SWORD, 75, UltimateSkill.ICE_SWORD, ATTACK_10, DEFENSE_8, SPEED_N1),
+            Type.NORMAL | Type.SWORD, 75, UniqueSkill.ICE_SWORD, ATTACK_10, DEFENSE_8, SPEED_N1),
     THUNDER_SWORD(0x129359BD, "thunder_sword", "thunder_sword", "thunder_sword_help",
-            Type.NORMAL | Type.SWORD, 75, UltimateSkill.THUNDER_SWORD, ATTACK_8, SPEED_6),
+            Type.NORMAL | Type.SWORD, 75, UniqueSkill.THUNDER_SWORD, ATTACK_8, SPEED_6),
     HOLY_SWORD(0xF6DF6BDE, "holy_sword", "holy_sword", "holy_help",
-            Type.BLESSED | Type.SWORD, 90, UltimateSkill.HOLY_SWORD, LIFE_50, ATTACK_18),
+            Type.BLESSED | Type.SWORD, 90, UniqueSkill.HOLY_SWORD, LIFE_50, ATTACK_18),
     SKULL_SWORD(0xC2730049, "skull_sword", "skull_sword", "skull_sword_help",
-            Type.CURSED | Type.SWORD, 90, UltimateSkill.SKULL_SWORD, LIFE_N99, ATTACK_22),
+            Type.CURSED | Type.SWORD, 90, UniqueSkill.SKULL_SWORD, LIFE_N99, ATTACK_22),
     YGGDRASIL_SWORD(0x4E6DBC58, "yggdrasil_sword", "yggdrasil_sword", "yggdrasil_help",
-            Type.BLESSED | Type.SWORD | Type.PREMIUM, 110, UltimateSkill.YGGDRASIL_SWORD, LIFE_150, ATTACK_20),
+            Type.BLESSED | Type.SWORD | Type.PREMIUM, 110, UniqueSkill.YGGDRASIL_SWORD, LIFE_150, ATTACK_20),
 
     // STAFF
     WOODEN_STAFF(0x4B7E45E5, "wooden_staff", "wooden_staff", "wooden_help",
-            Type.NORMAL | Type.STAFF, 30, UltimateSkill.WOODEN_STAFF, LIFE_15, ATTACK_5, SPEED_N2),
+            Type.NORMAL | Type.STAFF, 30, UniqueSkill.WOODEN_STAFF, LIFE_15, ATTACK_5, SPEED_N2),
     MITHRIL_STAFF(0x901BB6AA, "mithril_staff", "mithril_staff", "mithril_help",
-            Type.NORMAL | Type.STAFF, 50, UltimateSkill.MITHRIL_STAFF, LIFE_50, ATTACK_11, SPEED_N3),
+            Type.NORMAL | Type.STAFF, 50, UniqueSkill.MITHRIL_STAFF, LIFE_50, ATTACK_11, SPEED_N3),
     YGGDRASIL_STAFF( 0x75C22964, "yggdrasil_staff", "yggdrasil_staff", "yggdrasil_help",
-            Type.BLESSED | Type.STAFF | Type.PREMIUM, 110, UltimateSkill.YGGDRASIL_STAFF, LIFE_150, ATTACK_25, SPEED_N5),
+            Type.BLESSED | Type.STAFF | Type.PREMIUM, 110, UniqueSkill.YGGDRASIL_STAFF, LIFE_150, ATTACK_25, SPEED_N5),
 
     // SHIELD
     WOODEN_SHIELD(0xABF3BE7A, "wooden_shield", "wooden_shield", "wooden_help",
-            Type.NORMAL | Type.SHIELD, 30, UltimateSkill.WOODEN_SHIELD, LIFE_15, DEFENSE_3),
+            Type.NORMAL | Type.SHIELD, 30, UniqueSkill.WOODEN_SHIELD, LIFE_15, DEFENSE_3),
     IRON_SHIELD(0xEF197405, "iron_shield", "iron_shield", null,
-            Type.NORMAL | Type.SHIELD, 40, UltimateSkill.IRON_SHIELD, DEFENSE_6),
+            Type.NORMAL | Type.SHIELD, 40, UniqueSkill.IRON_SHIELD, DEFENSE_6),
     IRON_SHIELD_1(0x0A26C71B, "iron_shield", "iron_shield_1", "iron_1_help",
-            Type.REFINED | Type.SHIELD, 50, UltimateSkill.IRON_SHIELD_1, DEFENSE_10),
+            Type.REFINED | Type.SHIELD, 50, UniqueSkill.IRON_SHIELD_1, DEFENSE_10),
     TOWER_SHIELD(0xD8ABCEFD, "tower_shield", "tower_shield", null,
-            Type.NORMAL | Type.SHIELD, 50, UltimateSkill.TOWER_SHIELD, DEFENSE_9, SPEED_N3),
+            Type.NORMAL | Type.SHIELD, 50, UniqueSkill.TOWER_SHIELD, DEFENSE_9, SPEED_N3),
     MITHRIL_SHIELD(0x334D3822, "mithril_shield", "mithril_shield", "mithril_help",
-            Type.NORMAL | Type.SHIELD, 50, UltimateSkill.MITHRIL_SHIELD, LIFE_50, DEFENSE_7),
+            Type.NORMAL | Type.SHIELD, 50, UniqueSkill.MITHRIL_SHIELD, LIFE_50, DEFENSE_7),
     BLACK_SHIELD(0x18263078, "black_shield", "black_shield", "black_shield_help",
-            Type.NORMAL | Type.SHIELD, 75, UltimateSkill.BLACK_SHIELD, DEFENSE_20, SPEED_N6),
+            Type.NORMAL | Type.SHIELD, 75, UniqueSkill.BLACK_SHIELD, DEFENSE_20, SPEED_N6),
     WHITE_SHIELD(0x5C8ECAE9, "white_shield", "white_shield", "white_shield_help",
-            Type.NORMAL | Type.SHIELD, 75, UltimateSkill.WHITE_SHIELD, LIFE_20, DEFENSE_14, SPEED_1),
+            Type.NORMAL | Type.SHIELD, 75, UniqueSkill.WHITE_SHIELD, LIFE_20, DEFENSE_14, SPEED_1),
     HOLY_SHIELD(0x4167C340, "holy_shield", "holy_shield", "holy_help",
-            Type.BLESSED | Type.SHIELD, 90, UltimateSkill.HOLY_SHIELD, LIFE_50, DEFENSE_18),
+            Type.BLESSED | Type.SHIELD, 90, UniqueSkill.HOLY_SHIELD, LIFE_50, DEFENSE_18),
     SKULL_SHIELD(0x3DBC6F30, "skull_shield", "skull_shield", "skull_shield_help",
-            Type.CURSED | Type.SHIELD, 90, UltimateSkill.SKULL_SHIELD, LIFE_N99, DEFENSE_22),
+            Type.CURSED | Type.SHIELD, 90, UniqueSkill.SKULL_SHIELD, LIFE_N99, DEFENSE_22),
     YGGDRASIL_SHIELD(0x353FD420,"yggdrasil_shield", "yggdrasil_shield", "yggdrasil_help",
-            Type.BLESSED | Type.SHIELD | Type.PREMIUM, 110, UltimateSkill.YGGDRASIL_SHIELD, LIFE_150, DEFENSE_20),
+            Type.BLESSED | Type.SHIELD | Type.PREMIUM, 110, UniqueSkill.YGGDRASIL_SHIELD, LIFE_150, DEFENSE_20),
     // special item, for memory.
     DEVELOPER_BUCKLER(0x3E6546E0, "buckler", "developer_buckler", "developer_buckler_help",
             Type.SHIELD | Type.SPECIAL, 1),
 
     // RING
     WOODEN_RING(0x0E8A8E97, "wooden_ring", "wooden_ring", "wooden_help",
-            Type.NORMAL | Type.RING, 30, UltimateSkill.WOODEN_RING, LIFE_15, DEFENSE_1, SPEED_2),
+            Type.NORMAL | Type.RING, 30, UniqueSkill.WOODEN_RING, LIFE_15, DEFENSE_1, SPEED_2),
     IRON_RING(0xF249BA82, "iron_ring", "iron_ring", null,
-            Type.NORMAL | Type.RING, 40, UltimateSkill.IRON_RING, ATTACK_3, DEFENSE_3),
+            Type.NORMAL | Type.RING, 40, UniqueSkill.IRON_RING, ATTACK_3, DEFENSE_3),
     IRON_RING_1(0x40E46204, "iron_ring", "iron_ring_1", "iron_1_help",
-            Type.REFINED | Type.RING, 50, UltimateSkill.IRON_RING_1, ATTACK_5, DEFENSE_5),
+            Type.REFINED | Type.RING, 50, UniqueSkill.IRON_RING_1, ATTACK_5, DEFENSE_5),
     YELLOW_RING(0x359E6775, "yellow_ring", "yellow_ring", null,
-            Type.NORMAL | Type.RING, 60, UltimateSkill.YELLOW_RING, LIFE_250),
+            Type.NORMAL | Type.RING, 60, UniqueSkill.YELLOW_RING, LIFE_250),
     RED_RING(0x1FC9667C, "red_ring", "red_ring", null,
-            Type.NORMAL | Type.RING, 60, UltimateSkill.RED_RING, ATTACK_10),
+            Type.NORMAL | Type.RING, 60, UniqueSkill.RED_RING, ATTACK_10),
     BLUE_RING(0x63A51AB8, "blue_ring", "blue_ring", null,
-            Type.NORMAL | Type.RING, 60, UltimateSkill.BLUE_RING, DEFENSE_10),
+            Type.NORMAL | Type.RING, 60, UniqueSkill.BLUE_RING, DEFENSE_10),
     GREEN_RING(0x5F9BD7D9, "green_ring", "green_ring", null,
-            Type.NORMAL | Type.RING, 60, UltimateSkill.GREEN_RING, SPEED_5),
+            Type.NORMAL | Type.RING, 60, UniqueSkill.GREEN_RING, SPEED_5),
     BLACK_RING(0xA37D6B01, "black_ring", "black_ring", "black_ring_help",
-            Type.CURSED | Type.RING, 60, UltimateSkill.BLACK_RING, LIFE_N40, ATTACK_4, DEFENSE_4, SPEED_2),
+            Type.CURSED | Type.RING, 60, UniqueSkill.BLACK_RING, LIFE_N40, ATTACK_4, DEFENSE_4, SPEED_2),
     WHITE_RING(0x8868001E, "white_ring", "white_ring", null,
-            Type.NORMAL | Type.RING, 60, UltimateSkill.WHITE_RING, ATTACK_4, DEFENSE_4,SPEED_2),
+            Type.NORMAL | Type.RING, 60, UniqueSkill.WHITE_RING, ATTACK_4, DEFENSE_4,SPEED_2),
     RING_OF_GODDESS(0x5839ADBB, "ring_of_goddess", "ring_of_goddess", "holy_help",
-            Type.BLESSED | Type.RING, 90, UltimateSkill.RING_OF_GODDESS, LIFE_50, ATTACK_8, DEFENSE_8, SPEED_1),
+            Type.BLESSED | Type.RING, 90, UniqueSkill.RING_OF_GODDESS, LIFE_50, ATTACK_8, DEFENSE_8, SPEED_1),
     SKULL_RING(0x3D12A612, "skull_ring", "skull_ring", "skull_ring_help",
-            Type.CURSED | Type.RING, 90, UltimateSkill.SKULL_RING, LIFE_N99, ATTACK_10, DEFENSE_10, SPEED_2),
+            Type.CURSED | Type.RING, 90, UniqueSkill.SKULL_RING, LIFE_N99, ATTACK_10, DEFENSE_10, SPEED_2),
     YGGDRASIL_RING(  0x7137FA06, "yggdrasil_ring", "yggdrasil_ring", "yggdrasil_help",
-            Type.BLESSED | Type.RING | Type.PREMIUM, 110, UltimateSkill.YGGDRASIL_RING, LIFE_150, ATTACK_5, DEFENSE_5, SPEED_5),
+            Type.BLESSED | Type.RING | Type.PREMIUM, 110, UniqueSkill.YGGDRASIL_RING, LIFE_150, ATTACK_5, DEFENSE_5, SPEED_5),
     RING_OF_LIFE(0x39906A7C, "ring_of_life", "ring_of_life", "ring_of_life_help",
-            Type.NORMAL | Type.RING, 125, UltimateSkill.RING_OF_LIFE, LIFE_S999),
+            Type.NORMAL | Type.RING, 125, UniqueSkill.RING_OF_LIFE, LIFE_S999),
     RING_OF_ATTACK(0x7C583139, "ring_of_attack", "ring_of_attack", "ring_of_attack_help",
-            Type.NORMAL | Type.RING, 125, UltimateSkill.RING_OF_ATTACK, MAX_ATTACK_10P, ATTACK_10P),
+            Type.NORMAL | Type.RING, 125, UniqueSkill.RING_OF_ATTACK, MAX_ATTACK_10P, ATTACK_10P),
     RING_OF_DEFENSE(0x66E11E0F, "ring_of_defense", "ring_of_defense", "ring_of_defense_help",
-            Type.NORMAL | Type.RING, 125, UltimateSkill.RING_OF_DEFENSE, MAX_DEFENSE_10P, DEFENSE_10P),
+            Type.NORMAL | Type.RING, 125, UniqueSkill.RING_OF_DEFENSE, MAX_DEFENSE_10P, DEFENSE_10P),
     RING_OF_SPEED(0xAA187161, "ring_of_speed", "ring_of_speed", "ring_of_speed_help",
-            Type.NORMAL | Type.RING, 125, UltimateSkill.RING_OF_SPEED, MIN_SPEED_1, SPEED_50P),
+            Type.NORMAL | Type.RING, 125, UniqueSkill.RING_OF_SPEED, MIN_SPEED_1, SPEED_50P),
 
     // BOOTS
     IRON_BOOTS(0x8EC27250, "iron_boots", "iron_boots", null,
-            Type.NORMAL | Type.BOOTS, 40, UltimateSkill.IRON_BOOTS, SPEED_3),
+            Type.NORMAL | Type.BOOTS, 40, UniqueSkill.IRON_BOOTS, SPEED_3),
     IRON_BOOTS_1(0x1A5D6F5C, "iron_boots", "iron_boots_1", "iron_1_help",
-            Type.REFINED | Type.BOOTS, 50, UltimateSkill.IRON_BOOTS_1, SPEED_5),
+            Type.REFINED | Type.BOOTS, 50, UniqueSkill.IRON_BOOTS_1, SPEED_5),
     MITHRIL_BOOTS(0xD67E50EF, "mithril_boots", "mithril_boots", "mithril_help",
-            Type.NORMAL | Type.BOOTS, 50, UltimateSkill.MITHRIL_BOOTS, LIFE_50, ATTACK_1, DEFENSE_1, SPEED_3),
+            Type.NORMAL | Type.BOOTS, 50, UniqueSkill.MITHRIL_BOOTS, LIFE_50, ATTACK_1, DEFENSE_1, SPEED_3),
     WIND_BOOTS(0xD29E268B, "wind_boots", "wind_boots", "wind_boots_help",
-            Type.NORMAL | Type.BOOTS, 75, UltimateSkill.WIND_BOOTS, DEFENSE_5, SPEED_8),
+            Type.NORMAL | Type.BOOTS, 75, UniqueSkill.WIND_BOOTS, DEFENSE_5, SPEED_8),
 
     // elemental magic sword.
     /*
@@ -276,11 +276,11 @@ public enum Item {
     @Type
     private final int type;
     public final int price;
-    public final UltimateSkill skill;
+    public final UniqueSkill skill;
     public final Varier[] upgrade;
 
     Item(int code, String icon, String name, String help,
-         @Type int type, int price, UltimateSkill skill, Varier... upgrade) {
+         @Type int type, int price, UniqueSkill skill, Varier... upgrade) {
         this.code = code;
         this.icon = icon;
         this.name = name;
@@ -302,7 +302,7 @@ public enum Item {
         this.unknown = null;
         this.type = type;
         this.price = price;
-        this.skill = UltimateSkill.NONE;
+        this.skill = UniqueSkill.NONE;
         this.upgrade = upgrade;
     }
 

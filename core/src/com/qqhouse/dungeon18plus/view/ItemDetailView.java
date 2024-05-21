@@ -45,7 +45,7 @@ public class ItemDetailView extends AssetGroup {
     }
 
     public void update(@NotNull Item item, boolean isUnknown) {
-        Gdx.app.error("ItemDetailView", "update : " + item);
+        //Gdx.app.error("ItemDetailView", "update : " + item);
         // item...
         icon.setIcon(assets.getItem(item.icon));
         if (!isUnknown) {
@@ -95,7 +95,7 @@ public class ItemDetailView extends AssetGroup {
      */
     @Override
     public void onParentSizeChanged(float width, float height) {
-        Gdx.app.error("ItemDetailView", "onParentSizeChanged = " + this.width + "," + this.height);
+        //Gdx.app.error("ItemDetailView", "onParentSizeChanged = " + this.width + "," + this.height);
         // name
         name.setSize(width - 48 - leftPadding - rightPadding, 24);
         // upgrade
@@ -117,7 +117,7 @@ public class ItemDetailView extends AssetGroup {
 
     @Override
     public void arrangeChildren() {
-        Gdx.app.error("ItemDetailView", "arrangeChildren = " + this.width + "," + this.height);
+        //Gdx.app.error("ItemDetailView", "arrangeChildren = " + this.width + "," + this.height);
         if (0 == width || 0 == height)
             return;
         // item icon

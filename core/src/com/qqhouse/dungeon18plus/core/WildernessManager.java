@@ -64,7 +64,7 @@ public class WildernessManager {
 	private Random mRand;
 	
 	// skill record
-	private Map<Integer, ArrayList<UltimateSkill>> mSkillRecord;
+	private Map<Integer, ArrayList<UniqueSkill>> mSkillRecord;
 	
 	public WildernessManager(GiantRace race) {
 		
@@ -578,9 +578,9 @@ public class WildernessManager {
 	 * record unique skill
 	 */
 	private void recordUniqueSkill(Giant giant) {
-		ArrayList<UltimateSkill> rec = mSkillRecord.get(giant.race.code);
+		ArrayList<UniqueSkill> rec = mSkillRecord.get(giant.race.code);
 		if (null == rec) {
-			ArrayList<UltimateSkill> newRec = new ArrayList<>();
+			ArrayList<UniqueSkill> newRec = new ArrayList<>();
 			newRec.add(giant.action.skill);
 			mSkillRecord.put(giant.race.code, newRec);
 		} else {
@@ -613,9 +613,9 @@ public class WildernessManager {
 			getGiantExperience(record, 1);
 			
 			// record skill
-			ArrayList<UltimateSkill> skillUsed = mSkillRecord.get(giant.race.code);
+			ArrayList<UniqueSkill> skillUsed = mSkillRecord.get(giant.race.code);
 			if (null != skillUsed)
-				for (UltimateSkill us : skillUsed)
+				for (UniqueSkill us : skillUsed)
 					record.addSkill(us);
 		}
 		
@@ -656,9 +656,9 @@ public class WildernessManager {
 			getAndRecordGiantSoul(record);
 			
 			// record skill
-			ArrayList<UltimateSkill> skillUsed = mSkillRecord.get(giant.race.code);
+			ArrayList<UniqueSkill> skillUsed = mSkillRecord.get(giant.race.code);
 			if (null != skillUsed)
-				for (UltimateSkill us : skillUsed)
+				for (UniqueSkill us : skillUsed)
 					record.addSkill(us);
 			
 			// record defeat

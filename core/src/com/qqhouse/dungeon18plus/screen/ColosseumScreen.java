@@ -11,12 +11,14 @@ import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.event.Event;
+import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.dungeon18plus.view.ActionView;
 import com.qqhouse.dungeon18plus.dialog.EventInfoDialog;
 import com.qqhouse.dungeon18plus.view.EventInfoView;
 import com.qqhouse.dungeon18plus.view.EventView;
 import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
+import com.qqhouse.dungeon18plus.view.SelectEquipmentView;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQPressListener;
@@ -28,7 +30,7 @@ import java.util.Locale;
 
 public class ColosseumScreen extends QQScreen {
     public interface ColosseumCallback {
-        void onColosseumResult(boolean isWin, ArrayList<BossKill> kills);
+        void onColosseumResult(Veteran veteran);
     }
 
     private ColosseumManager manager;
@@ -82,7 +84,7 @@ public class ColosseumScreen extends QQScreen {
         // animation end, then update event value.
         @Override
         public void onAnimationEnd() {
-            Gdx.app.error("DungeonScreen", String.format(Locale.US, "onAnimationEnd %d", manager.getEventCount()));
+            //Gdx.app.error("DungeonScreen", String.format(Locale.US, "onAnimationEnd %d", manager.getEventCount()));
             //Gdx.app.error("DungeonScreen", "event animation end.");
             //eventAdapter.updateAll();
             //specialEventAdapter.updateAll();
@@ -236,13 +238,16 @@ public class ColosseumScreen extends QQScreen {
 
         // call summary dialog.
         SelectEquipmentDialog dialog = new SelectEquipmentDialog(assets, getViewport());
-        dialog.reset(manager.createVeteran(), manager.backpack, new QQPressListener() {
+        dialog.reset(manager.createVeteran(), manager.backpack, new SelectEquipmentView.SelectEquipmentCallback() {
             @Override
-            public void onPress(int index) {
-                callback.onColosseumResult(false, null);
+            public void SelectEquipmentDone(Veteran veteran) {
+                if (savedGame.getLegionCount() + savedGame.getBarrackCount() < Game.MAX_BARRACK_SIZE) {
+                    savedGame.addVeteranToBarrack(Game.MAX_BARRACK_SIZE, veteran);
+                    callback.onColosseumResult(null);
+                } else {
+                    callback.onColosseumResult(veteran);
+                }
             }
-            @Override
-            public void onLongPress(QQView view) {}
         });
         openDialog(dialog);
     }

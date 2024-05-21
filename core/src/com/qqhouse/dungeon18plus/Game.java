@@ -13,7 +13,7 @@ import com.qqhouse.dungeon18plus.core.Help;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.core.Soul;
-import com.qqhouse.dungeon18plus.core.UltimateSkill;
+import com.qqhouse.dungeon18plus.core.UniqueSkill;
 import com.qqhouse.dungeon18plus.struct.campaign.UniqueSkillData;
 
 public class Game {
@@ -298,7 +298,7 @@ public class Game {
 //    }
 
         if (TEST_UNIQUE_SKILL_COOL_DOWN) {
-            for (UltimateSkill us : UltimateSkill.values()) {
+            for (UniqueSkill us : UniqueSkill.values()) {
                 UniqueSkillData data = us.get(Game.SPECIFIC_MASTERY_MAX);
                 if (40 >= data.coolDown) {
                     Gdx.app.error("d18", String.format("Unique Skill : %s[%d] -> CD=%d", us.toString(), Game.SPECIFIC_MASTERY_MAX, data.coolDown));
@@ -373,7 +373,7 @@ public class Game {
         }
 
         // check soul
-        for (UltimateSkill us : UltimateSkill.values()) {
+        for (UniqueSkill us : UniqueSkill.values()) {
             if (!test.add(us.code)) {
                 int newCode = new Random().nextInt();
                 Gdx.app.error("D18", us.toString() + " duplicate, set code = " + String.format("%08X", newCode));

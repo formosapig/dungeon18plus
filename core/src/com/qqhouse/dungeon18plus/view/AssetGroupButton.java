@@ -7,7 +7,7 @@ import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQView;
 
-public class AssetGroupButton extends AssetGroup implements QQView.IsTouchable{
+public class AssetGroupButton extends AssetGroup implements QQView.IsTouchable {
 
     public AssetGroupButton(Assets assets) {
         super(assets);
@@ -46,8 +46,9 @@ public class AssetGroupButton extends AssetGroup implements QQView.IsTouchable{
             if (longPressCounter >= 0.5f) {
                 longPressCounter = 0;
                 pressed = false;
-                if (null != clickListener)
-                    clickListener.onLongPress(this);
+                if (null != pressListener) {
+                    pressListener.onLongPress(this);
+                }
             }
 
         }
@@ -87,8 +88,8 @@ public class AssetGroupButton extends AssetGroup implements QQView.IsTouchable{
         if (pressed) {
             longPressCounter = 0;
             pressed = false;
-            if (null != clickListener) {
-                clickListener.onPress(clickIndex);
+            if (null != pressListener) {
+                pressListener.onPress(pressIndex);
             }
             return true;
         }
@@ -115,11 +116,11 @@ public class AssetGroupButton extends AssetGroup implements QQView.IsTouchable{
     /*
         click series ...
      */
-    private QQPressListener clickListener;
-    private int clickIndex;
+    private QQPressListener pressListener;
+    private int pressIndex;
 
     public void addQQClickListener(QQPressListener listener, int index) {
-        this.clickListener = listener;
-        this.clickIndex = index;
+        this.pressListener = listener;
+        this.pressIndex = index;
     }
 }

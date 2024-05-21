@@ -2,7 +2,7 @@ package com.qqhouse.dungeon18plus.gamedata;
 
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.Soul;
-import com.qqhouse.dungeon18plus.core.UltimateSkill;
+import com.qqhouse.dungeon18plus.core.UniqueSkill;
 import com.qqhouse.dungeon18plus.struct.GiantRecord;
 import com.qqhouse.dungeon18plus.struct.SoulCount;
 import com.qqhouse.io.QQSaveGame;
@@ -36,7 +36,7 @@ class WildernessData_1_6_2 extends QQSaveGame.DataPart {
     		buffer.putInt(giant.killCount);
     		// ultimate skills
     		buffer.putInt(giant.skills.size());
-    		for (UltimateSkill us : giant.skills) {
+    		for (UniqueSkill us : giant.skills) {
                 buffer.putInt(us.code);
             }
     		// soul counts
@@ -63,7 +63,7 @@ class WildernessData_1_6_2 extends QQSaveGame.DataPart {
     		int size = buffer.getInt();
         	record.skills.clear();
     		for (int i = 0; i < size; ++i) {
-                record.skills.add(UltimateSkill.find(buffer.getInt()));
+                record.skills.add(UniqueSkill.find(buffer.getInt()));
             }
     		// soul counts
     		size = buffer.getInt();

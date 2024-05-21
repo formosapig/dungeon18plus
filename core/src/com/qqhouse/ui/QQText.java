@@ -41,7 +41,7 @@ public class QQText extends QQView {
 
     @Override
     public void setSize(float w, float h) {
-        Game.trace(this, "QQText.setSize w:%.0f, h:%.0f", w, h);
+        //Game.trace(this, "QQText.setSize w:%.0f, h:%.0f", w, h);
         super.setSize(w, h);
         rearrange();
     }

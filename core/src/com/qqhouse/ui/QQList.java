@@ -90,7 +90,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         if (0 < maxHeight && h >= maxHeight)
             h = maxHeight;
         this.height = h;
-        Gdx.app.error("QQList.resetWrapHeight", "height = " + this.height + "maxHeight = " + maxHeight);
+        //Gdx.app.error("QQList.resetWrapHeight", "height = " + this.height + "maxHeight = " + maxHeight);
         if (null != parent)
             parent.arrangeChildren();
     }
@@ -146,7 +146,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                 // remove +1 ^
                 //           ^
                 // insert    ^
-                Gdx.app.error("QQList", String.format(Locale.US, "MoveUpward rI : %d , iI : %d", removeIndex, insertIndex));
+                //Gdx.app.error("QQList", String.format(Locale.US, "MoveUpward rI : %d , iI : %d", removeIndex, insertIndex));
                 moveUpward(removeIndex, insertIndex - 1, animHPeriod);
                 preDelay = animVPeriod;
             } else {
@@ -255,7 +255,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             moveDownward(0, index - 1, animHPeriod);
             changeScrollY = -gap;
         } else {
-            Gdx.app.error("QQList", String.format(Locale.US, "MoveUpward index : %d", index));
+            //Gdx.app.error("QQList", String.format(Locale.US, "MoveUpward index : %d", index));
 
             moveUpward(index, childrenView.size() - 1, animHPeriod);
         }
@@ -343,7 +343,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
                 maxScrollY = 0;
             // on animation end
             if (null != adapter) {
-                Gdx.app.error("QQList", String.format(Locale.US, "adapter.onAnimationEnd %d", childrenView.size()));
+                //Gdx.app.error("QQList", String.format(Locale.US, "adapter.onAnimationEnd %d", childrenView.size()));
                 adapter.onAnimationEnd();
             }
         } else if (0 > animLock) {
@@ -465,7 +465,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     @Override
     public boolean touchDown(float relativeX, float relativeY) {
         if (0 < animLock) {
-            Gdx.app.error("QQList.touchDown", "animLock = " + animLock);
+            //Gdx.app.error("QQList.touchDown", "animLock = " + animLock);
             return false;
         }
         // 1. keep touch down position for scroll
@@ -500,7 +500,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     @Override
     public boolean touchUp(float relativeX, float relativeY) {
         if (0 < animLock) {
-            Gdx.app.error("QQList.touchUp", "animLock = " + animLock);
+            //Gdx.app.error ("QQList.touchUp", "animLock = " + animLock);
             return false;
         }
         touchY = -1;
@@ -545,7 +545,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             return false;
         // TODO 有時候會有一個位移等於零的 touchDragged 事件發生...真奇怪.
         // TODO 當位移大於某一個值時, 才觸發 scroll 事件...
-        Gdx.app.error("QQList", "touchDragged : " + (relativeY - touchY));
+        //Gdx.app.error("QQList", "touchDragged : " + (relativeY - touchY));
         // 1. do scroll ...
         float moveDelta = relativeY - touchY;
         if (3 >= Math.abs(moveDelta))

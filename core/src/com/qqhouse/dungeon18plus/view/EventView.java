@@ -32,7 +32,7 @@ public class EventView extends QQButton implements QQView.IsParent {
     private QQText level, score;
 
     public void reset(Event event) {
-        icon = assets.getBlockee(event.type.icon);
+        icon = assets.getBlockee(event.getIcon());
 
         // level
         if (event.type.isZako()) {
@@ -129,7 +129,7 @@ public class EventView extends QQButton implements QQView.IsParent {
     }
 
     public void update(Event event) {
-        icon = assets.getBlockee(event.type.icon);
+        icon = assets.getBlockee(event.getIcon());
 
         // level
         if (null != level) {

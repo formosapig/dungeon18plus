@@ -18,11 +18,16 @@ import java.util.ArrayList;
 
 public class SelectEquipmentView extends QQGroup {
 
+    public interface SelectEquipmentCallback {
+        void SelectEquipmentDone(Veteran veteran);
+    }
+
     // data
     private Veteran veteran;
     private ArrayList<EquipmentMastery> backpack;
 
     private VeteranView vv;
+    private SelectEquipmentCallback callback;
 
     private final Assets assets;
     private final Viewport viewport;
@@ -34,14 +39,25 @@ public class SelectEquipmentView extends QQGroup {
         bgNormal = new NinePatch(assets.getBackground("dialog"), 4, 4, 4, 4);
     }
 
-    public void reset(Veteran veteran, ArrayList<EquipmentMastery> backpack, QQPressListener listener) {
+    public void reset(Veteran veteran, ArrayList<EquipmentMastery> backpack, SelectEquipmentCallback callback) {
         this.veteran = veteran;
         this.backpack = backpack;
+        this.callback = callback;
 
         // veteran
         vv = new VeteranView(assets);
+        vv.setPadding(8);
         vv.setSize(QQView.MATCH_PARENT, 64);
-        vv.addQQClickListener(listener, 0);
+        vv.addQQClickListener(new QQPressListener() {
+            @Override
+            public void onPress(int index) {
+                if (Item.NONE != veteran.equipment) {
+                    callback.SelectEquipmentDone(veteran);
+                }
+            }
+            @Override
+            public void onLongPress(QQView view) {}
+        }, 0);
         vv.reset(veteran);
         addChild(vv);
 
@@ -57,7 +73,7 @@ public class SelectEquipmentView extends QQGroup {
                 // set UniqueSkill
                 veteran.equipment = backpack.get(index).equipment;
                 veteran.mastery = backpack.get(index).mastery;
-                vv.reset(veteran);
+                vv.updateUniqueSkill(veteran);
             }
 
             @Override

@@ -40,7 +40,7 @@ public class DungeonScreen extends QQScreen {
         manager.setSpecialAdapter(specialEventAdapter);
     }
 
-    public DungeonScreen(SaveGame savedGame, Viewport viewport, Assets assets, DungeonCallback callback) {
+    public DungeonScreen(SaveGame savedGame, Viewport viewport, Assets assets, PopupScreen callback) {
         super(savedGame, viewport, assets);
         this.callback = callback;
     }
@@ -50,7 +50,7 @@ public class DungeonScreen extends QQScreen {
     private LootInfoView lootInfo;
     private EventInfoView eventInfo;
     private EventInfoDialog eventInfoDialog;
-    private DungeonCallback callback;
+    private PopupScreen callback;
 
     /*
         QQList Adapter ...
@@ -84,7 +84,7 @@ public class DungeonScreen extends QQScreen {
         // animation end, then update event value.
         @Override
         public void onAnimationEnd() {
-            Gdx.app.error("DungeonScreen", String.format(Locale.US, "onAnimationEnd %d", manager.getEventCount()));
+            //Gdx.app.error("DungeonScreen", String.format(Locale.US, "onAnimationEnd %d", manager.getEventCount()));
             //Gdx.app.error("DungeonScreen", "event animation end.");
             //eventAdapter.updateAll();
             //specialEventAdapter.updateAll();
@@ -114,7 +114,7 @@ public class DungeonScreen extends QQScreen {
 
         @Override
         public EventView getView(int index) {
-            Gdx.app.error("DungeonScreen", "SpecialAdapter.getView : " + index);
+            //Gdx.app.error("DungeonScreen", "SpecialAdapter.getView : " + index);
             Event event = manager.getSpecialEvent(index);
 
             EventView evt = new EventView(assets);
@@ -188,7 +188,7 @@ public class DungeonScreen extends QQScreen {
 
             @Override
             public void onLongPress(int index) {
-                Gdx.app.error("DungeonScreen", "special event long press : " + index);
+                //Gdx.app.error("DungeonScreen", "special event long press : " + index);
             }
         });
         //addView(specialEventList);
@@ -217,7 +217,7 @@ public class DungeonScreen extends QQScreen {
 
             @Override
             public void onLongPress(int index) {
-                Gdx.app.error("DungeonScreen", "event long press : " + index);
+                //Gdx.app.error("DungeonScreen", "event long press : " + index);
                 //eventInfo.setSize(320, 480);
                 //eventInfo.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
                 //eventInfo.update(manager.getEvent(index));
@@ -320,7 +320,7 @@ public class DungeonScreen extends QQScreen {
         dialog.reset(manager.killList, isWin, new QQPressListener() {
             @Override
             public void onPress(int index) {
-                callback.onDungeonResult(false, null);
+                callback.onPopupScreen();
             }
             @Override
             public void onLongPress(QQView view) {}

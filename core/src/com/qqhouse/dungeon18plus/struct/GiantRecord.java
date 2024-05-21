@@ -3,7 +3,7 @@ package com.qqhouse.dungeon18plus.struct;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.Soul;
-import com.qqhouse.dungeon18plus.core.UltimateSkill;
+import com.qqhouse.dungeon18plus.core.UniqueSkill;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,7 +30,7 @@ public final class GiantRecord implements Comparable<GiantRecord> {
 	// kill how many mHero
 	public int killCount;
 	// giant skills
-	public final ArrayList<UltimateSkill> skills = new ArrayList<>();
+	public final ArrayList<UniqueSkill> skills = new ArrayList<>();
 	// giant souls
 	public final ArrayList<SoulCount> souls = new ArrayList<>();
 
@@ -107,7 +107,7 @@ public final class GiantRecord implements Comparable<GiantRecord> {
 	}
 	
 	// add skill.
-	public void addSkill(UltimateSkill skill) {
+	public void addSkill(UniqueSkill skill) {
 		if (!skills.contains(skill)) {
 			skills.add(skill);
 			Collections.sort(skills);

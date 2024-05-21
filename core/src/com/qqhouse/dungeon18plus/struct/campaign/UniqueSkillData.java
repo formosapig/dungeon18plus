@@ -1,12 +1,12 @@
 package com.qqhouse.dungeon18plus.struct.campaign;
 
-import com.qqhouse.dungeon18plus.core.UltimateSkill;
+import com.qqhouse.dungeon18plus.core.UniqueSkill;
 import com.qqhouse.dungeon18plus.struct.Operation2;
 
 public final class UniqueSkillData {
 
 	// need this.
-	public final UltimateSkill skill;
+	public final UniqueSkill skill;
 	public final int coolDown;
 	public final Operation2[] operations;
 	
@@ -17,7 +17,7 @@ public final class UniqueSkillData {
 	public boolean isMastery;
 	public int mastery;
 	
-	public UniqueSkillData(UltimateSkill skill, int coolDown, boolean auto, Operation2... operations) {
+	public UniqueSkillData(UniqueSkill skill, int coolDown, boolean auto, Operation2... operations) {
 		this.skill = skill;
 		this.coolDown = coolDown;
 		this.auto = auto;

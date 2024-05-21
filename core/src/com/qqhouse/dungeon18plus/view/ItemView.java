@@ -24,6 +24,8 @@ public class ItemView extends QQView {
     private Texture icon, status;
     private QQText count;
 
+    public ItemView() {}
+
     public ItemView(Texture icon) {
         this.icon = icon;
     }
@@ -76,7 +78,8 @@ public class ItemView extends QQView {
         // draw type if exist, then item
         if (null != status)
             batch.draw(status, originX, originY, 32, 32);
-        batch.draw(icon, originX, originY, 32, 32);
+        if (null != icon)
+            batch.draw(icon, originX, originY, 32, 32);
 
         // draw count if exist
         if (null != count)
@@ -130,4 +133,7 @@ public class ItemView extends QQView {
         return iv;
     }
 
+    public static ItemView create() {
+        return new ItemView();
+    }
 }

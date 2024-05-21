@@ -89,11 +89,11 @@ public enum GiantRace {
 		public UniqueSkillData getAction(int time, int life) {
 			// HEAL_25
 			if (life * 2 <= this.attr.life)
-				return UltimateSkill.HEAL_25.get(100);
+				return UniqueSkill.HEAL_25.get(100);
 			
 			// BLACK_MUD
 			if (500 >= time)
-				return UltimateSkill.BLACK_MUD.get(100);
+				return UniqueSkill.BLACK_MUD.get(100);
 			
 			return null;
 		}
@@ -116,15 +116,15 @@ public enum GiantRace {
 		public UniqueSkillData getAction(int time, int life) {
 			// QUICK_10
 			if (899 == time)
-				return UltimateSkill.QUICK_10.get(100);
+				return UniqueSkill.QUICK_10.get(100);
 			
 			// ANGRY
 			if (life < attr.life * 0.3 && ((time % 67) == 0))
-				return UltimateSkill.ANGRY.get(100);
+				return UniqueSkill.ANGRY.get(100);
 
 			// HEAVY_STRIKE
 			if (((time % 25) == 0) && 25 > new Random().nextInt(100))
-				return UltimateSkill.HEAVY_STRIKE.get(100);
+				return UniqueSkill.HEAVY_STRIKE.get(100);
 			
 			return null;
 		}
@@ -147,11 +147,11 @@ public enum GiantRace {
 			if (0 == time % 165) {
 				final int seed = new Random().nextInt(3);
 				if (0 == seed)
-					return UltimateSkill.ATTACK_UP.get(100);
+					return UniqueSkill.ATTACK_UP.get(100);
 				else if (1 == seed)
-					return UltimateSkill.DEFENSE_UP.get(100);
+					return UniqueSkill.DEFENSE_UP.get(100);
 				else
-					return UltimateSkill.SPEED_UP.get(100);
+					return UniqueSkill.SPEED_UP.get(100);
 			}
 			
 			return null;
@@ -171,7 +171,7 @@ public enum GiantRace {
 		@Override
 		public UniqueSkillData getAction(int time, int life) {
 			if (250 == time)
-				return UltimateSkill.PAIN_BOMB.get(100);
+				return UniqueSkill.PAIN_BOMB.get(100);
 			
 			return null;
 		}
@@ -194,11 +194,11 @@ public enum GiantRace {
 			final int seed = new Random().nextInt(100);
 			
 			if (25 > seed)
-				return UltimateSkill.CLAW.get(100);
+				return UniqueSkill.CLAW.get(100);
 			else if (50 > seed)
-				return UltimateSkill.POWER_CLAW.get(100);
+				return UniqueSkill.POWER_CLAW.get(100);
 			else
-				return UltimateSkill.LEECH_CLAW.get(100);
+				return UniqueSkill.LEECH_CLAW.get(100);
 		}
 	},
 
@@ -216,7 +216,7 @@ public enum GiantRace {
 		@Override
 		public UniqueSkillData getAction(int time, int life) {
 			if (time % 175 == 0)
-				return UltimateSkill.SNOWDRIFT.get(100);
+				return UniqueSkill.SNOWDRIFT.get(100);
 			return null;
 		}
 	},
@@ -240,16 +240,16 @@ public enum GiantRace {
 			
 			if (life * 2 < this.attr.life)
 				return mRand.nextBoolean()
-					? UltimateSkill.THUNDER_BALL.get(100)
-					: UltimateSkill.CHAIN_LIGHTNING.get(100);
+					? UniqueSkill.THUNDER_BALL.get(100)
+					: UniqueSkill.CHAIN_LIGHTNING.get(100);
 			
 			final int seed = mRand.nextInt(100);
 			if (5 > seed)
-				return UltimateSkill.SPIRAL_FEATHER.get(100);
+				return UniqueSkill.SPIRAL_FEATHER.get(100);
 			else if (10 > seed)
-				return UltimateSkill.SONIC_ATTACK.get(100);
+				return UniqueSkill.SONIC_ATTACK.get(100);
 			else
-				return UltimateSkill.SPEAR_OF_WIND.get(100);
+				return UniqueSkill.SPEAR_OF_WIND.get(100);
 		}
 	},
 
@@ -270,11 +270,11 @@ public enum GiantRace {
 			final int seed = new Random().nextInt(100);
 			
 			if (4 > seed)
-				return UltimateSkill.GAZE.get(100);
+				return UniqueSkill.GAZE.get(100);
 			else if (52 > seed)
-				return UltimateSkill.STOMP.get(100);
+				return UniqueSkill.STOMP.get(100);
 			else
-				return UltimateSkill.BASH.get(100);
+				return UniqueSkill.BASH.get(100);
 		}
 	},
 		
@@ -297,22 +297,22 @@ public enum GiantRace {
 		@Override
 		public UniqueSkillData getAction(int time, int life) {
 			if (life * 10 < this.attr.life)
-				return UltimateSkill.HEAL_100.get(100);
+				return UniqueSkill.HEAL_100.get(100);
 			
 			final Random mRand = new Random();
 			
 			if (0 == time % 200 && 5 > mRand.nextInt(100))
-				return UltimateSkill.BUBBLE.get(100);
+				return UniqueSkill.BUBBLE.get(100);
 			
 			if (0 == time % 110) {
 				final int seed = mRand.nextInt(3);
 				
 				if (0 == seed)
-					return UltimateSkill.ATTACK_DOWN.get(100);
+					return UniqueSkill.ATTACK_DOWN.get(100);
 				else if (1 == seed)
-					return UltimateSkill.DEFENSE_DOWN.get(100);
+					return UniqueSkill.DEFENSE_DOWN.get(100);
 				else
-					return UltimateSkill.SPEED_DOWN.get(100);
+					return UniqueSkill.SPEED_DOWN.get(100);
 			}
 			
 			return null;
@@ -331,7 +331,7 @@ public enum GiantRace {
 	{
 		@Override
 		public UniqueSkillData getAction(int time, int life) {
-			return UltimateSkill.SWALLOW.get(100);
+			return UniqueSkill.SWALLOW.get(100);
 		}
 	};
 	

@@ -25,7 +25,7 @@ public class SelectEquipmentDialog extends AssetDialog {
         setCustomView(selectEquipment);
     }
 
-    public void reset(Veteran veteran, ArrayList<EquipmentMastery> backpack, QQPressListener listener) {
-        selectEquipment.reset(veteran, backpack, listener);
+    public void reset(Veteran veteran, ArrayList<EquipmentMastery> backpack, SelectEquipmentView.SelectEquipmentCallback callback) {
+        selectEquipment.reset(veteran, backpack, callback);
     }
 }

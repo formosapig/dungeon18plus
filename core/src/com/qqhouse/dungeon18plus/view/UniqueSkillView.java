@@ -1,13 +1,16 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.core.UniqueSkill;
 import com.qqhouse.dungeon18plus.struct.Ability;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.Operation2;
 import com.qqhouse.dungeon18plus.struct.campaign.UniqueSkillData;
+import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
@@ -32,8 +35,8 @@ public class UniqueSkillView extends AssetGroupButton {
 
     public UniqueSkillView(Assets assets) {
         super(assets);
-        setPadding(4);
-        //setPadding(4, 4, 4, 4Game.Size.BLOCKEE_PADDING);
+        //setPadding(4);
+        itOps = new QQIconText[UniqueSkill.MAX_OPERATIONS];
     }
 
     public void reset(EquipmentMastery mastery, boolean isMastery, Ability base) {
@@ -99,27 +102,34 @@ public class UniqueSkillView extends AssetGroupButton {
         }
     }
 
+
+
     @Override
     public void arrangeChildren() {
         if (0 == width || 0 == height)
             return;
-        txtMastery.setSize(QQView.WRAP_CONTENT, 16);
-        txtMastery.setPosition(44, 6);
-
-        int OpsWidth = 0;
-        for (int i = 0; i < itOps.length; ++i) {
-            itOps[i].setSize(QQView.WRAP_CONTENT, 16);
-            OpsWidth += itOps[i].getWidth() + Game.Size.INNER_MARGIN;
-        }
-        int startX = (int)(this.width - OpsWidth) / 2;
-        for (int i = 0; i < itOps.length; ++i) {
-            itOps[i].setPosition(startX, 16);
-            startX += itOps[i].getWidth() + 2;
+        if (null != txtMastery) {
+            txtMastery.setSize(QQView.WRAP_CONTENT, 16);
+            txtMastery.setPosition(44, 6);
         }
 
-        //help.setSize(this.width - rightPadding - 64, 24);
-        coolDown.setSize(50, 16);
-        coolDown.setPosition(this.width - 8 - coolDown.getWidth(), 16);
+        if (null != itOps) {
+            int OpsWidth = 0;
+            for (int i = 0; i < itOps.length; ++i) {
+                itOps[i].setSize(QQView.WRAP_CONTENT, 16);
+                OpsWidth += itOps[i].getWidth() + Game.Size.INNER_MARGIN;
+            }
+            int startX = (int) (this.width - OpsWidth) / 2;
+            for (int i = 0; i < itOps.length; ++i) {
+                itOps[i].setPosition(startX, 16);
+                startX += itOps[i].getWidth() + 2;
+            }
+        }
+
+        if (null != coolDown) {
+            coolDown.setSize(50, 16);
+            coolDown.setPosition(this.width - 8 - coolDown.getWidth(), 16);
+        }
     }
 
 }
