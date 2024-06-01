@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.UniqueSkill;
@@ -12,7 +11,7 @@ import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQProgress;
 import com.qqhouse.ui.QQView;
 
-public class VeteranView extends AssetGroup {
+public class VeteranButton extends AssetGroupButton {
 
     /*
         QQImage : blockee
@@ -29,7 +28,7 @@ public class VeteranView extends AssetGroup {
     private QQIconText coolDown, round;
     private QQProgress life;
 
-    public VeteranView(Assets assets) {
+    public VeteranButton(Assets assets) {
         super(assets);
         oper = new QQIconText[UniqueSkill.MAX_OPERATIONS];
     }

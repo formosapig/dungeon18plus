@@ -4,11 +4,9 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
-import com.qqhouse.dungeon18plus.core.GameAlignment;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
-import com.qqhouse.ui.QQButtonEx;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQPressListener;
@@ -26,7 +24,7 @@ public class SelectEquipmentView extends QQGroup {
     private Veteran veteran;
     private ArrayList<EquipmentMastery> backpack;
 
-    private VeteranView vv;
+    private VeteranButton vv;
     private SelectEquipmentCallback callback;
 
     private final Assets assets;
@@ -45,7 +43,7 @@ public class SelectEquipmentView extends QQGroup {
         this.callback = callback;
 
         // veteran
-        vv = new VeteranView(assets);
+        vv = new VeteranButton(assets);
         vv.setPadding(8);
         vv.setSize(QQView.MATCH_PARENT, 64);
         vv.addQQClickListener(new QQPressListener() {

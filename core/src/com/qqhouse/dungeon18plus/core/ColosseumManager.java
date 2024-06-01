@@ -61,7 +61,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 		// no more limit, max round = 40;
 		if (mHero.coin > 150)
             mHero.coin = 150;
-		mHero.coin = 999;
+		//mHero.coin = 999;
 		mHero.star = 50;
         mHero.key = 0;
         mHero.round = 0;
@@ -247,8 +247,8 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 			
 		} else if (evt.type.endGame()) {
 			// end , record max turn
-			//HeroClassRecord record = GameData.getInstance().getHeroClassRecord(mHero.heroClass);
-			//record.updateRound(mHero.round);
+			HeroClassRecord record = savedGame.getHeroClassRecord(mHero.heroClass);
+			record.updateRound(mHero.round);
 			return Game.result.lose;
 		}
 		

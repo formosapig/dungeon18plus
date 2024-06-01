@@ -50,7 +50,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     private IsTouchable hitBeforeScroll;// = null;
     // animation period in second
     private static final float animVPeriod = 0.11f;    // in sec
-    private static final float animHPeriod = 0.23f;
+    private static final float animHPeriod = 0.14f;
 
     private void calculateMaxScrollY() {
         float totalHeight = 0;

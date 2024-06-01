@@ -86,22 +86,26 @@ public class HeroView extends QQButton implements QQView.IsParent {
         speedText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "speed"))
                 .size(72, 16).position(280, 6).color(Game.Colour.SPEED).attach(this);
 
-        // Soul ...
 
-        // key item
-        //keyItem = new ItemView(assets.getTexture("item", "key"), assets.getFont(Game.Font.DIGITAL16))
-        //        .color(Game.color.COUNT).size(32, 32).position(212, 26).attach(this);
-        keyItem = new ItemView(assets.getTexture("item", "key"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                .color(Game.Colour.COUNT).size(32, 32).position(212, 26).attach(this);
+        if (Feat.DARK_PRESENCE.in(hero.feats)) {
+            // soul
+            soulItem = new ItemView(assets.getTexture("item", "soul"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
+                    .color(Game.Colour.COUNT).size(32, 32).position(312, 26).attach(this);
+        } else {
+            // key item
+            //keyItem = new ItemView(assets.getTexture("item", "key"), assets.getFont(Game.Font.DIGITAL16))
+            //        .color(Game.color.COUNT).size(32, 32).position(212, 26).attach(this);
+            keyItem = new ItemView(assets.getTexture("item", "key"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
+                    .color(Game.Colour.COUNT).size(32, 32).position(212, 26).attach(this);
 
-        // coin
-        coinItem = new ItemView(assets.getTexture("item", "copper_coin"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                .color(Game.Colour.COUNT).size(32, 32).position(262, 26).attach(this);
+            // coin
+            coinItem = new ItemView(assets.getTexture("item", "copper_coin"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
+                    .color(Game.Colour.COUNT).size(32, 32).position(262, 26).attach(this);
 
-        // star
-        starItem = new ItemView(assets.getTexture("item", "star"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                .color(Game.Colour.COUNT).size(32, 32).position(312, 26).attach(this);
-
+            // star
+            starItem = new ItemView(assets.getTexture("item", "star"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
+                    .color(Game.Colour.COUNT).size(32, 32).position(312, 26).attach(this);
+        }
         // background
         setBackground(assets.getBackgroundSet(hero.heroClass.alignment.key));
     }
@@ -120,9 +124,13 @@ public class HeroView extends QQButton implements QQView.IsParent {
         //attackText.setText("199x2");
         defenseText.setText(hero.displayDefense());
         speedText.setText(hero.displaySpeed());
-        keyItem.setText(Integer.toString(hero.key));
-        coinItem.setText(Integer.toString(hero.coin));
-        starItem.setText(Integer.toString(hero.star));
+        if (Feat.DARK_PRESENCE.in(hero.feats)) {
+            soulItem.setText(Integer.toString(hero.soul));
+        } else {
+            keyItem.setText(Integer.toString(hero.key));
+            coinItem.setText(Integer.toString(hero.coin));
+            starItem.setText(Integer.toString(hero.star));
+        }
         // level
         // exp...
     }

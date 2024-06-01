@@ -16,6 +16,7 @@ import com.qqhouse.dungeon18plus.struct.EventResult;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.struct.Varier;
 import com.qqhouse.dungeon18plus.struct.hero.ScoreHero;
+import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.ui.QQList;
 
 import java.util.ArrayList;
@@ -272,13 +273,13 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         
         // XXX 0328 以後再改成打倒 Boss 後也可能出現老英雄.
         rate = Feat.HOLY_ONE.in(mHero.feats) ? 10 : 5;
-        //for (Veteran old : GameData.getInstance().getBarrackData()) {
-          //  if (mRandom.nextInt(100) < rate && !old.heroClass.isKnight()) {
-            //    VariedHero oldHero = new VariedHero(EventType.VETERAN, old.heroClass).setAbility(old);
-              //  int pos = mRandom.nextInt(mAllEvent.size());
-              //  mAllEvent.add(pos, oldHero);
-        //    }
-        //}
+        for (Veteran old : savedGame.getBarrackData()) {
+            if (mRandom.nextInt(100) < rate && !old.heroClass.isKnight()) {
+                VariedHero oldHero = new VariedHero(EventType.VETERAN, old.heroClass).setAbility(old);
+                int pos = mRandom.nextInt(mAllEvent.size());
+                mAllEvent.add(pos, oldHero);
+            }
+        }
 
         initialBoss();
 
@@ -720,10 +721,10 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                     if (Item.COPPER_COIN.equals(coinDrop)) { // 4 ~ 6
                         newEvent.itemCount = mRandom.nextInt(3) + 4;
                         newEvent.loot = Item.COPPER_COIN;
-                    } else if (Item.SILVER_COIN.equals(coinDrop)) {// 8 ~ 12
+                    } else if (Item.SILVER_COIN.equals(coinDrop)) { // 8 ~ 12
                         newEvent.itemCount = mRandom.nextInt(5) + 8;
                         newEvent.loot = Item.COPPER_COIN;
-                    } else if (Item.GOLDEN_COIN.equals(coinDrop)) {
+                    } else if (Item.GOLDEN_COIN.equals(coinDrop)) { // 16 ~ 24
                         newEvent.itemCount = mRandom.nextInt(9) + 16;
                         newEvent.loot = Item.COPPER_COIN;
                     } else

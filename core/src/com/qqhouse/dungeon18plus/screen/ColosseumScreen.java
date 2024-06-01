@@ -233,23 +233,28 @@ public class ColosseumScreen extends QQScreen {
     }
 
     private void endGame(boolean isWin) {
-        // disable swipe right.
-        setSwipeRightCallback(null);
+        if (manager.backpack.isEmpty()) {
+            callback.onColosseumResult(null);
+        } else {
 
-        // call summary dialog.
-        SelectEquipmentDialog dialog = new SelectEquipmentDialog(assets, getViewport());
-        dialog.reset(manager.createVeteran(), manager.backpack, new SelectEquipmentView.SelectEquipmentCallback() {
-            @Override
-            public void SelectEquipmentDone(Veteran veteran) {
-                if (savedGame.getLegionCount() + savedGame.getBarrackCount() < Game.MAX_BARRACK_SIZE) {
-                    savedGame.addVeteranToBarrack(Game.MAX_BARRACK_SIZE, veteran);
-                    callback.onColosseumResult(null);
-                } else {
-                    callback.onColosseumResult(veteran);
+            // disable swipe right.
+            setSwipeRightCallback(null);
+
+            // call summary dialog.
+            SelectEquipmentDialog dialog = new SelectEquipmentDialog(assets, getViewport());
+            dialog.reset(manager.createVeteran(), manager.backpack, new SelectEquipmentView.SelectEquipmentCallback() {
+                @Override
+                public void SelectEquipmentDone(Veteran veteran) {
+                    if (savedGame.getLegionCount() + savedGame.getBarrackCount() < Game.MAX_BARRACK_SIZE) {
+                        savedGame.addVeteranToBarrack(Game.MAX_BARRACK_SIZE, veteran);
+                        callback.onColosseumResult(null);
+                    } else {
+                        callback.onColosseumResult(veteran);
+                    }
                 }
-            }
-        });
-        openDialog(dialog);
+            });
+            openDialog(dialog);
+        }
     }
 
     @Override
