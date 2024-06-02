@@ -69,6 +69,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
      */
     @Override
     public void setSize(float w, float h) {
+        Gdx.app.error("QQList", "set size " + w + "," + h);
         super.setSize(w, h);
         calculateMaxScrollY();
         //rearrangeChildren();
@@ -90,7 +91,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         if (0 < maxHeight && h >= maxHeight)
             h = maxHeight;
         this.height = h;
-        //Gdx.app.error("QQList.resetWrapHeight", "height = " + this.height + "maxHeight = " + maxHeight);
+        Gdx.app.error("QQList.resetWrapHeight", "height = " + this.height + "maxHeight = " + maxHeight);
         if (null != parent)
             parent.arrangeChildren();
     }
@@ -685,7 +686,11 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     public void onParentSizeChanged(float width, float height) {}
 
     @Override
-    public void onChildSizeChanged(QQView child) {}
+    public void onChildSizeChanged(QQView child) {
+        Game.trace(child, "call QQList.onChildSizeChanged");
+        if (wrapHeight)
+            resetWrapHeight();
+    }
 
     private Rectangle scissors;
     @Override

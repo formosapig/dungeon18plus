@@ -96,7 +96,9 @@ public class Game {
         // fill up random soul
         public static final boolean FILL_UP_RANDOM_SOUL             = true;
         // Log QQView series's trace info
-        public static final boolean TRACE                           = false;
+        public static final boolean TRACE                           = true;
+        // all giant.
+        public static final boolean TEST_ALL_GIANT                  = true;
     }
 
     /*
@@ -116,7 +118,7 @@ public class Game {
 
     // debug setup, should set false when release.
 
-    public static final boolean TEST_ALL_GIANT                 = false;
+
     public static final boolean TEST_GIANT_DROP_SAME_SOUL_ICON = false;
 
     public static final boolean TEST_UNIQUE_SKILL_COOL_DOWN    = false;

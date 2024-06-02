@@ -13,6 +13,7 @@ import com.qqhouse.io.QQSaveGame;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class SaveGame extends QQSaveGame {
 
@@ -75,7 +76,22 @@ public class SaveGame extends QQSaveGame {
         }
 
         // skeleton fighter, always unlocked.
+        //getGiantRecord(GiantRace.SKELETON_FIGHTER).unlock();
+
+        Random rand = new Random();
+        // choose [BLACK_SLIME, RED_SLIME]
+        getGiantRecord(rand.nextBoolean() ? GiantRace.BLACK_SLIME : GiantRace.RED_SLIME).unlock();
+
+        // skeleton fighter
         getGiantRecord(GiantRace.SKELETON_FIGHTER).unlock();
+
+        // choose [GREEN_PUMPKIN, BLOODY_WEREWALF, SNOW_YETI, THUNDER_BIRD]
+        GiantRace[] middle = {GiantRace.GREEN_PUMPKIN, GiantRace.BLOODY_WEREWOLF, GiantRace.BLUE_YETI, GiantRace.THUNDER_BIRD};
+        getGiantRecord(middle[rand.nextInt(middle.length)]).unlock();
+
+        // choose [STEEL_CYCLOPS, STONE_FACE, BLACK_MIMIC];
+        GiantRace[] high = {GiantRace.STEEL_CYCLOPS, GiantRace.STONE_FACE, GiantRace.BLACK_MIMIC};
+        getGiantRecord(high[rand.nextInt(high.length)]).unlock();
 
     }
 
@@ -344,5 +360,33 @@ public class SaveGame extends QQSaveGame {
         else
             mVeteranData.barrack.add(veteran);
         Collections.sort(mVeteranData.barrack);
+    }
+
+    /*
+     * game mode ...
+     */
+    public boolean openColosseum() {
+        for (HeroClassRecord record : mHeroClassData.records) {
+            if (record.isGameModeAvailable(Game.Mode.COLOSSEUM))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean openSoulMaster() {
+        for (HeroClassRecord record : mHeroClassData.records) {
+            if (!record.souls.isEmpty())
+                return true;
+        }
+        return false;
+    }
+
+
+    public boolean openWilderness() {
+        return !mVeteranData.legion.isEmpty() || !mVeteranData.barrack.isEmpty();
+    }
+
+    public boolean openGallery() {
+        return !mMonsterData.monsters.isEmpty();
     }
 }

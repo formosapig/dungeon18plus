@@ -25,25 +25,24 @@ import java.util.Locale;
 
 public class DungeonManager extends GameManager<DungeonHero> /*implements ActionSlotSource, DataSource*/ {
 
-    private static final int WIN_LEVEL_NONE = 0;
+    private static final int WIN_LEVEL_NONE   = 0;
     private static final int WIN_LEVEL_NORMAL = 1;
     private static final int WIN_LEVEL_GOLDEN = 2;
     
     // zako number
-    public static final int ZAKO_NUM_FOR_EACH_TYPE     = 26;
-    private static final int ZAKO_PICKUP_NUM         = 3;
-    private static final int[] ZAKO_RANK_UP_NUM         = { 2, 3, 4 };    // hard, normal, easy
-    public static final int ZAKO_EXPAND_NUM            = 2;    // after kill one boss.
+    public static final int ZAKO_NUM_FOR_EACH_TYPE  = 26;
+    private static final int ZAKO_PICKUP_NUM        = 3;
+    private static final int[] ZAKO_RANK_UP_NUM     = { 2, 3, 4 };    // hard, normal, easy
+    public static final int ZAKO_EXPAND_NUM         = 2;    // after kill one boss.
         
     // total number of shop 6
-    private static final int SHOP_NUM        = 6;
-        
-        
+    private static final int SHOP_NUM   = 6;
+
     // total number of boss 3
-    private static final int BOSS_NUM        = 2;
+    private static final int BOSS_NUM   = 2;
         
     // how much event you can view
-    private static final int MAX_CHOICE        = 12;
+    private static final int MAX_CHOICE = 12;
 
     
 
@@ -633,8 +632,9 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         }
 
         // clear all doors
-        if (0 == mHero.key && !(Feat.DARK_PRESENCE.in(mHero.feats) || Feat.UNLOCK.in(mHero.feats) || Feat.BURST_DOOR.in(mHero.feats)))
-            clearAllDoors();
+        // veteran will add keys, no more need to clear all doors.
+        //if (0 == mHero.key && !(Feat.DARK_PRESENCE.in(mHero.feats) || Feat.UNLOCK.in(mHero.feats) || Feat.BURST_DOOR.in(mHero.feats)))
+        //    clearAllDoors();
 
         int eventAdded = fillEvent();
         
@@ -713,6 +713,8 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         while (MAX_CHOICE > mBattleEventNum && !mAllEvent.isEmpty()) {
             Event newEvent = mAllEvent.remove(0);
             // generate drop (feat effected)
+            // 有一些專長隨著遊戲進行才會習得, 所以掉落物可能有必要在怪物出現時再給予...
+
             if (newEvent.type.isZako()) {
                 if (EventType.SQULETON != newEvent.type && EventType.SKELETON_FIGHTER != newEvent.type) {
                     // TODO 0328 不好,這樣不能掉落金幣了,應該從 zakoDrop 開始改起.
@@ -733,8 +735,8 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 }
             } else if (newEvent.type.isBoss()) {
                 newEvent.loot = getBossDrop(newEvent.type, mHero.feats);
-            } else if (EventType.VETERAN == newEvent.type) {
-                setVeteranDrop(mHero.feats, newEvent);
+            } else if (EventType.VETERAN == newEvent.type && newEvent instanceof VariedHero) {
+                setVeteranDrop(mHero.feats, (VariedHero) newEvent);
             }
 
             // calculate battle event num;
@@ -1004,7 +1006,8 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 eventResult.star += itemCount;
                 break;
             case KEY:
-                mHero.key++;
+                mHero.key += itemCount;
+                eventResult.key += itemCount;
                 break;
             case COPPER_COIN:
                 // endless purse will not increase coin.
@@ -1289,7 +1292,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     }
 
     // veteran drop
-    private void setVeteranDrop(long feats, Event evt) {
+    private void setVeteranDrop(long feats, VariedHero veteran) {
         
         final int seed = mRandom.nextInt(100);
         
@@ -1298,16 +1301,19 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         // dark presence 3%
         if (Feat.DARK_PRESENCE.in(feats)) {
             if (seed < 3)
-                evt.loot = holySet[mRandom.nextInt(holySet.length)];
+                veteran.loot = holySet[mRandom.nextInt(holySet.length)];
             else
-                evt.loot = Item.NONE;
+                veteran.loot = Item.NONE;
         } else {
             final int rate = Feat.HOLY_ONE.in(feats) ? 10 : (Feat.LUCKY.in(feats) ? 8 : 5);
             if (seed < rate)
-                evt.loot = holySet[mRandom.nextInt(holySet.length)];
+                veteran.loot = holySet[mRandom.nextInt(holySet.length)];
             else {
-                evt.loot = Item.STAR;
-                evt.itemCount = 10;
+                if (veteran.getHeroClass().equals(HeroClass.THIEF) || veteran.getHeroClass().equals(HeroClass.ASSASSIN))
+                    veteran.loot = Item.KEY;
+                else
+                    veteran.loot = Item.STAR;
+                veteran.itemCount = mRandom.nextInt(3) * 2 + 8;
             }
         }
     }

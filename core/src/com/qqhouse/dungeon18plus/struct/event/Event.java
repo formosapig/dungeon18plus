@@ -5,6 +5,9 @@ import com.qqhouse.dungeon18plus.core.EventType;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.Ability;
+import com.qqhouse.dungeon18plus.struct.AmountItem;
+
+import org.jetbrains.annotations.NotNull;
 
 public class Event /*extends Ability*/ {
 	
@@ -14,7 +17,8 @@ public class Event /*extends Ability*/ {
 	public int costType;
 	public int costValue;
 	public Item loot;
-	public int itemCount;	// if loot == copper coin
+	public int itemCount;
+
 	//public int turn;
 	//public int score;
 
@@ -22,8 +26,8 @@ public class Event /*extends Ability*/ {
 	    this.type = type;
 	    costType = Game.Cost.NONE;
 	    costValue = 0;
-	    loot = Item.NONE;
-	    itemCount = 0;
+		loot = Item.NONE;
+		itemCount = 0;
     }
 
     public int getLevel() { return 0; }
@@ -155,6 +159,13 @@ public class Event /*extends Ability*/ {
 	    this.loot = loot;
 	    return (E) this;
     }
+
+	@SuppressWarnings("unchecked")
+	public <E extends Event> E setLoot(@NotNull AmountItem loot) {
+		this.loot = loot.item;
+		this.itemCount = loot.amount;
+		return (E) this;
+	}
 
     @SuppressWarnings("unchecked")
     public <E extends Event> E setCost(int costType, int costValue) {

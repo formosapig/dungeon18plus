@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.gamedata;
 
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.Soul;
 import com.qqhouse.dungeon18plus.core.UniqueSkill;
@@ -75,5 +76,11 @@ class WildernessData_1_6_2 extends QQSaveGame.DataPart {
             giants.add(record);
         }
 	}
-	
+
+	@Override
+	protected void afterRead() {
+		if (Game.Debug.TEST_ALL_GIANT)
+			for (GiantRecord gr : giants)
+				gr.unlock();
+	}
 }

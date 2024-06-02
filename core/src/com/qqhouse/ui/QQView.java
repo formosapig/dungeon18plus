@@ -126,7 +126,7 @@ public class QQView {
     }
 
     public void setSize(float w, float h) {
-        Game.trace(this, "QQView.setSize w:%.0f, h:%.0f", w, h);
+        //Game.trace(this, "QQView.setSize w:%.0f, h:%.0f", w, h);
         //Gdx.app.error("QQView.setSize", String.format(Locale.US, "%s w:%4.2f, h:%4.2f", this, w, h));
         // width
         if (w == QQView.WRAP_CONTENT) {
@@ -168,7 +168,7 @@ public class QQView {
         if (0 < this.width && 0 < this.height && this instanceof IsParent) {
             ((IsParent) this).arrangeChildren();
         }
-        Game.trace(this, "QQView.setSize width:%.0f, height:%.0f", this.width, this.height);
+        //Game.trace(this, "QQView.setSize width:%.0f, height:%.0f", this.width, this.height);
     }
 
     protected void resetWrapWidth() {}

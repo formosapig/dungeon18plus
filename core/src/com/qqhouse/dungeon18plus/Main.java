@@ -3,6 +3,7 @@ package com.qqhouse.dungeon18plus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.core.ColosseumManager;
+import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.screen.BarrackScreen;
@@ -14,6 +15,7 @@ import com.qqhouse.dungeon18plus.screen.HeroAlbumScreen;
 import com.qqhouse.dungeon18plus.screen.LeaderboardScreen;
 import com.qqhouse.dungeon18plus.screen.MonsterGuideScreen;
 import com.qqhouse.dungeon18plus.screen.PopupScreen;
+import com.qqhouse.dungeon18plus.screen.SelectGiantScreen;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
 import com.qqhouse.dungeon18plus.struct.BossKill;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 public class Main extends QQGameMachine implements
         TitleScreen.TitleCallback,
         SelectHeroScreen.SelectHeroCallback,
+        SelectGiantScreen.SelectGiantCallback,
         ColosseumScreen.ColosseumCallback,
         GalleryScreen.GalleryCallback,
         PopupScreen {
@@ -37,6 +40,7 @@ public class Main extends QQGameMachine implements
 
     private TitleScreen title;
     private SelectHeroScreen selectHero;
+    private SelectGiantScreen selectGiant;
     private DungeonScreen dungeon;
     private ColosseumScreen colosseum;
     private GalleryScreen gallery;
@@ -86,7 +90,12 @@ public class Main extends QQGameMachine implements
                 push(selectHero);
             }
                 break;
-            case Game.Mode.WILDERNESS:
+            case Game.Mode.WILDERNESS: {
+                if (null == selectGiant) {
+                    selectGiant = new SelectGiantScreen((SaveGame) savedGame, viewport, assets, this);
+                }
+                push(selectGiant);
+            }
                 break;
             case Game.Mode.CASTLE: {
                 int a = 0;
@@ -191,5 +200,23 @@ public class Main extends QQGameMachine implements
     @Override
     public void onPopupScreen() {
         popup();
+    }
+
+    /*
+     * select giant call back.
+     */
+    @Override
+    public void onLegionTrainer() {
+
+    }
+
+    @Override
+    public void onSoulMaster() {
+
+    }
+
+    @Override
+    public void onSelectGiant(GiantRace giant) {
+
     }
 }

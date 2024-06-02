@@ -120,7 +120,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         public QQView getView(int index) {
             HeroClassRecord record = availableHeroes.get(index);
             PreviewView v = new PreviewView(assets);
-            v.setSize(QQView.MATCH_PARENT, 64);//QQView.WRAP_CONTENT);
+            v.setSize(QQView.MATCH_PARENT, 64);
             v.reset(record, gameMode);
 
             //PreviewView view = new PreviewView(

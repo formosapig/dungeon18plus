@@ -117,6 +117,9 @@ public class QQGroup extends QQView implements QQView.IsParent {
         for (QQView v : childrenView)
             w += v.getWidth() + innerMargin;
         width = w - innerMargin + leftPadding + rightPadding;
+        //if (null != parent) {
+        //    parent.onChildSizeChanged(this);
+        //}
     }
 
     @Override
@@ -127,6 +130,9 @@ public class QQGroup extends QQView implements QQView.IsParent {
         for (QQView v : childrenView)
             h += v.getHeight() + innerMargin;
         height = h - innerMargin + topPadding + bottomPadding;
+        //if (null != parent) {
+        //    parent.onChildSizeChanged(this);
+        //}
     }
 
     protected ArrayList<QQView> childrenView = new ArrayList<>();

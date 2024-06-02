@@ -63,7 +63,7 @@ public class TitleScreen extends QQScreen {
         }
 
         // Colosseum : defeat skeleton fighter in the dungeon.
-        if (savedGame.isGameModeUnlocked(Game.Mode.COLOSSEUM)) {
+        if (savedGame.openColosseum()) {
             menus.add(new TitleMenuView(assets.getBackgroundSet(NEUTRAL.key),
                     assets.getBlockee("arena"),
                     fnt,
@@ -74,7 +74,7 @@ public class TitleScreen extends QQScreen {
         }
 
         // Wilderness : see sword master in the colosseum.
-        if (savedGame.isGameModeUnlocked(Game.Mode.WILDERNESS)) {
+        if (savedGame.openWilderness()) {
             menus.add(new TitleMenuView(assets.getBackgroundSet(SPECIAL.key),
                     assets.getBlockee("steel_cyclops"),
                     fnt,

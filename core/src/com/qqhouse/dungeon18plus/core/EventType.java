@@ -17,7 +17,7 @@ public enum EventType {
 				return new Ability(40, base.attack, 0, 0, base.defense, base.speed);
 			}},
 	SQULETON(0xE490F428,
-		EventType.TYPE_ZAKO,
+		EventType.TYPE_RARE_ZAKO,
 		"squleton",
 		GameAlignment.SPECIAL,
 		"squleton",
@@ -29,7 +29,7 @@ public enum EventType {
 				return new Ability(100 + level * 20, base.attack, base.magic, 0, base.defense, base.speed);
 			}},
 	SKELETON_FIGHTER(0xAA5D1760,
-		EventType.TYPE_ZAKO,
+		EventType.TYPE_RARE_ZAKO,
 		"skeleton_fighter",
 		GameAlignment.ORDINARY,
 		"skeleton_fighter",
@@ -61,7 +61,7 @@ public enum EventType {
 	BLACK_SLIME(0xD63031CC,
 		EventType.TYPE_ZAKO,
 		"black_slime",
-		GameAlignment.ORDINARY,
+		GameAlignment.CHAOTIC,
 		"black_slime",
 		"black_slime_help") {
 			@Override
@@ -317,17 +317,18 @@ public enum EventType {
 
 	
 	// type
-	private static final int TYPE_NONE 	   = 0x0;
-	private static final int TYPE_ZAKO	   = 0x1;
-	private static final int TYPE_BOSS	   = 0x2;
-	private static final int TYPE_DOOR	   = 0x4;
-	private static final int TYPE_TRAP	   = 0x10;
-	private static final int TYPE_SHOP     = 0x20;
-	private static final int TYPE_HERO     = 0x40;
-	private static final int TYPE_END_GAME = 0x80;
+	private static final int TYPE_NONE 	    = 0x0;
+	private static final int TYPE_ZAKO	    = 0x1;
+	private static final int TYPE_RARE_ZAKO = 0x2; // squleton, skeleton fighter
+	private static final int TYPE_BOSS	    = 0x4;
+	private static final int TYPE_DOOR	    = 0x8;
+	private static final int TYPE_TRAP	    = 0x10;
+	private static final int TYPE_SHOP      = 0x20;
+	private static final int TYPE_HERO      = 0x40;
+	private static final int TYPE_END_GAME  = 0x80;
 	// combine type
-	private static final int TYPE_MONSTER = TYPE_ZAKO | TYPE_BOSS;
-	private static final int TYPE_SHOW_DETAIL = TYPE_ZAKO | TYPE_BOSS | TYPE_HERO;
+	private static final int TYPE_MONSTER = TYPE_ZAKO | TYPE_RARE_ZAKO | TYPE_BOSS;
+	private static final int TYPE_SHOW_DETAIL = TYPE_ZAKO | TYPE_RARE_ZAKO | TYPE_BOSS | TYPE_HERO;
 	private static final int TYPE_SHOW_EQUIPMENT_DATA = TYPE_SHOP;
 					
 	// data				

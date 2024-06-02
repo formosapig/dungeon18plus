@@ -82,7 +82,7 @@ public enum GiantRace {
 	 *       @ BLACK_MUD : time < 500 -> 100% use
 	 *   
 	 */
-	BLACK_SLIME(0x07A9CDE9, "blockee_black_slime", "black_slime", "black_slime_giant_help",
+	BLACK_SLIME(0x07A9CDE9, "black_slime", "black_slime", "black_slime_giant_help",
 		new Ability(36500, 365, 0, 1, 200, 55), Soul.NEGATIVE_LUCKY, Soul.NEGATIVE_COIN, Soul.NEGATIVE_LIFE, Soul.NEGATIVE_DEFENSE, Soul.SMALL_BAG)
 	{
 		@Override
@@ -109,7 +109,7 @@ public enum GiantRace {
 	 *       @ HEAVY_STRIKE : time = 25n 時 25% use
 	 *       
 	 */
-	RED_SLIME(0x7F63C412, "blockee_red_slime", "red_slime", "red_slime_giant_help",
+	RED_SLIME(0x7F63C412, "red_slime", "red_slime", "red_slime_giant_help",
 		new Ability(42000, 275, 0, 1, 200, 25), Soul.NEGATIVE_LUCKY, Soul.NEGATIVE_STAR, Soul.NEGATIVE_ATTACK, Soul.NEGATIVE_SPEED, Soul.SMALL_BAG)
 	{
 		@Override
@@ -137,7 +137,7 @@ public enum GiantRace {
 	 *   action :
 	 *     @ ATTACK_UP, DEFENSE_UP, SPEED_UP : time = 165n use ATTACK_UP or DEFENSE_UP or SPEED_UP
 	 */
-	SKELETON_FIGHTER(0x3E4FED1E, "blockee_skeleton_fighter", "skeleton_fighter", "skeleton_fighter_giant_help",
+	SKELETON_FIGHTER(0x3E4FED1E, "skeleton_fighter", "skeleton_fighter", "skeleton_fighter_giant_help",
 		new Ability(80000, 298, 0, 1, 250, 8), Soul.PROTECT, Soul.CHARGE, Soul.NEGATIVE_LIFE, Soul.NEGATIVE_ATTACK,
 		Soul.NEGATIVE_DEFENSE, Soul.NEGATIVE_SPEED, Soul.SMALL_BAG, Soul.SMALL_BAG) 
 	{
@@ -165,7 +165,7 @@ public enum GiantRace {
 	 *   action : 
 	 *     @ PAIN_BOMB : time = 250 -> 100% use (250 - 110) 在 140 時放. 
 	 */
-	GREEN_PUMPKIN(0x043AFC43, "blockee_green_pumpkin", "green_pumpkin", "green_pumpkin_giant_help",
+	GREEN_PUMPKIN(0x043AFC43, "green_pumpkin", "green_pumpkin", "green_pumpkin_giant_help",
 		new Ability(120000, 0, 0, 1, 250, 1000), Soul.LIFE, Soul.BIG_BAG, Soul.LONG_LIFE)
 	{
 		@Override
@@ -186,7 +186,7 @@ public enum GiantRace {
 	 *     @ POWER_CLAW : 25%
 	 *     @ LEECH_CLAW : 25% 
 	 */
-	BLOODY_WEREWOLF(0xE90E15AC, "blockee_bloody_werewolf", "bloody_werewolf", "bloody_werewolf_giant_help",
+	BLOODY_WEREWOLF(0xE90E15AC, "bloody_werewolf", "bloody_werewolf", "bloody_werewolf_giant_help",
 		new Ability(64000, 100, 0, 1, 250, 10), Soul.ATTACK, Soul.BERSERK, Soul.SMALL_BAG)
 	{
 		@Override
@@ -209,7 +209,7 @@ public enum GiantRace {
 	 *   action :
 	 *     @ SNOWDRIT : time = 175n -> 100% use 
 	 */
-	BLUE_YETI(0xE562C19C, "blockee_blue_yeti", "blue_yeti", "blue_yeti_giant_help",
+	BLUE_YETI(0xE562C19C, "blue_yeti", "blue_yeti", "blue_yeti_giant_help",
 		new Ability(80000, 292, 0, 1, 500, 42), Soul.DEFENSE, Soul.HARD_DEFENSE,
 		Soul.MEDIUM_BAG, Soul.SMALL_BAG)
 	{
@@ -231,7 +231,7 @@ public enum GiantRace {
 	 *     @ SONIC_ATTACK : 5% use
 	 *     @ SPIRAL_FEATHER : 5% use
 	 */
-	THUNDER_BIRD(0x177896AA, "blockee_thunder_bird", "thunder_bird", "thunder_bird_giant_help",
+	THUNDER_BIRD(0x177896AA, "thunder_bird", "thunder_bird", "thunder_bird_giant_help",
 		new Ability(80000, 400, 0, 1, 250, 25), Soul.SPEED, Soul.RUNAWAY, Soul.MEDIUM_BAG)
 	{
 		@Override
@@ -261,7 +261,7 @@ public enum GiantRace {
 	 *   action : 
 	 *   
 	 */
-	STEEL_CYCLOPS(0x3B6076AB, "blockee_steel_cyclops", "steel_cyclops", "steel_cyclops_giant_help",
+	STEEL_CYCLOPS(0x3B6076AB, "steel_cyclops", "steel_cyclops", "steel_cyclops_giant_help",
 		new Ability(160000, 300, 0, 1, 300, 150), Soul.BRAVE, Soul.STAR, Soul.LONG_LIFE, Soul.BERSERK,
 		Soul.NEGATIVE_STAR, Soul.NEGATIVE_DEFENSE, Soul.NEGATIVE_SPEED, Soul.BIG_BAG, Soul.MEDIUM_BAG, Soul.SMALL_BAG) 
 	{
@@ -290,7 +290,7 @@ public enum GiantRace {
 	 *     @ DEFENSE_DOWN : time = 110n
 	 *     @ SPEED_DOWN : time = 110n
 	 */
-    STONE_FACE(0x5ED6867B, "blockee_stone_face", "stone_face", "stone_face_giant_help",
+    STONE_FACE(0x5ED6867B, "stone_face", "stone_face", "stone_face_giant_help",
 		new Ability(96000, 300, 0, 1, 300, 25), Soul.DREAM, Soul.COIN, Soul.LONG_LIFE, Soul.BERSERK,
 		Soul.HARD_DEFENSE, Soul.NEGATIVE_COIN, Soul.NEGATIVE_SPEED, Soul.MEDIUM_BAG, Soul.SMALL_BAG) 
 	{
@@ -326,7 +326,7 @@ public enum GiantRace {
 	 *   action :
 	 *     @SWALLOW : just use, use, use.... 
 	 */
-	BLACK_MIMIC(0x571C10A0, "blockee_black_mimic", "black_mimic", "black_mimic_giant_help",
+	BLACK_MIMIC(0x571C10A0, "black_mimic", "black_mimic", "black_mimic_giant_help",
 		new Ability(32000, 250, 0, 1, 500, 100), Soul.HOPE, Soul.KEY, Soul.HUGE_BAG)
 	{
 		@Override
