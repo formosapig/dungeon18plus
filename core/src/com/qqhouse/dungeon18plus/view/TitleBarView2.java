@@ -58,19 +58,28 @@ public class TitleBarView2 extends AssetGroup {
     }
 
     @Override
+    public void onParentSizeChanged(float width, float height) {
+        super.onParentSizeChanged(width, height);
+        if (0 < width) {
+            name.setSize(QQView.WRAP_CONTENT, 32);
+            resource.setSize(QQView.WRAP_CONTENT, 16);
+        }
+    }
+
+    @Override
     public void arrangeChildren() {
         if (null != icon)
             icon.setPosition(leftPadding, bottomPadding);
 
         if (null != resource) {
-            resource.setSize(QQView.WRAP_CONTENT, 16);
+            //resource.setSize(QQView.WRAP_CONTENT, 16);
             resource.setPosition(this.width - resource.getWidth() - rightPadding, bottomPadding + 8);
         }
 
         if (null != name) {
             //name.setSize(resource.getX() - innerMargin * 2 - (leftPadding + 32), 32);
             //name.setPosition(leftPadding + 32 + innerMargin, bottomPadding);
-            name.setSize(QQView.WRAP_CONTENT, 32);
+            //name.setSize(QQView.WRAP_CONTENT, 32);
             name.setPosition((this.width - name.getWidth()) / 2, bottomPadding);
         }
     }

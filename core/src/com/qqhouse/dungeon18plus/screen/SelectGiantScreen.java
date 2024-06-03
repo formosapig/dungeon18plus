@@ -65,8 +65,8 @@ public class SelectGiantScreen extends QQScreen {
         group.addChild(list);
 
         // info
-        QQText info = new QQText(assets.getFont(Game.Font.NAME20)); // fight_giant
-        info.setSize(QQView.MATCH_PARENT, 20);
+        QQText info = new QQText(assets.getFont(Game.Font.NAME20));// fight_giant
+        info.setSize(QQView.MATCH_PARENT, 28);
         info.setText(assets.geti18n("fight_giant"));
         info.setAlign(Align.left);
         group.addChild(info);

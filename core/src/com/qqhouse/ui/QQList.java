@@ -49,8 +49,8 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     private float changeScrollY; // scrollY need to change after rearrange children.
     private IsTouchable hitBeforeScroll;// = null;
     // animation period in second
-    private static final float animVPeriod = 0.11f;    // in sec
-    private static final float animHPeriod = 0.14f;
+    private static final float animVPeriod = 0.08f;    // in sec
+    private static final float animHPeriod = 0.13f;
 
     private void calculateMaxScrollY() {
         float totalHeight = 0;
@@ -60,8 +60,9 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         }
         totalHeight -= Game.Size.WIDGET_MARGIN;
         maxScrollY = totalHeight - (this.height - this.topPadding - this.bottomPadding);
-        if (maxScrollY <0)
+        if (maxScrollY < 0)
             maxScrollY = 0;
+        Gdx.app.error("QQList.calculateMaxScrollY", "height = " + this.height + ", maxScrollY = " + maxScrollY);
     }
 
     /*
@@ -92,8 +93,9 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             h = maxHeight;
         this.height = h;
         Gdx.app.error("QQList.resetWrapHeight", "height = " + this.height + "maxHeight = " + maxHeight);
-        if (null != parent)
+        if (null != parent) {
             parent.arrangeChildren();
+        }
     }
 
 
@@ -638,6 +640,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
         // from top to bottom...
         float anchorY = this.height - topPadding + scrollY;
+        Gdx.app.error("QQList.arrangeChildren", "anchorY = " + this.height + "," + topPadding + "," + scrollY);
         for (QQView child : childrenView) {
 
             // match width
@@ -647,12 +650,13 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             anchorY -= child.height;
 
             // reset position
+            Gdx.app.error("QQList.arrangeChildren", "setPosition(" + leftPadding + "," + anchorY + ")");
             child.setPosition(leftPadding, anchorY/* + scrollY*/);
 
             // widget margin
             anchorY -= Game.Size.WIDGET_MARGIN;
         }
-
+        Gdx.app.error("QQList.arrangeChildren", "end for.");
         // calculate maxScrollY
 
     }
@@ -688,8 +692,12 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
     @Override
     public void onChildSizeChanged(QQView child) {
         Game.trace(child, "call QQList.onChildSizeChanged");
-        if (wrapHeight)
+        if (wrapHeight) {
             resetWrapHeight();
+            calculateMaxScrollY();
+            arrangeChildren();
+            Gdx.app.error("QQList.onChildSizeChanged.", "scrollY = " + scrollY);
+        }
     }
 
     private Rectangle scissors;

@@ -14,7 +14,7 @@ public class VarierView extends AssetGroup {
             Varier.Type.COIN | Varier.Type.KEY | Varier.Type.STAR;
 
     public VarierView(Assets assets) {
-        super(assets, DIRECT_HORIZONTAL, Game.Size.INNER_MARGIN);
+        super(assets);
     }
 
     public void update(Ability ability) {

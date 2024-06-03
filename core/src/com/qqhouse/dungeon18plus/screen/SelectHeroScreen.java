@@ -1,18 +1,21 @@
 package com.qqhouse.dungeon18plus.screen;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.view.PreviewView;
+import com.qqhouse.dungeon18plus.view.PreviewView3;
 import com.qqhouse.dungeon18plus.view.TitleBarView;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQScreen;
+import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
 import org.jetbrains.annotations.NotNull;
@@ -71,17 +74,25 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         });
         group.addChild(list);
 
+        // info
+        QQText info = new QQText(assets.getFont(Game.Font.NAME20)); // fight_giant
+        info.setPadding(0, 0, 4, 0);
+        info.setSize(QQView.MATCH_PARENT, 28);
+        info.setText(assets.geti18n("select_hero"));
+        info.setAlign(Align.left);
+        group.addChild(info);
+
         // one title view ..., just print select hero ?
-        TitleBarView title = new TitleBarView(
-                assets.getBlockee("fairy"),
-                assets.getFont(Game.Font.NAME20),
-                "Select Hero : ");
+        //TitleBarView title = new TitleBarView(
+        //        assets.getBlockee("fairy"),
+        //        assets.getFont(Game.Font.NAME20),
+        //        "Select Hero : ");
         //title.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         //addView(title);
-        title.setPadding(4);
-        title.setSize(QQView.MATCH_PARENT, 48);
+        //title.setPadding(4);
+        //title.setSize(QQView.MATCH_PARENT, 48);
         //title.setPosition(0, Game.Size.HEIGHT - 48);
-        group.addChild(title);
+        //group.addChild(title);
 
         // group set size
         group.setPosition(12, (Game.Size.HEIGHT - group.getHeight()) / 2);
@@ -119,10 +130,20 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         @Override
         public QQView getView(int index) {
             HeroClassRecord record = availableHeroes.get(index);
-            PreviewView v = new PreviewView(assets);
-            v.setSize(QQView.MATCH_PARENT, 64);
-            v.reset(record, gameMode);
+            //PreviewView v = new PreviewView(assets);
+            //v.setSize(QQView.MATCH_PARENT, 64);
+            //v.reset(record, gameMode);
 
+            PreviewView3 v = new PreviewView3(assets);
+            v.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+            v.reset(record.heroClass.key, record.heroClass.key, record.heroClass.key + "_help", record.heroClass.alignment.key);
+            //v.reset(record.heroClass.key, record.heroClass.key, record.heroClass.alignment.key);
+            if (Game.Mode.DUNGEON == gameMode) {
+                v.resetLevel(Integer.toString(record.highLevel));
+                v.resetExtra("rank", Integer.toString(record.highScore), Game.Colour.RANK);
+            } else {
+                v.resetExtra("cost_soul", Integer.toString(record.maxRound), Game.Colour.ROUND);
+            }
             //PreviewView view = new PreviewView(
             //        assets.getBackgroundSet(hero.alignment.key), // Alignment decides background.
             //        assets.getBlockee(hero.key),

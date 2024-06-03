@@ -13,14 +13,6 @@ public class AssetGroupButton extends AssetGroup implements QQView.IsTouchable {
         super(assets);
     }
 
-    public AssetGroupButton(Assets assets, int direct) {
-        super(assets, direct);
-    }
-
-    public AssetGroupButton(Assets assets, int direct, int margin) {
-        super(assets, direct, margin);
-    }
-
     // button background
     private boolean pressed = false;
     private boolean enabled = true;

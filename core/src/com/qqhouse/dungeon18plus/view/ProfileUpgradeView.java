@@ -12,7 +12,7 @@ public class ProfileUpgradeView extends AssetGroup {
     private ItemView cost;
 
     public ProfileUpgradeView(Assets assets) {
-        super(assets, DIRECT_HORIZONTAL);
+        super(assets);
         setPadding(Game.Size.BLOCKEE_PADDING / 2);
     }
 

@@ -1,21 +1,14 @@
 package com.qqhouse.dungeon18plus.view;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
-import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
-import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
-
-import java.util.ArrayList;
 
 public class PreviewView3 extends AssetGroupButton {
 
@@ -28,33 +21,48 @@ public class PreviewView3 extends AssetGroupButton {
         setPadding(8);
     }
 
-    public void reset(String iconKey, String nameKey, String helpKey, String bgKey) {
+    public void reset(String iconKey, String nameKey, String bgKey) {
         // set background
         setBackground(assets.getBackgroundSet(bgKey));
 
         // icon
         icon = new QQImage(assets.getBlockee(iconKey));
-        //blockee.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
-        //icon.setPosition(8, 8);
         addChild(icon);
 
         // name
         name = new QQText(assets.getFont(Game.Font.NAME20));
-        //name.setBackground(assets.getNinePatchBG("refined"));
         name.setColor(Game.Colour.RARE);
         name.setText(assets.geti18n(nameKey));
-        //name.setSize(this.width - 64, 24);
-        //name.setPosition(64, 32);
         addChild(name);
+    }
+
+    public void reset(String iconKey, String nameKey, String helpKey, String bgKey) {
+        reset(iconKey, nameKey, bgKey);
 
         // help
         help = new QQText(assets.getFont(Game.Font.HELP14));
-        //help.setBackground(assets.getNinePatchBG("refined"));
         help.setText(assets.geti18n(helpKey), true);
         help.setAlign(Align.left);
-        help.setPosition(64, 8);
-        //help.setWrapWidth();
+        help.setPosition(64, bottomPadding);
         addChild(help);
+    }
+
+    public void resetLevel(String strLevel) {
+        level = new QQText(assets.getFont(Game.Font.LEVEL16), assets.getNinePatchBG("level"), 0.75f);
+        level.setColor(Game.Colour.RANK);
+        level.setPadding(4);
+        level.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
+        //level.setPosition(4, 40);
+        level.setText(strLevel);
+        addChild(level);
+    }
+
+    public void resetExtra(String iconKey, String strExtra, Color color) {
+        extra = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16(iconKey));
+        extra.setSize(54, 16);
+        extra.setColor(color);
+        extra.setText(strExtra);
+        addChild(extra);
     }
 
     @Override
@@ -64,28 +72,39 @@ public class PreviewView3 extends AssetGroupButton {
             return;
 
         // Text will calculate their height ...
-        float h = topPadding + bottomPadding + name.getHeight() + help.getHeight() + Game.Size.INNER_MARGIN;
-        this.height = Math.max(48 + 8 + 8, h);
+        if (null != help) {
+            float h = topPadding + bottomPadding + name.getHeight() + help.getHeight() + Game.Size.INNER_MARGIN;
+            this.height = Math.max(48 + 8 + 8, h);
+        } else {
+            this.height = 64;
+        }
+
         if (null != parent) {
             parent.onChildSizeChanged(this);
         }
     }
 
     @Override
+    public void onParentSizeChanged(float width, float height) {
+        super.onParentSizeChanged(width, height);
+        if (0 < width) {
+            name.setSize(width - 64 - 8, 24);
+            if (null != help)
+                help.setSize(width - 64 - 8, QQView.WRAP_CONTENT);
+        }
+    }
+
+    @Override
     public void arrangeChildren() {
-        if (0 >= this.width || 0 >= this.height)
+        if (0 >= width || 0 >= height)
             return;
 
-        if (null != icon) {
-            icon.setPosition(leftPadding, height - topPadding - 48);
-        }
-        if (null != name) {
-            name.setPosition(64, this.height - 32);
-            name.setSize(width - 64 - 8, 24);
-        }
-        if (null != help) {
-            help.setSize(width - 64 - 8, QQView.WRAP_CONTENT);
-        }
+        icon.setPosition(leftPadding, height - topPadding - 48);
+        name.setPosition(64, height - 32);
+        if (null != level)
+            level.setPosition(4, this.height - 24);
+        if (null != extra)
+            extra.setPosition(this.width - extra.getWidth() - rightPadding, this.height - 24);
     }
 
 }
