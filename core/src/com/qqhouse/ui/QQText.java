@@ -103,9 +103,9 @@ public class QQText extends QQView {
 
         GlyphLayout glyphs = new GlyphLayout();
         if (null != truncate)
-            glyphs.setText(font, text, 0, text.length(), color, this.width, align, wrap, truncate);
+            glyphs.setText(font, text, 0, text.length(), color, (width - leftPadding - rightPadding), align, wrap, truncate);
         else {
-            glyphs.setText(font, text, 0, text.length(), color, this.width, Align.topLeft, wrap, null);
+            glyphs.setText(font, text, 0, text.length(), color, (width - leftPadding - rightPadding), Align.topLeft, wrap, null);
         }
 
         // wrap width
@@ -127,9 +127,9 @@ public class QQText extends QQView {
         if (Align.isCenterHorizontal(align)) {
             shiftX = (width - glyphs.width) / 2;
         } else if (Align.isRight(align)) {
-            shiftX = width - glyphs.width;
+            shiftX = width - glyphs.width - rightPadding;
         } else {
-            shiftX = 0;
+            shiftX = leftPadding;
         }
 
         // shift y

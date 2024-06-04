@@ -130,37 +130,22 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         @Override
         public QQView getView(int index) {
             HeroClassRecord record = availableHeroes.get(index);
-            //PreviewView v = new PreviewView(assets);
-            //v.setSize(QQView.MATCH_PARENT, 64);
-            //v.reset(record, gameMode);
 
             PreviewView3 v = new PreviewView3(assets);
             v.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
             v.reset(record.heroClass.key, record.heroClass.key, record.heroClass.key + "_help", record.heroClass.alignment.key);
             //v.reset(record.heroClass.key, record.heroClass.key, record.heroClass.alignment.key);
             if (Game.Mode.DUNGEON == gameMode) {
-                v.resetLevel(Integer.toString(record.highLevel));
+                if (0 < record.highLevel)
+                    v.resetLevel(Integer.toString(record.highLevel));
                 v.resetExtra("rank", Integer.toString(record.highScore), Game.Colour.RANK);
             } else {
                 v.resetExtra("cost_soul", Integer.toString(record.maxRound), Game.Colour.ROUND);
             }
-            //PreviewView view = new PreviewView(
-            //        assets.getBackgroundSet(hero.alignment.key), // Alignment decides background.
-            //        assets.getBlockee(hero.key),
-            //        assets.getFont(Game.Font.NAME20),
-            //        assets.getI18n(hero.key),
-            //        assets.getFont(Game.Font.HELP14),
-            //        assets.getI18n(hero.key+"_help"));
-            //view.setPadding(8);
-            //view.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-            //view.addQQClickListener(this, hero.code);
-            //list.addView(view);
             return v;
         }
 
         @Override
-        public void updateView(int index, QQView view) {
-
-        }
+        public void updateView(int index, QQView view) {}
     };
 }
