@@ -55,6 +55,8 @@ public class ItemDetailView extends AssetGroup {
                 icon.setStatus(assets.getBackground("cursed"));
             else if (item.isRefined())
                 icon.setStatus(assets.getBackground("refined"));
+            else
+                icon.setStatus(null);
         }
 
         name.setText(assets.geti18n(item.name));
@@ -95,7 +97,8 @@ public class ItemDetailView extends AssetGroup {
      */
     @Override
     public void onParentSizeChanged(float width, float height) {
-        //Gdx.app.error("ItemDetailView", "onParentSizeChanged = " + this.width + "," + this.height);
+        if (0 >= width)
+            return;
         // name
         name.setSize(width - 48 - leftPadding - rightPadding, 24);
         // upgrade

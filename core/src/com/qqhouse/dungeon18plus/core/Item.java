@@ -11,10 +11,10 @@ public enum Item {
     SOUL( 0x2F5D69C7, "soul", "soul", "soul_help", Type.NONE, 0),
 
     // STAR
-    STAR( 0x71F2B299, "star", "star", "star_help", Type.NONE, 0),
+    STAR( 0x71F2B299, "star", "star", "star_help", Type.NONE, 0, STAR_1),
 
     // KEY
-    KEY( 0x42A9564D, "key", "key", "key_help", Type.NONE,0),
+    KEY( 0x42A9564D, "key", "key", "key_help", Type.NONE,0, KEY_1),
 
     // COIN
     COPPER_COIN( 0x2CD45554, "copper_coin", "copper_coin", "coin_help", Type.NONE, 0, COIN_1),
@@ -41,15 +41,15 @@ public enum Item {
             Type.CRYSTAL, 0, LIFE_100, ATTACK_2, DEFENSE_2, SPEED_1),
 
     // cursed crystal, for fairy to recycle
-    YELLOW_CRYSTAL(0x0564B06E, "yellow_crystal", "yellow_crystal", "cursed_crystal_help",
+    YELLOW_CRYSTAL(0x0564B06E, "yellow_crystal", "cursed_crystal", "cursed_crystal_help",
             Type.CURSED | Type.CRYSTAL, 0, STAR_5),
-    RED_CRYSTAL( 0xECBD93A3,"red_crystal", "red_crystal", "cursed_crystal_help",
+    RED_CRYSTAL( 0xECBD93A3,"red_crystal", "cursed_crystal", "cursed_crystal_help",
             Type.CURSED | Type.CRYSTAL, 0, STAR_5),
-    BLUE_CRYSTAL( 0xB9C8E347, "blue_crystal", "blue_crystal", "cursed_crystal_help",
+    BLUE_CRYSTAL( 0xB9C8E347, "blue_crystal", "cursed_crystal", "cursed_crystal_help",
             Type.CURSED | Type.CRYSTAL, 0, STAR_5),
-    GREEN_CRYSTAL( 0x9B836DC3, "green_crystal", "green_crystal", "cursed_crystal_help",
+    GREEN_CRYSTAL( 0x9B836DC3, "green_crystal", "cursed_crystal", "cursed_crystal_help",
             Type.CURSED | Type.CRYSTAL, 0, STAR_5),
-    WHITE_CRYSTAL( 0xD67942F1, "white_crystal", "white_crystal", "cursed_crystal_help",
+    WHITE_CRYSTAL( 0xD67942F1, "white_crystal", "cursed_crystal", "cursed_crystal_help",
             Type.CURSED | Type.CRYSTAL, 0, STAR_20),
 
 

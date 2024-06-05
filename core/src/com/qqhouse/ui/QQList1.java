@@ -7,14 +7,14 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 
-// TODO QQList should extends QQList ?
-public class QQList1 extends QQGroup implements QQView.IsTouchable {
+public class QQList1 extends QQLinear implements QQView.IsTouchable {
 
     public static abstract class Adapter {
         private QQList1 list;
@@ -45,16 +45,21 @@ public class QQList1 extends QQGroup implements QQView.IsTouchable {
     // animation period in second
     private static final float animVPeriod = 0.11f;    // in sec
     private static final float animHPeriod = 0.23f;
+    private final Viewport viewport;
+
+    public QQList1(Viewport viewport, int innerMargin) {
+        super(innerMargin);
+        this.viewport = viewport;
+    }
 
     private void calculateMaxScrollY() {
         float totalHeight = 0;
         for (QQView child : childrenView) {
-            // FIXME SDK component can not use Game.Size.WIDGET_MARGIN
-            totalHeight += child.height + Game.Size.WIDGET_MARGIN;
+            totalHeight += child.height + innerMargin;
         }
-        totalHeight -= Game.Size.WIDGET_MARGIN;
-        maxScrollY = totalHeight - (this.height - this.topPadding - this.bottomPadding);
-        if (maxScrollY <0)
+        totalHeight -= innerMargin;
+        maxScrollY = totalHeight - (height - topPadding - bottomPadding);
+        if (0 > maxScrollY)
             maxScrollY = 0;
     }
 
@@ -65,51 +70,72 @@ public class QQList1 extends QQGroup implements QQView.IsTouchable {
     public void setSize(float w, float h) {
         super.setSize(w, h);
         calculateMaxScrollY();
-        //rearrangeChildren();
-        //float totalHeight = - Game.Size.WIDGET_MARGIN;
-        //for (QQView v : childrenView) {
-        //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
-        //}
-        //maxScrollY = totalHeight - h + bottomPadding + topPadding; // padding not counting.
+        if (Float.compare(h, 32) == 0) {
+            Thread.dumpStack();
+        }
+        //Gdx.app.error("QQList1.setSize", "height = " + h + " call : " + Thread.dumpStack());//.currentThread().getStackTrace().toString());
     }
 
     @Override
     public void resetWrapHeight() {
-        // 假設都插入或新增好了
-        // FIXME 1109 會有 - 的 height 出現, 因為沒有任何 child ..
+        if (childrenView.isEmpty())
+            return;
+        // all children height = 0
+        boolean allZero = true;
+        for (QQView child : childrenView) {
+            if (0 < child.getHeight()) {
+                allZero = false;
+                break;
+            }
+        }
+        if (allZero)
+            return;
+
+        float preHeight = height;
         float h = topPadding + bottomPadding;
         for (QQView child : childrenView)
-            h += child.height + Game.Size.WIDGET_MARGIN;
-        h -= Game.Size.WIDGET_MARGIN;
+            h += child.getHeight() + innerMargin;
+        h -= innerMargin;
         if (0 < maxHeight && h >= maxHeight)
             h = maxHeight;
-        this.height = h;
-        Gdx.app.error("QQList.resetWrapHeight", "height = " + this.height + "maxHeight = " + maxHeight);
-        if (null != parent)
-            parent.arrangeChildren();
+        height = h;
+        if (null != parent && Float.compare(preHeight, height) == 0)
+            parent.onChildSizeChanged(this);
     }
-
 
     /*
         Adapter series
      */
     private Adapter adapter;
     public void setAdapter(Adapter adapter) {
+        if (null != this.adapter)
+            throw new GdxRuntimeException("QQList can only set adapter once.");
         this.adapter = adapter;
         adapter.setList(this);
         for (int i = 0, s = adapter.getSize(); i < s; ++i) {
-            addChild(adapter.getView(i));
+            QQView child = adapter.getView(i);
+            childrenView.add(child);
+            child.setParent(this);
+            if (child.matchWidth) {
+                if (wrapWidth)
+                    throw new GdxRuntimeException("wrap width with match width child.");
+                child.setSize(width - leftPadding - rightPadding, child.getHeight());
+            }
+            if (child.matchHeight) {
+                if (wrapHeight)
+                    throw new GdxRuntimeException("wrap height with match height child.");
+                child.setSize(child.getWidth(), height - topPadding - bottomPadding);
+            }
         }
+
+        // resetWrapHeight / resetWrapWidth
+        if (wrapHeight && isVertical)
+            resetWrapHeight();
+        if (wrapWidth && !isVertical)
+            resetWrapWidth();
+
         arrangeChildren();
-        float totalHeight = - Game.Size.WIDGET_MARGIN;
-        for (QQView v : childrenView) {
-            totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
-        }
-        maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
-        if (maxScrollY < 0)
-            maxScrollY = 0;
-        //Gdx.app.error("QQList", "maxScrollY = " + maxScrollY);
-        //Gdx.app.error("QQList", "scrollY = " + scrollY);
+        calculateMaxScrollY();
     }
 
     private int insertIndex = -1;
@@ -617,21 +643,12 @@ public class QQList1 extends QQGroup implements QQView.IsTouchable {
         this.listener = listener;
     }
 
-
-
-    //private Rectangle scissorArea;
-    private Camera camera;
-    public void setCamera(Camera camera) {
-        this.camera = camera;
-    }
-
     /*
         IsParent series
      */
     @Override
     public void arrangeChildren() {
-
-        //Gdx.app.error("QQList", "arrangeChildren : " + width + "," + height);
+        //Thread.dumpStack();
         if (0 >= this.width || 0 >= this.height)
             return;
 
@@ -658,35 +675,12 @@ public class QQList1 extends QQGroup implements QQView.IsTouchable {
 
     @Override
     public void addChild(QQView child) {
-        childrenView.add(child);
-        child.setParent(this);
-        // calculate child size
-        if (child.matchWidth) {
-            if (wrapWidth)
-                throw new GdxRuntimeException("wrap width with match width child.");
-            child.setSize(width - leftPadding - rightPadding, child.getHeight());
-            //Gdx.app.error("QQList", "reset width : " + (width - leftPadding - rightPadding) + "@" + view);
-        }
-        if (child.matchHeight) {
-            if (wrapHeight)
-                throw new GdxRuntimeException("wrap height with match height child.");
-            child.setSize(child.getWidth(), height - topPadding - bottomPadding);
-        }
-
-        // recalculate height
-        if (wrapHeight)
-            resetWrapHeight();
+        throw new GdxRuntimeException("QQList can not call addChild().");
     }
 
     @Override
-    public void removeChild(QQView child) {}
-
-    @Override
-    public void onParentSizeChanged(float width, float height) {}
-
-    @Override
-    public void onChildSizeChanged(QQView child) {
-
+    public void removeChild(QQView child) {
+        throw new GdxRuntimeException("QQList can not call removeChild().");
     }
 
     @Override
@@ -696,7 +690,7 @@ public class QQList1 extends QQGroup implements QQView.IsTouchable {
         Rectangle clipBounds = new Rectangle(originX, originY, width, height);
         // QQList 變成 sub view 時, 座標又變換了....
         //Rectangle clipBounds = new Rectangle(x, y, width, height);
-        ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
+        ScissorStack.calculateScissors(viewport.getCamera(), batch.getTransformMatrix(), clipBounds, scissors);
         if (ScissorStack.pushScissors(scissors)) {
             for (QQView view : childrenView)
                 view.draw(batch, originX, originY);

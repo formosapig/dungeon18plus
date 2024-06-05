@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -15,7 +16,7 @@ public class QQLinear extends QQViewGroup {
      *   horizontal
      *   left -> right
      */
-    private boolean isVertical = true;
+    protected boolean isVertical = true;
     protected float innerMargin = 0;
 
     public QQLinear() {}
@@ -40,6 +41,8 @@ public class QQLinear extends QQViewGroup {
         for (QQView v : childrenView)
             w += v.getWidth() + innerMargin;
         width = w - innerMargin + leftPadding + rightPadding;
+        if (null != parent)
+            parent.onChildSizeChanged(this);
     }
 
     @Override
@@ -50,6 +53,8 @@ public class QQLinear extends QQViewGroup {
         for (QQView v : childrenView)
             h += v.getHeight() + innerMargin;
         height = h - innerMargin + topPadding + bottomPadding;
+        if (null != parent)
+            parent.onChildSizeChanged(this);
     }
 
     /*
@@ -77,6 +82,34 @@ public class QQLinear extends QQViewGroup {
             return;
 
         if (isVertical) {
+            // check if view need match parent ...
+            int matchChildren = 0;
+            float heightForMatch = height - topPadding - bottomPadding;
+
+            for (QQView v : childrenView) {
+                if (!v.isVisible())
+                    continue;
+                if (v.matchHeight)
+                    matchChildren++;
+                else
+                    heightForMatch -= v.getHeight();
+                heightForMatch -= innerMargin;
+            }
+            heightForMatch += innerMargin;
+
+            // heightForMatch split to matchChildren
+            if (0 < matchChildren) {
+                for (QQView v : childrenView) {
+                    if (v.matchHeight && v.isVisible()) {
+                        //Gdx.app.error("QQGroup", "v.set size." + v.getWidth() + "," + heightForMatch / matchChildren);
+                        v.setSize(v.getWidth(), heightForMatch / matchChildren);
+                        //v.height = heightForMatch / matchChildren;
+                    }
+                }
+            }
+
+
+
             float anchorY = height - topPadding;
             for (QQView v : childrenView) {
                 if (!v.isVisible() || v.getHeight() == 0)
@@ -87,20 +120,51 @@ public class QQLinear extends QQViewGroup {
                 anchorY -= innerMargin;
             }
         } else {
-            float anchorX = leftPadding;
-            for (QQView v : childrenView) {
-                if (!v.isVisible() || v.getWidth() == 0)
+            // 由左至右 ... TODO 檢查這一段程式碼
+            // check if view need match parent ...
+            int matchChildren = 0;
+            float widthForMatch = width - leftPadding - rightPadding;
+
+            for (QQView child : childrenView) {
+                if (!child.isVisible())
                     continue;
-                anchorX -= v.getWidth();
-                v.setPosition(anchorX, v.matchHeight ? topPadding : v.getY());
-                anchorX += innerMargin;
+                if (child.matchWidth)
+                    matchChildren++;
+                else // TODO if height == 0 ? should consider this.
+                    widthForMatch -= child.getHeight();
+                if (child.matchHeight && 0 == child.height)
+                    child.setSize(child.getWidth(), height - topPadding - bottomPadding);
             }
 
+            // widthForMatch split to matchChildren
+            if (0 < matchChildren) {
+                for (QQView v : childrenView) {
+                    if (v.matchWidth && v.isVisible()) {
+                        //Gdx.app.error("QQGroup", "v.set size." + v.getWidth() + "," + heightForMatch / matchChildren);
+                        v.setSize(widthForMatch / matchChildren, v.getHeight());
+                        //v.height = heightForMatch / matchChildren;
+                    }
+                }
+            }
+
+            // get total width
+            float totalWidth = 0;
+            for (QQView cv : childrenView) {
+                totalWidth += cv.getWidth() + innerMargin;
+            }
+            totalWidth -= innerMargin;
+
+            float x = 0;
+            if (Align.isRight(align)) {
+                x = width - leftPadding - rightPadding - totalWidth;
+            } else if (Align.isCenterHorizontal(align)) {
+                x = (width - leftPadding - rightPadding - totalWidth) / 2;
+            }
+
+            for (QQView cv : childrenView) {
+                cv.setPosition(x, 0);
+                x += cv.getWidth() + innerMargin;
+            }
         }
-
-
     }
-
-
-
 }

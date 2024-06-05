@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -95,8 +96,9 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
         if (child.matchWidth) {
             if (wrapWidth)
                 throw new GdxRuntimeException("wrap width with match width child.");
-            if (0 < width)
+            if (0 < width) {
                 child.setSize(width - leftPadding - rightPadding, child.getHeight());
+            }
         }
         if (child.matchHeight) {
             if (wrapHeight)
@@ -116,6 +118,10 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
     @Override
     public void removeChild(QQView view) {}
 
+    public void removeAllChildren() {
+        childrenView.clear();
+    }
+
     @Override
     public void onParentSizeChanged(float width, float height) {
         if (childrenView.isEmpty())
@@ -132,6 +138,9 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
 
     @Override
     public void onChildSizeChanged(QQView child) {
+        Gdx.app.error("QQViewGroup", "onChildSizeChanged child = " + child.toString() + " size = " + child.getWidth() + "," + child.getHeight());
+        if (0 >= child.width || 0 >= child.height)
+            return;
         if (wrapWidth)
             resetWrapWidth();
         if (wrapHeight)

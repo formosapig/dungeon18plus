@@ -1,18 +1,15 @@
 package com.qqhouse.dungeon18plus.screen;
 
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
-import com.qqhouse.dungeon18plus.view.PreviewView;
 import com.qqhouse.dungeon18plus.view.PreviewView3;
-import com.qqhouse.dungeon18plus.view.TitleBarView;
-import com.qqhouse.dungeon18plus.Assets;
-import com.qqhouse.ui.QQGroup;
-import com.qqhouse.ui.QQList;
+import com.qqhouse.ui.QQLinear;
+import com.qqhouse.ui.QQList1;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQText;
@@ -50,20 +47,27 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         availableHeroes = savedGame.getAvailableHeroClassRecord(gameMode);
 
         // group of background.
-        QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, Game.Size.WIDGET_MARGIN);
-        group.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
-        group.setSize(Game.Size.WIDTH - 12 - 12, QQView.WRAP_CONTENT);//Game.Size.HEIGHT * 0.9f);
-        //group.setPosition(12, Game.Size.HEIGHT * 0.05f);
+        QQLinear group = new QQLinear(Game.Size.WIDGET_MARGIN);
         group.setPadding(8);
+        group.setSize(Game.Size.WIDTH - 12 - 12, QQView.WRAP_CONTENT);
+        group.setBackground(assets.getNinePatchBG("help"));
         addChild(group);
 
+        // title
+        QQText title = new QQText(assets.getFont(Game.Font.NAME20));
+        title.setPadding(0, 0, 4, 0);
+        title.setSize(QQView.MATCH_PARENT, 28);
+        title.setText(assets.geti18n("select_hero"));
+        title.setAlign(Align.left);
+        group.addChild(title);
+
         // list of available heroes ...
-        QQList list = new QQList(getViewport());
+        QQList1 list = new QQList1(getViewport(), Game.Size.WIDGET_MARGIN);
         //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
-        list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 48 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4
+        list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 28 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4
         list.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         list.setAdapter(availableHeroesAdapter);
-        list.addListener(new QQList.PressListener() {
+        list.addListener(new QQList1.PressListener() {
             @Override
             public void onPress(int index) {
                 callback.onSelectHero(gameMode, availableHeroes.get(index).heroClass);
@@ -74,29 +78,8 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         });
         group.addChild(list);
 
-        // info
-        QQText info = new QQText(assets.getFont(Game.Font.NAME20)); // fight_giant
-        info.setPadding(0, 0, 4, 0);
-        info.setSize(QQView.MATCH_PARENT, 28);
-        info.setText(assets.geti18n("select_hero"));
-        info.setAlign(Align.left);
-        group.addChild(info);
-
-        // one title view ..., just print select hero ?
-        //TitleBarView title = new TitleBarView(
-        //        assets.getBlockee("fairy"),
-        //        assets.getFont(Game.Font.NAME20),
-        //        "Select Hero : ");
-        //title.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
-        //addView(title);
-        //title.setPadding(4);
-        //title.setSize(QQView.MATCH_PARENT, 48);
-        //title.setPosition(0, Game.Size.HEIGHT - 48);
-        //group.addChild(title);
-
         // group set size
         group.setPosition(12, (Game.Size.HEIGHT - group.getHeight()) / 2);
-
     }
 
     @Override
@@ -121,7 +104,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
 
     }
 
-    private final QQList.Adapter availableHeroesAdapter = new QQList.Adapter() {
+    private final QQList1.Adapter availableHeroesAdapter = new QQList1.Adapter() {
         @Override
         public int getSize() {
             return availableHeroes.size();

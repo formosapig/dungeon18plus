@@ -640,7 +640,6 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
         // from top to bottom...
         float anchorY = this.height - topPadding + scrollY;
-        Gdx.app.error("QQList.arrangeChildren", "anchorY = " + this.height + "," + topPadding + "," + scrollY);
         for (QQView child : childrenView) {
 
             // match width
@@ -650,15 +649,12 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
             anchorY -= child.height;
 
             // reset position
-            Gdx.app.error("QQList.arrangeChildren", "setPosition(" + leftPadding + "," + anchorY + ")");
             child.setPosition(leftPadding, anchorY/* + scrollY*/);
 
             // widget margin
             anchorY -= Game.Size.WIDGET_MARGIN;
         }
-        Gdx.app.error("QQList.arrangeChildren", "end for.");
         // calculate maxScrollY
-
     }
 
     @Override
@@ -691,12 +687,10 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
     @Override
     public void onChildSizeChanged(QQView child) {
-        Game.trace(child, "call QQList.onChildSizeChanged");
         if (wrapHeight) {
             resetWrapHeight();
             calculateMaxScrollY();
             arrangeChildren();
-            Gdx.app.error("QQList.onChildSizeChanged.", "scrollY = " + scrollY);
         }
     }
 

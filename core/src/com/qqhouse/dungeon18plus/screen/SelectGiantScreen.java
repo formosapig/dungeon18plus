@@ -10,7 +10,9 @@ import com.qqhouse.dungeon18plus.view.PreviewView;
 import com.qqhouse.dungeon18plus.view.PreviewView3;
 import com.qqhouse.dungeon18plus.view.TitleBarView;
 import com.qqhouse.ui.QQGroup;
+import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList;
+import com.qqhouse.ui.QQList1;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
@@ -40,20 +42,41 @@ public class SelectGiantScreen extends QQScreen {
         availableGiants = savedGame.getAvailableGiant();
 
         // group of background.
-        QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, Game.Size.WIDGET_MARGIN);
+        QQLinear group = new QQLinear(Game.Size.WIDGET_MARGIN);
         group.setBackground(assets.getNinePatchBG("help"));
         group.setSize(Game.Size.WIDTH - 12 - 12, QQView.WRAP_CONTENT);//Game.Size.HEIGHT * 0.9f);
-        //group.setPosition(12, Game.Size.HEIGHT * 0.05f);
         group.setPadding(8);
         addChild(group);
 
+        // legion trainer
+        PreviewView3 legionTrainer = new PreviewView3(assets);
+        legionTrainer.reset("crusader","crusader","legion_trainer_help", "lawful");
+        legionTrainer.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        group.addChild(legionTrainer);
+
+        // soul master if open
+        if (savedGame.openSoulMaster()) {
+            PreviewView3 soulMaster = new PreviewView3(assets);
+            soulMaster.reset("valkyrie", "valkyrie", "soul_master_help", "neutral");
+            soulMaster.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+            group.addChild(soulMaster);
+        }
+
+        // info
+        QQText info = new QQText(assets.getFont(Game.Font.NAME20));// fight_giant
+        info.setSize(QQView.MATCH_PARENT, 28);
+        info.setPadding(0, 0, 4, 0);
+        info.setText(assets.geti18n("fight_giant"));
+        info.setAlign(Align.left);
+        group.addChild(info);
+
         // list of available giants ...
-        QQList list = new QQList(getViewport());
+        QQList1 list = new QQList1(getViewport(), Game.Size.WIDGET_MARGIN);
         //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         list.setMaxHeight(Game.Size.HEIGHT * 0.5f); // 680 * 0.9 - 48 - 4
         list.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         list.setAdapter(availableGiantsAdapter);
-        list.addListener(new QQList.PressListener() {
+        list.addListener(new QQList1.PressListener() {
             @Override
             public void onPress(int index) {
                 callback.onSelectGiant(availableGiants.get(index));
@@ -64,31 +87,8 @@ public class SelectGiantScreen extends QQScreen {
         });
         group.addChild(list);
 
-        // info
-        QQText info = new QQText(assets.getFont(Game.Font.NAME20));// fight_giant
-        info.setSize(QQView.MATCH_PARENT, 28);
-        info.setPadding(0, 0, 4, 0);
-        info.setText(assets.geti18n("fight_giant"));
-        info.setAlign(Align.left);
-        group.addChild(info);
-
-        // soul master if open
-        //if (savedGame.openSoulMaster()) {
-            PreviewView3 soulMaster = new PreviewView3(assets);
-            soulMaster.reset("valkyrie", "valkyrie", "soul_master_help", "neutral");
-            soulMaster.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-            group.addChild(soulMaster);
-        //}
-
-        // legion trainer
-        PreviewView3 legionTrainer = new PreviewView3(assets);
-        legionTrainer.reset("crusader","crusader","legion_trainer_help", "lawful");
-        legionTrainer.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-        group.addChild(legionTrainer);
-
         // group set size
         group.setPosition(12, (Game.Size.HEIGHT - group.getHeight()) / 2);
-
     }
 
     @Override
@@ -96,7 +96,7 @@ public class SelectGiantScreen extends QQScreen {
         removeAllChildren();
     }
 
-    private final QQList.Adapter availableGiantsAdapter = new QQList.Adapter() {
+    private final QQList1.Adapter availableGiantsAdapter = new QQList1.Adapter() {
         @Override
         public int getSize() {
             return availableGiants.size();

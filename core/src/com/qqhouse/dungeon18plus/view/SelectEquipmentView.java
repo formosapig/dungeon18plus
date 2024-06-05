@@ -46,7 +46,7 @@ public class SelectEquipmentView extends QQGroup {
         vv = new VeteranButton(assets);
         vv.setPadding(8);
         vv.setSize(QQView.MATCH_PARENT, 64);
-        vv.addQQClickListener(new QQPressListener() {
+        vv.setQQPressListener(new QQPressListener() {
             @Override
             public void onPress(int index) {
                 if (Item.NONE != veteran.equipment) {

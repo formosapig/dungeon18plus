@@ -202,28 +202,6 @@ public class QQView {
     public void dispose() {}
 
     /*
-    chain function
-     */
-
-    public <T extends QQView> T position(float x, float y) {
-        setPosition(x, y);
-        return (T) this;
-    }
-
-    public <T extends QQView> T size(float width, float height) {
-        setSize(width, height);
-        return (T) this;
-    }
-
-    public QQView padding(float all) {
-        topPadding = all;
-        bottomPadding = all;
-        leftPadding = all;
-        rightPadding = all;
-        return this;
-    }
-
-    /*
         alignment of child view or text
      */
     protected int align = Align.center;

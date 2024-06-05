@@ -1,13 +1,19 @@
 package com.qqhouse.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
 
 public class QQExpandableList extends QQList1 implements QQView.IsTouchable {
 
+
+    public QQExpandableList(Viewport viewport, int innerMargin) {
+        super(viewport, innerMargin);
+    }
+
     /*
-        adapter ...
-     */
+                adapter ...
+             */
     public static abstract class Adapter {
         private QQExpandableList list;
         public void setList(QQExpandableList list) {this.list = list;}

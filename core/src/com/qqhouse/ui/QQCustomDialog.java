@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -94,13 +95,17 @@ public class QQCustomDialog extends QQView implements QQView.IsParent {
     public void removeChild(QQView view) {}
 
     @Override
-    public void onParentSizeChanged(float width, float height) {}
+    public void onParentSizeChanged(float width, float height) {
+        Gdx.app.error("QQCustomDialog", "onParentSizeChanged size = " + width + "," + height);
+
+    }
 
     @Override
     public void onChildSizeChanged(QQView child) {
         // 1. my size does not change.
         // 2. change child position only.
         // set position
+        Gdx.app.error("QQCustomDialog", "onChildSizeChanged child = " + child.toString() + " size = " + child.getWidth() + "," + child.getHeight());
         customView.setPosition((Game.Size.WIDTH - customView.getWidth())/2,
                 (Game.Size.HEIGHT - customView.getHeight())/2);
     }

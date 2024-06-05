@@ -44,11 +44,11 @@ public class PurePreviewView extends AssetGroup {
         //bgNormal = assets.getNinePatchBG(alignmentKey);
     }
 
-    public void update(String blockeeKey, String alignmentKey) {
+    public void update(String blockeeKey, String nameKey, String helpKey, String alignmentKey) {
         // data
         blockee.setImage(assets.getBlockee(blockeeKey));
-        name.setText(assets.geti18n(blockeeKey));
-        help.setText(assets.geti18n(blockeeKey + "_help"), true);
+        name.setText(assets.geti18n(nameKey));
+        help.setText(assets.geti18n(helpKey), true);
 
         // background
         bgNormal = assets.getNinePatchBG(alignmentKey);

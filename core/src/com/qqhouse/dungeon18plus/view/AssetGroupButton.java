@@ -111,8 +111,13 @@ public class AssetGroupButton extends AssetGroup implements QQView.IsTouchable {
     private QQPressListener pressListener;
     private int pressIndex;
 
-    public void addQQClickListener(QQPressListener listener, int index) {
+    public void setQQPressListener(QQPressListener listener, int index) {
         this.pressListener = listener;
         this.pressIndex = index;
+    }
+
+    public void setQQPressListener(QQPressListener listener) {
+        this.pressListener = listener;
+        this.pressIndex = 0;
     }
 }

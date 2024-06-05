@@ -35,7 +35,7 @@ public class TitleScreen extends QQScreen {
         MainMenuView dungeon = new MainMenuView(assets);
         dungeon.reset("skeleton_fighter", "dungeon", "chaotic");
         dungeon.setSize(QQView.MATCH_PARENT, 64);
-        dungeon.addQQClickListener(clickListener, Game.Mode.DUNGEON);
+        dungeon.setQQPressListener(clickListener, Game.Mode.DUNGEON);
         group.addChild(dungeon);
 
         // Colosseum : defeat skeleton king in the dungeon.
@@ -43,7 +43,7 @@ public class TitleScreen extends QQScreen {
             MainMenuView colosseum = new MainMenuView(assets);
             colosseum.reset("arena", "colosseum", "neutral");
             colosseum.setSize(QQView.MATCH_PARENT, 64);
-            colosseum.addQQClickListener(clickListener, Game.Mode.COLOSSEUM);
+            colosseum.setQQPressListener(clickListener, Game.Mode.COLOSSEUM);
             group.addChild(colosseum);
         }
 
@@ -52,7 +52,7 @@ public class TitleScreen extends QQScreen {
             MainMenuView wilderness = new MainMenuView(assets);
             wilderness.reset("steel_cyclops", "wilderness", "ordinary");
             wilderness.setSize(QQView.MATCH_PARENT, 64);
-            wilderness.addQQClickListener(clickListener, Game.Mode.WILDERNESS);
+            wilderness.setQQPressListener(clickListener, Game.Mode.WILDERNESS);
             group.addChild(wilderness);
         }
 
@@ -60,7 +60,7 @@ public class TitleScreen extends QQScreen {
         MainMenuView gallery = new MainMenuView(assets);
         gallery.reset("merchant", "gallery", "special");
         gallery.setSize(QQView.MATCH_PARENT, 64);
-        gallery.addQQClickListener(clickListener, Game.Mode.GALLERY);
+        gallery.setQQPressListener(clickListener, Game.Mode.GALLERY);
         group.addChild(gallery);
 
         group.setPosition((Game.Size.WIDTH - group.getWidth()) / 2, (Game.Size.HEIGHT - group.getHeight()) / 2);
