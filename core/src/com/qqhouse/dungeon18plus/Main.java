@@ -13,11 +13,13 @@ import com.qqhouse.dungeon18plus.screen.EquipmentCatalogScreen;
 import com.qqhouse.dungeon18plus.screen.GalleryScreen;
 import com.qqhouse.dungeon18plus.screen.HeroAlbumScreen;
 import com.qqhouse.dungeon18plus.screen.LeaderboardScreen;
+import com.qqhouse.dungeon18plus.screen.LegionTrainerScreen;
 import com.qqhouse.dungeon18plus.screen.MonsterGuideScreen;
 import com.qqhouse.dungeon18plus.screen.PopupScreen;
 import com.qqhouse.dungeon18plus.screen.SelectGiantScreen;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
+import com.qqhouse.dungeon18plus.screen.WildernessScreen;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.ui.QQGameMachine;
@@ -49,10 +51,13 @@ public class Main extends QQGameMachine implements
     private LeaderboardScreen leaderboard;
     private BarrackScreen barrack;
     private HeroAlbumScreen heroAlbum;
+    private LegionTrainerScreen legionTrainer;
+    private WildernessScreen wilderness;
     private Assets assets;
 
     @Override
     public void create() {
+        //Game.checkAllEnum();
         //Gdx.app.error("Main", "Main.create()");
         initial(Game.Size.WIDTH, Game.Size.HEIGHT);
 
@@ -207,7 +212,10 @@ public class Main extends QQGameMachine implements
      */
     @Override
     public void onLegionTrainer() {
-
+        if (null == legionTrainer) {
+            legionTrainer = new LegionTrainerScreen((SaveGame) savedGame, viewport, assets);
+        }
+        push(legionTrainer);
     }
 
     @Override
@@ -217,6 +225,10 @@ public class Main extends QQGameMachine implements
 
     @Override
     public void onSelectGiant(GiantRace giant) {
-
+        if (null == wilderness) {
+            wilderness = new WildernessScreen((SaveGame) savedGame, viewport, assets, this);
+        }
+        wilderness.setGiantRace(giant);
+        push(wilderness);
     }
 }

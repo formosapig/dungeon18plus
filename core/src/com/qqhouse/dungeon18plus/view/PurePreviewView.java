@@ -63,12 +63,9 @@ public class PurePreviewView extends AssetGroup {
 
         // decide this.height
         this.height = Math.max(topPadding + bottomPadding + 24 + help.getHeight(), 64);
-        Game.trace(this, "resetWrapHeight h=%.0f", this.height);
-        //Gdx.app.error("PurePreviewView.resetWrapHeight", "this.height = " + this.height);
 
         if (null != parent)
             parent.onChildSizeChanged(this);
-
     }
 
     /*
@@ -97,7 +94,6 @@ public class PurePreviewView extends AssetGroup {
 
     @Override
     public void arrangeChildren() {
-        Game.trace(this, "arrangeChildren %.0f,%.0f", this.width, this.height);
         if (0 >= this.width || 0 >= this.height)
             return;
 

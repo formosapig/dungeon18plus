@@ -1224,6 +1224,9 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     
     // zako drops
     private Item getZakoDrop(long feats) {
+        //if (Feat.HOLY_ONE.in(feats))
+        //    return mRandom.nextInt(100) < 50 ? Item.CURSED_CRYSTAL : Item.NONE;
+
         int yellowGem, redGem, blueGem, greenGem, whiteGem, copperCoin, silverCoin, goldenCoin;
         
         if (Feat.GEM_SEEKER.in(feats) || Feat.HOLY_ONE.in(feats)) {
@@ -1252,11 +1255,11 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         
         int seed = (int)(Math.random() * 100);
         
-        if (seed < yellowGem) return Feat.HOLY_ONE.in(mHero.feats) ? Item.YELLOW_CRYSTAL : Item.LIFE_CRYSTAL;
-        else if (seed < redGem) return Feat.HOLY_ONE.in(mHero.feats) ? Item.RED_CRYSTAL : Item.ATTACK_CRYSTAL;
-        else if (seed < blueGem) return Feat.HOLY_ONE.in(mHero.feats) ? Item.BLUE_CRYSTAL : Item.DEFENSE_CRYSTAL;
-        else if (seed < greenGem) return Feat.HOLY_ONE.in(mHero.feats) ? Item.GREEN_CRYSTAL : Item.SPEED_CRYSTAL;
-        else if (seed < whiteGem) return Feat.HOLY_ONE.in(mHero.feats) ? Item.WHITE_CRYSTAL :  Item.POWER_CRYSTAL;
+        if (seed < yellowGem) return Feat.HOLY_ONE.in(mHero.feats) ? Item.CURSED_CRYSTAL : Item.LIFE_CRYSTAL;
+        else if (seed < redGem) return Feat.HOLY_ONE.in(mHero.feats) ? Item.CURSED_CRYSTAL : Item.ATTACK_CRYSTAL;
+        else if (seed < blueGem) return Feat.HOLY_ONE.in(mHero.feats) ? Item.CURSED_CRYSTAL : Item.DEFENSE_CRYSTAL;
+        else if (seed < greenGem) return Feat.HOLY_ONE.in(mHero.feats) ? Item.CURSED_CRYSTAL : Item.SPEED_CRYSTAL;
+        else if (seed < whiteGem) return Feat.HOLY_ONE.in(mHero.feats) ? Item.CURSED_CRYSTAL :  Item.POWER_CRYSTAL;
         else if (seed < copperCoin) return Item.COPPER_COIN;
         else if (seed < silverCoin) return Item.SILVER_COIN;
         else if (seed < goldenCoin) return Item.GOLDEN_COIN;
@@ -1270,7 +1273,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         
         if (mRandom.nextInt(100) >= rate) {
             // normal drop
-            return Feat.HOLY_ONE.in(mHero.feats) ? Item.WHITE_CRYSTAL : Item.POWER_CRYSTAL;
+            return Feat.HOLY_ONE.in(mHero.feats) ? Item.CURSED_CRYSTAL : Item.POWER_CRYSTAL;
         } else {
             // rare drop
             switch (boss) {

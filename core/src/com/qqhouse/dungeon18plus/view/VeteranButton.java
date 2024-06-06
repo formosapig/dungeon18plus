@@ -65,7 +65,7 @@ public class VeteranButton extends AssetGroupButton {
         life.setPercent(veteran.life * 100 / Game.HERO_MAX_LIFE);
         addChild(life);
 
-        setBackground(assets.getNinePatchBG(veteran.heroClass.alignment.key));
+        setBackground(assets.getBackgroundSet(veteran.heroClass.alignment.key));
     }
 
     public void updateUniqueSkill(Veteran veteran) {

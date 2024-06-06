@@ -138,7 +138,6 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
 
     @Override
     public void onChildSizeChanged(QQView child) {
-        Gdx.app.error("QQViewGroup", "onChildSizeChanged child = " + child.toString() + " size = " + child.getWidth() + "," + child.getHeight());
         if (0 >= child.width || 0 >= child.height)
             return;
         if (wrapWidth)

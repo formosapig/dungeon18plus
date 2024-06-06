@@ -10,33 +10,9 @@ import com.qqhouse.dungeon18plus.Game;
 public class QQCustomDialog extends QQView implements QQView.IsParent {
 
     public QQCustomDialog() {
-        //this.assets = assets;
-
-        //final QQView dialogMask = new QQView();
-
         // FIXME SDK 不能依存於專案, assets 不是能隨時存取到的資源...
-        //bgNormal = new NinePatch(assets.getBackground("black"), 4, 4, 4, 4);
-        //bgNormal.setColor(new Color(1, 1, 1, 0.66f));
         setPosition(0, 0);
         setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
-        //dialogMask.bgNormal = new NinePatch(assets.getBackground("black"), 4, 4, 4, 4);
-        //dialogMask.bgNormal.setColor(new Color(1, 1, 1, 0.66f));
-        //dialogMask.setPosition(0, 0);
-        //dialogMask.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
-
-
-
-        // calculate view's size
-        //if (customView.matchWidth)
-        //    customView.setSize(Game.Size.WIDTH - Game.Size.DIALOG_MARGIN * 2, customView.getHeight());
-
-        // set position
-        //customView.setPosition((Game.Size.WIDTH - customView.getWidth())/2,
-        //        (Game.Size.HEIGHT - customView.getHeight())/2);
-
-        //addChild(customView);
-
-
     }
 
     protected void setModal(boolean isModal) {
@@ -75,10 +51,6 @@ public class QQCustomDialog extends QQView implements QQView.IsParent {
         }
     }
 
-
-
-
-
     /*
         IsParent series...
      */
@@ -95,17 +67,13 @@ public class QQCustomDialog extends QQView implements QQView.IsParent {
     public void removeChild(QQView view) {}
 
     @Override
-    public void onParentSizeChanged(float width, float height) {
-        Gdx.app.error("QQCustomDialog", "onParentSizeChanged size = " + width + "," + height);
-
-    }
+    public void onParentSizeChanged(float width, float height) {}
 
     @Override
     public void onChildSizeChanged(QQView child) {
         // 1. my size does not change.
         // 2. change child position only.
         // set position
-        Gdx.app.error("QQCustomDialog", "onChildSizeChanged child = " + child.toString() + " size = " + child.getWidth() + "," + child.getHeight());
         customView.setPosition((Game.Size.WIDTH - customView.getWidth())/2,
                 (Game.Size.HEIGHT - customView.getHeight())/2);
     }

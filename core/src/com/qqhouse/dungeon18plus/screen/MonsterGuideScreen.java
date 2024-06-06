@@ -80,16 +80,11 @@ public class MonsterGuideScreen extends QQScreen {
         }
 
         @Override
-        public QQView getView(int index) {
+        public QQView getView(int index, QQView view) {
             MonsterView monster = new MonsterView(assets);
             monster.reset(monsters.get(index));
             monster.setSize(64, 64);
             return monster;
-        }
-
-        @Override
-        public void updateView(int index, QQView view) {
-
         }
     };
 }

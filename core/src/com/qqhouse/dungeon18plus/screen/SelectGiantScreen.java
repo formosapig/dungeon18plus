@@ -13,6 +13,7 @@ import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQList1;
+import com.qqhouse.ui.QQPressAdapter;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
@@ -52,6 +53,13 @@ public class SelectGiantScreen extends QQScreen {
         PreviewView3 legionTrainer = new PreviewView3(assets);
         legionTrainer.reset("crusader","crusader","legion_trainer_help", "lawful");
         legionTrainer.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        legionTrainer.setQQPressListener(new QQPressAdapter() {
+            @Override
+            public void onPress(int index) {
+                if (null != callback)
+                    callback.onLegionTrainer();
+            }
+        });
         group.addChild(legionTrainer);
 
         // soul master if open

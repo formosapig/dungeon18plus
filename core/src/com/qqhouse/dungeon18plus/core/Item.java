@@ -52,6 +52,10 @@ public enum Item {
     WHITE_CRYSTAL( 0xD67942F1, "white_crystal", "cursed_crystal", "cursed_crystal_help",
             Type.CURSED | Type.CRYSTAL, 0, STAR_20),
 
+    CURSED_CRYSTAL( 0x4A3FECCE, "black_crystal", "cursed_crystal", "cursed_crystal_help",
+            Type.CURSED | Type.CRYSTAL, 0, STAR_8),
+
+
 
     // POTION
     YELLOW_POTION( 0x628CC786, "yellow_potion", "yellow_potion", "potion_help",

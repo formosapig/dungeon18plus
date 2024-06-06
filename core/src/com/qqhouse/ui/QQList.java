@@ -62,7 +62,6 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         maxScrollY = totalHeight - (this.height - this.topPadding - this.bottomPadding);
         if (maxScrollY < 0)
             maxScrollY = 0;
-        Gdx.app.error("QQList.calculateMaxScrollY", "height = " + this.height + ", maxScrollY = " + maxScrollY);
     }
 
     /*
@@ -70,7 +69,6 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
      */
     @Override
     public void setSize(float w, float h) {
-        Gdx.app.error("QQList", "set size " + w + "," + h);
         super.setSize(w, h);
         calculateMaxScrollY();
         //rearrangeChildren();
@@ -92,7 +90,6 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         if (0 < maxHeight && h >= maxHeight)
             h = maxHeight;
         this.height = h;
-        Gdx.app.error("QQList.resetWrapHeight", "height = " + this.height + "maxHeight = " + maxHeight);
         if (null != parent) {
             parent.arrangeChildren();
         }

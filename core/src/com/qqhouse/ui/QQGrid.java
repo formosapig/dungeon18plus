@@ -32,8 +32,9 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
         }
 
         public abstract int getSize();
-        public abstract QQView getView(int index);
-        public abstract void updateView(int index, QQView view);
+        //public abstract QQView getView(int index);
+        //public abstract void updateView(int index, QQView view);
+        public abstract QQView getView(int index, QQView view);
 
         // callback
         public void onAnimationEnd() {}
@@ -50,7 +51,18 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
         Grid series
      */
     private int numColumns;
-    public void setNumColumns(int numColumns) {this.numColumns = numColumns;}
+    private float columnWidth;
+    public void setNumColumns(int numColumns) {
+        this.numColumns = numColumns;
+        calculateColumnWidth();
+    }
+
+    private void calculateColumnWidth() {
+        if (0 >= width || 0 >= numColumns)
+            return;
+        // TODO 2 = innerMargin...
+        columnWidth = (width - (numColumns - 1) * 2)/ numColumns;
+    }
 
     /*
         scroll series.
@@ -78,24 +90,21 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
     public void setSize(float w, float h) {
         super.setSize(w, h);
         calculateMaxScrollY();
+        calculateColumnWidth();
     }
 
     @Override
     public void resetWrapHeight() {
-        // 假設都插入或新增好了
-        // FIXME 1109 會有 - 的 height 出現, 因為沒有任何 child ..
-        float h = topPadding + bottomPadding;
-        for (QQView child : childrenView)
-            h += child.height + Game.Size.WIDGET_MARGIN;
-        h -= Game.Size.WIDGET_MARGIN;
+        // QQGrid needs fix children width / height. do not support different size.
+        float h = getTotalHeight();
+        if (0 < h)
+            h = h + topPadding + bottomPadding;
         if (0 < maxHeight && h >= maxHeight)
             h = maxHeight;
-        this.height = h;
-        Gdx.app.error("QQList.resetWrapHeight", "height = " + this.height + "maxHeight = " + maxHeight);
+        height = h;
         if (null != parent)
             parent.arrangeChildren();
     }
-
 
     /*
         Adapter series
@@ -105,7 +114,7 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
         this.adapter = adapter;
         adapter.setList(this);
         for (int i = 0, s = adapter.getSize(); i < s; ++i) {
-            addChild(adapter.getView(i));
+            addChild(adapter.getView(i, null));
         }
         arrangeChildren();
         calculateMaxScrollY();
@@ -169,7 +178,7 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
 
         // 插入並且做插入的動畫...
         // 不可以直接呼叫 addChild 因為要做動畫....
-        QQView insertOne = adapter.getView(index);
+        QQView insertOne = adapter.getView(index, null);
         childrenView.add(index, insertOne);
         // FIXME 不能直接 arrangeChild ...這一段要修...
         if (wrapHeight) {
@@ -302,9 +311,12 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
     }
 
     public void updateAll() {
-        for (int i = 0, s = childrenView.size(); i < s; ++i) {
-            adapter.updateView(i, childrenView.get(i));
+        // TODO need recycle view...
+        childrenView.clear();
+        for (int i = 0, s = adapter.getSize(); i < s; ++i) {
+            addChild(adapter.getView(i, null));
         }
+        onParentSizeChanged(width, height);
     }
 
     /*
@@ -615,7 +627,7 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
     public void addListener(PressListener listener) {
         this.listener = listener;
     }
-
+    public void setPressListener(PressListener listener) { this.listener = listener; }
 
 
     //private Rectangle scissorArea;
@@ -670,9 +682,14 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
         childrenView.add(child);
         child.setParent(this);
         // calculate child size
-        if (child.matchWidth || child.matchHeight) {
-            throw new GdxRuntimeException("match parent does not support in QQGrid.");
+        if (child.matchHeight) {
+            throw new GdxRuntimeException("QQGrid does not support match height in children view.");
         }
+
+        //if (child.matchWidth) {
+
+        //    child.setSize(this.width);
+        //}
 
         // recalculate height
         if (wrapHeight)
@@ -683,7 +700,20 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
     public void removeChild(QQView child) {}
 
     @Override
-    public void onParentSizeChanged(float width, float height) {}
+    public void onParentSizeChanged(float width, float height) {
+        if (0 < width)
+            calculateColumnWidth();
+
+        for (QQView child : childrenView) {
+            if (child.matchWidth)
+                child.setSize(columnWidth, child.getHeight());
+        }
+
+        if (wrapHeight)
+            resetWrapHeight();
+
+        arrangeChildren();
+    }
 
     @Override
     public void onChildSizeChanged(QQView child) {

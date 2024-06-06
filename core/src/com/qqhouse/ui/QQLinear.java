@@ -87,28 +87,26 @@ public class QQLinear extends QQViewGroup {
             float heightForMatch = height - topPadding - bottomPadding;
 
             for (QQView v : childrenView) {
-                if (!v.isVisible())
+                // TODO float compare needs fix.
+                if (!v.isVisible() || 0 >= v.getHeight())
                     continue;
                 if (v.matchHeight)
                     matchChildren++;
-                else
+                else {
                     heightForMatch -= v.getHeight();
+                }
                 heightForMatch -= innerMargin;
             }
             heightForMatch += innerMargin;
-
             // heightForMatch split to matchChildren
             if (0 < matchChildren) {
                 for (QQView v : childrenView) {
                     if (v.matchHeight && v.isVisible()) {
-                        //Gdx.app.error("QQGroup", "v.set size." + v.getWidth() + "," + heightForMatch / matchChildren);
                         v.setSize(v.getWidth(), heightForMatch / matchChildren);
                         //v.height = heightForMatch / matchChildren;
                     }
                 }
             }
-
-
 
             float anchorY = height - topPadding;
             for (QQView v : childrenView) {

@@ -1,6 +1,7 @@
 package com.qqhouse.dungeon18plus.core;
 
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignAction;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignResult;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignScore;
@@ -65,9 +66,13 @@ public class WildernessManager {
 	
 	// skill record
 	private Map<Integer, ArrayList<UniqueSkill>> mSkillRecord;
-	
-	public WildernessManager(GiantRace race) {
-		
+	private SaveGame savedGame;
+
+
+	public WildernessManager(GiantRace race, SaveGame savedGame) {
+
+		this.savedGame = savedGame;
+
 		// initial giant and guard
 		giants = new ArrayList<>();
 		GuardInfo giantGuard = new GuardInfo();

@@ -1,16 +1,13 @@
 package com.qqhouse.ui;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.qqhouse.dungeon18plus.Game;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -70,10 +67,6 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
     public void setSize(float w, float h) {
         super.setSize(w, h);
         calculateMaxScrollY();
-        if (Float.compare(h, 32) == 0) {
-            Thread.dumpStack();
-        }
-        //Gdx.app.error("QQList1.setSize", "height = " + h + " call : " + Thread.dumpStack());//.currentThread().getStackTrace().toString());
     }
 
     @Override
@@ -235,9 +228,9 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
     public float getIndexChildY(int index) {
         float y = height - topPadding;
         for (int i = 0; i <= index; ++i) {
-            y -= (childrenView.get(i).getHeight() + Game.Size.WIDGET_MARGIN);
+            y -= (childrenView.get(i).getHeight() + innerMargin);
         }
-        return y + Game.Size.WIDGET_MARGIN + scrollY;
+        return y + innerMargin + scrollY;
     }
 
     private int removeIndex = -1;
@@ -270,7 +263,7 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
         ));
 
         // 先做一個永遠是下面往上移的版本來看看 ...
-        float gap = removeTarget.getHeight() + Game.Size.WIDGET_MARGIN;
+        float gap = removeTarget.getHeight() + innerMargin;
         if (scrollY > gap && (maxScrollY - scrollY) < gap) {
             moveDownward(0, index - 1, animHPeriod);
             changeScrollY = -gap;
@@ -286,7 +279,7 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
     private void moveDownward(int start, int end, float delay) {
         for (int i = start; i <= end; ++i) {
             QQView child = childrenView.get(i);
-            float gap = child.getHeight() + Game.Size.WIDGET_MARGIN;
+            float gap = child.getHeight() + innerMargin;
             child.applyAnimation(new MoveVerticalAnimation(-gap / animVPeriod, gap, delay)
                     .listener(new QQAnimation.AnimationListener() {
                         @Override
@@ -309,7 +302,7 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
     private void moveUpward(int start, int end, float delay) {
         for (int i = start; i <= end; ++i) {
             QQView child = childrenView.get(i);
-            float gap = child.getHeight() + Game.Size.WIDGET_MARGIN;
+            float gap = child.getHeight() + innerMargin;
             child.applyAnimation(new MoveVerticalAnimation(gap / animVPeriod, gap, delay)
                     .listener(new QQAnimation.AnimationListener() {
                         @Override
@@ -329,9 +322,38 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
     }
 
     public void updateAll() {
-        for (int i = 0, s = childrenView.size(); i < s; ++i) {
-            adapter.updateView(i, childrenView.get(i));
+        childrenView.clear();
+        for (int i = 0, s = adapter.getSize(); i < s; ++i) {
+            QQView child = adapter.getView(i);
+            childrenView.add(child);
+            child.setParent(this);
+            if (child.matchWidth) {
+                if (wrapWidth)
+                    throw new GdxRuntimeException("wrap width with match width child.");
+                child.setSize(width - leftPadding - rightPadding, child.getHeight());
+            }
+            if (child.matchHeight) {
+                if (wrapHeight)
+                    throw new GdxRuntimeException("wrap height with match height child.");
+                child.setSize(child.getWidth(), height - topPadding - bottomPadding);
+            }
         }
+
+        // resetWrapHeight / resetWrapWidth
+        if (wrapHeight && isVertical)
+            resetWrapHeight();
+        if (wrapWidth && !isVertical)
+            resetWrapWidth();
+
+        arrangeChildren();
+        calculateMaxScrollY();
+        //for (int i = 0; i < adapter.getSize(); ++i) {
+        //    addChild(adapter.getView(i));
+        //}
+        //onParentSizeChanged(width, height);
+        //for (int i = 0, s = childrenView.size(); i < s; ++i) {
+        //    adapter.updateView(i, childrenView.get(i));
+        //}
     }
 
     /*
@@ -354,9 +376,9 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
                 changeScrollY = 0;
             }
             arrangeChildren();
-            float totalHeight = - Game.Size.WIDGET_MARGIN;
+            float totalHeight = - innerMargin;
             for (QQView v : childrenView) {
-                totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
+                totalHeight += (innerMargin + v.height); // 2 = widget margin...
             }
             maxScrollY = totalHeight - height + bottomPadding + topPadding; // padding not counting.
             if (maxScrollY < 0)
@@ -565,7 +587,7 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
             return false;
         // TODO 有時候會有一個位移等於零的 touchDragged 事件發生...真奇怪.
         // TODO 當位移大於某一個值時, 才觸發 scroll 事件...
-        Gdx.app.error("QQList", "touchDragged : " + (relativeY - touchY));
+        //Gdx.app.error("QQList", "touchDragged : " + (relativeY - touchY));
         // 1. do scroll ...
         float moveDelta = relativeY - touchY;
         if (3 >= Math.abs(moveDelta))
@@ -612,11 +634,11 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
         longPressIndex = -1;
 
         // 1. do scroll ...
-        scrollY += (64 + Game.Size.WIDGET_MARGIN) * amountY;
+        scrollY += (64 + innerMargin) * amountY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
         //Gdx.app.error("QQList", "scrollY = " + scrollY + "@" + this);
-        //Gdx.app.error("QQListView", "scrolled : " + scrollY);
+        //Gdx.app.error("QQList1.scrolled", "scrolled : " + scrollY);
         arrangeChildren();
         return false;
     }
@@ -642,20 +664,19 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
     public void addListener(PressListener listener) {
         this.listener = listener;
     }
+    public void setPressListener(PressListener listener) { this.listener = listener; }
 
     /*
         IsParent series
      */
     @Override
     public void arrangeChildren() {
-        //Thread.dumpStack();
         if (0 >= this.width || 0 >= this.height)
             return;
 
         // from top to bottom...
         float anchorY = this.height - topPadding + scrollY;
         for (QQView child : childrenView) {
-
             // match width
             if (child.matchWidth && 0 >= child.width)
                 child.setSize(this.width - leftPadding - rightPadding, child.getHeight());
@@ -666,11 +687,8 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
             child.setPosition(leftPadding, anchorY/* + scrollY*/);
 
             // widget margin
-            anchorY -= Game.Size.WIDGET_MARGIN;
+            anchorY -= innerMargin;
         }
-
-        // calculate maxScrollY
-
     }
 
     @Override
@@ -682,6 +700,12 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
     public void removeChild(QQView child) {
         throw new GdxRuntimeException("QQList can not call removeChild().");
     }
+
+    //@Override
+    //public void onParentSizeChanged(float w, float h) {
+        //super.onParentSizeChanged(w, h);
+        //calculateMaxScrollY();
+    //}
 
     @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {

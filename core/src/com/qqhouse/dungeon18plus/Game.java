@@ -336,7 +336,7 @@ public class Game {
 
 
     // check all enum codes are not duplicate.
-    private void checkAllEnum() {
+    public static void checkAllEnum() {
 
         boolean pass = true;
         // test
