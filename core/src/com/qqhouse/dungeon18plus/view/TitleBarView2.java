@@ -16,7 +16,6 @@ public class TitleBarView2 extends AssetGroup {
 
     public TitleBarView2(Assets assets) {
         super(assets);
-        //setPadding(4);
     }
 
     public void reset(String iconKey, String nameKey) {
@@ -44,15 +43,11 @@ public class TitleBarView2 extends AssetGroup {
             resource = new QQIconText(assets.getFont(Game.Font.DIGITAL16));
         else
             resource = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16(resourceKey));
-        //resource.setSize(QQView.WRAP_CONTENT, 32);
-        //resource.setPosition(this.width - resource.getWidth() - rightPadding, bottomPadding);
         resource.setColor(color);
         resource.setText(value);
         addChild(resource);
 
         name = new QQText(assets.getFont(Game.Font.NAME20));
-        //name.setSize(resource.getX() - innerMargin * 2 -(leftPadding + 32), 32);
-        //name.setPosition(leftPadding + 32 + innerMargin, bottomPadding);
         name.setText(assets.geti18n(nameKey));
         addChild(name);
     }
@@ -62,7 +57,8 @@ public class TitleBarView2 extends AssetGroup {
         super.onParentSizeChanged(width, height);
         if (0 < width) {
             name.setSize(QQView.WRAP_CONTENT, 32);
-            resource.setSize(QQView.WRAP_CONTENT, 16);
+            if (null != resource)
+                resource.setSize(QQView.WRAP_CONTENT, 16);
         }
     }
 
@@ -71,16 +67,10 @@ public class TitleBarView2 extends AssetGroup {
         if (null != icon)
             icon.setPosition(leftPadding, bottomPadding);
 
-        if (null != resource) {
-            //resource.setSize(QQView.WRAP_CONTENT, 16);
+        if (null != resource)
             resource.setPosition(this.width - resource.getWidth() - rightPadding, bottomPadding + 8);
-        }
 
-        if (null != name) {
-            //name.setSize(resource.getX() - innerMargin * 2 - (leftPadding + 32), 32);
-            //name.setPosition(leftPadding + 32 + innerMargin, bottomPadding);
-            //name.setSize(QQView.WRAP_CONTENT, 32);
+        if (null != name)
             name.setPosition((this.width - name.getWidth()) / 2, bottomPadding);
-        }
     }
 }

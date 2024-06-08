@@ -121,9 +121,11 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
             if (Game.Mode.DUNGEON == gameMode) {
                 if (0 < record.highLevel)
                     v.resetLevel(Integer.toString(record.highLevel));
-                v.resetExtra("rank", Integer.toString(record.highScore), Game.Colour.RANK);
+                if (0 < record.highScore)
+                    v.resetExtra("rank", Integer.toString(record.highScore), Game.Colour.RANK);
             } else {
-                v.resetExtra("cost_soul", Integer.toString(record.maxRound), Game.Colour.ROUND);
+                if (0 < record.maxRound)
+                    v.resetExtra("cost_soul", Integer.toString(record.maxRound), Game.Colour.ROUND);
             }
             return v;
         }

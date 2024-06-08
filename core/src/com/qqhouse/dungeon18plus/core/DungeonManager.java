@@ -453,7 +453,8 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         //mAdapter.notifyDataSetChanged();
     }
     
-    private boolean processSkillAction(DungeonHero hero, Action act) {
+    @Override
+    protected boolean processSkillAction(DungeonHero hero, Action act) {
         switch (act) {
             /*
              * War Cry :
@@ -521,7 +522,20 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 //                }
             }
                 break;
+            /*
+             * DOPPELGANGER (分身)
+             * Fairy only
+             * combo +1 next battle.
+             *
+             *
+             */
+            case DOPPELGANGER: {
+                mHero.addBattleBuffer(Varier.COMBO_1);
+                mHero.inUse = act;
+                //mHero.combo = 2;
 
+            }
+                break;
             default:
                 return false;
         }
@@ -747,7 +761,6 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             if (newEvent.type.isBoss()) {
                 mSpecialEvents.add(newEvent);
                 if (null != specialEventAdapter) {
-                    Gdx.app.error("DungeonManager", "add boss.");
                     specialEventAdapter.insert(mSpecialEvents.size() - 1);
                 }
             } else {
@@ -989,6 +1002,8 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             }
             // try try.,..
             mHero.clearBattleBuffer();
+            // todo optimize
+            mHero.resetSkillAction();
         }
             break;
         default:

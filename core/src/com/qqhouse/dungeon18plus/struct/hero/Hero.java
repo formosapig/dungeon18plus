@@ -298,6 +298,12 @@ public class Hero extends Ability implements Fightable {
 	}
 
 	/*
+	 * skill action
+	 *
+	 */
+	public boolean canUseSkillAction() {return false;}
+
+	/*
 	 * apply buffer
 	 */
 	public void addBattleBuffer(Varier buffer) {

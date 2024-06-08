@@ -151,6 +151,7 @@ public class Varier {
     public static final Varier SPEED_50P      = new Varier(Type.SPEED | Type.PERCENT, -50);
 
     // key series
+    public static final Varier KEY_9          = new Varier(Type.KEY | Type.OFFSET, 9);
     public static final Varier KEY_10         = new Varier(Type.KEY | Type.OFFSET, 10);
 
     // coin series

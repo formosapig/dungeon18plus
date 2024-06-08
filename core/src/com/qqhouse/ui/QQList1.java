@@ -714,7 +714,9 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
         Rectangle clipBounds = new Rectangle(originX, originY, width, height);
         // QQList 變成 sub view 時, 座標又變換了....
         //Rectangle clipBounds = new Rectangle(x, y, width, height);
-        ScissorStack.calculateScissors(viewport.getCamera(), batch.getTransformMatrix(), clipBounds, scissors);
+        //ScissorStack.calculateScissors(viewport.getCamera(), batch.getTransformMatrix(), clipBounds, scissors);
+        ScissorStack.calculateScissors(viewport.getCamera(), viewport.getScreenX(), viewport.getScreenY(), viewport.getScreenWidth(), viewport.getScreenHeight(), batch.getTransformMatrix(), clipBounds, scissors);
+
         if (ScissorStack.pushScissors(scissors)) {
             for (QQView view : childrenView)
                 view.draw(batch, originX, originY);

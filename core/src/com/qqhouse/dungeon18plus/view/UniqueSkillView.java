@@ -1,7 +1,5 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
@@ -10,7 +8,6 @@ import com.qqhouse.dungeon18plus.struct.Ability;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.Operation2;
 import com.qqhouse.dungeon18plus.struct.campaign.UniqueSkillData;
-import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
@@ -29,7 +26,6 @@ public class UniqueSkillView extends AssetGroupButton {
 
     private ItemView item;
     private QQText txtMastery;
-    private QQIconText op1;
     private QQIconText[] itOps;
     private QQIconText coolDown;
 
@@ -103,20 +99,39 @@ public class UniqueSkillView extends AssetGroupButton {
     }
 
 
+    @Override
+    public void onParentSizeChanged(float width, float height) {
+        if (0 >= width || 0 >= height)
+            return;
+        txtMastery.setSize(QQView.WRAP_CONTENT, 16);
+        if (null != itOps) {
+            //int OpsWidth = 0;
+            for (int i = 0; i < itOps.length; ++i) {
+                itOps[i].setSize(QQView.WRAP_CONTENT, 16);
+                //OpsWidth += itOps[i].getWidth() + Game.Size.INNER_MARGIN;
+            }
+            //int startX = (int) (this.width - OpsWidth) / 2;
+            //for (int i = 0; i < itOps.length; ++i) {
+            //    itOps[i].setPosition(startX, 16);
+            //    startX += itOps[i].getWidth() + 2;
+            //}
+        }
+        coolDown.setSize(50, 16);
+    }
 
     @Override
     public void arrangeChildren() {
         if (0 == width || 0 == height)
             return;
         if (null != txtMastery) {
-            txtMastery.setSize(QQView.WRAP_CONTENT, 16);
+
             txtMastery.setPosition(44, 6);
         }
 
         if (null != itOps) {
             int OpsWidth = 0;
             for (int i = 0; i < itOps.length; ++i) {
-                itOps[i].setSize(QQView.WRAP_CONTENT, 16);
+                //itOps[i].setSize(QQView.WRAP_CONTENT, 16);
                 OpsWidth += itOps[i].getWidth() + Game.Size.INNER_MARGIN;
             }
             int startX = (int) (this.width - OpsWidth) / 2;
@@ -127,7 +142,7 @@ public class UniqueSkillView extends AssetGroupButton {
         }
 
         if (null != coolDown) {
-            coolDown.setSize(50, 16);
+
             coolDown.setPosition(this.width - 8 - coolDown.getWidth(), 16);
         }
     }

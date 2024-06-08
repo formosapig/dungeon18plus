@@ -157,8 +157,9 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
         final Action act = slot.action;
         switch (act.type) {
             case UPGRADE:
-            case SKILL:
                 return mHero.canPayCost(act.cost) && mHero.canUpgradeAbility(act.effects);
+            case SKILL:
+                return mHero.canPayCost(act.cost) && mHero.canUseSkillAction();
             case POTION:
                 // speed check. 等於 8 也不用喝了.
                 if (act == Action.SPEED_POTION && mHero.getBody().speed <= 8) {
@@ -200,18 +201,21 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
         // do action series.
         switch (act.type) {
             case UPGRADE:
-            case SKILL: {
                 for (Varier var : act.effects) {
                     mHero.upgradeAbility(var, result);
                 }
-            }
             break;
+            case SKILL:
+                processSkillAction(mHero, act);
+                break;
             case POTION: {
                 mHero.drinkPotionWithBuffers(act.effects);
             }
             break;
         }
     }
+
+    protected boolean processSkillAction(H hero, Action action) {return false;};
 
     /*
      * get loot ~~~
