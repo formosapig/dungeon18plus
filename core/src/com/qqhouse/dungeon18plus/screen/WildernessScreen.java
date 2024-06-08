@@ -16,9 +16,11 @@ import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.view.ActionView;
 import com.qqhouse.dungeon18plus.view.EventInfoView;
 import com.qqhouse.dungeon18plus.view.EventView;
+import com.qqhouse.dungeon18plus.view.GiantView;
 import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
 import com.qqhouse.ui.QQGroup;
+import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQScreen;
@@ -43,6 +45,22 @@ public class WildernessScreen extends QQScreen {
 
     @Override
     public void onEnter() {
+
+        QQLinear group = new QQLinear(Game.Size.WIDGET_MARGIN);
+        group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
+        group.setPosition(0, 0);
+        addChild(group);
+
+        // giant 96 x 96 giant ...
+        GiantView giant = new GiantView(assets);
+        giant.reset(manager.giants.get(0));
+        giant.setSize(QQView.MATCH_PARENT, 128);
+        group.addChild(giant);
+
+
+        // list
+
+        // grid view of all Legion....
 
 
 

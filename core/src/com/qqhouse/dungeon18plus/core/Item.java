@@ -53,7 +53,7 @@ public enum Item {
             Type.CURSED | Type.CRYSTAL, 0, STAR_20),
 
     CURSED_CRYSTAL( 0x4A3FECCE, "black_crystal", "cursed_crystal", "cursed_crystal_help",
-            Type.CURSED | Type.CRYSTAL, 0, STAR_8),
+            Type.CURSED | Type.CRYSTAL, 0, KEY_1, STAR_10),
 
 
 

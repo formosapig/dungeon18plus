@@ -64,6 +64,7 @@ public class Varier {
     public static final Varier COUNT          = new Varier(Type.COUNT, 1); // use 1
 
     public static final Varier KEY_1          = new Varier(Type.KEY | Type.OFFSET, 1);
+    public static final Varier KEY_2          = new Varier(Type.KEY | Type.OFFSET, 2);
     public static final Varier COIN_1         = new Varier(Type.COIN | Type.OFFSET, 1);
     public static final Varier STAR_1         = new Varier(Type.STAR | Type.OFFSET, 1);
 
