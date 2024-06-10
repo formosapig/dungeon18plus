@@ -310,16 +310,16 @@ public enum HeroClass {
 		return this == EARTH_KNIGHT || this == FIRE_KNIGHT || this == WATER_KNIGHT || this == WIND_KNIGHT;
 	}
 	
-	public String getBackgroundRes() {
-		if (DARK_PRESENCE.in(this.feat)) {
-			return "bg_boss";
-		} else if (HOLY_ONE.in(this.feat) || this.isKnight() || this == VALKYRIE) {
-			return "bg_fairy";
-		} else if (this == MERCHANT)
-			return "bg_shop";
-		else
-			return "bg_brave";
-	}
+	//public String getBackgroundRes() {
+	//	if (DARK_PRESENCE.in(this.feat)) {
+	//		return "bg_boss";
+	//	} else if (HOLY_ONE.in(this.feat) || this.isKnight() || this == VALKYRIE) {
+	//		return "bg_fairy";
+	//	} else if (this == MERCHANT)
+	//		return "bg_shop";
+	//	else
+	//		return "bg_brave";
+	//}
 	
 	public String getBackgroundBtn() {
 		if (DARK_PRESENCE.in(this.feat)) {

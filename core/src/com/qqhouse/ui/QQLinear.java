@@ -80,6 +80,8 @@ public class QQLinear extends QQViewGroup {
     public void arrangeChildren() {
         if (childrenView.isEmpty())
             return;
+        if (0 >= width || 0 >= height)
+            return;
 
         if (isVertical) {
             // check if view need match parent ...
@@ -156,11 +158,11 @@ public class QQLinear extends QQViewGroup {
             if (Align.isRight(align)) {
                 x = width - leftPadding - rightPadding - totalWidth;
             } else if (Align.isCenterHorizontal(align)) {
-                x = (width - leftPadding - rightPadding - totalWidth) / 2;
+                x = (width - leftPadding - rightPadding - totalWidth) / 2 + leftPadding;
             }
 
             for (QQView cv : childrenView) {
-                cv.setPosition(x, 0);
+                cv.setPosition(x, bottomPadding);
                 x += cv.getWidth() + innerMargin;
             }
         }

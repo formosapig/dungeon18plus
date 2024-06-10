@@ -347,13 +347,7 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
 
         arrangeChildren();
         calculateMaxScrollY();
-        //for (int i = 0; i < adapter.getSize(); ++i) {
-        //    addChild(adapter.getView(i));
-        //}
-        //onParentSizeChanged(width, height);
-        //for (int i = 0, s = childrenView.size(); i < s; ++i) {
-        //    adapter.updateView(i, childrenView.get(i));
-        //}
+
     }
 
     /*
@@ -637,7 +631,7 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
         scrollY += (64 + innerMargin) * amountY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
-        //Gdx.app.error("QQList", "scrollY = " + scrollY + "@" + this);
+        Gdx.app.error("QQList", "scrollY = " + scrollY + "@" + this);
         //Gdx.app.error("QQList1.scrolled", "scrolled : " + scrollY);
         arrangeChildren();
         return false;
@@ -648,6 +642,10 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
         touchY = -1;
     }
 
+    public void scrollDown() {
+        scrollY = maxScrollY;
+        arrangeChildren();
+    }
 
     /*
         press listener return index

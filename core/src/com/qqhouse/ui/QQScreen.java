@@ -242,7 +242,7 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     //    childrenView.removeValue(view, true);
     //}
 
-    public final void act(float delta) {
+    public void act(float delta) {
         QQView[] views = childrenView.begin();
         for (int i = 0, n = childrenView.size; i < n; ++i) {
             views[i].act(delta);

@@ -1,6 +1,10 @@
 package com.qqhouse.dungeon18plus.struct;
 
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.qqhouse.dungeon18plus.Game;
+
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -266,6 +270,46 @@ public class Operation {
 		typeColors.put(GOLDEN_COIN, 0xFF9E8064);
 		//typeColors.put(DAMAGE, ContextCompat.getColor(Game.getContext(), R.color.damage));
 	}
-	
+
+
+	/*
+		Icon String / String Color
+	 */
+	public static String getIconName(int type) {
+		switch (type) {
+			case LIFE: return "life";
+			case ATTACK: return "attack";
+			case DEFENSE: return "defense";
+			case SPEED: return "speed";
+			case RESURRECTION: return "resurrection";
+			case COOL_DOWN: return "time";
+			case GUARD: return "guard";
+			case SOUL: return "cost_soul";
+			case STAR: return "cost_star";
+			case GOLDEN_COIN: return "cost_coin";
+			case DAMAGE: return "damage";
+			default :
+				throw new GdxRuntimeException("no such type.");
+		}
+	}
+
+	public static Color getIconColor(int type) {
+		switch (type) {
+			case LIFE: return Game.Colour.LIFE;
+			case ATTACK: return Game.Colour.ATTACK;
+			case DEFENSE: return Game.Colour.DEFENSE;
+			case SPEED: return Game.Colour.SPEED;
+			case RESURRECTION: return Game.Colour.LIFE;
+			case COOL_DOWN: return Game.Colour.SPEED;
+			case GUARD: return Game.Colour.GUARD;
+			case SOUL: return Game.Colour.SOUL;
+			case STAR: return Game.Colour.RARE;
+			case GOLDEN_COIN: return Game.Colour.RARE;
+			case DAMAGE: return Game.Colour.DAMAGE;
+			default :
+				throw new GdxRuntimeException("no such type.");
+
+		}
+	}
 	
 }

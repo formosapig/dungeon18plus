@@ -37,7 +37,30 @@ public class LegionHeroView extends AssetGroupButton {
     }
 
     public void reset(Legion legion) {
+        icon = new QQImage(assets.getBlockee(legion.heroClass.key));
+        icon.setSize(48, 48);
+        addChild(icon);
 
+        item = new ItemView();
+        item.setIcon(assets.getItem(legion.lootIcon));
+        item.setSize(32, 32);
+        addChild(item);
+
+        life = new QQProgress(assets.getNinePatchBG("black"), assets.getNinePatchBG("yellow"));
+        life.setPercent(100);
+        //life.setSize(MATCH_PARENT, 8);
+        //life.setPosition(leftPadding, bottomPadding);
+        addChild(life);
+
+        setBackground(assets.getBackgroundSet(legion.heroClass.alignment.key));
+    }
+
+    @Override
+    public void onParentSizeChanged(float width, float height) {
+        if (0 >= width || 0 >= height)
+            return;
+        if (null != life)
+            life.setSize(width - leftPadding - rightPadding, 8);
     }
 
     @Override
@@ -49,42 +72,8 @@ public class LegionHeroView extends AssetGroupButton {
             icon.setPosition((width - 48) / 2, bottomPadding);
         if (null != item)
             item.setPosition(width - rightPadding - item.getWidth(), bottomPadding);
+        if (null != life)
+            life.setPosition(leftPadding, bottomPadding + 48 + 4);
 
     }
-
-    /*
-        IsParent series
-     */
-    /*
-    private ArrayList<QQView> childrenView = new ArrayList<>();
-
-    @Override
-    public void arrangeChildren() {
-
-    }
-
-    @Override
-    public void addChild(QQView view) {
-        childrenView.add(view);
-    }
-
-    @Override
-    public void removeChild(QQView view) {}
-
-    @Override
-    public void onParentSizeChanged(float width, float height) {
-
-    }
-
-    @Override
-    public void onChildSizeChanged(QQView child) {
-
-    }
-
-    @Override
-    public void drawChildren(SpriteBatch batch, float originX, float originY) {
-        for (QQView child : childrenView)
-            child.draw(batch, originX, originY);
-    }
-    */
 }

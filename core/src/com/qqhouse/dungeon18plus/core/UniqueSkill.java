@@ -46,9 +46,9 @@ public enum UniqueSkill {
 	 * Black Slime
 	 */
 	// life+25%
-	HEAL_25( "icon32_life",                     0x687BF639, 360, 360, new OpSt(AS_LIR,   25,   25,  ME,  ME)),
+	HEAL_25( "broken_yellow_soul",              0x687BF639, 360, 360, new OpSt(AS_LIR,   25,   25,  ME,  ME)),
 	// attack all with almost half life
-	BLACK_MUD( "item_broken_black_soul",        0x37E9D61B, 480, 480, new OpSt(DG_ATK,  250,  250, ALL, ALL)),
+	BLACK_MUD( "broken_black_soul",             0x37E9D61B, 480, 480, new OpSt(DG_ATK,  250,  250, ALL, ALL)),
 
 	/*
 	 * Red Slime
@@ -144,119 +144,119 @@ public enum UniqueSkill {
 	 * Black Mimic
 	 */
 	// swallow
-	SWALLOW( "item_complete_black_soul",        0xD12A11E4,  40,  40, new OpSt(DG_ATK, 1200, 1200,   1,   1)),
+	SWALLOW( "complete_black_soul",             0xD12A11E4,  40,  40, new OpSt(DG_ATK, 1200, 1200,   1,   1)),
 	
 	/*
 	 * dagger
 	 */
-	WOODEN_DAGGER( "item_wooden_dagger",        0xB9506F7C, 150, 100, new OpSt(DG_ATK,  200,  200,   2,   2)),
-	IRON_DAGGER( "item_iron_dagger",            0xFCD413D6, 125, 125, new OpSt(DG_ATK,  220,  280,   2,   2)),
-	IRON_DAGGER_1( "item_iron_dagger", "bg_refined",
+	WOODEN_DAGGER( "wooden_dagger",             0xB9506F7C, 150, 100, new OpSt(DG_ATK,  200,  200,   2,   2)),
+	IRON_DAGGER( "iron_dagger",                 0xFCD413D6, 125, 125, new OpSt(DG_ATK,  220,  280,   2,   2)),
+	IRON_DAGGER_1( "iron_dagger", "bg_refined",
                                                 0xFA1394CA, 140, 140, new OpSt(DG_ATK,  240,  320,   2,   2)),
-	WIND_DAGGER( "item_wind_dagger",            0xC5D6209C, 180, 120, new OpSt(DG_ATK,  185,  235,   2,   6)),
-	MITHRIL_DAGGER( "item_mithril_dagger",      0xAC55CB93, 150, 150, new OpSt(DG_ATK,  200,  200,   2,   2),
+	WIND_DAGGER( "wind_dagger",                 0xC5D6209C, 180, 120, new OpSt(DG_ATK,  185,  235,   2,   6)),
+	MITHRIL_DAGGER( "mithril_dagger",           0xAC55CB93, 150, 150, new OpSt(DG_ATK,  200,  200,   2,   2),
                                                                       new OpSt(AS_LIF,  100,  200,  ME,  ME)),
-	SHADOW_DAGGER( "item_shadow_dagger", "bg_cursed",
+	SHADOW_DAGGER( "shadow_dagger", "bg_cursed",
                                                 0xEEEE9AE9, 135, 125, new OpSt(DG_WND,  135,  150,   2,   2),
 			                                                          new OpSt(AS_LIR,  -50,  -25,  ME,  ME)),
-	YGGDRASIL_DAGGER( "item_yggdrasil_dagger",  0xEBE1C9D5, 150, 100, new OpSt(DG_ATK,  200,  300,   2,   3),
+	YGGDRASIL_DAGGER( "yggdrasil_dagger",       0xEBE1C9D5, 150, 100, new OpSt(DG_ATK,  200,  300,   2,   3),
 			                                                          new OpSt(AS_LIF,  100,  200,   1,   3)),
 	
 	/*
 	 * sword
 	 */
-	WOODEN_SWORD( "item_wooden_sword",          0xD1DA6D83, 200, 135, new OpSt(DG_ATK,  350,  350,   1,   1)),
-	IRON_SWORD( "item_iron_sword",              0x155E11DD, 160, 160, new OpSt(DG_ATK,  400,  500,   1,   1)),
-	IRON_SWORD_1( "item_iron_sword", "bg_refined",
+	WOODEN_SWORD( "wooden_sword",               0xD1DA6D83, 200, 135, new OpSt(DG_ATK,  350,  350,   1,   1)),
+	IRON_SWORD( "iron_sword",                   0x155E11DD, 160, 160, new OpSt(DG_ATK,  400,  500,   1,   1)),
+	IRON_SWORD_1( "iron_sword", "bg_refined",
                                                 0xFB916ACD, 180, 180, new OpSt(DG_ATK,  450,  600,   1,   1)),
-	GREAT_SWORD( "item_great_sword",            0x5690C2C0, 230, 140, new OpSt(DG_ATK,  300,  850,   1,   1)),
-	MITHRIL_SWORD( "item_mithril_sword",        0x3BF6A14C, 200, 200, new OpSt(DG_ATK,  350,  350,   1,   1),
+	GREAT_SWORD( "great_sword",                 0x5690C2C0, 230, 140, new OpSt(DG_ATK,  300,  850,   1,   1)),
+	MITHRIL_SWORD( "mithril_sword",             0x3BF6A14C, 200, 200, new OpSt(DG_ATK,  350,  350,   1,   1),
 			                                                          new OpSt(AS_LIF,  100,  200,  ME,  ME)),
-	FIRE_SWORD( "item_fire_sword",              0x08D2F989, 320, 320, new OpSt(DG_ATK,  900, 1250,   1,   1),
+	FIRE_SWORD( "fire_sword",                   0x08D2F989, 320, 320, new OpSt(DG_ATK,  900, 1250,   1,   1),
 			                                                          new OpSt(AS_DER, -100,  -50,  ME,  ME)),
-	ICE_SWORD( "item_ice_sword",                0xEDDAE947, 280, 280, new OpSt(DG_ATK,  600,  950,   1,   1),
+	ICE_SWORD( "ice_sword",                     0xEDDAE947, 280, 280, new OpSt(DG_ATK,  600,  950,   1,   1),
                                                                       new OpSt(AS_DEF,   20,   40,  ME,  ME)),
-	THUNDER_SWORD( "item_thunder_sword",        0x38863E59, 320, 240, new OpSt(DG_ATK,  200,  250,   6,   8)),
-	HOLY_SWORD( "item_holy_sword", "bg_blessed",
+	THUNDER_SWORD( "thunder_sword",             0x38863E59, 320, 240, new OpSt(DG_ATK,  200,  250,   6,   8)),
+	HOLY_SWORD( "holy_sword", "bg_blessed",
                                                 0x1DCEC245, 500, 400, new OpSt(DG_FIX,    0, 1000, ALL, ALL),
                                                                       new OpSt(AS_LIR,   25,   50,  ME,  ME)),
-	SKULL_SWORD( "item_skull_sword", "bg_cursed",
+	SKULL_SWORD( "skull_sword", "bg_cursed",
                                                 0x15BC3C88, 500, 400, new OpSt(DG_WND,  180,  200,   1,   8),
 			                                                          new OpSt(AS_LIR,  -50,  -25,  ME,  ME)),
-	YGGDRASIL_SWORD( "item_yggdrasil_sword",    0x59CCC717, 200, 135, new OpSt(DG_ATK,  350,  500,   1,   2),
+	YGGDRASIL_SWORD( "yggdrasil_sword",         0x59CCC717, 200, 135, new OpSt(DG_ATK,  350,  500,   1,   2),
                                                                       new OpSt(AS_LIF,  100,  200,   1,   3)),
 	
 	/*
 	 * staff
 	 */
-	WOODEN_STAFF( "item_wooden_staff",          0x3F619D0B, 350, 220, new OpSt(DG_LIF,  120,  120,   1,   1)),
-	MITHRIL_STAFF( "item_mithril_staff",        0x9B74E27C, 350, 350, new OpSt(DG_LIF,  120,  120,   1,   1),
+	WOODEN_STAFF( "wooden_staff",               0x3F619D0B, 350, 220, new OpSt(DG_LIF,  120,  120,   1,   1)),
+	MITHRIL_STAFF( "mithril_staff",             0x9B74E27C, 350, 350, new OpSt(DG_LIF,  120,  120,   1,   1),
 			                                                          new OpSt(AS_LIF,  100,  200,  ME,  ME)),
-	YGGDRASIL_STAFF( "item_yggdrasil_staff",    0x8109B870, 350, 220, new OpSt(DG_LIF,  120,  200,   1,   2),
+	YGGDRASIL_STAFF( "yggdrasil_staff",         0x8109B870, 350, 220, new OpSt(DG_LIF,  120,  200,   1,   2),
                                                                       new OpSt(AS_LIF,  100,  200,   1,   3)),
 	
 	/*
 	 * shield
 	 */
-	WOODEN_SHIELD( "item_wooden_shield",        0x4BB856C3, 200, 135, new OpSt(AS_GRT,    5,    5,  ME,  ME)),
-	IRON_SHIELD( "item_iron_shield",            0x32499E81, 160, 160, new OpSt(AS_GRT,    6,   10,  ME,  ME)),
-	IRON_SHIELD_1( "item_iron_shield", "bg_refined",
+	WOODEN_SHIELD( "wooden_shield",             0x4BB856C3, 200, 135, new OpSt(AS_GRT,    5,    5,  ME,  ME)),
+	IRON_SHIELD( "iron_shield",                 0x32499E81, 160, 160, new OpSt(AS_GRT,    6,   10,  ME,  ME)),
+	IRON_SHIELD_1( "iron_shield", "bg_refined",
                                                 0x2F2B30A6, 180, 180, new OpSt(AS_GRT,    8,   12,  ME,  ME)),
-	TOWER_SHIELD( "item_tower_shield",          0x73C8A16B, 230, 140, new OpSt(AS_GRT,   20,   20,  ME,  ME),
+	TOWER_SHIELD( "tower_shield",               0x73C8A16B, 230, 140, new OpSt(AS_GRT,   20,   20,  ME,  ME),
 			                                                          new OpSt(AS_SPR,   50,   25,  ME,  ME)),
-	MITHRIL_SHIELD( "item_mithril_shield",      0x58F9A9A3, 200, 200, new OpSt(AS_GRT,    5,    5,  ME,  ME),
+	MITHRIL_SHIELD( "mithril_shield",           0x58F9A9A3, 200, 200, new OpSt(AS_GRT,    5,    5,  ME,  ME),
 			                                                          new OpSt(AS_LIF,  100,  200,  ME,  ME)),
-	BLACK_SHIELD( "item_black_shield",          0xAF04E9B4, 410, 410, new OpSt(DG_DEF,  750, 1100,   1,   1),
+	BLACK_SHIELD( "black_shield",               0xAF04E9B4, 410, 410, new OpSt(DG_DEF,  750, 1100,   1,   1),
 			                                                          new OpSt(AS_SPR,   50,   25,  ME,  ME)),
-	WHITE_SHIELD( "item_white_shield",          0x9499BFA7, 280, 210, new OpSt(AS_GRT,    5,   15,  ME,  ME),
+	WHITE_SHIELD( "white_shield",               0x9499BFA7, 280, 210, new OpSt(AS_GRT,    5,   15,  ME,  ME),
 			                                                          new OpSt(AS_DEF,   10,   20, ALL, ALL)),
-	HOLY_SHIELD( "item_holy_shield", "bg_blessed",
+	HOLY_SHIELD( "holy_shield", "bg_blessed",
                                                 0xD82F00C8, 500, 400, new OpSt(AS_GRT,   15,   30,  ME,  ME),
 			                                                          new OpSt(AS_LIR,   25,   50,  ME,  ME)),
-	SKULL_SHIELD( "item_skull_shield", "bg_cursed",
+	SKULL_SHIELD( "skull_shield", "bg_cursed",
                                                 0xBDCF9495, 500, 400, new OpSt(DG_DEF,  300, 1100,   1,   3),
 			                                                          new OpSt(AS_LIR,  -50,  -25,  ME,  ME)),
-	YGGDRASIL_SHIELD( "item_yggdrasil_shield",  0xBADA3F35, 200, 135, new OpSt(AS_GRT,    5,   20,  ME,  ME),
+	YGGDRASIL_SHIELD( "yggdrasil_shield",       0xBADA3F35, 200, 135, new OpSt(AS_GRT,    5,   20,  ME,  ME),
 			                                                          new OpSt(AS_LIF,  100,  200,   1,   3)),
 
 	/*
 	 * ring
 	 */
-	WOODEN_RING( "item_wooden_ring",            0x8B67CA6F, 150, 100, new OpSt(AS_LIF,  100,  500,   1,   1)),
-	IRON_RING( "item_iron_ring",                0x712B97C9, 125, 125, new OpSt(AS_ATK,   15,   30,  ME,  ME),
+	WOODEN_RING( "wooden_ring",                 0x8B67CA6F, 150, 100, new OpSt(AS_LIF,  100,  500,   1,   1)),
+	IRON_RING( "iron_ring",                     0x712B97C9, 125, 125, new OpSt(AS_ATK,   15,   30,  ME,  ME),
 			                                                          new OpSt(AS_DEF,   15,   30,  ME,  ME)),
-	IRON_RING_1( "item_iron_ring", "bg_refined",
+	IRON_RING_1( "iron_ring", "bg_refined",
                                                 0xB6678B8A, 140, 140, new OpSt(AS_ATK,   20,   40,  ME,  ME),
 			                                                          new OpSt(AS_DEF,   20,   40,  ME,  ME)),
-	YELLOW_RING( "item_yellow_ring",            0x9C2B58E5, 180, 180, new OpSt(AS_LIR,   25,   50,   2,   4)),
-	RED_RING( "item_red_ring",                  0xDF221709, 180, 180, new OpSt(AS_ATK,   20,   40,   2,   4)),
-	BLUE_RING( "item_blue_ring",                0xCB4BD892, 180, 180, new OpSt(AS_DEF,   20,   40,   2,   4)),
-	GREEN_RING( "item_green_ring",              0x15D9D305, 180, 180, new OpSt(AS_SPD,   -2,   -4,   2,   4)),
-	BLACK_RING( "item_black_ring", "bg_cursed",
+	YELLOW_RING( "yellow_ring",                 0x9C2B58E5, 180, 180, new OpSt(AS_LIR,   25,   50,   2,   4)),
+	RED_RING( "red_ring",                       0xDF221709, 180, 180, new OpSt(AS_ATK,   20,   40,   2,   4)),
+	BLUE_RING( "blue_ring",                     0xCB4BD892, 180, 180, new OpSt(AS_DEF,   20,   40,   2,   4)),
+	GREEN_RING( "green_ring",                   0x15D9D305, 180, 180, new OpSt(AS_SPD,   -2,   -4,   2,   4)),
+	BLACK_RING( "black_ring", "bg_cursed",
                                                 0xF64B99AE, 360, 360, new OpSt(DG_WND,  120,  150,   2,   4)),
-	WHITE_RING( "item_white_ring",              0xD931C938, 360, 360, new OpSt(DG_FIX,  300,  500, ALL, ALL)),
-	RING_OF_GODDESS( "item_ring_of_goddess", "bg_blessed",
+	WHITE_RING( "white_ring",                   0xD931C938, 360, 360, new OpSt(DG_FIX,  300,  500, ALL, ALL)),
+	RING_OF_GODDESS( "ring_of_goddess", "bg_blessed",
                                                 0xBFE64A83, 500, 400, new OpSt(DG_FIX,  400,  800, ALL, ALL),
 			                                                          new OpSt(AS_LIR,   25,   50,  ME,  ME)),
-	SKULL_RING( "item_skull_ring", "bg_cursed",
+	SKULL_RING( "skull_ring", "bg_cursed",
                                                 0x02502272, 500, 400, new OpSt(DG_WND,  180,  200,   3,   6),
 			                                                          new OpSt(AS_LIR,  -50,  -25,  ME,  ME)),
-	YGGDRASIL_RING( "item_yggdrasil_ring",      0xEA592569, 150, 100, new OpSt(AS_LIF,  100,  200,   1,   3),
+	YGGDRASIL_RING( "yggdrasil_ring",           0xEA592569, 150, 100, new OpSt(AS_LIF,  100,  200,   1,   3),
 			                                                          new OpSt(AS_RER,   50,  100,   1,   2)),
-	RING_OF_LIFE( "item_ring_of_life",          0xE67ED9F2, 999, 999, new OpSt(AS_LI2,  800, 2000, ALL, ALL)),
-	RING_OF_ATTACK( "item_ring_of_attack",      0x2A027E4C, 999, 999, new OpSt(AS_ATR,   20,   40, ALL, ALL)),
-	RING_OF_DEFENSE( "item_ring_of_defense",    0x107C4A56, 999, 999, new OpSt(AS_DER,   20,   40, ALL, ALL)),
-	RING_OF_SPEED( "item_ring_of_speed",        0x53FFEEB0, 999, 999, new OpSt(AS_QUK,  -25,  -50, ALL, ALL)),
+	RING_OF_LIFE( "ring_of_life",               0xE67ED9F2, 999, 999, new OpSt(AS_LI2,  800, 2000, ALL, ALL)),
+	RING_OF_ATTACK( "ring_of_attack",           0x2A027E4C, 999, 999, new OpSt(AS_ATR,   20,   40, ALL, ALL)),
+	RING_OF_DEFENSE( "ring_of_defense",         0x107C4A56, 999, 999, new OpSt(AS_DER,   20,   40, ALL, ALL)),
+	RING_OF_SPEED( "ring_of_speed",             0x53FFEEB0, 999, 999, new OpSt(AS_QUK,  -25,  -50, ALL, ALL)),
 	
 	/*
 	 * boots
 	 */
-	IRON_BOOTS( "item_iron_boots",              0x50B2896E, 110, 110, new OpSt(DG_SPD, 2700, 3100,   3,   5)),
-	IRON_BOOTS_1( "item_iron_boots", "bg_refined",
+	IRON_BOOTS( "iron_boots",                   0x50B2896E, 110, 110, new OpSt(DG_SPD, 2700, 3100,   3,   5)),
+	IRON_BOOTS_1( "iron_boots", "bg_refined",
                                                 0x176981AA, 125, 125, new OpSt(DG_SPD, 2900, 3300,   3,   5)),
-	MITHRIL_BOOTS( "item_mithril_boots",        0xFE182408, 160, 160, new OpSt(DG_SPD, 2800, 2800,   3,   5),
+	MITHRIL_BOOTS( "mithril_boots",             0xFE182408, 160, 160, new OpSt(DG_SPD, 2800, 2800,   3,   5),
 			                                                          new OpSt(AS_LIF,  100,  200,  ME,  ME)),
-	WIND_BOOTS( "item_wind_boots",              0xFB28AD95, 320, 240, new OpSt(DG_SPD, 3200, 4000, ALL, ALL)),
+	WIND_BOOTS( "wind_boots",                   0xFB28AD95, 320, 240, new OpSt(DG_SPD, 3200, 4000, ALL, ALL)),
 	
 	/*
 	 * none

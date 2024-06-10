@@ -8,7 +8,7 @@ public class CampaignResult {
 	public final int[] value;
 	
 	public CampaignResult() {
-		icon = new String[3];
+		icon = new String[] {"", "", ""};
 		type = new int[3];
 		value = new int[3];
 	}

@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.core;
 
+import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignAction;
@@ -26,7 +27,7 @@ import java.util.TreeMap;
 public class WildernessManager {
 
 	// status define.
-	private static final int INITIAL		   = 0x00000001;	// create class
+	private static final int INITIAL	   = 0x00000001;	// create class
 	public static final int START		   = 0x00000002;	// press start
 	private static final int BATTLE		   = 0x00000004;	// tick can work.
     private static final int RESULT		   = 0x00000008;	// after result and summary, should update all
@@ -94,17 +95,18 @@ public class WildernessManager {
 		
 		// mHero from
 		int heroFrom = 0;
-		/*for (Veteran veteran : GameData.getInstance().getLegionData()) {
+		for (Veteran veteran : savedGame.getLegionData()) {
 			Legion hero = new Legion(veteran);
 			// mHero from
 			hero.heroFrom = heroFrom++;
 			hero.action = veteran.equipment.skill.get(veteran.mastery);
 			hero.ourGuard = legionGuard;
 			hero.icon = hero.heroClass.key;
-			hero.bg = hero.heroClass.getBackgroundRes();
+			hero.bg = hero.heroClass.alignment.key;
+			hero.lootIcon = veteran.equipment.icon;
 			// add mHero
 			legions.add(hero);
-		}*/
+		}
 		
 		state = INITIAL;
 		
@@ -573,8 +575,8 @@ public class WildernessManager {
 	}
 	
 	private void heroLoseLife(Legion hero) {
-		//if (!mHero.alive)
-		//hero.round = GameData.getInstance().veteranLoseLife(hero.heroFrom);
+		if (!hero.alive)
+		    hero.round = savedGame.veteranLoseLife(hero.heroFrom);
 		// kill legion count.
 		mKillLegionCount++;
 	}
@@ -602,17 +604,17 @@ public class WildernessManager {
 	// 3. r.i.p.
 	private void timeUp() {
 		CampaignAction timeUp = new CampaignAction();
-		timeUp.icon = "blockee_crusader";
-		timeUp.skillIcon = "";
-		timeUp.info = "time_up";
-		timeUp.bg = "btn_fairy";
+		timeUp.iconKey = "crusader";
+		timeUp.skillIconKey = null;
+		timeUp.infoKey = "time_up";
+		timeUp.bgKey = "lawful";
 		timeUp.time = 0;
 		battleHistory.add(timeUp);
 		
 		for (Campaigner ir : giants) {
 			Giant giant = (Giant) ir;
 
-			GiantRecord record = null;//GameData.getInstance().getGiantRecord(giant.race);
+			GiantRecord record = savedGame.getGiantRecord(giant.race);
 			
 			// giant experience.
 			getGiantExperience(record, 1);
@@ -642,17 +644,17 @@ public class WildernessManager {
 	// 6. r.i.p.
 	private void legionWin() {
 		CampaignAction legionWin = new CampaignAction();
-		legionWin.icon = "blockee_crusader";
-		legionWin.skillIcon = "";
-		legionWin.info = "win";
-		legionWin.bg = "btn_fairy";
+		legionWin.iconKey = "crusader";
+		legionWin.skillIconKey = null;
+		legionWin.infoKey = "win";
+		legionWin.bgKey = "lawful";
 		legionWin.time = time;
 		battleHistory.add(legionWin);
 		
 		for (Campaigner ir : giants) {
 			Giant giant = (Giant) ir;
 			
-			GiantRecord record = null;//GameData.getInstance().getGiantRecord(giant.race);
+			GiantRecord record = savedGame.getGiantRecord(giant.race);
 
 			// giant experience
 			getGiantExperience(record, 3);
@@ -683,17 +685,17 @@ public class WildernessManager {
 	// 1. r.i.p.
 	private void legionLose() {
 		CampaignAction legionLose = new CampaignAction();
-		legionLose.icon = "blockee_crusader";
-		legionLose.skillIcon = "";
-		legionLose.info = "lose";
-		legionLose.bg = "btn_fairy";
+		legionLose.iconKey = "crusader";
+		legionLose.skillIconKey = null;
+		legionLose.infoKey = "lose";
+		legionLose.bgKey = "lawful";
 		legionLose.time = time;
 		battleHistory.add(legionLose);
 		
 		// exp +1
 		for (Campaigner ir : giants) {
 			Giant giant = (Giant) ir;
-			GiantRecord record = null;//GameData.getInstance().getGiantRecord(giant.race);
+			GiantRecord record = savedGame.getGiantRecord(giant.race);
 			record.addExperience(1);
 		}
 		
@@ -745,7 +747,7 @@ public class WildernessManager {
 				// giant drop record add.
 				record.addSoul(drop);
 				// mHero get soul / coin
-				HeroClassRecord hcRecord = null;//GameData.getInstance().getHeroClassRecord(legion.heroClass);
+				HeroClassRecord hcRecord = savedGame.getHeroClassRecord(legion.heroClass);
 				if (drop.isMoneyBag()) {
 					final int gold = drop.getGoldenCoin();
 					hcRecord.coin += gold;
@@ -773,7 +775,7 @@ public class WildernessManager {
 	}
 	
 	private void legionRIP() {
-		ArrayList<Veteran> legionData = null;//GameData.getInstance().getLegionData();
+		ArrayList<Veteran> legionData = savedGame.getLegionData();
 		Iterator<Veteran> itr = legionData.iterator();
 		while (itr.hasNext()) {
 			Veteran veteran = itr.next();
@@ -785,7 +787,7 @@ public class WildernessManager {
 		// add kill count
 		for (Campaigner ir : giants) {
 			Giant giant = (Giant) ir;
-			GiantRecord record = null;//GameData.getInstance().getGiantRecord(giant.race);
+			GiantRecord record = savedGame.getGiantRecord(giant.race);
 			record.addKillCount(mKillLegionCount);
 		}
 		
@@ -797,9 +799,9 @@ public class WildernessManager {
 	 */
 	private void addBattleAction(Campaigner source) {
 		CampaignAction ba = new CampaignAction();
-		ba.icon = source.icon;
-		ba.bg = source.bg;
-		ba.skillIcon = source.action.skill.icon;
+		ba.iconKey = source.icon;
+		ba.bgKey = source.bg;
+		ba.skillIconKey = source.action.skill.icon;
 		ba.time = time;
 		battleHistory.add(ba);
 	}
@@ -807,13 +809,14 @@ public class WildernessManager {
 	private void addBattleResult(String icon, int type, int value) {
 		if (0 == value)
 			return;
-		
+
 		int storePos = -1;
-		for (int i = 0; i < 3; ++i)
-			if (null != store.icon[i] || "" == store.icon[i]) {
+		for (int i = 0; i < 3; ++i) {
+			if ("".equals(store.icon[i])) {
 				storePos = i;
 				break;
 			}
+		}
 
 		store.icon[storePos] = icon;
 		store.type[storePos] = type;
@@ -826,7 +829,8 @@ public class WildernessManager {
 	}
 
 	private void flushBattleResult() {
-		if (null != store.icon[0] && "" != store.icon[0]) {
+		//if (null != store.icon[0] && "" != store.icon[0]) {
+		if (!"".equals(store.icon[0])) {
 			battleHistory.add(store);
 			store = new CampaignResult();
 		}

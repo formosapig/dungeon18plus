@@ -537,10 +537,10 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 	// 3. r.i.p.
 	private void timeUp() {
 		CampaignAction timeUp = new CampaignAction();
-		timeUp.icon = "blockee_crusader";
-		timeUp.skillIcon = "";
-		timeUp.info = "time_up";
-		timeUp.bg = "btn_fairy";
+		timeUp.iconKey = "crusader";
+		timeUp.skillIconKey = "";
+		timeUp.infoKey = "time_up";
+		timeUp.bgKey = "lawful";
 		timeUp.time = 0;
 		battleHistory.add(timeUp);
 		
@@ -569,10 +569,10 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 	// 6. r.i.p.
 	private void legionWin() {
 		CampaignAction legionWin = new CampaignAction();
-		legionWin.icon = "blockee_crusader";
-		legionWin.skillIcon = "";
-		legionWin.info = "win";
-		legionWin.bg = "btn_fairy";
+		legionWin.iconKey = "crusader";
+		legionWin.skillIconKey = "";
+		legionWin.infoKey = "win";
+		legionWin.bgKey = "lawful";
 		legionWin.time = time;
 		battleHistory.add(legionWin);
 		
@@ -603,10 +603,10 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 	// 1. r.i.p.
 	private void legionLose() {
 		CampaignAction legionLose = new CampaignAction();
-		legionLose.icon = "blockee_crusader";
-		legionLose.skillIcon = "";
-		legionLose.info = "lose";
-		legionLose.bg = "btn_fairy";
+		legionLose.iconKey = "crusader";
+		legionLose.skillIconKey = null;
+		legionLose.infoKey = "lose";
+		legionLose.bgKey = "lawful";
 		legionLose.time = time;
 		battleHistory.add(legionLose);
 		
@@ -704,9 +704,9 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 	 */
 	private void addBattleAction(Campaigner source) {
 		CampaignAction ba = new CampaignAction();
-		ba.icon = source.icon;
-		ba.bg = source.bg;
-		ba.skillIcon = source.action.skill.icon;
+		ba.iconKey = source.icon;
+		ba.bgKey = source.bg;
+		ba.skillIconKey = source.action.skill.icon;
 		ba.time = time;
 		battleHistory.add(ba);
 	}

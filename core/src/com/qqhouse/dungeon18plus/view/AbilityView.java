@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
@@ -93,9 +94,13 @@ public class AbilityView extends QQView implements QQView.IsParent {
 
 
     public void update(Ability ability) {
+        life.setVisible(true);
         life.setText(Integer.toString(ability.life));
+        attack.setVisible(true);
         attack.setText(Integer.toString(ability.attack));
+        defense.setVisible(true);
         defense.setText(Integer.toString(ability.defense));
+        speed.setVisible(true);
         speed.setText(Integer.toString(ability.speed));
         rearrange();
     }
