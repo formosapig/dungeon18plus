@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
 
 import java.util.ArrayList;
@@ -46,6 +47,13 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
     // animation period in second
     private static final float animVPeriod = 0.11f;    // in sec
     private static final float animHPeriod = 0.23f;
+
+    private Viewport viewport;
+    public QQGrid(Viewport viewport) {
+        this.viewport = viewport;
+    }
+
+
 
     /*
         Grid series
@@ -724,15 +732,11 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
     @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {
         batch.flush();
-        // TODO height will change .... so scissors will cut wrong area.
-        //if (null == scissors) {
-            scissors = new Rectangle();
-            Rectangle clipBounds = new Rectangle(originX, originY, width, height);
-            // QQList 變成 sub view 時, 座標又變換了....
-            //Rectangle clipBounds = new Rectangle(x, y, width, height);
-            ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
-            //Gdx.app.error("QQList", "clipBounds = " + width + "," + height);
-        //}
+        scissors = new Rectangle();
+        Rectangle clipBounds = new Rectangle(originX, originY, width, height);
+        ScissorStack.calculateScissors(viewport.getCamera(), viewport.getScreenX(), viewport.getScreenY(), viewport.getScreenWidth(), viewport.getScreenHeight(), batch.getTransformMatrix(), clipBounds, scissors);
+
+
         if (ScissorStack.pushScissors(scissors)) {
             for (QQView view : childrenView)
                 view.draw(batch, originX, originY);

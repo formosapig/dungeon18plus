@@ -40,7 +40,7 @@ public class LegionTrainerScreen extends QQScreen {
         addChild(group);
 
         // legion view.
-        QQGrid grid = new QQGrid();
+        QQGrid grid = new QQGrid(getViewport());
         grid.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         grid.setCamera(getCamera());
         grid.setNumColumns(4);

@@ -33,8 +33,9 @@ public class CampaignActionView extends AssetGroupButton {
 
         // info
         if (null != action.infoKey) {
-            info = new QQText(assets.getFont(Game.Font.HELP14));
-            info.setText(action.infoKey);
+            info = new QQText(assets.getFont(Game.Font.NAME20));
+            info.setText(assets.geti18n(action.infoKey));
+            info.setColor(Game.Colour.RARE);
             info.setSize(QQView.WRAP_CONTENT, 24);
             addChild(info);
         }

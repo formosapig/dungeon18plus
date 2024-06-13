@@ -11,7 +11,7 @@ public class Legion extends Campaigner {
 	// summary
 	public int round;
 	// loot icon
-	public String lootIcon;
+	public String lootIconKey;
 
 	// battle summary.
 	private int totalDamage;

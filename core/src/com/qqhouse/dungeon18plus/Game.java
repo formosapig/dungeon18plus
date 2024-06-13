@@ -284,7 +284,7 @@ public class Game {
                 final Set<String> testSoulIcon = new TreeSet<>();
                 testSoulIcon.clear();
                 for (Soul s : gr.drops) {
-                    if (!testSoulIcon.add(s.icon) && !s.isMoneyBag())
+                    if (!testSoulIcon.add(s.iconKey) && !s.isMoneyBag())
                         throw new RuntimeException("Duplicate soul icon : " + gr + "/" + s);
                 }
             }

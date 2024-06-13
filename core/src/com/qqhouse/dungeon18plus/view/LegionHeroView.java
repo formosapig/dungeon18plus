@@ -1,16 +1,10 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.qqhouse.dungeon18plus.Assets;
-import com.qqhouse.dungeon18plus.Game;
-import com.qqhouse.dungeon18plus.struct.Monster;
 import com.qqhouse.dungeon18plus.struct.campaign.Legion;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
-import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQProgress;
-import com.qqhouse.ui.QQText;
-import com.qqhouse.ui.QQView;
 
 public class LegionHeroView extends AssetGroupButton {
 
@@ -42,7 +36,7 @@ public class LegionHeroView extends AssetGroupButton {
         addChild(icon);
 
         item = new ItemView();
-        item.setIcon(assets.getItem(legion.lootIcon));
+        item.setIcon(assets.getItem(legion.action.skill.icon));
         item.setSize(32, 32);
         addChild(item);
 

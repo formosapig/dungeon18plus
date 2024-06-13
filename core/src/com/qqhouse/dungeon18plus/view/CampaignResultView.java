@@ -1,15 +1,10 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Soul;
 import com.qqhouse.dungeon18plus.struct.Operation;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignResult;
-import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQLinear;
@@ -35,7 +30,7 @@ public class CampaignResultView extends AssetGroup {
                 results[i] = new QQLinear(false, Game.Size.WIDGET_MARGIN);
                 //results[i].setAlign(Align.center);
                 results[i].setPadding(8);
-                results[i].setBackground(assets.getNinePatchBG("help"));
+                results[i].setBackground(assets.getNinePatchBG("loot_info"));
                 addChild(results[i]);
 
                 // icons...
@@ -46,7 +41,7 @@ public class CampaignResultView extends AssetGroup {
                 // icon and value, check special type...
                 switch (result.type[i]) {
                     case Operation.GIANT_SOUL: {
-                        values[i] = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16(Soul.find(result.type[i]).icon));
+                        values[i] = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getItem(Soul.find(result.value[i]).iconKey));
                         values[i].setSize(QQView.WRAP_CONTENT, 24);
                         values[i].setText("");
                         //addChild(values[i]);

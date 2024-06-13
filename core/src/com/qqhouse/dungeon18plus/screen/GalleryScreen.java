@@ -112,7 +112,7 @@ public class GalleryScreen extends QQScreen {
         if (savedGame.isOpenGiantAlbum()) {
             PreviewView3 giantAlbum = new PreviewView3(assets);
             giantAlbum.reset("valkyrie", "valkyrie", "giant_album_help", "neutral");
-            giantAlbum.setSize(QQView.MATCH_PARENT, 64);
+            giantAlbum.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
             giantAlbum.setQQPressListener(new QQPressAdapter() {
                 @Override
                 public void onPress(int index) {

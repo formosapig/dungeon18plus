@@ -1,18 +1,11 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
-import com.qqhouse.dungeon18plus.core.GiantRace;
-import com.qqhouse.dungeon18plus.struct.Monster;
 import com.qqhouse.dungeon18plus.struct.campaign.Campaigner;
-import com.qqhouse.dungeon18plus.struct.campaign.Giant;
 import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQProgress;
-import com.qqhouse.ui.QQText;
-import com.qqhouse.ui.QQView;
 
 public class GiantView extends AssetGroup  {
 
@@ -27,7 +20,7 @@ public class GiantView extends AssetGroup  {
     }
 
     public void reset(Campaigner giant) {
-        icon = new QQImage(assets.getBlockee(giant.icon));
+        icon = new QQImage(assets.getBlockee(giant.iconKey));
         icon.setSize(96, 96);
         addChild(icon);
 
@@ -42,7 +35,7 @@ public class GiantView extends AssetGroup  {
         life.setPosition(leftPadding, bottomPadding);
         addChild(life);
 
-        setBackground(assets.getNinePatchBG("ordinary"));
+        setBackground(assets.getNinePatchBG(giant.bgKey));
     }
 
     public void update(Campaigner giant) {

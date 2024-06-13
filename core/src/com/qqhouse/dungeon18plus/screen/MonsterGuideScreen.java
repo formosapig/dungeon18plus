@@ -52,7 +52,7 @@ public class MonsterGuideScreen extends QQScreen {
         group.addChild(line);
 
         // equipment adapter ....
-        QQGrid grid = new QQGrid();
+        QQGrid grid = new QQGrid(getViewport());
         //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         //list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 48 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4
         grid.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);//Game.Size.WIDTH, Game.Size.HEIGHT - 48 - 8 - 4);

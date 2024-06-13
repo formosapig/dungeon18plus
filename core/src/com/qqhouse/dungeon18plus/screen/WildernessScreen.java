@@ -81,7 +81,7 @@ public class WildernessScreen extends QQScreen {
         group.addChild(history);
 
         // grid view of all Legion....
-        QQGrid grid = new QQGrid();
+        QQGrid grid = new QQGrid(getViewport());
         grid.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         grid.setCamera(getCamera());
         grid.setNumColumns(4);
@@ -92,6 +92,13 @@ public class WildernessScreen extends QQScreen {
             public void onPress(int index) {
                 if (0 == index)
                     manager.start();
+                else if (1 == index) {
+                    manager.start();
+                    while (manager.isBattle()) {
+                        manager.tick();
+                    }
+                    history.updateAll();
+                }
                 //else {
                 //    manager.tick();
                 //    history.updateAll();
@@ -114,14 +121,16 @@ public class WildernessScreen extends QQScreen {
     public void act(float delta) {
         super.act(delta);
 
-        period += delta;
-        if (period >= 0.066f) {
-            period -= 0.066f;
-            manager.tick();
-            //Gdx.app.error("WildernessScreen", "time = " + manager.time);
-            giant.update(manager.giants.get(0));
-            history.updateAll();
-            history.scrollDown();
+        if (manager.isBattle()) {
+            period += delta;
+            if (period >= 0.066f) {
+                period -= 0.066f;
+                manager.tick();
+                //Gdx.app.error("WildernessScreen", "time = " + manager.time);
+                giant.update(manager.giants.get(0));
+                history.updateAll();
+                history.scrollDown();
+            }
         }
     }
 

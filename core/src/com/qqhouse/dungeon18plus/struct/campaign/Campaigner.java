@@ -5,7 +5,7 @@ import com.qqhouse.dungeon18plus.struct.Ability;
 public class Campaigner extends Ability {
 	
 	// icon, bg
-	public String icon, bg;
+	public String iconKey, bgKey;
 	
 	// guard info for our team
 	public GuardInfo ourGuard;

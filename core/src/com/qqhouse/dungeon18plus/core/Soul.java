@@ -57,7 +57,7 @@ public enum Soul {
 	 * huge : 20 ~ 30	25
 	 */
 	// R1 : 
-	SMALL_BAG( 0xF586B7F7, 1, 1, "item_golden_coin") {
+	SMALL_BAG( 0xF586B7F7, 1, 1, "golden_coin") {
 		@Override
 		public int getGoldenCoin() {
 			return new Random().nextInt(3) + 1;
@@ -65,7 +65,7 @@ public enum Soul {
 	},
 	
 	// R2 :
-	MEDIUM_BAG( 0x2F91B821, 2, 1, "item_golden_coin") {
+	MEDIUM_BAG( 0x2F91B821, 2, 1, "golden_coin") {
 		@Override
 		public int getGoldenCoin() {
 			return new Random().nextInt(3) + 4;
@@ -73,7 +73,7 @@ public enum Soul {
 	},
 	
 	// R4 :
-	BIG_BAG( 0x2D5E1F4B, 4, 1, "item_golden_coin") {
+	BIG_BAG( 0x2D5E1F4B, 4, 1, "golden_coin") {
 		@Override
 		public int getGoldenCoin() {
 			return new Random().nextInt(5) + 8;
@@ -81,7 +81,7 @@ public enum Soul {
 	},
 	
 	// R7 
-	HUGE_BAG( 0xCDB26EE8, 7, 1, "item_golden_coin") {
+	HUGE_BAG( 0xCDB26EE8, 7, 1, "golden_coin") {
 		@Override
 		public int getGoldenCoin() {
 			return new Random().nextInt(11) + 20;
@@ -101,7 +101,7 @@ public enum Soul {
 	 */
 	// unfamiliar
     // Everything seems to be so unfamiliar, you need more practice.
-	NEGATIVE_STAR( 0x748D17B4, 1, 3, "item_broken_black_soul") {
+	NEGATIVE_STAR( 0x748D17B4, 1, 3, "broken_black_soul") {
 		@Override
         public Varier[] getInfluence(int count) {
 		    return new Varier[] {
@@ -127,7 +127,7 @@ public enum Soul {
 	 *      8 / 8 = 1
 	 *      1 * 40 = 40 (star)
 	 */
-	STAR( 0x9480E2D8, 4, 8, "item_complete_black_soul") {
+	STAR( 0x9480E2D8, 4, 8, "complete_black_soul") {
 		@Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {new Varier(Varier.Type.STAR | Varier.Type.OFFSET, count * (count + 2) / 2)};
@@ -145,7 +145,7 @@ public enum Soul {
 	 *      0.375 - ( -0.25 - 0.25) = 0.875
 	 *      0.875 * 20 = 17.5 (coin) 
 	 */
-	NEGATIVE_COIN( 0x59C3FED9, 1, 3, "item_broken_black_soul") {
+	NEGATIVE_COIN( 0x59C3FED9, 1, 3, "broken_black_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -171,7 +171,7 @@ public enum Soul {
 	 *      8 / 8 = 1
 	 *      1 * 80 = 80 (coin)
 	 */
-	COIN( 0x7C78490B, 4, 8, "item_complete_black_soul") {
+	COIN( 0x7C78490B, 4, 8, "complete_black_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -195,7 +195,7 @@ public enum Soul {
 	 *    0.95 * 20 = 18.5 (coin) ~> 19
 	 *    0.95 * 10 = 9.5  (star) ~> 9
 	 */
-	NEGATIVE_LUCKY( 0x987CA3CB, 2, 5, "item_complete_black_soul") {
+	NEGATIVE_LUCKY( 0x987CA3CB, 2, 5, "complete_black_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -221,7 +221,7 @@ public enum Soul {
 	 *      4 / 8 = 0.5       0.5 * 30 = 15
 	 *      5 / 8 = 0.625     0.625 * 30 = 18.75
 	 */
-	KEY( 0xC2BC6C6E, 6, 5, "item_complete_black_soul") {
+	KEY( 0xC2BC6C6E, 6, 5, "complete_black_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -241,7 +241,7 @@ public enum Soul {
 	 *      0.75 - (-0.25-0.5) = 1.5
 	 *      1.5 * 100 = 150 (life) 
 	 */
-	NEGATIVE_LIFE( 0x830591A0, 2, 3, "item_broken_yellow_soul") {
+	NEGATIVE_LIFE( 0x830591A0, 2, 3, "broken_yellow_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -266,7 +266,7 @@ public enum Soul {
 	 *     2.875 * 100 = 287.5
 	 * 
 	 */
-	LONG_LIFE( 0xAA388930, 3, 5, "item_broken_yellow_soul") {
+	LONG_LIFE( 0xAA388930, 3, 5, "broken_yellow_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -288,7 +288,7 @@ public enum Soul {
 	 *     (4 * 3) / 8 = 1.5
 	 *     1.5 * 100 = 150  
 	 */
-	LIFE( 0xF3CA11D7, 4, 3, "item_complete_yellow_soul") {
+	LIFE( 0xF3CA11D7, 4, 3, "complete_yellow_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -309,7 +309,7 @@ public enum Soul {
 	 *      0.75 - (-1.2 ) = 1.95
 	 *      1.95 * 4 = 7.8 
 	 */
-	NEGATIVE_ATTACK( 0x80161B2D, 2, 3, "item_broken_red_soul") {
+	NEGATIVE_ATTACK( 0x80161B2D, 2, 3, "broken_red_soul") {
 		@Override
         public Varier[] getInfluence(int count) {
 		    return new Varier[] {
@@ -331,7 +331,7 @@ public enum Soul {
 	 *     1.5 - (-1.75) = 3.25
 	 *     3.25 * 4 = 13 
 	 */
-	BERSERK( 0xDC7776BB, 3, 4, "item_broken_red_soul") {
+	BERSERK( 0xDC7776BB, 3, 4, "broken_red_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -354,7 +354,7 @@ public enum Soul {
 	 *      2 * 4 = 8
 	 *   
 	 */
-	ATTACK( 0x22EA9185, 4, 4, "item_complete_red_soul") {
+	ATTACK( 0x22EA9185, 4, 4, "complete_red_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -376,7 +376,7 @@ public enum Soul {
 	 *      2 * 4 = 8
 	 * 
 	 */
-	NEGATIVE_DEFENSE( 0x4C3C74BA, 2, 3, "item_broken_blue_soul") {
+	NEGATIVE_DEFENSE( 0x4C3C74BA, 2, 3, "broken_blue_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -399,7 +399,7 @@ public enum Soul {
 	 *      1.5 - (-3.5) = 5
 	 *      5 * 4 = 20 
 	 */
-	HARD_DEFENSE( 0x10C0E49C, 3, 4, "item_broken_blue_soul") {
+	HARD_DEFENSE( 0x10C0E49C, 3, 4, "broken_blue_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -421,7 +421,7 @@ public enum Soul {
 	 *      (4 * 4) / 8 = 2
 	 *      2 * 4 = 8
 	 */
-	DEFENSE( 0xDC894F5B, 4, 4, "item_complete_blue_soul") {
+	DEFENSE( 0xDC894F5B, 4, 4, "complete_blue_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -441,7 +441,7 @@ public enum Soul {
 	 *      0.75 -(-0.25-0.5) = 1.5
 	 *      1.5 * 2 = 3 
 	 */
-	NEGATIVE_SPEED( 0x31E2E774, 2, 3, "item_broken_green_soul") {
+	NEGATIVE_SPEED( 0x31E2E774, 2, 3, "broken_green_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -463,7 +463,7 @@ public enum Soul {
 	 *      1.125 - (-1.75) = 2.875
 	 *      2.875 * 2= 5.75
 	 */
-	RUNAWAY( 0xC3A77D4E, 3, 3, "item_broken_green_soul") {
+	RUNAWAY( 0xC3A77D4E, 3, 3, "broken_green_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -485,7 +485,7 @@ public enum Soul {
 	 *      4 * 5 / 8 = 2.5
 	 *      2.5 * 2 = 5
 	 */
-	SPEED( 0x0A1A981B, 4, 5, "item_complete_green_soul") {
+	SPEED( 0x0A1A981B, 4, 5, "complete_green_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -503,7 +503,7 @@ public enum Soul {
 	 *      0.5 * 100 = 50
 	 *      0.5 * 4   = 2
 	 */
-	PROTECT( 0xF23B16C6, 4, 2, "item_complete_cyan_soul") {
+	PROTECT( 0xF23B16C6, 4, 2, "complete_cyan_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -525,7 +525,7 @@ public enum Soul {
 	 *      0.5 * 2 = 1 (speed)
 	 * 
 	 */
-	CHARGE( 0x38AE3194, 4, 3, "item_complete_purple_soul") {
+	CHARGE( 0x38AE3194, 4, 3, "complete_purple_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             return new Varier[] {
@@ -553,7 +553,7 @@ public enum Soul {
 	 *      1 * 10  = 10
 	 * 
 	 */
-	BRAVE(0x21EE5B97, 5, 8, "item_broken_white_soul") {
+	BRAVE(0x21EE5B97, 5, 8, "broken_white_soul") {
         @Override
         public Varier[] getInfluence(int count) {
 		    if (8 <= count) {
@@ -583,7 +583,7 @@ public enum Soul {
 	 *      4 x 20 = 80
 	 * 
 	 */
-	DREAM(0x643AD8E5, 5, 8, "item_broken_white_soul") {
+	DREAM(0x643AD8E5, 5, 8, "broken_white_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             if (8 <= count) {
@@ -613,7 +613,7 @@ public enum Soul {
 	 *      1 x 10 = 10
 	 *      0.5 x 20 = 10
 	 */
-	HOPE(0x4DA9FA4F, 5, 8, "item_broken_white_soul") {
+	HOPE(0x4DA9FA4F, 5, 8, "broken_white_soul") {
         @Override
         public Varier[] getInfluence(int count) {
             if (8 <= count) {
@@ -630,14 +630,14 @@ public enum Soul {
 	public final int code;
 	public final int rank;
 	public final int maxCount;
-	public final String icon;
+	public final String iconKey;
 
 	// constructor
-	Soul(int code, int rank, int maxCount, String soulIcon) {
+	Soul(int code, int rank, int maxCount, String soulIconKey) {
 		this.code = code;
 		this.rank = rank;
 		this.maxCount = maxCount;
-		this.icon = soulIcon;
+		this.iconKey = soulIconKey;
 	}
 
 	// not override able...

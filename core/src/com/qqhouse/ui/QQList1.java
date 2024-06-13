@@ -631,8 +631,6 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
         scrollY += (64 + innerMargin) * amountY;
         if (scrollY < 0) scrollY = 0;
         if (scrollY > maxScrollY) scrollY = maxScrollY;
-        Gdx.app.error("QQList", "scrollY = " + scrollY + "@" + this);
-        //Gdx.app.error("QQList1.scrolled", "scrolled : " + scrollY);
         arrangeChildren();
         return false;
     }

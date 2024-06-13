@@ -6,12 +6,8 @@ import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
-import com.qqhouse.dungeon18plus.view.PreviewView;
 import com.qqhouse.dungeon18plus.view.PreviewView3;
-import com.qqhouse.dungeon18plus.view.TitleBarView;
-import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQLinear;
-import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQList1;
 import com.qqhouse.ui.QQPressAdapter;
 import com.qqhouse.ui.QQScreen;
@@ -115,7 +111,7 @@ public class SelectGiantScreen extends QQScreen {
             GiantRace giant = availableGiants.get(index);
             PreviewView3 v = new PreviewView3(assets);
             v.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-            v.reset(giant.icon, giant.name, giant.help, "ordinary");
+            v.reset(giant.iconKey, giant.nameKey, giant.helpKey, giant.alignment.key);
             // update extra value...
 
 

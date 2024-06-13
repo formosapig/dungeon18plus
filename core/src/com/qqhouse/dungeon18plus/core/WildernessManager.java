@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.core;
 
-import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignAction;
@@ -79,8 +78,8 @@ public class WildernessManager {
 		GuardInfo giantGuard = new GuardInfo();
 		Giant giant = new Giant(race);
 		giant.ourGuard = giantGuard;
-		giant.icon = giant.race.icon;
-		giant.bg = "bg_boss";
+		giant.iconKey = giant.race.iconKey;
+		giant.bgKey = race.alignment.key;//"chaotic";
 		giants.add(giant);
 		
 		// initial time
@@ -101,9 +100,9 @@ public class WildernessManager {
 			hero.heroFrom = heroFrom++;
 			hero.action = veteran.equipment.skill.get(veteran.mastery);
 			hero.ourGuard = legionGuard;
-			hero.icon = hero.heroClass.key;
-			hero.bg = hero.heroClass.alignment.key;
-			hero.lootIcon = veteran.equipment.icon;
+			hero.iconKey = hero.heroClass.key;
+			hero.bgKey = hero.heroClass.alignment.key;
+			hero.lootIconKey = "";//veteran.equipment.icon;
 			// add mHero
 			legions.add(hero);
 		}
@@ -193,7 +192,7 @@ public class WildernessManager {
 							target.life -= skillDamage;
 							// record total damage...
 							source.recordTotalDamage(skillDamage);
-							addBattleResult(target.icon, Operation.LIFE, -skillDamage);
+							addBattleResult(target.iconKey, Operation.LIFE, -skillDamage);
 						}
 					}
 				} else {
@@ -209,7 +208,7 @@ public class WildernessManager {
 							target.life -= resistDamage;
 							// record guard
 							target.recordTotalGuard(resistDamage);
-							addBattleResult(target.icon, Operation.LIFE, -resistDamage);
+							addBattleResult(target.iconKey, Operation.LIFE, -resistDamage);
 						} else {
 							Campaigner target = findRandomTarget(enemies, true);
 							if (null != target) {
@@ -217,7 +216,7 @@ public class WildernessManager {
 								target.life -= skillDamage;
 								// record total damage
 								source.recordTotalDamage(skillDamage);
-								addBattleResult(target.icon, Operation.LIFE, -skillDamage);
+								addBattleResult(target.iconKey, Operation.LIFE, -skillDamage);
 							}
 						}
 					}
@@ -349,7 +348,7 @@ public class WildernessManager {
                 source.recordTotalHeal(changeValue);
             }
 			target.life += changeValue;
-			addBattleResult(target.icon, Operation.LIFE, changeValue);
+			addBattleResult(target.iconKey, Operation.LIFE, changeValue);
 			// check life
 			if (1 > target.life)
 				target.life = 1; // assist will not kill yourself.
@@ -364,7 +363,7 @@ public class WildernessManager {
 			else
 				changeValue = assist.value;
 			target.attack += changeValue;
-			addBattleResult(target.icon, Operation.ATTACK, changeValue);
+			addBattleResult(target.iconKey, Operation.ATTACK, changeValue);
 			// check attack
 			if (0 > target.attack)
 				target.attack = 0;
@@ -378,7 +377,7 @@ public class WildernessManager {
 			else
 				changeValue = assist.value;
 			target.defense += changeValue;
-			addBattleResult(target.icon, Operation.DEFENSE, changeValue);
+			addBattleResult(target.iconKey, Operation.DEFENSE, changeValue);
 			// check defense
 			if (0 > target.defense)
 				target.defense = 0;
@@ -391,7 +390,7 @@ public class WildernessManager {
 			else
 				changeValue = assist.value;
 			target.speed += changeValue;
-			addBattleResult(target.icon, Operation.SPEED, changeValue);
+			addBattleResult(target.iconKey, Operation.SPEED, changeValue);
 			// check speed.
 			if (target.speed < Game.Setting.GLOBAL_HERO_MIN_SPEED) {
                 target.speed = Game.Setting.GLOBAL_HERO_MIN_SPEED;
@@ -403,13 +402,13 @@ public class WildernessManager {
 			target.life = target.maxLife * assist.value / 100;
 			// record heal
             source.recordTotalHeal(target.life);
-			addBattleResult(target.icon, Operation.RESURRECTION, target.life);
+			addBattleResult(target.iconKey, Operation.RESURRECTION, target.life);
 		}
 		// quick
 		if (assist.isQuick()) {
 			changeValue = target.coolDown * assist.value / 100;
 			target.coolDown += changeValue;
-			addBattleResult(target.icon, Operation.COOL_DOWN, changeValue);
+			addBattleResult(target.iconKey, Operation.COOL_DOWN, changeValue);
 			if (0 > target.coolDown)
 				target.coolDown = 0;
 		}
@@ -417,7 +416,7 @@ public class WildernessManager {
 		if (assist.isGuard()) {
 			target.ourGuard.guarder = target;
 			target.ourGuard.resist = assist.value;
-			addBattleResult(target.icon, Operation.GUARD, assist.value);
+			addBattleResult(target.iconKey, Operation.GUARD, assist.value);
 		}
 	}
 	
@@ -522,7 +521,7 @@ public class WildernessManager {
 						giant.ourGuard.guarder = null;
 						giant.ourGuard.resist = 0;
 					}
-					addBattleResult(giant.icon, Operation.SOUL, -1);
+					addBattleResult(giant.iconKey, Operation.SOUL, -1);
 					state |= UPDATE_HISTORY;
 				} else
 					allDie = false;
@@ -546,7 +545,7 @@ public class WildernessManager {
 						legion.ourGuard.guarder = null;
 						legion.ourGuard.resist = 0;
 					}
-					addBattleResult(legion.icon, Operation.SOUL, -1);
+					addBattleResult(legion.iconKey, Operation.SOUL, -1);
 					heroLoseLife((Legion)legion);
 					state |= UPDATE_HISTORY;
 				} else
@@ -710,7 +709,7 @@ public class WildernessManager {
 	private void displayTotalSummary() {
 	    ArrayList<CampaignScore> allScore = new ArrayList<>();
 	    for (Campaigner legion : legions) {
-            allScore.add(new CampaignScore(legion.icon, legion.getTotalDamage(), legion.getTotalGuard(), legion.getTotalHeal()));
+            allScore.add(new CampaignScore(legion.iconKey, legion.getTotalDamage(), legion.getTotalGuard(), legion.getTotalHeal()));
         }
 	    Collections.sort(allScore, Collections.reverseOrder());
 	    battleHistory.addAll(allScore);
@@ -743,7 +742,7 @@ public class WildernessManager {
 			Legion legion = findLuckyGuy();
 			if (null != legion) {
 				// update loop Icon
-				legion.lootIcon = drop.icon;
+				legion.lootIconKey = drop.iconKey;
 				// giant drop record add.
 				record.addSoul(drop);
 				// mHero get soul / coin
@@ -767,7 +766,7 @@ public class WildernessManager {
 		for (int i = 0; i < size; ++i) {
 			int index = (i + start) % size;
 			Legion legion = (Legion) legions.get(index);
-			if (legion.alive && "" == legion.lootIcon)
+			if (legion.alive && "".equals(legion.lootIconKey))
 				return legion;
 		}
 		
@@ -799,8 +798,8 @@ public class WildernessManager {
 	 */
 	private void addBattleAction(Campaigner source) {
 		CampaignAction ba = new CampaignAction();
-		ba.iconKey = source.icon;
-		ba.bgKey = source.bg;
+		ba.iconKey = source.iconKey;
+		ba.bgKey = source.bgKey;
 		ba.skillIconKey = source.action.skill.icon;
 		ba.time = time;
 		battleHistory.add(ba);

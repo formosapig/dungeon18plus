@@ -54,12 +54,12 @@ public enum UniqueSkill {
 	 * Red Slime
 	 */
 	// 全部攻擊同一隻會打死人，會被攻擊力影響，Angry之後變得更恐怖了,佰無法配上 Angry.
-	QUICK_10( "item_broken_green_soul",         0x3A11753B, 220, 220, new OpSt(DG_ATK,  125,  125,  10,  10)),
+	QUICK_10( "broken_green_soul",              0x3A11753B, 220, 220, new OpSt(DG_ATK,  125,  125,  10,  10)),
 	// 全程使用普攻打死 2 -> 3 隻的程度
-	ANGRY( "item_broken_red_soul",              0x7F6AC39D, 240, 240, new OpSt(AS_ATK,   15,   15,  ME,  ME),
+	ANGRY( "broken_red_soul",                   0x7F6AC39D, 240, 240, new OpSt(AS_ATK,   15,   15,  ME,  ME),
 			                                                          new OpSt(AS_SPD,   -5,   -5,  ME,  ME)),
 	// Life 90%, 不會被攻擊力影響
-	HEAVY_STRIKE( "item_broken_black_soul",     0x03539E76, 350, 350, new OpSt(DG_DEF,  775,  775,   1,   1)),
+	HEAVY_STRIKE( "broken_black_soul",          0x03539E76, 350, 350, new OpSt(DG_DEF,  775,  775,   1,   1)),
 
     /*
 	 * Skeleton Fighter
@@ -75,7 +75,7 @@ public enum UniqueSkill {
 	 * Green Pumpkin
 	 */
 	// 大爆發, 依被傷害的血量無差別攻擊人
-	PAIN_BOMB( "item_broken_yellow_soul",       0x4FA61DE2, 110, 110, new OpSt(DG_WND,    3,    3, ALL, ALL)),
+	PAIN_BOMB( "broken_yellow_soul",            0x4FA61DE2, 110, 110, new OpSt(DG_WND,    3,    3, ALL, ALL)),
 	
 	/*
 	 * Bloody Werewolf 
@@ -83,61 +83,61 @@ public enum UniqueSkill {
 	// 標準爪擊
 	CLAW( "icon32_attack",                      0x9358B9A3, 125, 125, new OpSt(DG_ATK, 1250, 1250,   2,   2)),
 	// 爪擊/加攻擊力
-	POWER_CLAW( "item_broken_red_soul",         0x7DB2B012, 135, 135, new OpSt(DG_ATK, 1250, 1250,   2,   2),
+	POWER_CLAW( "broken_red_soul",              0x7DB2B012, 135, 135, new OpSt(DG_ATK, 1250, 1250,   2,   2),
 			                                                          new OpSt(AS_ATK,   20,   20,  ME,  ME)),
 	// 爪擊/回血
-	LEECH_CLAW( "item_broken_yellow_soul",      0x7B79384E, 150, 150, new OpSt(DG_ATK, 1250, 1250,   2,   2),
+	LEECH_CLAW( "broken_yellow_soul",           0x7B79384E, 150, 150, new OpSt(DG_ATK, 1250, 1250,   2,   2),
 			                                                          new OpSt(AS_LIF, 1000, 1000,  ME,  ME)),
 	
 	/*
 	 * Snow Yeti
 	 */
 	// 吹雪:全體小傷害
-	SNOWDRIFT( "item_broken_blue_soul",         0xB9D9CD5F, 170, 170, new OpSt(DG_DEF,   50,   50, ALL, ALL),
+	SNOWDRIFT( "broken_blue_soul",              0xB9D9CD5F, 170, 170, new OpSt(DG_DEF,   50,   50, ALL, ALL),
 			                                                          new OpSt(AS_DEF,   25,   25,  ME,  ME)),
 	
 	/*
 	 * Thunder Bird
 	 */
 	// 風之槍 快速低傷, 減速, 增強其他招式威力
-	SPEAR_OF_WIND( "item_broken_green_soul",    0xA51E98D1,  65,  65, new OpSt(DG_ATK,  125,  125,   1,   1),
+	SPEAR_OF_WIND( "broken_green_soul",         0xA51E98D1,  65,  65, new OpSt(DG_ATK,  125,  125,   1,   1),
 			                                                          new OpSt(AS_SPD,   -2,   -2,  ME,  ME)),
 	// 音波 全體攻擊, 減少生命力
-	SONIC_ATTACK( "item_broken_yellow_soul",    0x70E70390, 130, 130, new OpSt(DG_ATK,   85,   85, ALL, ALL),
+	SONIC_ATTACK( "broken_yellow_soul",         0x70E70390, 130, 130, new OpSt(DG_ATK,   85,   85, ALL, ALL),
 			                                                          new OpSt(AS_LIR,   -5,   -5,  ME,  ME)),
 	// 螺旋羽毛 x10, 減少防禦力
-	SPIRAL_FEATHER( "item_broken_blue_soul",    0x57A742B5, 150, 150, new OpSt(DG_ATK,   75,   75,  10,  10),
+	SPIRAL_FEATHER( "broken_blue_soul",         0x57A742B5, 150, 150, new OpSt(DG_ATK,   75,   75,  10,  10),
 			                                                          new OpSt(AS_DER,   -5,   -5,  ME,  ME)),
 	// 閃電球 x3, 傷害依存速度, 速度回復原狀
-	THUNDER_BALL( "item_complete_cyan_soul",    0xB219B473, 300, 300, new OpSt(DG_SPD,25000,25000,   3,   3),
+	THUNDER_BALL( "complete_cyan_soul",         0xB219B473, 300, 300, new OpSt(DG_SPD,25000,25000,   3,   3),
 			                                                          new OpSt(AS_SP2,   25,   25,  ME,  ME)),
 	// 連鎖閃電 x6, 傷害依存速度, 速度回復原狀
-	CHAIN_LIGHTNING( "item_complete_green_soul",0x97AE8A66, 330, 330, new OpSt(DG_SPD,12500,12500,   6,   6),
+	CHAIN_LIGHTNING( "complete_green_soul",     0x97AE8A66, 330, 330, new OpSt(DG_SPD,12500,12500,   6,   6),
                                                                       new OpSt(AS_SP2,   25,   25,  ME,  ME)),
 	
 	/*
 	 * Steel Cyclops
 	 */
 	// 狂毆 大力打二下 (打掉80%血)
-	BASH( "item_complete_red_soul",             0xDB8A3EA1, 150, 150, new OpSt(DG_ATK,  766,  766,   2,   2)),
+	BASH( "complete_red_soul",                  0xDB8A3EA1, 150, 150, new OpSt(DG_ATK,  766,  766,   2,   2)),
 	// 全體攻擊
-	STOMP( "item_complete_blue_soul",           0xC46C79D6, 150, 150, new OpSt(DG_DEF,  433,  433, ALL, ALL)),
+	STOMP( "complete_blue_soul",                0xC46C79D6, 150, 150, new OpSt(DG_DEF,  433,  433, ALL, ALL)),
 	// 凝視 8000 ~ 0
-	GAZE( "item_complete_black_soul",           0x0BCA69A7, 150, 150, new OpSt(DG_LIF,    5,    5,   1,   1)),
+	GAZE( "complete_black_soul",                0x0BCA69A7, 150, 150, new OpSt(DG_LIF,    5,    5,   1,   1)),
 	
 	/*
 	 * Stone Face
 	 */
 	// life +100%
-	HEAL_100( "item_complete_yellow_soul",      0xEF3D438A, 120, 120, new OpSt(AS_LIR,  100,  100,  ME,  ME)),
+	HEAL_100( "complete_yellow_soul",           0xEF3D438A, 120, 120, new OpSt(AS_LIR,  100,  100,  ME,  ME)),
 	// 降攻
-	ATTACK_DOWN( "item_complete_red_soul",      0x7CE8BE01, 100, 100, new OpSt(DB_ATK,  -75,  -75, ALL, ALL)),
+	ATTACK_DOWN( "complete_red_soul",           0x7CE8BE01, 100, 100, new OpSt(DB_ATK,  -75,  -75, ALL, ALL)),
 	// 降防
-	DEFENSE_DOWN( "item_complete_blue_soul",    0x796C6159, 100, 100, new OpSt(DB_DEF,  -50,  -50, ALL, ALL)),
+	DEFENSE_DOWN( "complete_blue_soul",         0x796C6159, 100, 100, new OpSt(DB_DEF,  -50,  -50, ALL, ALL)),
 	// 減速
-	SPEED_DOWN( "item_complete_green_soul",     0xAA3393A7, 100, 100, new OpSt(DB_SPD,   10,   10, ALL, ALL)),
+	SPEED_DOWN( "complete_green_soul",          0xAA3393A7, 100, 100, new OpSt(DB_SPD,   10,   10, ALL, ALL)),
 	// Bubble, 自爆招式
-	BUBBLE( "item_complete_black_soul",         0x8FC8699A, 150, 150, new OpSt(DG_FIX, 2500, 2500, ALL, ALL),
+	BUBBLE( "complete_black_soul",              0x8FC8699A, 150, 150, new OpSt(DG_FIX, 2500, 2500, ALL, ALL),
 			                                                          new OpSt(AS_LI2, 9600, 9600,  ME,  ME)),
 	
 	/*

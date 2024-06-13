@@ -156,7 +156,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 						if (target.alive) {
 							int skillDamage = getDamageValue(opt, source, target.defense);
 							target.life -= skillDamage;
-							addBattleResult(target.icon, Operation.LIFE, -skillDamage);
+							addBattleResult(target.iconKey, Operation.LIFE, -skillDamage);
 						}
 					}
 				} else {
@@ -170,13 +170,13 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 							if (0 > resistDamage)
 								resistDamage = 0;
 							target.life -= resistDamage;
-							addBattleResult(target.icon, Operation.LIFE, -resistDamage);
+							addBattleResult(target.iconKey, Operation.LIFE, -resistDamage);
 						} else {
 							Campaigner target = findRandomTarget(enemies, true);
 							if (null != target) {
 								int skillDamage = getDamageValue(opt, source, target.defense);
 								target.life -= skillDamage;
-								addBattleResult(target.icon, Operation.LIFE, -skillDamage);
+								addBattleResult(target.iconKey, Operation.LIFE, -skillDamage);
 							}
 						}
 					}
@@ -302,7 +302,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 			else
 				changeValue = assist.value;
 			target.life += changeValue;
-			addBattleResult(target.icon, Operation.LIFE, changeValue);
+			addBattleResult(target.iconKey, Operation.LIFE, changeValue);
 			// check life
 			if (1 > target.life)
 				target.life = 1; // assist will not kill yourself.
@@ -317,7 +317,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 			else
 				changeValue = assist.value;
 			target.attack += changeValue;
-			addBattleResult(target.icon, Operation.ATTACK, changeValue);
+			addBattleResult(target.iconKey, Operation.ATTACK, changeValue);
 			// check attack
 			if (0 > target.attack)
 				target.attack = 0;
@@ -331,7 +331,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 			else
 				changeValue = assist.value;
 			target.defense += changeValue;
-			addBattleResult(target.icon, Operation.DEFENSE, changeValue);
+			addBattleResult(target.iconKey, Operation.DEFENSE, changeValue);
 			// check defense
 			if (0 > target.defense)
 				target.defense = 0;
@@ -344,7 +344,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 			else
 				changeValue = assist.value;
 			target.speed += changeValue;
-			addBattleResult(target.icon, Operation.SPEED, changeValue);
+			addBattleResult(target.iconKey, Operation.SPEED, changeValue);
 			// check speed.
 			if (target.speed < Game.Setting.GLOBAL_HERO_MIN_SPEED) {
                 target.speed = Game.Setting.GLOBAL_HERO_MIN_SPEED;
@@ -354,13 +354,13 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		if (assist.isResurrection() && !target.alive) {
 			target.alive = true;
 			target.life = target.maxLife * assist.value / 100;
-			addBattleResult(target.icon, Operation.RESURRECTION, target.life);
+			addBattleResult(target.iconKey, Operation.RESURRECTION, target.life);
 		}
 		// quick
 		if (assist.isQuick()) {
 			changeValue = target.coolDown * assist.value / 100;
 			target.coolDown += changeValue;
-			addBattleResult(target.icon, Operation.COOL_DOWN, changeValue);
+			addBattleResult(target.iconKey, Operation.COOL_DOWN, changeValue);
 			if (0 > target.coolDown)
 				target.coolDown = 0;
 		}
@@ -368,7 +368,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		if (assist.isGuard()) {
 			target.ourGuard.guarder = target;
 			target.ourGuard.resist = assist.value;
-			addBattleResult(target.icon, Operation.GUARD, assist.value);
+			addBattleResult(target.iconKey, Operation.GUARD, assist.value);
 		}
 	}
 	
@@ -471,7 +471,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 						giant.ourGuard.guarder = null;
 						giant.ourGuard.resist = 0;
 					}
-					addBattleResult(giant.icon, Operation.SOUL, -1);
+					addBattleResult(giant.iconKey, Operation.SOUL, -1);
 					state |= UPDATE_HISTORY;
 				} else
 					allDie = false;
@@ -495,7 +495,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 						legion.ourGuard.guarder = null;
 						legion.ourGuard.resist = 0;
 					}
-					addBattleResult(legion.icon, Operation.SOUL, -1);
+					addBattleResult(legion.iconKey, Operation.SOUL, -1);
 					heroLoseLife((Legion)legion);
 					state |= UPDATE_HISTORY;
 				} else
@@ -649,7 +649,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 			Legion legion = findLuckyGuy();
 			if (null != legion) {
 				// update loop Icon
-				legion.lootIcon = drop.icon;
+				legion.lootIconKey = drop.iconKey;
 				// giant drop record add.
 				record.addSoul(drop);
 				// mHero get soul / coin
@@ -673,7 +673,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		for (int i = 0; i < size; ++i) {
 			int index = (i + start) % size;
 			Legion legion = (Legion) homeTeam.get(index);
-			if (legion.alive && "" == legion.lootIcon)
+			if (legion.alive && "" == legion.lootIconKey)
 				return legion;
 		}
 		
@@ -704,8 +704,8 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 	 */
 	private void addBattleAction(Campaigner source) {
 		CampaignAction ba = new CampaignAction();
-		ba.iconKey = source.icon;
-		ba.bgKey = source.bg;
+		ba.iconKey = source.iconKey;
+		ba.bgKey = source.bgKey;
 		ba.skillIconKey = source.action.skill.icon;
 		ba.time = time;
 		battleHistory.add(ba);
