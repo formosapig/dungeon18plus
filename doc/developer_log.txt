@@ -1,3 +1,9 @@
+--------------- 20240615(六) ---------------
+- enum type 使用 == 比較比較好.
+  1. faster
+  2. null pointer exception safe
+  3. check type at compile time
+
 --------------- 20240521(二) ---------------
 - 在 reset 時先將 view 陣列初始化後，第一個 view 的 addChild 呼叫
   arrangeChildren 然後直接存取還沒有初始化的第二個 view。

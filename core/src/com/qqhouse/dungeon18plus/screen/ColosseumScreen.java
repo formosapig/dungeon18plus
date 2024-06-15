@@ -233,7 +233,7 @@ public class ColosseumScreen extends QQScreen {
     }
 
     private void endGame(boolean isWin) {
-        if (manager.backpack.isEmpty()) {
+        if (manager.createBackpack().isEmpty()) {
             callback.onColosseumResult(null);
         } else {
 
@@ -242,7 +242,7 @@ public class ColosseumScreen extends QQScreen {
 
             // call summary dialog.
             SelectEquipmentDialog dialog = new SelectEquipmentDialog(assets, getViewport());
-            dialog.reset(manager.createVeteran(), manager.backpack, new SelectEquipmentView.SelectEquipmentCallback() {
+            dialog.reset(manager.createVeteran(), manager.createBackpack(), new SelectEquipmentView.SelectEquipmentCallback() {
                 @Override
                 public void SelectEquipmentDone(Veteran veteran) {
                     if (savedGame.getLegionCount() + savedGame.getBarrackCount() < Game.MAX_BARRACK_SIZE) {

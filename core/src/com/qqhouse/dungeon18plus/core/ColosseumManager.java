@@ -21,16 +21,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class ColosseumManager extends GameManager<ColosseumHero> /*implements RecyclerViewAdapter.DataSource*/ {
+public class ColosseumManager extends GameManager<ColosseumHero> {
 
-    // XXX 不可以讀取 GameData 的指標並且存著,因為一旦重新讀取 GameData 後,就會存到不知道什麼地方去了. 這個錯犯過一次了,這次又犯了.
-    
     private final ArrayList<Event> mEvents = new ArrayList<>();
     private final ArrayList<Item> mShopItems = new ArrayList<>();
-    public final ArrayList<EquipmentMastery> backpack = new ArrayList<>();
-
-    // RecyclerViewAdapter
-    //private RecyclerViewAdapter mAdapter;
+    private final ArrayList<EquipmentMastery> backpack = new ArrayList<>();
 
     // mark end game event.
     private Event END_GAME = new Event(EventType.GAME_OVER);
@@ -39,7 +34,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
     public final EventResult eventResult = new EventResult();
     private final EventInfo mEventInfo = new EventInfo();
     private int mEventIndex;
-	private SaveGame savedGame;
+	private final SaveGame savedGame;
 
     public ColosseumManager(HeroClass heroClass, SaveGame savedGame) {
 
@@ -85,7 +80,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 
     private void enterRound() {
 		// round number ++
-        mHero.round++;
+		mHero.round++;
 		mHero.clearBattleBuffer();
 		
 		// give 10 coin every 3 round
@@ -213,32 +208,33 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 			if (evt.isKnight()) {
 				//GameData.getInstance().heroClassData.addColosseum(evt.heroClass, 0);
 				//HeroClassRecord record = GameData.getInstance().getHeroClassRecord(mHero.heroClass);
+				HeroClassRecord record = savedGame.getHeroClassRecord(mHero.heroClass);
 
 				switch(evt.getHeroClass()) {
                     case EARTH_KNIGHT: {
-                        //if (G.HERO_MAX_MIRROR > record.yellowMirror) {
-                        //    record.yellowMirror++;
-                        //}
-                        //GameData.getInstance().unlockColosseum(HeroClass.EARTH_KNIGHT);
+                        if (Game.Setting.HERO_MAX_MIRROR > record.yellowMirror) {
+                            record.yellowMirror++;
+                        }
+						savedGame.unlockColosseum(HeroClass.EARTH_KNIGHT);
                     }
                     break;
                     case FIRE_KNIGHT: {
-                        //if (G.HERO_MAX_MIRROR > record.redMirror) {
-                        //    record.redMirror++;
-                        //}
+                        if (Game.Setting.HERO_MAX_MIRROR > record.redMirror) {
+                            record.redMirror++;
+                        }
                     }
                     break;
                     case WATER_KNIGHT: {
-                        //if (G.HERO_MAX_MIRROR > record.blueMirror) {
-                        //    record.blueMirror++;
-                        //}
+                        if (Game.Setting.HERO_MAX_MIRROR > record.blueMirror) {
+                            record.blueMirror++;
+                        }
                     }
                     break;
 				    case WIND_KNIGHT: {
-                        //if (G.HERO_MAX_MIRROR > record.greenMirror) {
-                        //    record.greenMirror++;
-                        //}
-                        //GameData.getInstance().unlockColosseum(HeroClass.WIND_KNIGHT);
+                        if (Game.Setting.HERO_MAX_MIRROR > record.greenMirror) {
+                            record.greenMirror++;
+                        }
+						savedGame.unlockColosseum(HeroClass.WIND_KNIGHT);
                     }
                     break;
 
@@ -386,7 +382,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 		if (loot.isEquipment()) {
 			final int mastery = savedGame.getHeroClassRecord(mHero.heroClass).getMastery(loot);
 			backpack.add(new EquipmentMastery(loot,
-				Game.MASTERY_NOT_FOUND == mastery ? addMastery() : mastery / 2));
+				Game.Setting.MASTERY_NOT_FOUND == mastery ? addMastery() : mastery / 2));
 			Collections.sort(backpack);
 		}
 		
@@ -447,10 +443,50 @@ public class ColosseumManager extends GameManager<ColosseumHero> /*implements Re
 
     /*
      * create veteran from mHero + backpack
+     * create backpack from List's backpack
      */
     public Veteran createVeteran() {
 		return new Veteran(mHero);
     }
+
+	public ArrayList<EquipmentMastery> createBackpack() {
+
+		HeroClassRecord record = savedGame.getHeroClassRecord(mHero.heroClass);
+		for (EquipmentMastery em : backpack) {
+
+			// is mastery in mHero class setting ?
+			boolean isMastery = false;
+			for (Item equip : record.heroClass.masteryEquipment) {
+				if (em.equipment == equip) {
+					isMastery = true;
+					break;
+				}
+			}
+
+			// update mastery.
+			if (isMastery) {
+				// can not exceed mastery max.
+				if (Game.Setting.SPECIFIC_MASTERY_MAX < em.mastery)
+					em.mastery = Game.Setting.SPECIFIC_MASTERY_MAX;
+				// update mastery.
+				int mastery = record.getMastery(em.equipment);
+				if (mastery < em.mastery)
+					record.updateMastery(em.equipment, em.mastery);
+				else
+					em.mastery = mastery;
+			} else {
+				if (Game.Setting.GENERAL_MASTERY_MAX < em.mastery)
+					em.mastery = Game.Setting.GENERAL_MASTERY_MAX;
+			}
+
+			//UniqueSkillData act = em.equipment.skill.get(em.mastery);
+			//act.isMastery = isMastery;
+			//act.mastery = em.mastery;
+			//mData.add(act);
+		}
+		return backpack;
+	}
+
 
 
     /*

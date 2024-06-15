@@ -63,7 +63,7 @@ public class VeteranView extends AssetGroup {
         life = new QQProgress(assets.getNinePatchBG("black"), assets.getNinePatchBG("yellow"));
         //life.setSize(200, 8);
         life.setPosition(104, 8);
-        life.setPercent(veteran.life * 100 / Game.HERO_MAX_LIFE);
+        life.setPercent(veteran.life * 100 / Game.Setting.HERO_MAX_LIFE);
         addChild(life);
 
         setBackground(assets.getNinePatchBG(veteran.heroClass.alignment.key));

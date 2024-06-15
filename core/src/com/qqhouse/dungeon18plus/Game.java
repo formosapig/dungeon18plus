@@ -110,8 +110,18 @@ public class Game {
         public static final int GLOBAL_HERO_MIN_SPEED               = 4;
         // campaign ( Wilderness battle / Dual Battle )
         public static final int CAMPAIGN_MAX_TIME                   = 999;
-
-
+        /*
+         * Hero Define
+         */
+        public static final int HERO_MAX_MIRROR         = 3;
+        public static final int HERO_DEFAULT_SOUL_SIZE  = 4;
+        public static final int HERO_MAX_LIFE           = 3000;
+        /*
+         * Mastery define
+         */
+        public static final int MASTERY_NOT_FOUND       = -1;    // can not find mastery data.
+        public static final int SPECIFIC_MASTERY_MAX    = 200;    // mastery max with specific equipment
+        public static final int GENERAL_MASTERY_MAX     = 100;    // mastery max with general equipment
     }
 
 
@@ -204,19 +214,8 @@ public class Game {
     // boss data
     public static final int BOSS_LEVEL_MAX    = 7;    // skeleton king exclude
 
-    /*
-     * Hero Define
-     */
-    public static final int HERO_MAX_MIRROR        = 3;
-    public static final int HERO_DEFAULT_SOUL_SIZE = 4;
-    public static final int HERO_MAX_LIFE          = 3000;
 
-    /*
-     * Mastery define
-     */
-    public static final int MASTERY_NOT_FOUND    = -1;    // can not find mastery data.
-    public static final int SPECIFIC_MASTERY_MAX = 200;    // mastery max with specific equipment
-    public static final int GENERAL_MASTERY_MAX     = 100;    // mastery max with general equipment
+
 
     /*
      * from another dungeon
@@ -301,9 +300,9 @@ public class Game {
 
         if (TEST_UNIQUE_SKILL_COOL_DOWN) {
             for (UniqueSkill us : UniqueSkill.values()) {
-                UniqueSkillData data = us.get(Game.SPECIFIC_MASTERY_MAX);
+                UniqueSkillData data = us.get(Game.Setting.SPECIFIC_MASTERY_MAX);
                 if (40 >= data.coolDown) {
-                    Gdx.app.error("d18", String.format("Unique Skill : %s[%d] -> CD=%d", us.toString(), Game.SPECIFIC_MASTERY_MAX, data.coolDown));
+                    Gdx.app.error("d18", String.format("Unique Skill : %s[%d] -> CD=%d", us.toString(), Game.Setting.SPECIFIC_MASTERY_MAX, data.coolDown));
                 }
             }
         }

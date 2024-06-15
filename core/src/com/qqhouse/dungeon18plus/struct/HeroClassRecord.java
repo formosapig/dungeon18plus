@@ -51,7 +51,7 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 		this.highLevel = 0;
 		this.highScore = 0;
 		this.maxRound = 0;
-		this.maxSoulSize = Game.HERO_DEFAULT_SOUL_SIZE;
+		this.maxSoulSize = Game.Setting.HERO_DEFAULT_SOUL_SIZE;
 	}
 	
 	public HeroClassRecord(HeroClass heroClass, int gameMode, int highLevel, int highScore, int maxRound, int maxSoulSize) {
@@ -85,8 +85,8 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 			EquipmentMastery em = equips.get(i);
 			if (em.equipment == equip) {
 				// can not exceed max
-				if (Game.SPECIFIC_MASTERY_MAX < mastery)
-					mastery = Game.SPECIFIC_MASTERY_MAX;
+				if (Game.Setting.SPECIFIC_MASTERY_MAX < mastery)
+					mastery = Game.Setting.SPECIFIC_MASTERY_MAX;
 				if (em.mastery < mastery)
 					em.mastery = mastery;
 				return;
@@ -109,7 +109,7 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 				return em.mastery;
 			}
 		}
-		return Game.MASTERY_NOT_FOUND;
+		return Game.Setting.MASTERY_NOT_FOUND;
 	}
 	
 	public int getSoulCount() {
