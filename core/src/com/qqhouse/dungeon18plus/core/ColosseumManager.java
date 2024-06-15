@@ -25,7 +25,8 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
 
     private final ArrayList<Event> mEvents = new ArrayList<>();
     private final ArrayList<Item> mShopItems = new ArrayList<>();
-    private final ArrayList<EquipmentMastery> backpack = new ArrayList<>();
+    //private final ArrayList<EquipmentMastery> backpack = new ArrayList<>();
+	private final ArrayList<Item> backpackItems = new ArrayList<>();
 
     // mark end game event.
     private Event END_GAME = new Event(EventType.GAME_OVER);
@@ -93,9 +94,9 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
 		mHero.star += 30;
 		eventResult.star += 30;
 		
-		// update mastery in backpack
-		for (EquipmentMastery em : backpack)
-			em.mastery += addMastery();
+        // update mastery in backpack
+        //for (EquipmentMastery em : backpack)
+        //	em.mastery += addMastery();
 		
 		// give gladiator and added into Event.
 		if (mHero.round < 40) {
@@ -379,19 +380,23 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
         gainLoot(loot, result);
 
 		// save equipment to backpack
-		if (loot.isEquipment()) {
-			final int mastery = savedGame.getHeroClassRecord(mHero.heroClass).getMastery(loot);
-			backpack.add(new EquipmentMastery(loot,
-				Game.Setting.MASTERY_NOT_FOUND == mastery ? addMastery() : mastery / 2));
-			Collections.sort(backpack);
-		}
+		if (loot.isEquipment())
+			backpackItems.add(loot);
+        // save equipment to backpack
+        //if (loot.isEquipment()) {
+        //    backpack.add(new EquipmentMastery(loot, 0));
+			//final int mastery = savedGame.getHeroClassRecord(mHero.heroClass).getMastery(loot);
+			//backpack.add(new EquipmentMastery(loot,
+			//	Game.Setting.MASTERY_NOT_FOUND == mastery ? addMastery() : mastery / 2));
+			//Collections.sort(backpack);
+		//}
 		
     }
     
     // add 1 ~ 4
-    private int addMastery() {
-		return mRandom.nextInt(5) + 1;
-    }
+    //private int addMastery() {
+	//	return mRandom.nextInt(5) + 1;
+    //}
     
     private void learning(HeroClass gladiatorClass) {
 		switch (gladiatorClass) {
@@ -442,47 +447,49 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
     }
 
     /*
-     * create veteran from mHero + backpack
+     * create veteran from mHero
      * create backpack from List's backpack
      */
     public Veteran createVeteran() {
 		return new Veteran(mHero);
     }
 
+	private int getMasteryPlus(int round) {
+		int mastery = 0;
+		for (int i = 0; i < round; ++i) {
+			mastery += mRandom.nextInt(4) + 1;
+		}
+		return mastery;
+	}
+
 	public ArrayList<EquipmentMastery> createBackpack() {
+		ArrayList<EquipmentMastery> backpack = new ArrayList<>();
 
 		HeroClassRecord record = savedGame.getHeroClassRecord(mHero.heroClass);
-		for (EquipmentMastery em : backpack) {
+		for (Item bi : backpackItems) {
 
-			// is mastery in mHero class setting ?
-			boolean isMastery = false;
-			for (Item equip : record.heroClass.masteryEquipment) {
-				if (em.equipment == equip) {
-					isMastery = true;
-					break;
-				}
-			}
+			int mastery = record.getMastery(bi);
+			int masteryPlus = getMasteryPlus(mHero.round);
+			int finalMastery = 0;
 
-			// update mastery.
-			if (isMastery) {
-				// can not exceed mastery max.
-				if (Game.Setting.SPECIFIC_MASTERY_MAX < em.mastery)
-					em.mastery = Game.Setting.SPECIFIC_MASTERY_MAX;
-				// update mastery.
-				int mastery = record.getMastery(em.equipment);
-				if (mastery < em.mastery)
-					record.updateMastery(em.equipment, em.mastery);
-				else
-					em.mastery = mastery;
+			if (Game.Setting.MASTERY_NOT_FOUND == mastery) {
+				if (Game.Setting.GENERAL_MASTERY_MAX < masteryPlus)
+					masteryPlus = Game.Setting.GENERAL_MASTERY_MAX;
+				finalMastery = masteryPlus;
 			} else {
-				if (Game.Setting.GENERAL_MASTERY_MAX < em.mastery)
-					em.mastery = Game.Setting.GENERAL_MASTERY_MAX;
+				finalMastery = (mastery / 2) + masteryPlus;
+				// can not exceed mastery max.
+				if (Game.Setting.SPECIFIC_MASTERY_MAX < finalMastery)
+					finalMastery = Game.Setting.SPECIFIC_MASTERY_MAX;
+				// update mastery.
+				if (mastery < finalMastery)
+					record.updateMastery(bi, finalMastery);
+				else
+					finalMastery = mastery;
+
 			}
 
-			//UniqueSkillData act = em.equipment.skill.get(em.mastery);
-			//act.isMastery = isMastery;
-			//act.mastery = em.mastery;
-			//mData.add(act);
+			backpack.add(new EquipmentMastery(bi, finalMastery));
 		}
 		return backpack;
 	}
