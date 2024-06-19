@@ -8,6 +8,7 @@ import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.ItemDetailView;
 import com.qqhouse.dungeon18plus.view.TitleBarView2;
+import com.qqhouse.ui.QQCyclePager;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQScreen;
@@ -53,15 +54,15 @@ public class HeroAlbumScreen extends QQScreen {
         group.addChild(line);
 
         // all hero ...
-        QQViewPager viewPager = new QQViewPager(getViewport(), Game.Size.WIDGET_MARGIN);
+        QQCyclePager cyclePager = new QQCyclePager(getViewport(), Game.Size.WIDGET_MARGIN);
         //QQList list = new QQList(getViewport());
         //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         //list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 48 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4
-        viewPager.setSize(QQView.MATCH_PARENT, 64);
-        viewPager.setAdapter(adapter);
+        cyclePager.setSize(QQView.MATCH_PARENT, 64);
+        cyclePager.setAdapter(adapter);
         //viewPager.setPosition(0, 100);
-        viewPager.setBackground(assets.getNinePatchBG("blessed"));
-        group.addChild(viewPager);
+        //viewPager.setBackground(assets.getNinePatchBG("blessed"));
+        group.addChild(cyclePager);
 
     }
 
@@ -73,7 +74,7 @@ public class HeroAlbumScreen extends QQScreen {
     /*
         QQList.Adapter series...
      */
-    private QQViewPager.Adapter adapter = new QQViewPager.Adapter() {
+    private QQCyclePager.Adapter adapter = new QQCyclePager.Adapter() {
 
         @Override
         public int getSize() {

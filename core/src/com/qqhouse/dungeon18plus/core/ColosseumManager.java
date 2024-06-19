@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.core;
 
+import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.Ability;
@@ -84,15 +85,17 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
 		mHero.round++;
 		mHero.clearBattleBuffer();
 		
-		// give 10 coin every 3 round
+		// give coins every 3 round [50, 50, 50, 55]
 		if (mHero.round % 3 == 0) {
-            mHero.coin += 50;
-            eventResult.coin += 50;
+			int giveCoin = mRandom.nextInt(4) == 0 ? 55 : 50;
+            mHero.coin += giveCoin;
+            eventResult.coin += giveCoin;
         }
 		
-		// give 3 star every round
-		mHero.star += 30;
-		eventResult.star += 30;
+		// give stars every round 30 [28, 30, 32]
+		int giveStar = mRandom.nextInt(3) * 2 + 28;
+		mHero.star += giveStar;//30;
+		eventResult.star += giveStar;//30;
 		
         // update mastery in backpack
         //for (EquipmentMastery em : backpack)
@@ -126,6 +129,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
                     for (Item item : mHero.heroClass.masteryEquipment) {
                         if (item == loot) {
                             shop.setMasterEquipment();
+							backpackItems.add(loot);
                             break;
                         }
                     }
@@ -380,8 +384,8 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
         gainLoot(loot, result);
 
 		// save equipment to backpack
-		if (loot.isEquipment())
-			backpackItems.add(loot);
+        // if (loot.isEquipment())
+		//	backpackItems.add(loot);
         // save equipment to backpack
         //if (loot.isEquipment()) {
         //    backpack.add(new EquipmentMastery(loot, 0));
@@ -472,11 +476,12 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
 			int masteryPlus = getMasteryPlus(mHero.round);
 			int finalMastery = 0;
 
-			if (Game.Setting.MASTERY_NOT_FOUND == mastery) {
-				if (Game.Setting.GENERAL_MASTERY_MAX < masteryPlus)
-					masteryPlus = Game.Setting.GENERAL_MASTERY_MAX;
-				finalMastery = masteryPlus;
-			} else {
+			Gdx.app.error("ColosseumManager", "createBackpack " + bi + " : " + mastery + "," + masteryPlus);
+			//if (Game.Setting.MASTERY_NOT_FOUND == mastery) {
+			//	if (Game.Setting.GENERAL_MASTERY_MAX < masteryPlus)
+			//		masteryPlus = Game.Setting.GENERAL_MASTERY_MAX;
+			//	finalMastery = masteryPlus;
+			//} else {
 				finalMastery = (mastery / 2) + masteryPlus;
 				// can not exceed mastery max.
 				if (Game.Setting.SPECIFIC_MASTERY_MAX < finalMastery)
@@ -487,7 +492,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
 				else
 					finalMastery = mastery;
 
-			}
+			//}
 
 			backpack.add(new EquipmentMastery(bi, finalMastery));
 		}

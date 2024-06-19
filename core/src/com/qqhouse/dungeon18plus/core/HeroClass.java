@@ -172,7 +172,7 @@ public enum HeroClass {
 	    "fairy",      // key
         NEUTRAL,      // fairy is neutral
 	    new Item[] {}, // mastery equipment
-	    new Action[] {Action.HOLY_ATTACK, Action.HOLY_DEFENSE, Action.HOLY_SPEED, Action.DOPPELGANGER}, // upgrade
+	    new Action[] {Action.DOPPELGANGER, Action.HOLY_ATTACK, Action.HOLY_DEFENSE, Action.HOLY_SPEED}, // upgrade
 	    Feat.combine(HOLY_ONE, HEAL, ENDLESS_PURSE), // feat
 	      99,  22,   0, 32, // start attribute
 	      99, 999, 999,  4, // min limit

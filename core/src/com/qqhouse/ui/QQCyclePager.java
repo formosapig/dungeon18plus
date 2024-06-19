@@ -1,17 +1,16 @@
 package com.qqhouse.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class QQViewPager extends QQLinear implements QQView.IsTouchable {
+public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
 
     public static abstract class Adapter {
-        private QQViewPager viewPager;
-        protected void setViewPager(QQViewPager viewPager) { this.viewPager = viewPager; }
+        private QQCyclePager cyclePager;
+        protected void setCyclePager(QQCyclePager cyclePager) { this.cyclePager = cyclePager; }
 
         public abstract int getSize();
         public abstract QQView getView(int index, QQView view);
@@ -22,8 +21,10 @@ public class QQViewPager extends QQLinear implements QQView.IsTouchable {
     private float touchX = -1, scrollX, maxScrollX;
     private final Viewport viewport;
     private IsTouchable hitBeforeScroll;
+    private int pageNum = 1;
+    private int currentPage;
 
-    public QQViewPager(Viewport viewport, int innerMargin) {
+    public QQCyclePager(Viewport viewport, int innerMargin) {
         super(false, innerMargin);
         this.viewport = viewport;
     }
@@ -76,11 +77,11 @@ public class QQViewPager extends QQLinear implements QQView.IsTouchable {
         Adapter series
      */
     private Adapter adapter;
-    public void setAdapter(QQViewPager.Adapter adapter) {
+    public void setAdapter(QQCyclePager.Adapter adapter) {
         if (null != this.adapter)
             throw new GdxRuntimeException("QQViewPager can only set adapter once.");
         this.adapter = adapter;
-        adapter.setViewPager(this);
+        adapter.setCyclePager(this);
         for (int i = 0, s = adapter.getSize(); i < s; ++i) {
             QQView child = adapter.getView(i, null);
             childrenView.add(child);
@@ -102,6 +103,8 @@ public class QQViewPager extends QQLinear implements QQView.IsTouchable {
             resetWrapHeight();
         if (wrapWidth && !isVertical)
             resetWrapWidth();
+
+        currentPage = 0;
 
         arrangeChildren();
         calculateMaxScrollX();
@@ -272,8 +275,8 @@ public class QQViewPager extends QQLinear implements QQView.IsTouchable {
         void onLongPress(int index);
     }
 
-    private QQViewPager.PressListener listener;
-    public void setPressListener(QQViewPager.PressListener listener) {
+    private QQCyclePager.PressListener listener;
+    public void setPressListener(QQCyclePager.PressListener listener) {
         this.listener = listener;
     }
 

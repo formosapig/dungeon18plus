@@ -61,8 +61,6 @@ public enum Action {
 	HOLY_ATTACK(UPGRADE, "white_sword", STAR_9, ATTACK_6),
 	HOLY_DEFENSE(UPGRADE, "white_shield", STAR_9, DEFENSE_6),
 	HOLY_SPEED(UPGRADE, "white_shoe", STAR_9, SPEED_2),
-	DOPPELGANGER(SKILL, "black_shoe", KEY_9),
-
 	
 	// skeleton king
 	DARK_FORCE(UPGRADE, "black_sword", SOUL_99, ATTACK_15),
@@ -100,6 +98,9 @@ public enum Action {
 	// berserker
 	FRENZY(SKILL, "attack", Varier.NONE),
 	TWO_HAND_HOLD(SKILL, "item_great_sword", Varier.NONE),
+
+	// fairy
+	DOPPELGANGER(SKILL, "black_shoe", KEY_9),
 
     // test
     HIT(SKILL, "item_star", Varier.NONE),
