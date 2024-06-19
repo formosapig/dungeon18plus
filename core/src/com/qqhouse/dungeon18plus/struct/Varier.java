@@ -80,6 +80,7 @@ public class Varier {
     public static final Varier LIFE_150       = new Varier(Type.LIFE | Type.OFFSET, 150);
     public static final Varier LIFE_200       = new Varier(Type.LIFE | Type.OFFSET, 200);
     public static final Varier LIFE_250       = new Varier(Type.LIFE | Type.OFFSET, 250);
+    public static final Varier LIFE_500       = new Varier(Type.LIFE | Type.OFFSET, 500);
 
     // add 50% life
     public static final Varier LIFE_100P      = new Varier(Type.LIFE | Type.PERCENT, 100);
@@ -106,6 +107,8 @@ public class Varier {
     public static final Varier ATTACK_22      = new Varier(Type.ATTACK | Type.OFFSET, 22);
     public static final Varier ATTACK_25      = new Varier(Type.ATTACK | Type.OFFSET, 25);
     public static final Varier ATTACK_50      = new Varier(Type.ATTACK | Type.OFFSET, 50);
+    public static final Varier ATTACK_100     = new Varier(Type.ATTACK | Type.OFFSET, 100);
+
     // ring of attack, add 10% attack
     public static final Varier ATTACK_10P     = new Varier(Type.ATTACK | Type.PERCENT, 10);
 
@@ -129,6 +132,8 @@ public class Varier {
     public static final Varier DEFENSE_20     = new Varier(Type.DEFENSE | Type.OFFSET, 20);
     public static final Varier DEFENSE_22     = new Varier(Type.DEFENSE | Type.OFFSET, 22);
     public static final Varier DEFENSE_50     = new Varier(Type.DEFENSE | Type.OFFSET, 50);
+    public static final Varier DEFENSE_100    = new Varier(Type.DEFENSE | Type.OFFSET, 100);
+
     // ring of defense, add 10% defense
     public static final Varier DEFENSE_10P    = new Varier(Type.DEFENSE | Type.PERCENT, 10);
 
@@ -144,6 +149,8 @@ public class Varier {
     public static final Varier SPEED_5        = new Varier(Type.SPEED | Type.OFFSET, -5);
     public static final Varier SPEED_6        = new Varier(Type.SPEED | Type.OFFSET, -6);
     public static final Varier SPEED_8        = new Varier(Type.SPEED | Type.OFFSET, -8);
+    public static final Varier SPEED_10       = new Varier(Type.SPEED | Type.OFFSET, -10);
+
     // set speed = 8, if speed < 8 then ?
     // TODO check if speed < 8
     public static final Varier SPEED_S8       = new Varier(Type.SPEED | Type.SET, 8);

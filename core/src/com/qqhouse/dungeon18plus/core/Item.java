@@ -59,16 +59,16 @@ public enum Item {
 
     // POTION
     YELLOW_POTION( 0x628CC786, "yellow_potion", "yellow_potion", "potion_help",
-            Type.POTION, 0),
+            Type.POTION, 25, LIFE_500),
     RED_POTION( 0x5F9D5113, "red_potion", "red_potion", "potion_help",
-            Type.POTION, 0),
+            Type.POTION, 35, ATTACK_100),
     BLUE_POTION( 0x2C912503, "blue_potion", "blue_potion", "potion_help",
-            Type.POTION, 0),
+            Type.POTION, 35, DEFENSE_100),
     GREEN_POTION( 0x119914C1, "green_potion", "green_potion", "potion_help",
-            Type.POTION, 0),
+            Type.POTION, 20, SPEED_10),
     //    PURPLE_POTION(   0x551CB91B, Loot.TYPE_POTION,     0,  0,  0,   0,  0, "purple_potion", "purple_potion", "purple_potion_help),
     CYAN_POTION( 0x522D42A8, "cyan_potion", "cyan_potion", "potion_help",
-            Type.POTION, 0),
+            Type.POTION, 0, COMBO_1),
 //    BLACK_POTION(    0x95DFDE69, Loot.TYPE_POTION,     0,  0,  0,   0,  0, "black_potion", "black_potion", "black_potion_help),
 //    WHITE_POTION(    0x7BD2A32A, Loot.TYPE_POTION,     0,  0,  0,   0,  0, "white_potion", "white_potion", "white_potion_help),
 

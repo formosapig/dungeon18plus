@@ -250,8 +250,12 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
                     var = new Varier(Varier.Type.DEFENSE | Varier.Type.OFFSET, var.value + 2);
                 }
             }
-            // upgrade on body.. no on buffer.
-            mHero.upgradeAbility(var, result);
+            if (loot.isPotion())
+                // potion will only add battle buffer.
+                mHero.addBattleBuffer(var);
+            else
+                // upgrade on body.. no on buffer.
+                mHero.upgradeAbility(var, result);
 
         }
     }
