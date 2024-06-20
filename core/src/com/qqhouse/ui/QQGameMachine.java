@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.StringBuilder;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.io.QQSaveGame;
@@ -44,7 +46,6 @@ public abstract class QQGameMachine implements ApplicationListener {
         this.width = width;
 
         screens = new Stack<>();
-
 
         if (debug) {
             font = new BitmapFont();
@@ -127,11 +128,13 @@ public abstract class QQGameMachine implements ApplicationListener {
         //viewport.setScreenY(Gdx.graphics.getSafeInsetBottom());
         //viewport.setScreenX(Gdx.graphics.getSafeInsetLeft());
         // camera 的世界座標 0,0 在左下角
-        // viewport 的世界座標 0,0 在左上角 ... 笑死...
+        // viewport 的世界座標 0,0 在左下角 ... 笑死...
+        // status bar enabled, so ignore SafeInsetTop
+        Gdx.app.error("QQGameMachine", "SafeInsetTop = " + Gdx.graphics.getSafeInsetTop());
         viewport.setScreenBounds(Gdx.graphics.getSafeInsetLeft(),
-                Gdx.graphics.getSafeInsetTop(),
+                Gdx.graphics.getSafeInsetBottom(),
                 width - Gdx.graphics.getSafeInsetLeft() - Gdx.graphics.getSafeInsetRight(),
-                height - Gdx.graphics.getSafeInsetTop() - Gdx.graphics.getSafeInsetBottom());
+                height /*- Gdx.graphics.getSafeInsetTop()*/ - Gdx.graphics.getSafeInsetBottom());
         viewport.apply(false);
         //Gdx.app.error("QQGameMachine", "screenX, screenY =" + viewport.getScreenX() + "," + viewport.getScreenY());
 
