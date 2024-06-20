@@ -130,7 +130,7 @@ public abstract class QQGameMachine implements ApplicationListener {
         // camera 的世界座標 0,0 在左下角
         // viewport 的世界座標 0,0 在左下角 ... 笑死...
         // status bar enabled, so ignore SafeInsetTop
-        Gdx.app.error("QQGameMachine", "SafeInsetTop = " + Gdx.graphics.getSafeInsetTop());
+        //Gdx.app.error("QQGameMachine", "SafeInsetTop = " + Gdx.graphics.getSafeInsetTop());
         viewport.setScreenBounds(Gdx.graphics.getSafeInsetLeft(),
                 Gdx.graphics.getSafeInsetBottom(),
                 width - Gdx.graphics.getSafeInsetLeft() - Gdx.graphics.getSafeInsetRight(),

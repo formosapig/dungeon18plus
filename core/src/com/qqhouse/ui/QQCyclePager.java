@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
@@ -19,6 +20,7 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
     }
 
     private float touchX = -1, scrollX, maxScrollX;
+    private float shiftX, velocityX, maxShiftX; // +shift , -shift
     private final Viewport viewport;
     private IsTouchable hitBeforeScroll;
     private int pageNum = 1;
@@ -29,21 +31,30 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
         this.viewport = viewport;
     }
 
-    private void calculateMaxScrollX() {
-        float totalWidth = 0;
-        for (QQView child : childrenView)
-            totalWidth += child.width + innerMargin;
-        totalWidth -= innerMargin;
-        maxScrollX = totalWidth -(width - leftPadding - rightPadding);
-        if (0 > maxScrollX)
-            maxScrollX = 0;
+    private void calculateMaxShiftX() {
+        maxShiftX = width + innerMargin;
+        Gdx.app.error("QQCyclePager", "maxShiftX = " + maxShiftX);
+    }
+
+    private void changeCurrentPage(int page) {
+        currentPage = page;
+        // set visible of childrenView
+        // disable all other child
+        for (QQView v : childrenView)
+            v.setVisible(false);
+
+        // -1 currentPos 1
+        for (int index = currentPage - 1; index <= currentPage + 1; ++index) {
+            QQView child = childrenView.get((index + adapter.getSize()) % adapter.getSize());
+            child.setVisible(true);
+        }
 
     }
 
     @Override
     public void setSize(float width, float height) {
         super.setSize(width, height);
-        calculateMaxScrollX();
+        calculateMaxShiftX();
     }
 
     @Override
@@ -104,10 +115,10 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
         if (wrapWidth && !isVertical)
             resetWrapWidth();
 
-        currentPage = 0;
+        changeCurrentPage(0);
+        calculateMaxShiftX();
 
         arrangeChildren();
-        calculateMaxScrollX();
     }
 
     public void updateAll() {
@@ -135,11 +146,21 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
             resetWrapWidth();
 
         arrangeChildren();
-        calculateMaxScrollX();
+        calculateMaxShiftX();
     }
 
     @Override
     public void act(float delta) {
+        // move shiftX to 0
+        if (Float.compare(shiftX, 0) != 0 && Float.compare(velocityX, 0) != 0) {
+            if (Math.abs(shiftX) < Math.abs(velocityX)) {
+                shiftX = 0;
+                velocityX = 0;
+            } else
+                shiftX += velocityX;
+            arrangeChildren();
+        }
+
         // long press series
         if (-1 != longPressIndex) {
             longPressCounter += delta;
@@ -157,6 +178,9 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
         // 1. keep touch down position for scroll
         //touchDownPos = new Vector2(relativeX, relativeY);
         touchX = relativeX;
+
+        // reset velocityX
+        velocityX = 0;
 
         // 2. walk through all child and find out hit one, send touch down to it.
         QQView target;
@@ -189,6 +213,10 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
         // long press reset
         longPressIndex =  -1;
         //longPressCounter = 0;
+
+        // calculate velocity of shift x
+        if (Math.abs(shiftX) > 0)
+            velocityX = shiftX / 0.5f; // move to 0 at 0.5 sec
 
         // 1. trace this event to exit scroll mode ...
         //touchDownPos = null; // ??
@@ -288,32 +316,23 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
         if (0 >= this.width || 0 >= this.height)
             return;
 
-        // from top to bottom...
-        //Gdx.app.error("QQViewPager", "arrangeChildren.scrollX = " + scrollX);
-        float anchorX = leftPadding - scrollX;//width - leftPadding + scrollX;
-        for (QQView child : childrenView) {
-            // match width
-            if (child.matchHeight && 0 >= child.height)
-                child.setSize(child.getWidth(), height - topPadding - bottomPadding);
-
-            // reset position
-            child.setPosition(anchorX, bottomPadding);
-
-            anchorX += child.width;
-
-            // widget margin
-            anchorX += innerMargin;
+        // -1 currentPos 1
+        for (int index = currentPage - 1; index <= currentPage + 1; ++index) {
+            QQView child = childrenView.get((index + adapter.getSize()) % adapter.getSize());
+            float childX = width / 2 + shiftX - child.width / 2 + maxShiftX * index;
+            child.setPosition(childX, bottomPadding);
+            Gdx.app.error("QQCyclePager", "childX = " + childX);
         }
     }
 
     @Override
     public void addChild(QQView child) {
-        throw new GdxRuntimeException("QQList can not call addChild().");
+        throw new GdxRuntimeException("QQCyclePager can not call addChild().");
     }
 
     @Override
     public void removeChild(QQView child) {
-        throw new GdxRuntimeException("QQList can not call removeChild().");
+        throw new GdxRuntimeException("QQCyclePager can not call removeChild().");
     }
 
     @Override

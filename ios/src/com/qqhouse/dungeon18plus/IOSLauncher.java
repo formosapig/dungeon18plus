@@ -11,7 +11,7 @@ public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        config.statusBarVisible = true;
+        //config.statusBarVisible = true;
         return new IOSApplication(new Main(), config);
     }
 
