@@ -344,7 +344,7 @@ public class Game {
         for (EventType e : EventType.values()) {
             if (!test.add(e.code)) {
                 int newCode = new Random().nextInt();
-                Gdx.app.error("D18", e.toString() + " duplicate, set code = " + String.format("%08X", newCode));
+                Gdx.app.error("D18", e.toString() + " duplicate, set code = 0x" + String.format("%08X", newCode));
                 pass = false;
             }
         }
@@ -352,7 +352,7 @@ public class Game {
         for (GiantRace g : GiantRace.values()) {
             if (!test.add(g.code)) {
                 int newCode = new Random().nextInt();
-                Gdx.app.error("D18", g.toString() + " duplicate, set code = " + String.format("%08X", newCode));
+                Gdx.app.error("D18", g.toString() + " duplicate, set code = 0x" + String.format("%08X", newCode));
                 pass = false;
             }
         }
@@ -360,7 +360,7 @@ public class Game {
         for (HeroClass h : HeroClass.values()) {
             if (!test.add(h.code)) {
                 int newCode = new Random().nextInt();
-                Gdx.app.error("D18", h.toString() + " duplicate, set code = " + String.format("%08X", newCode));
+                Gdx.app.error("D18", h.toString() + " duplicate, set code = 0x" + String.format("%08X", newCode));
                 pass = false;
             }
         }
@@ -368,7 +368,7 @@ public class Game {
         for (Item l : Item.values()) {
             if (!test.add(l.code)) {
                 int newCode = new Random().nextInt();
-                Gdx.app.error(Game.Debug.TAG, String.format(Locale.US, "%s duplicate, set code = %08X", l, newCode));
+                Gdx.app.error(Game.Debug.TAG, String.format(Locale.US, "%s duplicate, set code = 0x%08X", l, newCode));
                 pass = false;
             }
         }
@@ -377,7 +377,7 @@ public class Game {
         for (UniqueSkill us : UniqueSkill.values()) {
             if (!test.add(us.code)) {
                 int newCode = new Random().nextInt();
-                Gdx.app.error("D18", us.toString() + " duplicate, set code = " + String.format("%08X", newCode));
+                Gdx.app.error("D18", us.toString() + " duplicate, set code = 0x" + String.format("%08X", newCode));
                 pass = false;
             }
         }
@@ -386,7 +386,7 @@ public class Game {
         for (Soul s : Soul.values()) {
             if (!test.add(s.code)) {
                 int newCode = new Random().nextInt();
-                Gdx.app.error("D18", s.toString() + " duplicate, set code = " + String.format("%08X", newCode));
+                Gdx.app.error("D18", s.toString() + " duplicate, set code = 0x" + String.format("%08X", newCode));
                 pass = false;
             }
         }
@@ -395,7 +395,7 @@ public class Game {
         for (Help h : Help.values()) {
             if (!test.add(h.code)) {
                 int newCode = new Random().nextInt();
-                Gdx.app.error("D18", h.toString() + " duplicate, set code = " + String.format("%08X", newCode));
+                Gdx.app.error("D18", h.toString() + " duplicate, set code = 0x" + String.format("%08X", newCode));
                 pass = false;
                 //throw new RuntimeException(h.toString() + " duplicate, set code = " + String.format("%08X", newCode));
             }

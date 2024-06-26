@@ -19,7 +19,7 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
 
     }
 
-    private float touchX = -1, scrollX, maxScrollX;
+    private float touchX = -1;
     private float shiftX, velocityX, maxShiftX; // +shift , -shift
     private final Viewport viewport;
     private IsTouchable hitBeforeScroll;
@@ -258,10 +258,10 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
         float moveDelta = touchX - relativeX;// - touchX;
         if (3 >= Math.abs(moveDelta))
             return false;
-        scrollX += moveDelta;
+        shiftX += moveDelta;
         touchX = relativeX;
-        if (scrollX < 0) scrollX = 0;
-        if (scrollX > maxScrollX) scrollX = maxScrollX;
+        //if (shiftX < 0) scrollX = 0;
+        //if (scrollX > maxScrollX) scrollX = maxScrollX;
         arrangeChildren();
 
         // cancel touching and long press counter..
@@ -280,9 +280,9 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
         longPressIndex = -1;
 
         // 1. do scroll ...
-        scrollX += (64 + innerMargin) * amountY;
-        if (scrollX < 0) scrollX = 0;
-        if (scrollX > maxScrollX) scrollX = maxScrollX;
+        shiftX += (64 + innerMargin) * amountY;
+        //if (scrollX < 0) scrollX = 0;
+        //if (scrollX > maxScrollX) scrollX = maxScrollX;
         arrangeChildren();
         return false;
     }
@@ -311,6 +311,13 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
     /*
         IsParent series
      */
+    @Override
+    public void onParentSizeChanged(float width, float height) {
+        super.onParentSizeChanged(width, height);
+        calculateMaxShiftX();
+    }
+
+
     @Override
     public void arrangeChildren() {
         if (0 >= this.width || 0 >= this.height)
