@@ -76,10 +76,10 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
 		Collections.shuffle(mShopItems);
 
 		// potion
-		mShopItems.add(0, Item.YELLOW_POTION);
-		mShopItems.add(1, Item.RED_POTION);
-		mShopItems.add(2, Item.BLUE_POTION);
-		mShopItems.add(3, Item.GREEN_POTION);
+		//mShopItems.add(0, Item.YELLOW_POTION);
+		//mShopItems.add(1, Item.RED_POTION);
+		//mShopItems.add(2, Item.BLUE_POTION);
+		//mShopItems.add(3, Item.GREEN_POTION);
 
 
 		// initial round
