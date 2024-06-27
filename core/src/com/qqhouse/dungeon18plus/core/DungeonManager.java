@@ -1039,7 +1039,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 break;
         }
 
-        // add to equipment catalog, will check in quipmentData
+        // add to equipment catalog, will check in equipmentData
         savedGame.addEquipment(loot);
     }
     
@@ -1309,7 +1309,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         }
     }
 
-    // veteran drop
+    // veteran drop, TODO should optimize this.
     private void setVeteranDrop(long feats, VariedHero veteran) {
         
         final int seed = mRandom.nextInt(100);

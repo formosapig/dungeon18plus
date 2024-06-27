@@ -220,7 +220,7 @@ public class SaveGame extends QQSaveGame {
     }
 
     public boolean addEquipment(Item equip) {
-        if (equip.isEquipment() && equip.isNotPremium() && !mEquipmentData.equipments.contains(equip)) {
+        if (equip.isEquipment() && equip.isNotPremium() && equip.isForSale() && !mEquipmentData.equipments.contains(equip)) {
             mEquipmentData.equipments.add(equip);
             Collections.sort(mEquipmentData.equipments);
             return true;

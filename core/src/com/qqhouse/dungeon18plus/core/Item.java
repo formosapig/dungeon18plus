@@ -74,9 +74,9 @@ public enum Item {
 
     // DAGGER
     AGED_DAGGER( 0x05BB4ADB, "iron_dagger", "aged_dagger", "aged_help",
-            Type.CURSED | Type.DAGGER, 1, ATTACK_N1, SPEED_N1),
+            Type.CURSED | Type.DAGGER | Type.NOT_FOR_SALE, 1, ATTACK_N1, SPEED_N1),
     TRAINING_DAGGER( 0x9CD6C0D7, "wooden_dagger", "training_dagger", "training_help",
-            Type.NORMAL | Type.DAGGER, 1, ATTACK_1, SPEED_1, STAR_5 ),
+            Type.NORMAL | Type.DAGGER | Type.NOT_FOR_SALE, 1, ATTACK_1, SPEED_1, STAR_5 ),
     WOODEN_DAGGER( 0x22DAFA3E, "wooden_dagger", "wooden_dagger", "wooden_help",
             Type.NORMAL | Type.DAGGER, 30, UniqueSkill.WOODEN_DAGGER, LIFE_15, ATTACK_1, SPEED_1, KEY_5 ),
     IRON_DAGGER( 0xA80F1C4A, "iron_dagger", "iron_dagger", null,
@@ -99,13 +99,13 @@ public enum Item {
             Type.BLESSED | Type.DAGGER | Type.PREMIUM, 110, UniqueSkill.YGGDRASIL_DAGGER, LIFE_150, ATTACK_13, SPEED_4, KEY_5),
 
     // SWORD
-    AGED_SWORD(0xBBDDD8D6, "iron_sword", "aged_sword", "aged_help",
-            Type.CURSED | Type.SWORD, 1, ATTACK_N1),
+    AGED_SWORD(0x5CAEC4F6, "iron_sword", "aged_sword", "aged_help",
+            Type.CURSED | Type.SWORD | Type.NOT_FOR_SALE, 1, ATTACK_N1),
     TRAINING_SWORD(0xBBE61C40, "wooden_sword", "training_sword", "training_help",
-            Type.NORMAL | Type.SWORD, 1, ATTACK_3, STAR_5),
+            Type.NORMAL | Type.SWORD | Type.NOT_FOR_SALE, 1, ATTACK_3, STAR_5),
     WOODEN_SWORD(0x78311C02, "wooden_sword", "wooden_sword", "wooden_help",
             Type.NORMAL | Type.SWORD, 30, UniqueSkill.WOODEN_SWORD, LIFE_15, ATTACK_4),
-    IRON_SWORD(0x5CAEC4F6, "iron_sword", "iron_sword", null,
+    IRON_SWORD(0xBBDDD8D6, "iron_sword", "iron_sword", null,
             Type.NORMAL | Type.SWORD, 40, UniqueSkill.IRON_SWORD, ATTACK_6),
     IRON_SWORD_1(0xBA875A26, "iron_sword", "iron_sword_1", "iron_1_help",
             Type.REFINED | Type.SWORD, 50, UniqueSkill.IRON_SWORD_1, ATTACK_9),
@@ -134,7 +134,7 @@ public enum Item {
 
     // STAFF
     TRAINING_STAFF(0xD0DBC509, "wooden_staff", "training_staff", "training_help",
-            Type.NORMAL | Type.STAFF, 25, ATTACK_4, SPEED_N2, STAR_5),
+            Type.NORMAL | Type.STAFF | Type.NOT_FOR_SALE, 1, ATTACK_4, SPEED_N2, STAR_5),
     WOODEN_STAFF(0x4B7E45E5, "wooden_staff", "wooden_staff", "wooden_help",
             Type.NORMAL | Type.STAFF, 30, UniqueSkill.WOODEN_STAFF, LIFE_15, ATTACK_5, SPEED_N2),
     MITHRIL_STAFF(0x901BB6AA, "mithril_staff", "mithril_staff", "mithril_help",
@@ -146,9 +146,9 @@ public enum Item {
 
     // SHIELD
     AGED_SHIELD(0xF4A3D658, "iron_shield", "aged_shield", "aged_help",
-            Type.CURSED | Type.SHIELD, 1, DEFENSE_N1),
+            Type.CURSED | Type.SHIELD | Type.NOT_FOR_SALE, 1, DEFENSE_N1),
     TRAINING_SHIELD(0x0B21512E, "wooden_shield", "training_shield", "training_help",
-            Type.NORMAL | Type.SHIELD, 1, DEFENSE_3, STAR_5),
+            Type.NORMAL | Type.SHIELD | Type.NOT_FOR_SALE, 1, DEFENSE_3, STAR_5),
     WOODEN_SHIELD(0xABF3BE7A, "wooden_shield", "wooden_shield", "wooden_help",
             Type.NORMAL | Type.SHIELD, 30, UniqueSkill.WOODEN_SHIELD, LIFE_15, DEFENSE_4),
     IRON_SHIELD(0xEF197405, "iron_shield", "iron_shield", null,
@@ -181,9 +181,9 @@ public enum Item {
 
     // RING
     AGED_RING(0x5EFB771E, "iron_ring", "aged_ring", "aged_help",
-            Type.CURSED | Type.RING, 1, ATTACK_N1, DEFENSE_N1),
+            Type.CURSED | Type.RING | Type.NOT_FOR_SALE, 1, ATTACK_N1, DEFENSE_N1),
     TRAINING_RING(0x78A8FA4A, "wooden_ring", "training_ring", "training_help",
-            Type.NORMAL | Type.RING, 1, DEFENSE_1, SPEED_1, STAR_5),
+            Type.NORMAL | Type.RING | Type.NOT_FOR_SALE, 1, DEFENSE_1, SPEED_1, STAR_5),
     WOODEN_RING(0x0E8A8E97, "wooden_ring", "wooden_ring", "wooden_help",
             Type.NORMAL | Type.RING, 30, UniqueSkill.WOODEN_RING, LIFE_15, SPEED_2),
     IRON_RING(0xF249BA82, "iron_ring", "iron_ring", null,
@@ -222,7 +222,7 @@ public enum Item {
 
     // BOOTS
     AGED_BOOTS(0x12474E4D, "iron_boots", "aged_boots", "aged_help",
-            Type.CURSED | Type.BOOTS, 1,  SPEED_N2),
+            Type.CURSED | Type.BOOTS | Type.NOT_FOR_SALE, 1,  SPEED_N2),
     IRON_BOOTS(0x8EC27250, "iron_boots", "iron_boots", null,
             Type.NORMAL | Type.BOOTS, 40, UniqueSkill.IRON_BOOTS, SPEED_3),
     IRON_BOOTS_1(0x1A5D6F5C, "iron_boots", "iron_boots_1", "iron_1_help",
@@ -316,6 +316,8 @@ public enum Item {
         // premium item ?
         int PREMIUM = 1 << 24; // premium only.
         int SPECIAL = 1 << 25; // developer's buckler
+        int NOT_FOR_SALE
+                    = 1 << 26; // not for sale
 
     }
 
@@ -395,6 +397,8 @@ public enum Item {
     public boolean isNotPremium() { return (type & Type.PREMIUM) == 0; }
 
     public boolean isNotSpecial() { return (type & Type.SPECIAL) == 0; }
+
+    public boolean isForSale() { return (type & Type.NOT_FOR_SALE) == 0; }
 
     public boolean isPowerRing() {
         return this == RING_OF_LIFE
