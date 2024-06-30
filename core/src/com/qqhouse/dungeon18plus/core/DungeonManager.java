@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.BossKill;
-import com.qqhouse.dungeon18plus.struct.Drop;
 import com.qqhouse.dungeon18plus.struct.Monster;
 import com.qqhouse.dungeon18plus.struct.hero.DungeonHero;
 import com.qqhouse.dungeon18plus.struct.event.BattleEvent;
@@ -1312,7 +1311,10 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
     // veteran drop, TODO should optimize this.
     private void setVeteranDrop(long feats, VariedHero veteran) {
-        
+
+        //Drop drop = Drop.find(Drop.Type.DUNGEON_VETERAN, veteran.getHeroClass().code);
+        //veteran.loot = drop.kick(5);//rareDropRate);
+
         final int seed = mRandom.nextInt(100);
         
         Item[] holySet = {Item.HOLY_SWORD, Item.HOLY_SHIELD, Item.RING_OF_GODDESS};

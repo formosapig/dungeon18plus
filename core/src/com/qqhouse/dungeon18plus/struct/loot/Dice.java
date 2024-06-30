@@ -1,4 +1,4 @@
-package com.qqhouse.dungeon18plus.struct;
+package com.qqhouse.dungeon18plus.struct.loot;
 
 import java.util.Random;
 
