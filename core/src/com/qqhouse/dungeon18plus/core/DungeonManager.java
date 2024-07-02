@@ -1,5 +1,9 @@
 package com.qqhouse.dungeon18plus.core;
 
+import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DUNGEON_DOOR;
+import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DUNGEON_SKELETON_FIGHTER;
+import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DUNGEON_SQULETON;
+
 import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
@@ -242,7 +246,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         for (int i = 0; i < doorNum; ++i) {
             // memo 暫訂先亂數要求 6, 8, 10
             int keyNum = mRandom.nextInt(3) * 2 + 6;
-            Event door = new Event(EventType.DOOR).setLoot(getDoorTreasure()).setCost(Game.Cost.KEY, keyNum);
+            Event door = new Event(EventType.DOOR).setLoot(DUNGEON_DOOR.drop(mRandom)).setCost(Game.Cost.KEY, keyNum);
             int position = (int) (Math.random() * mAllEvent.size());
             mAllEvent.add(position, door);
         }
@@ -366,11 +370,11 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             if (type == EventType.SKELETON_KING) {
                 if (savedGame.isGiantDefeated(GiantRace.SKELETON_FIGHTER) && mRandom.nextBoolean()) {
                     DungeonMonster fighter = new DungeonMonster(EventType.SKELETON_FIGHTER, mRandom.nextInt(Game.ZAKO_LEVEL_MAX) + 1)
-                            .setLoot(getSkeletonFighterDrop());
+                            .setLoot(DUNGEON_SKELETON_FIGHTER.drop(mRandom));
                     mAllEvent.add(fighter);
                 } else {
                     DungeonMonster squleton = new DungeonMonster(EventType.SQULETON, mRandom.nextInt(20) + 1)
-                            .setLoot(getSquletonDrop());
+                            .setLoot(DUNGEON_SQULETON.drop(mRandom));
                     mAllEvent.add(squleton);
                 }
             }
@@ -586,7 +590,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         payForEvent(evt);
         
         // use loot
-        useLoot(evt.loot, evt.itemCount);
+        useLoot(evt.loot, evt.lootCount);
         
         // gain star or soul
         if (Feat.DARK_PRESENCE.in(mHero.feats)) {
@@ -735,13 +739,13 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                     // transfer coin to copper coin only.
                     Item coinDrop = getZakoDrop(mHero.feats);
                     if (Item.COPPER_COIN.equals(coinDrop)) { // 4 ~ 6
-                        newEvent.itemCount = mRandom.nextInt(3) + 4;
+                        newEvent.lootCount = mRandom.nextInt(3) + 4;
                         newEvent.loot = Item.COPPER_COIN;
                     } else if (Item.SILVER_COIN.equals(coinDrop)) { // 8 ~ 12
-                        newEvent.itemCount = mRandom.nextInt(5) + 8;
+                        newEvent.lootCount = mRandom.nextInt(5) + 8;
                         newEvent.loot = Item.COPPER_COIN;
                     } else if (Item.GOLDEN_COIN.equals(coinDrop)) { // 16 ~ 24
-                        newEvent.itemCount = mRandom.nextInt(9) + 16;
+                        newEvent.lootCount = mRandom.nextInt(9) + 16;
                         newEvent.loot = Item.COPPER_COIN;
                     } else
                         newEvent.loot = coinDrop;
@@ -774,7 +778,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         return added;
     }
 
-    private final class CheckResult {
+    private static final class CheckResult {
         private boolean noBattle;
         private boolean isEnd;
         private boolean hasEndEvent;
@@ -1075,7 +1079,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         case BERSERKER:
             // 1. more attack up
             // 2. lucky
-            // 3. block
+            // 3. rage
             if (seed < 4)
                 changeAction(Action.ATTACK_UP, Action.MORE_ATTACK_UP);
             else if (seed < 8)
@@ -1085,8 +1089,9 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             break;
         case DRAGOON:
             // 1. more defense up
-            // 2. shopping
+            // 2. burst door
             // 3. bargain
+            // 4. block
             if (seed < 3)
                 changeAction(Action.DEFENSE_UP, Action.MORE_DEFENSE_UP);
             else if (seed < 6)
@@ -1111,7 +1116,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 addNewFeat(Feat.STEAL);
             break;
         case ASSASSIN:
-            // 1. purifacation
+            // 1. purification
             // 2. evasion
             // 3. life leech
             if (seed < 4)
@@ -1122,6 +1127,8 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 addNewFeat(Feat.LIFE_LEECH);
             break;
         case CRUSADER:
+            // 1. shopping
+            // 2. forging
             if (seed < 6)
                 addNewFeat(Feat.SHOPPING);
             else
@@ -1170,71 +1177,6 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         }
         
         return mEventInfo;
-    }
-    
-    // drop series
-    private Item getDoorTreasure() {
-        // WOODEN_DAGGER x 4, WOODEN_SWORD x 4, WOODEN_STAFF x 4, WOODEN_SHIELD x 4, WOODEN_RING x 4
-        // GREAT_SWORD x 2, WIND_DAGGER x 2, TOWER_SHIELD x 2
-        // MYTHRIL_DAGGER x 1, MYTHRIL_SWORD x 1, MYTHRIL_STAFF x 1, MYTHRIL_SHIELD x 1, MYTHRIL_BOOTS x 1
-
-        final int seed = mRandom.nextInt(31);
-        
-        if (seed < 1) return Item.MITHRIL_DAGGER;
-        else if (seed < 2) return Item.MITHRIL_SWORD;
-        else if (seed < 3) return Item.MITHRIL_STAFF;
-        else if (seed < 4) return Item.MITHRIL_SHIELD;
-        else if (seed < 5) return Item.MITHRIL_BOOTS;
-        else if (seed < 7) return Item.GREAT_SWORD;
-        else if (seed < 9) return Item.WIND_DAGGER;
-        else if (seed < 11) return Item.TOWER_SHIELD;
-        else if (seed < 15) return Item.WOODEN_DAGGER;
-        else if (seed < 19) return Item.WOODEN_SWORD;
-        else if (seed < 21) return Item.WOODEN_STAFF;
-        else if (seed < 25) return Item.WOODEN_SHIELD;
-        else return Item.WOODEN_RING;
-    }
-    
-    private Item getSquletonDrop() {
-        // drop                rate    sum
-        // skull ring        2        2    
-        // white ring        3        5
-        // black ring        5        10
-        // wooden ring        10        20
-        // yellow ring        10        30
-        // red ring            10        40
-        // blue ring        10        50
-        // green ring        10        60
-        // iron ring        40        100
-        final int seed = mRandom.nextInt(100);
-        
-        if (seed < 2) return Item.SKULL_RING;
-        else if (seed < 5) return Item.WHITE_RING;
-        else if (seed < 10) return Item.BLACK_RING;
-        else if (seed < 20) return Item.WOODEN_RING;
-        else if (seed < 30) return Item.YELLOW_RING;
-        else if (seed < 40) return Item.RED_RING;
-        else if (seed < 50) return Item.BLUE_RING;
-        else if (seed < 60) return Item.GREEN_RING;
-        else return Item.IRON_RING;
-    }
-    
-    private Item getSkeletonFighterDrop() {
-        // drop              rate      sum
-        // skull sword          2        2
-        // shadow dagger        3        5
-        // mithril sword        5       10
-        // great sword         20       30
-        // iron daggers        30       60
-        // wooden sword        40      100
-        final int seed = mRandom.nextInt(100);
-        
-        if (seed < 2) return Item.SKULL_SWORD;
-        else if (seed < 5) return Item.SHADOW_DAGGER;
-        else if (seed < 10) return Item.MITHRIL_SWORD;
-        else if (seed < 30) return Item.GREAT_SWORD;
-        else if (seed < 60) return Item.IRON_DAGGER;
-        else return Item.WOODEN_SWORD;
     }
     
     // zako drops
@@ -1334,7 +1276,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                     veteran.loot = Item.KEY;
                 else
                     veteran.loot = Item.STAR;
-                veteran.itemCount = mRandom.nextInt(3) * 2 + 8;
+                veteran.lootCount = mRandom.nextInt(3) * 2 + 8;
             }
         }
     }

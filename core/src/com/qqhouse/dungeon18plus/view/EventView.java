@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -194,8 +193,8 @@ public class EventView extends QQButton implements QQView.IsParent {
                 item.setStatus(assets.getBackground("refined"));
             //else
             //    item.setStatus(assets.getBackground("refined"));
-            if (event.itemCount > 0) {
-                item.setText(Integer.toString(event.itemCount));
+            if (event.lootCount > 0) {
+                item.setText(Integer.toString(event.lootCount));
             } else {
                 item.setText("");
             }

@@ -182,11 +182,13 @@ public class Varier {
 
     // coin series
     public static final Varier COIN_1         = new Varier(Type.COIN | Type.OFFSET, 1);
+    public static final Varier COIN_3         = new Varier(Type.COIN | Type.OFFSET, 3);
     public static final Varier COIN_10        = new Varier(Type.COIN | Type.OFFSET, 10);
     public static final Varier COIN_80        = new Varier(Type.COIN | Type.OFFSET, 80);
 
     // star series (cost use)
     public static final Varier STAR_1         = new Varier(Type.STAR | Type.OFFSET, 1);
+    public static final Varier STAR_4         = new Varier(Type.STAR | Type.OFFSET, 4);
     public static final Varier STAR_5         = new Varier(Type.STAR | Type.OFFSET, 5);
     public static final Varier STAR_6         = new Varier(Type.STAR | Type.OFFSET, 6);
     public static final Varier STAR_8         = new Varier(Type.STAR | Type.OFFSET, 8);
