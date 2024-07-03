@@ -163,6 +163,10 @@ public class Hero extends Ability implements Fightable {
 				if (checkLimit && (0 < change) && (mLimit.life - source.life) < change) {
 					change = mLimit.life - source.life;
 				}
+				// unabated check, Ring of Life only.
+				if (0 > change && var.isUnabated()) {
+					change = 0;
+				}
 				// event result
 				if (null != result) {
 					result.life += change;

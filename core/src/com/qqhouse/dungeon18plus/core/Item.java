@@ -177,7 +177,7 @@ public enum Item {
             Type.BLESSED | Type.SHIELD | Type.PREMIUM, 110, UniqueSkill.YGGDRASIL_SHIELD, LIFE_150, DEFENSE_20, SPEED_1),
     // special item, for memory.
     DEVELOPER_BUCKLER(0x3E6546E0, "buckler", "developer_buckler", "developer_buckler_help",
-            Type.SHIELD | Type.SPECIAL, 1),
+            Type.SHIELD | Type.NOT_FOR_SALE | Type.SPECIAL, 1),
 
     // RING
     AGED_RING(0x5EFB771E, "iron_ring", "aged_ring", "aged_help",
@@ -210,13 +210,12 @@ public enum Item {
             Type.CURSED | Type.RING, 90, UniqueSkill.SKULL_RING, LIFE_N99, ATTACK_11, DEFENSE_8, SPEED_2),
     YGGDRASIL_RING(  0x7137FA06, "yggdrasil_ring", "yggdrasil_ring", "yggdrasil_help",
             Type.BLESSED | Type.RING | Type.PREMIUM, 110, UniqueSkill.YGGDRASIL_RING, LIFE_150, ATTACK_5, DEFENSE_5, SPEED_6),
-    // TODO set life limit = 1500 may decrease original life limit. (Life limit = 2000 -> 1500)
     RING_OF_LIFE(0x39906A7C, "ring_of_life", "ring_of_life", "ring_of_life_help",
-            Type.NORMAL | Type.RING, 125, UniqueSkill.RING_OF_LIFE, MAX_LIFE_500, LIFE_S1500),
+            Type.NORMAL | Type.RING, 125, UniqueSkill.RING_OF_LIFE, MAX_LIFE_U1500, LIFE_S1500),
     RING_OF_ATTACK(0x7C583139, "ring_of_attack", "ring_of_attack", "ring_of_attack_help",
-            Type.NORMAL | Type.RING, 125, UniqueSkill.RING_OF_ATTACK, MAX_ATTACK_15P, ATTACK_15P),
+            Type.NORMAL | Type.RING, 125, UniqueSkill.RING_OF_ATTACK, MAX_ATTACK_12P, ATTACK_12P),
     RING_OF_DEFENSE(0x66E11E0F, "ring_of_defense", "ring_of_defense", "ring_of_defense_help",
-            Type.NORMAL | Type.RING, 125, UniqueSkill.RING_OF_DEFENSE, MAX_DEFENSE_15P, DEFENSE_15P),
+            Type.NORMAL | Type.RING, 125, UniqueSkill.RING_OF_DEFENSE, MAX_DEFENSE_12P, DEFENSE_12P),
     RING_OF_SPEED(0xAA187161, "ring_of_speed", "ring_of_speed", "ring_of_speed_help",
             Type.NORMAL | Type.RING, 125, UniqueSkill.RING_OF_SPEED, MIN_SPEED_1, SPEED_66P),
 

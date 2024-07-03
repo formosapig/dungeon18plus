@@ -22,37 +22,41 @@ public class Varier {
     })*/
     public @interface Type {
 
-        int NONE    = 0;
+        int NONE        = 0;
 
         // change limit value, combine life, attack, defense, speed
-        int LIMIT   = 1;
+        int LIMIT       = 1;
 
         // type.
-        int LIFE    = 1 << 1;
-        int ATTACK  = 1 << 2;
-        int COMBO   = 1 << 3;
-        int EXTRA   = 1 << 4;
-        int DEFENSE = 1 << 5;
-        int SPEED   = 1 << 6;
+        int LIFE        = 1 << 1;
+        int ATTACK      = 1 << 2;
+        int COMBO       = 1 << 3;
+        int EXTRA       = 1 << 4;
+        int DEFENSE     = 1 << 5;
+        int SPEED       = 1 << 6;
 
-        int HEAL    = 1 << 7; // recover current life.
-        int DAMAGE  = 1 << 8; // battle , damage.
+        int HEAL        = 1 << 7; // recover current life.
+        int DAMAGE      = 1 << 8; // battle , damage.
 
         // resource
-        int KEY     = 1 << 10;
+        int KEY         = 1 << 10;
 
-        int COIN    = 1 << 12;
-        int STAR    = 1 << 13;
-        int EXP     = 1 << 14;
-        int SOUL    = 1 << 15;
-        int COUNT   = 1 << 16; // count item number...
+        int COIN        = 1 << 12;
+        int STAR        = 1 << 13;
+        int EXP         = 1 << 14;
+        int SOUL        = 1 << 15;
+        int COUNT       = 1 << 16; // count item number...
 
         int PURE = LIFE | ATTACK | COMBO | EXTRA | DEFENSE | SPEED | HEAL | DAMAGE | KEY | COIN | STAR | SOUL | COUNT;
 
+        // 特殊情況, 只增不減
+        int UNABATED    = 1 << 20;
+
+
         // style. priority SET_TO > PERCENT > OFFSET
-        int OFFSET  = 1 << 28;
-        int PERCENT = 1 << 29;
-        int SET     = 1 << 30;
+        int OFFSET      = 1 << 28;
+        int PERCENT     = 1 << 29;
+        int SET         = 1 << 30;
     }
 
     /*
@@ -80,8 +84,7 @@ public class Varier {
     public static final Varier LIFE_500       = new Varier(Type.LIFE | Type.OFFSET, 500);
     // add 50% life
     public static final Varier LIFE_100P      = new Varier(Type.LIFE | Type.PERCENT, 100);
-    // ring of life, set life = 1500
-    public static final Varier LIFE_S999      = new Varier(Type.LIFE | Type.SET, 999);
+    // ring of life, set life = 1400
     public static final Varier LIFE_S1500     = new Varier(Type.LIFE | Type.SET, 1500);
 
 
@@ -111,7 +114,7 @@ public class Varier {
     public static final Varier ATTACK_50      = new Varier(Type.ATTACK | Type.OFFSET, 50);
     public static final Varier ATTACK_100     = new Varier(Type.ATTACK | Type.OFFSET, 100);
     // ring of attack, add 10% attack
-    public static final Varier ATTACK_15P     = new Varier(Type.ATTACK | Type.PERCENT, 15);
+    public static final Varier ATTACK_12P     = new Varier(Type.ATTACK | Type.PERCENT, 12);
 
     public static final Varier COMBO_1        = new Varier(Type.COMBO | Type.OFFSET, 1);
 
@@ -141,7 +144,7 @@ public class Varier {
     public static final Varier DEFENSE_50     = new Varier(Type.DEFENSE | Type.OFFSET, 50);
     public static final Varier DEFENSE_100    = new Varier(Type.DEFENSE | Type.OFFSET, 100);
     // ring of defense, add 10% defense
-    public static final Varier DEFENSE_15P    = new Varier(Type.DEFENSE | Type.PERCENT, 15);
+    public static final Varier DEFENSE_12P    = new Varier(Type.DEFENSE | Type.PERCENT, 12);
 
     public static final Varier SPEED_N9       = new Varier(Type.SPEED | Type.OFFSET, 9);
     public static final Varier SPEED_N7       = new Varier(Type.SPEED | Type.OFFSET, 7);
@@ -187,29 +190,28 @@ public class Varier {
     public static final Varier COIN_80        = new Varier(Type.COIN | Type.OFFSET, 80);
 
     // star series (cost use)
-    public static final Varier STAR_1         = new Varier(Type.STAR | Type.OFFSET, 1);
-    public static final Varier STAR_4         = new Varier(Type.STAR | Type.OFFSET, 4);
-    public static final Varier STAR_5         = new Varier(Type.STAR | Type.OFFSET, 5);
-    public static final Varier STAR_6         = new Varier(Type.STAR | Type.OFFSET, 6);
-    public static final Varier STAR_8         = new Varier(Type.STAR | Type.OFFSET, 8);
-    public static final Varier STAR_9         = new Varier(Type.STAR | Type.OFFSET, 9);
-    public static final Varier STAR_10        = new Varier(Type.STAR | Type.OFFSET, 10);
-    public static final Varier STAR_11        = new Varier(Type.STAR | Type.OFFSET, 11);
-    public static final Varier STAR_12        = new Varier(Type.STAR | Type.OFFSET, 12);
-    public static final Varier STAR_13        = new Varier(Type.STAR | Type.OFFSET, 13);
-    public static final Varier STAR_15        = new Varier(Type.STAR | Type.OFFSET, 15);
-    public static final Varier STAR_18        = new Varier(Type.STAR | Type.OFFSET, 18);
-    public static final Varier STAR_20        = new Varier(Type.STAR | Type.OFFSET, 20);
+    public static final Varier STAR_1           = new Varier(Type.STAR | Type.OFFSET, 1);
+    public static final Varier STAR_4           = new Varier(Type.STAR | Type.OFFSET, 4);
+    public static final Varier STAR_5           = new Varier(Type.STAR | Type.OFFSET, 5);
+    public static final Varier STAR_6           = new Varier(Type.STAR | Type.OFFSET, 6);
+    public static final Varier STAR_8           = new Varier(Type.STAR | Type.OFFSET, 8);
+    public static final Varier STAR_9           = new Varier(Type.STAR | Type.OFFSET, 9);
+    public static final Varier STAR_10          = new Varier(Type.STAR | Type.OFFSET, 10);
+    public static final Varier STAR_11          = new Varier(Type.STAR | Type.OFFSET, 11);
+    public static final Varier STAR_12          = new Varier(Type.STAR | Type.OFFSET, 12);
+    public static final Varier STAR_13          = new Varier(Type.STAR | Type.OFFSET, 13);
+    public static final Varier STAR_15          = new Varier(Type.STAR | Type.OFFSET, 15);
+    public static final Varier STAR_18          = new Varier(Type.STAR | Type.OFFSET, 18);
+    public static final Varier STAR_20          = new Varier(Type.STAR | Type.OFFSET, 20);
 
-    public static final Varier SOUL_99        = new Varier(Type.SOUL | Type.OFFSET, 99);
+    public static final Varier SOUL_99          = new Varier(Type.SOUL | Type.OFFSET, 99);
 
     /*
      * limit series for power ring...
      */
-    public static final Varier MAX_LIFE_500     = new Varier(Type.LIMIT | Type.LIFE | Type.OFFSET, 500);
-    public static final Varier MAX_LIFE_S1500   = new Varier(Type.LIMIT | Type.LIFE | Type.SET, 1500);
-    public static final Varier MAX_ATTACK_15P   = new Varier(Type.LIMIT | Type.ATTACK | Type.PERCENT, 15);
-    public static final Varier MAX_DEFENSE_15P  = new Varier(Type.LIMIT | Type.DEFENSE | Type.PERCENT, 15);
+    public static final Varier MAX_LIFE_U1500   = new Varier(Type.LIMIT | Type.UNABATED | Type.LIFE | Type.SET, 1500);
+    public static final Varier MAX_ATTACK_12P   = new Varier(Type.LIMIT | Type.ATTACK | Type.PERCENT, 12);
+    public static final Varier MAX_DEFENSE_12P  = new Varier(Type.LIMIT | Type.DEFENSE | Type.PERCENT, 12);
     public static final Varier MIN_SPEED_1      = new Varier(Type.LIMIT | Type.SPEED | Type.OFFSET, -1);
 
     @Type
@@ -225,6 +227,8 @@ public class Varier {
     public int getPureType() {
         return (type & Type.PURE);
     }
+
+    public boolean isUnabated() { return (type & Type.UNABATED) != 0; }
 
     public boolean isOffset() {
         return (type & Type.OFFSET) != 0;
