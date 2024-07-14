@@ -2,18 +2,18 @@ package com.qqhouse.dungeon18plus.struct.loot;
 
 import com.qqhouse.dungeon18plus.core.Item;
 
-public class AmountLoot {
+public class CountableLoot {
     public final Item loot;
     public int amount;
 
-    public static AmountLoot NONE = new AmountLoot(Item.NONE);
+    public static CountableLoot NONE = new CountableLoot(Item.NONE);
 
-    public AmountLoot(Item loot, int amount) {
+    public CountableLoot(Item loot, int amount) {
         this.loot = loot;
         this.amount = amount;
     }
 
-    public AmountLoot(Item loot) {
+    public CountableLoot(Item loot) {
         this.loot = loot;
         this.amount = 1;
     }

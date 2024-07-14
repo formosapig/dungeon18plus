@@ -5,140 +5,53 @@ import com.qqhouse.dungeon18plus.core.EventType;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.Ability;
-import com.qqhouse.dungeon18plus.struct.loot.AmountLoot;
+import com.qqhouse.dungeon18plus.struct.loot.CountableLoot;
 
 import org.jetbrains.annotations.NotNull;
 
-public class Event /*extends Ability*/ {
-	
-	public EventType type;
-	//public HeroClass heroClass; // for gladiator and old mHero (same type but different icon)
-	//public int level;
-	public int costType;
-	public int costValue;
-	public Item loot;
-	public int lootCount;
+public class Event {
 
-	//public int turn;
-	//public int score;
+    public EventType type;
+    public int costType;
+    public int costValue;
+    public Item loot;
+    public int lootCount;
 
-	public Event(EventType type) {
-	    this.type = type;
-	    costType = Game.Cost.NONE;
-	    costValue = 0;
-		loot = Item.NONE;
-		lootCount = 0;
+    public Event(EventType type) {
+        this.type = type;
+        costType = Game.Cost.NONE;
+        costValue = 0;
+        loot = Item.NONE;
+        lootCount = 0;
     }
 
     public int getLevel() { return 0; }
 
     public String getIcon() { return type.icon; }
 
-//	// for old mHero and gladiator
-//	public int getIcon() {
-//		return null != heroClass ? heroClass.icon : type.icon;
-//	}
+    // battle event
+    public void resetBattleAbility() {}
 
-	// battle event
-	public void resetBattleAbility() {}
+    // colosseum shop only.
+    public boolean isMasteryEquipment() { return false; }
 
-	//public void resetAbility() { this.copy(this.type.getAbility(this.level)); }
-
-	// for zako and boss
-	//private void copyAttribute() {
-	//	this.copy(this.type.getAbility(this.level));
-	//}
-	
-//	// builder pattern
-//	public static Event.Builder create(EventType type) {
-//		gBuilder.createNewEvent(type);
-//		return gBuilder;
-//	}
-//
-//	public static Event.Builder create(EventType type, HeroClass heroClass) {
-//		gBuilder.createNewEvent(type, heroClass);
-//		return gBuilder;
-//	}
-//
-//	@Nullable
-//    public static <E extends Event> E createEvent(Class<E> clazz) {
-//	    try {
-//            return clazz.newInstance();
-//        } catch (Exception e) {
-//	        e.printStackTrace();
-//	        return null;
-//        }
-//    }
-//
-//
-//	// event builder
-//	private final static Event.Builder gBuilder = new Event.Builder();
-//	public static class Builder {
-//
-//		private Event mEvent;
-//
-//		void createNewEvent(EventType type) {
-//			if (type.needHeroClass())
-//				throw new RuntimeException("user another constructor.");
-//			mEvent = new Event(type);
-//			mEvent.heroClass = null;
-//		    mEvent.loot = Item.NONE;	// must give default value.
-//		}
-//
-//		void createNewEvent(EventType type, HeroClass heroClass) {
-//			if (!type.needHeroClass())
-//				throw new RuntimeException("user another constructor.");
-//			mEvent = new Event(type);
-//			mEvent.heroClass = heroClass;
-//		    mEvent.loot = Item.NONE;	// must give default value.
-//		}
-//
-//		//public Event.Builder level(int level) {
-//		//	mEvent.level = level;
-//		//	return gBuilder;
-//		//}
-//
-//		public Event.Builder cost(int type, int value) {
-//			mEvent.costType = type;
-//			mEvent.costValue = value;
-//			return gBuilder;
-//		}
-//
-//		public Event.Builder loot(Item loot) {
-//			mEvent.loot = loot;
-//			return gBuilder;
-//		}
-//
-//		public Event.Builder copyAttribute() {
-//			//mEvent.copyAttribute();
-//			return gBuilder;
-//		}
-//
-//		public Event done() {
-//			return mEvent;
-//		}
-//	}
-
-	// colosseum shop only.
-	public boolean isMasteryEquipment() { return false; }
-
-	@Override
+    @Override
     public boolean equals(Object other) {
-	    if (this == other)
-	        return true;
+        if (this == other)
+            return true;
 
-	    if (!(other instanceof Event))
-	        return false;
+        if (!(other instanceof Event))
+            return false;
 
-	    Event otherEvent = (Event) other;
+        Event otherEvent = (Event) other;
 
-	    if (this.type != otherEvent.type)
-	        return false;
+        if (this.type != otherEvent.type)
+            return false;
 
-//	    if (this.heroClass != otherEvent.heroClass)
-//	        return false;
+//        if (this.heroClass != otherEvent.heroClass)
+//            return false;
 
-	    return true;
+        return true;
 
     }
 
@@ -156,16 +69,16 @@ public class Event /*extends Ability*/ {
      */
     @SuppressWarnings("unchecked")
     public <E extends Event> E setLoot(Item loot) {
-	    this.loot = loot;
-	    return (E) this;
+        this.loot = loot;
+        return (E) this;
     }
 
-	@SuppressWarnings("unchecked")
-	public <E extends Event> E setLoot(@NotNull AmountLoot loot) {
-		this.loot = loot.loot;
-		this.lootCount = loot.amount;
-		return (E) this;
-	}
+    @SuppressWarnings("unchecked")
+    public <E extends Event> E setLoot(@NotNull CountableLoot loot) {
+        this.loot = loot.loot;
+        this.lootCount = loot.amount;
+        return (E) this;
+    }
 
     @SuppressWarnings("unchecked")
     public <E extends Event> E setCost(int costType, int costValue) {

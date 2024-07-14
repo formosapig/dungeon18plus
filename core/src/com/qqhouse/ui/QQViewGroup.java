@@ -14,6 +14,25 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
     /*
         touch events
      */
+
+    @Override
+    public QQView hit(float relativeX, float relativeY) {
+        // check children
+        QQView target = null;
+        for (int i = childrenView.size() - 1; i >= 0; --i) {
+            QQView child = childrenView.get(i);
+            target = child.hit(relativeX - child.getX(), relativeY - child.getY());
+            if (null != target && target instanceof IsTouchable) {
+                return target;
+            }
+        }
+        // check this
+        if (relativeX >= 0 && relativeX <= width && relativeY >= 0 && relativeY <= height && this instanceof IsTouchable)
+            return this;
+        // no hit
+        return null;
+    }
+
     // get (x, y) relative to my position
     @Override
     public boolean touchDown(float relativeX, float relativeY) {
@@ -60,10 +79,12 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
      */
     @Override
     public boolean touchDragged(float relativeX, float relativeY) {
+        boolean handled = false;
         for (QQView v : childrenView) {
-            v.touchDragged(relativeX - v.getX(), relativeY - v.getY());
+            if (v.touchDragged(relativeX - v.getX(), relativeY - v.getY()))
+                handled = true;
         }
-        return false;
+        return handled;
     }
 
     @Override

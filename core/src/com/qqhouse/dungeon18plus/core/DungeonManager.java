@@ -1,5 +1,11 @@
 package com.qqhouse.dungeon18plus.core;
 
+import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DOOR_1;
+import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DOOR_2;
+import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DOOR_3;
+import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DOOR_4;
+import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DOOR_5;
+import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DOOR_6;
 import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DUNGEON_DOOR;
 import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DUNGEON_SKELETON_FIGHTER;
 import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DUNGEON_SQULETON;
@@ -21,6 +27,8 @@ import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.struct.Varier;
 import com.qqhouse.dungeon18plus.struct.hero.ScoreHero;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
+import com.qqhouse.dungeon18plus.struct.loot.CountableLoot;
+import com.qqhouse.dungeon18plus.struct.loot.LootStash;
 import com.qqhouse.ui.QQList;
 
 import java.util.ArrayList;
@@ -246,7 +254,9 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         for (int i = 0; i < doorNum; ++i) {
             // memo 暫訂先亂數要求 6, 8, 10
             int keyNum = mRandom.nextInt(3) * 2 + 6;
-            Event door = new Event(EventType.DOOR).setLoot(DUNGEON_DOOR.drop(mRandom)).setCost(Game.Cost.KEY, keyNum);
+            LootStash[] doors = {DOOR_1, DOOR_2, DOOR_3, DOOR_4, DOOR_5, DOOR_6};
+            //Event door = new Event(EventType.DOOR).setLoot(DUNGEON_DOOR.drop(mRandom)).setCost(Game.Cost.KEY, keyNum);
+            Event door = new Event(EventType.DOOR).setLoot(doors[mRandom.nextInt(doors.length)].drop(mRandom)).setCost(Game.Cost.KEY, keyNum);
             int position = (int) (Math.random() * mAllEvent.size());
             mAllEvent.add(position, door);
         }
@@ -752,7 +762,11 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                     
                 }
             } else if (newEvent.type.isBoss()) {
-                newEvent.loot = getBossDrop(newEvent.type, mHero.feats);
+                CountableLoot loot = newEvent.type.stash.drop(mRandom, mHero.getDropRatePlus());
+                if (loot.loot == Item.POWER_CRYSTAL && Feat.HOLY_ONE.in(mHero.feats))
+                    loot = new CountableLoot(Item.CURSED_CRYSTAL);
+
+                newEvent.setLoot(loot);
             } else if (EventType.VETERAN == newEvent.type && newEvent instanceof VariedHero) {
                 setVeteranDrop(mHero.feats, (VariedHero) newEvent);
             }
@@ -787,32 +801,39 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             this.isEnd = true;
             this.hasEndEvent = false;
         }
+        private void reset() {
+            this.noBattle = true;
+            this.isEnd = true;
+            this.hasEndEvent = false;
+        }
     }
 
+    private final CheckResult checkResult = new CheckResult();
+
     private void isEndAfterUpdateExtraValue(boolean nextTurn) {
-        CheckResult result = new CheckResult();
+        checkResult.reset();
 
         // normal event
         for (Event evt : mEvents) {
-            checkAndUpdateExtraValue(result, nextTurn, evt);
+            checkAndUpdateExtraValue(checkResult, nextTurn, evt);
         }
 
         // special event
         for (Event evt : mSpecialEvents) {
-            checkAndUpdateExtraValue(result, nextTurn, evt);
+            checkAndUpdateExtraValue(checkResult, nextTurn, evt);
         }
 
-        if (result.hasEndEvent) {
+        if (checkResult.hasEndEvent) {
             return;
         }
         
         // check if no action can do
         if (someActionCanDo()) {
-            result.isEnd = false;
+            checkResult.isEnd = false;
         }
 
         // end, add game over
-        if (result.isEnd || result.noBattle) {
+        if (checkResult.isEnd || checkResult.noBattle) {
             switch (mWinLevel) {
             case WIN_LEVEL_NONE: {
                 Event gameOver = new Event(EventType.GAME_OVER);
@@ -914,6 +935,9 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 }
             } else
                 evt.costType = Game.Cost.KEY;
+            // Aged items in door does not count.
+            if (evt.loot.isAged())
+                return;
         } else if (EventType.TRAP == evt.type) {
             /*
              * trap
@@ -1225,7 +1249,22 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     
     // all magic sets and holy drops
     private Item getBossDrop(EventType boss, long feats) {
-        
+
+        int dropRatePlus = 0;
+
+        if (Feat.LUCKY.in(feats))
+            dropRatePlus = 60;
+        else if (Feat.HOLY_ONE.in(feats))
+            dropRatePlus = 100;
+
+        CountableLoot loot = boss.stash.drop(mRandom, dropRatePlus);
+
+        // cursed crystal
+        if (loot.loot == Item.POWER_CRYSTAL && Feat.HOLY_ONE.in(feats))
+            loot = new CountableLoot(Item.CURSED_CRYSTAL);
+
+
+
         final int rate = Feat.HOLY_ONE.in(feats) ? 10 : (Feat.LUCKY.in(feats) ? 8 : 5);
         
         if (mRandom.nextInt(100) >= rate) {
@@ -1254,31 +1293,42 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     // veteran drop, TODO should optimize this.
     private void setVeteranDrop(long feats, VariedHero veteran) {
 
+        int dropRatePlus = 0;
+
+        if (Feat.DARK_PRESENCE.in(feats))
+            dropRatePlus = -40; // -40%
+        else if (Feat.LUCKY.in(feats))
+            dropRatePlus = 60; // 60%
+        else if (Feat.HOLY_ONE.in(feats))
+            dropRatePlus = 100; // 100%
+
+        veteran.setLoot(veteran.getHeroClass().stash.drop(mRandom, dropRatePlus));
+        //LootStash.DUNGEON_VETERAN_NOVICE.drop(mRandom);
         //Drop drop = Drop.find(Drop.Type.DUNGEON_VETERAN, veteran.getHeroClass().code);
         //veteran.loot = drop.kick(5);//rareDropRate);
 
-        final int seed = mRandom.nextInt(100);
+        //final int seed = mRandom.nextInt(100);
         
-        Item[] holySet = {Item.HOLY_SWORD, Item.HOLY_SHIELD, Item.RING_OF_GODDESS};
+        //Item[] holySet = {Item.HOLY_SWORD, Item.HOLY_SHIELD, Item.RING_OF_GODDESS};
         
         // dark presence 3%
-        if (Feat.DARK_PRESENCE.in(feats)) {
-            if (seed < 3)
-                veteran.loot = holySet[mRandom.nextInt(holySet.length)];
-            else
-                veteran.loot = Item.NONE;
-        } else {
-            final int rate = Feat.HOLY_ONE.in(feats) ? 10 : (Feat.LUCKY.in(feats) ? 8 : 5);
-            if (seed < rate)
-                veteran.loot = holySet[mRandom.nextInt(holySet.length)];
-            else {
-                if (veteran.getHeroClass().equals(HeroClass.THIEF) || veteran.getHeroClass().equals(HeroClass.ASSASSIN))
-                    veteran.loot = Item.KEY;
-                else
-                    veteran.loot = Item.STAR;
-                veteran.lootCount = mRandom.nextInt(3) * 2 + 8;
-            }
-        }
+        //if (Feat.DARK_PRESENCE.in(feats)) {
+        //    if (seed < 3)
+        //        veteran.loot = holySet[mRandom.nextInt(holySet.length)];
+        //    else
+        //        veteran.loot = Item.NONE;
+        //} else {
+        //    final int rate = Feat.HOLY_ONE.in(feats) ? 10 : (Feat.LUCKY.in(feats) ? 8 : 5);
+        //    if (seed < rate)
+        //        veteran.loot = holySet[mRandom.nextInt(holySet.length)];
+        //    else {
+        //        if (veteran.getHeroClass().equals(HeroClass.THIEF) || veteran.getHeroClass().equals(HeroClass.ASSASSIN))
+        //            veteran.loot = Item.KEY;
+        //        else
+        //            veteran.loot = Item.STAR;
+        //        veteran.lootCount = mRandom.nextInt(3) * 2 + 8;
+        //    }
+        //}
     }
 
     /*

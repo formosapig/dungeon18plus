@@ -1,15 +1,18 @@
 package com.qqhouse.dungeon18plus.core;
 
 import com.qqhouse.dungeon18plus.struct.Ability;
+import com.qqhouse.dungeon18plus.struct.loot.LootStash;
 
 public enum EventType {
 	// ZAKO
 	SKELETON(0xBC4CCEDA,
-		EventType.TYPE_ZAKO,
-		"skeleton",
-		GameAlignment.ORDINARY,
-		"skeleton",
-		"skeleton_help") {
+			EventType.TYPE_ZAKO,
+			"skeleton",
+			"skeleton",
+			"skeleton_help",
+			GameAlignment.ORDINARY,
+			LootStash.NONE
+			) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:50 A:B_A D:B_D S:B_S
@@ -17,11 +20,12 @@ public enum EventType {
 				return new Ability(40, base.attack, 0, 0, base.defense, base.speed);
 			}},
 	SQULETON(0xE490F428,
-		EventType.TYPE_RARE_ZAKO,
-		"squleton",
-		GameAlignment.SPECIAL,
-		"squleton",
-		"squleton_help") {
+			EventType.TYPE_RARE_ZAKO,
+			"squleton",
+			"squleton",
+			"squleton_help",
+			GameAlignment.SPECIAL,
+			LootStash.NONE) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:50 A:B_A D:B_D S:B_S
@@ -29,11 +33,12 @@ public enum EventType {
 				return new Ability(100 + level * 20, base.attack, base.magic, 0, base.defense, base.speed);
 			}},
 	SKELETON_FIGHTER(0xAA5D1760,
-		EventType.TYPE_RARE_ZAKO,
-		"skeleton_fighter",
-		GameAlignment.ORDINARY,
-		"skeleton_fighter",
-		"skeleton_fighter_help") {
+			EventType.TYPE_RARE_ZAKO,
+			"skeleton_fighter",
+			"skeleton_fighter",
+			"skeleton_fighter_help",
+			GameAlignment.ORDINARY,
+			LootStash.NONE) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:50 A:B_A D:B_D S:B_S TODO think...
@@ -41,11 +46,12 @@ public enum EventType {
 				return new Ability(100 + level * 20, base.attack, 0, 0, base.defense, base.speed);
 			}},
 	SLIME(0x950F1DB0,
-		EventType.TYPE_ZAKO,
-		"slime",
-		GameAlignment.ORDINARY,
-		"slime",
-		"slime_help") {
+			EventType.TYPE_ZAKO,
+			"slime",
+			"slime",
+			"slime_help",
+			GameAlignment.ORDINARY,
+			LootStash.NONE) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:35 + lv*5 A:CAL D:5 + lv * 5 S:B_S * 0.9
@@ -59,11 +65,12 @@ public enum EventType {
 				return new Ability(life, attack, 0, 0, defense, base.speed * 9 / 10);
 			}},
 	BLACK_SLIME(0xD63031CC,
-		EventType.TYPE_ZAKO,
-		"black_slime",
-		GameAlignment.CHAOTIC,
-		"black_slime",
-		"black_slime_help") {
+			EventType.TYPE_ZAKO,
+			"black_slime",
+			"black_slime",
+			"black_slime_help",
+			GameAlignment.CHAOTIC,
+			LootStash.NONE) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:40 + lv*10 A:CAL D:4 + lv * 6 S:B_S * 0.9
@@ -77,11 +84,12 @@ public enum EventType {
 				return new Ability(life, attack, 0, 0, defense, base.speed * 9 / 10);
 			}},
 	CYCLOPS(0xC0CABC68,
-		EventType.TYPE_ZAKO,
-		"cyclops",
-		GameAlignment.CHAOTIC,
-		"cyclops",
-		"cyclops_help") {
+			EventType.TYPE_ZAKO,
+			"cyclops",
+			"cyclops",
+			"cyclops_help",
+			GameAlignment.CHAOTIC,
+			LootStash.NONE) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:50 A:B_A D:B_D S:B_S TODO think...
@@ -89,11 +97,12 @@ public enum EventType {
 				return new Ability(50, base.attack, 0, 0, base.defense, base.speed);
 			}},
 	PUMPKIN(0x073DD736,
-		EventType.TYPE_ZAKO,	
-		"pumpkin",
-		GameAlignment.ORDINARY,
-		"pumpkin",
-		"pumpkin_help") {
+			EventType.TYPE_ZAKO,
+			"pumpkin",
+			"pumpkin",
+			"pumpkin_help",
+			GameAlignment.ORDINARY,
+			LootStash.NONE) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:lv * 50 A:CAL D:B_A - 10 S: 50 + level * 2
@@ -105,11 +114,12 @@ public enum EventType {
 				return new Ability(life, attack, 0, 0, base.attack - 10, speed);
 			}},
 	WEREWOLF(0xEF932C35,
-		EventType.TYPE_ZAKO,
-		"werewolf",
-		GameAlignment.ORDINARY,
-		"werewolf",
-		"werewolf_help") {
+			EventType.TYPE_ZAKO,
+			"werewolf",
+			"werewolf",
+			"werewolf_help",
+			GameAlignment.ORDINARY,
+			LootStash.NONE) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:30 A:B_D + 25 D:B_A - 10 S:B_S + 1
@@ -117,11 +127,12 @@ public enum EventType {
 				return new Ability(30, base.defense + 20, 0, 0, base.attack - 10, base.speed + 1);
 			}},
 	YETI(0x342ABE0D,
-		EventType.TYPE_ZAKO,
-		"yeti",
-		GameAlignment.ORDINARY,
-		"yeti",
-		"yeti_help") {
+			EventType.TYPE_ZAKO,
+			"yeti",
+			"yeti",
+			"yeti_help",
+			GameAlignment.ORDINARY,
+			LootStash.NONE) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:CAL A:B_D D:B_A + level / 2 S:B_S + 12
@@ -130,11 +141,12 @@ public enum EventType {
 				return new Ability(life, base.defense + 1, 0, 0, base.attack + level / 2, base.speed + 8);
 			}},
 	GRIFFON(0x1D0CF942,
-		EventType.TYPE_ZAKO,
-		"griffon",
-		GameAlignment.ORDINARY,
-		"griffon",
-		"griffon_help") {
+			EventType.TYPE_ZAKO,
+			"griffon",
+			"griffon",
+			"griffon_help",
+			GameAlignment.ORDINARY,
+			LootStash.NONE) {
 			@Override
 			public Ability getAbility(int level) {
 				// L: 4 + level 50 A:B_D+level + 34 D:B_A - L S:B_S - 3
@@ -143,11 +155,12 @@ public enum EventType {
 			}},
 	// BOSS
 	CAT_SITH(0xEC056EA1,
-		EventType.TYPE_BOSS,
-		"cat_sith",
-		GameAlignment.NEUTRAL,
-		"cat_sith",
-		"cat_sith_help") {
+			EventType.TYPE_BOSS,
+			"cat_sith",
+			"cat_sith",
+			"cat_sith_help",
+			GameAlignment.NEUTRAL,
+			LootStash.CAT_SITH) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:1 A:CAL D:0 S:1
@@ -155,11 +168,12 @@ public enum EventType {
 				return new Ability(1, (base.life / base.speed + 1 + base.defense), 0, 0, 0, 1);
 			}},
 	WAILING_WALL(0xE16DA30F,
-		EventType.TYPE_BOSS,
-		"wailing_wall",
-		GameAlignment.LAWFUL,
-		"wailing_wall",
-		"wailing_wall_help") {
+			EventType.TYPE_BOSS,
+			"wailing_wall",
+			"wailing_wall",
+			"wailing_wall_help",
+			GameAlignment.LAWFUL,
+			LootStash.WAILING_WALL) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:9999 A:0 D:B-A + level / 2, S:CAL
@@ -167,11 +181,12 @@ public enum EventType {
 				return new Ability(9999, 0, 0, 0, base.attack + level / 2,  base.speed * 9999 / base.life);
 			}},
 	DEMON(0x3C6CFB03,
-		EventType.TYPE_BOSS,
-		"demon",
+			EventType.TYPE_BOSS,
+			"demon",
+			"demon",
+			"demon_help",
 			GameAlignment.CHAOTIC,
-		"demon",
-		"demon_help") {
+			LootStash.DEMON) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:240 A:999 D:B-A - 50 S:B-S * 5
@@ -179,11 +194,12 @@ public enum EventType {
 				return new Ability(240, base.life * 2, 0, 0, base.attack - 50, base.speed * 5);
 			}},
 	EARTH_KNIGHT(0x257E2D9F,
-		EventType.TYPE_BOSS,
-		"earth_knight",
-		GameAlignment.NEUTRAL,
-		"earth_knight",
-		"earth_knight_help") {
+			EventType.TYPE_BOSS,
+			"earth_knight",
+			"earth_knight",
+			"earth_knight_help",
+			GameAlignment.NEUTRAL,
+			LootStash.EARTH_KNIGHT) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:500 A:B-A D:B-D S:B-S
@@ -191,11 +207,12 @@ public enum EventType {
 				return new Ability(base.life, base.attack, base.magic, base.combo, base.defense, base.speed);
 			}},
 	FIRE_KNIGHT(0x6A1B9E64,
-		EventType.TYPE_BOSS,
-		"fire_knight",
-		GameAlignment.NEUTRAL,
-		"fire_knight",
-		"fire_knight_help") {
+			EventType.TYPE_BOSS,
+			"fire_knight",
+			"fire_knight",
+			"fire_knight_help",
+			GameAlignment.NEUTRAL,
+			LootStash.FIRE_KNIGHT) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:500 A:B-A D:B-D S:B-S
@@ -203,11 +220,12 @@ public enum EventType {
 				return new Ability(base.life, base.attack, base.magic, base.combo, base.defense, base.speed);
 			}},
 	WATER_KNIGHT(0x503D5A8D,
-		EventType.TYPE_BOSS,
-		"water_knight",
-		GameAlignment.NEUTRAL,
-		"water_knight",
-		"water_knight_help") {
+			EventType.TYPE_BOSS,
+			"water_knight",
+			"water_knight",
+			"water_knight_help",
+			GameAlignment.NEUTRAL,
+			LootStash.WATER_KNIGHT) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:500 A:B-A D:B-D S:B-S
@@ -215,11 +233,12 @@ public enum EventType {
 				return new Ability(base.life, base.attack, base.magic, base.combo, base.defense, base.speed);
 			}},
 	WIND_KNIGHT(0x1BA7D67D,
-		EventType.TYPE_BOSS,
-		"wind_knight",
-		GameAlignment.NEUTRAL,
-		"wind_knight",
-		"wind_knight_help") {
+			EventType.TYPE_BOSS,
+			"wind_knight",
+			"wind_knight",
+			"wind_knight_help",
+			GameAlignment.NEUTRAL,
+			LootStash.WIND_KNIGHT) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:500 A:B-A D:B-D S:B-S
@@ -227,11 +246,12 @@ public enum EventType {
 				return new Ability(base.life, base.attack, base.magic, base.combo, base.defense, base.speed);
 			}},
 	STEEL_CYCLOPS(0x69729BD7,
-		EventType.TYPE_BOSS,
-		"steel_cyclops",
-		GameAlignment.CHAOTIC,
-		"steel_cyclops",
-		"steel_cyclops_help") {
+			EventType.TYPE_BOSS,
+			"steel_cyclops",
+			"steel_cyclops",
+			"steel_cyclops_help",
+			GameAlignment.CHAOTIC,
+			LootStash.STEEL_CYCLOPS) {
 		@Override
 			public Ability getAbility(int level) {
 				// L:999 A:B-D + 5 D:B-A + level / 2 S:B-S * 10
@@ -239,11 +259,12 @@ public enum EventType {
 				return new Ability(base.life, base.defense + 5, 0, 0, base.attack + level / 2, base.speed * 10);
 			}},
 	SKELETON_KING(0x142236F6,
-		EventType.TYPE_BOSS,
-		"skeleton_king",
-		GameAlignment.CHAOTIC,
-		"skeleton_king",
-		"skeleton_king_help") {
+			EventType.TYPE_BOSS,
+			"skeleton_king",
+			"skeleton_king",
+			"skeleton_king_help",
+			GameAlignment.CHAOTIC,
+			LootStash.SKELETON_KING) {
 			@Override
 			public Ability getAbility(int level) {
 				// L:999 A:B-A D:B-D S:B-S
@@ -252,68 +273,78 @@ public enum EventType {
 			}},
 	// GEAR			
 	DOOR(0x265CC0D3,
-		EventType.TYPE_DOOR,
-		"door",
-		GameAlignment.NEUTRAL,
-		"door",
-		"door_help"),
+			EventType.TYPE_DOOR,
+			"door",
+			"door",
+			"door_help",
+			GameAlignment.NEUTRAL,
+			LootStash.NONE),
 	TRAP(0x0F391D1B,
-		EventType.TYPE_TRAP,
-		"chomper",
-        GameAlignment.ORDINARY,
-		"trap",
-		"trap_help"),
+			EventType.TYPE_TRAP,
+			"chomper",
+			"trap",
+			"trap_help",
+			GameAlignment.ORDINARY,
+			LootStash.NONE),
 	// NPC
 	MERCHANT(0x56391E1E,
-		EventType.TYPE_SHOP,
-		"merchant",
-		GameAlignment.SPECIAL,
-		"merchant",
-		"merchant_help"),
+			EventType.TYPE_SHOP,
+			"merchant",
+			"merchant",
+			"merchant_help",
+			GameAlignment.SPECIAL,
+			LootStash.NONE),
 	FAIRY(0x522FDB3F,
-		EventType.TYPE_NONE,
-		"fairy",
-		GameAlignment.NEUTRAL,
-		"fairy",
-		"fairy_help"),
+			EventType.TYPE_NONE,
+			"fairy",
+			"fairy",
+			"fairy_help",
+			GameAlignment.NEUTRAL,
+			LootStash.NONE),
 	VETERAN(0x3BB09970,
-		EventType.TYPE_HERO,
-		"novice",
-		GameAlignment.LAWFUL,
-		"old_hero",
-		"old_hero_help"),
+			EventType.TYPE_HERO,
+			"novice",
+			"old_hero",
+			"old_hero_help",
+			GameAlignment.LAWFUL,
+			LootStash.NONE),
 	// COLOSSEUM
 	GLADIATOR(0x3DA88728,
-		EventType.TYPE_HERO,
-		"novice",
-		GameAlignment.CHAOTIC,
-		"gladiator",
-		"gladiator_help"),
+			EventType.TYPE_HERO,
+			"novice",
+			"gladiator",
+			"gladiator_help",
+			GameAlignment.CHAOTIC,
+			LootStash.NONE),
 	// END GAME			
 	WIN_NORMAL(0x1CCBAB13,
-		EventType.TYPE_END_GAME,
-		"arena",
-		GameAlignment.NEUTRAL,
-		"win_normal",
-		"win_normal_help"),
+			EventType.TYPE_END_GAME,
+			"arena",
+			"win_normal",
+			"win_normal_help",
+			GameAlignment.NEUTRAL,
+			LootStash.NONE),
 	WIN_GOLDEN(0xE9BF7F03,
-		EventType.TYPE_END_GAME,
-		"golden_arena",
-		GameAlignment.NEUTRAL,
-		"win_golden",
-		"win_golden_help"),
+			EventType.TYPE_END_GAME,
+			"golden_arena",
+			"win_golden",
+			"win_golden_help",
+			GameAlignment.NEUTRAL,
+			LootStash.NONE),
 	GAME_OVER(0xE6D00890,
-		EventType.TYPE_END_GAME,
-		"guard",
-		GameAlignment.NEUTRAL,
-		"game_over",
-		"game_over_help"),
+			EventType.TYPE_END_GAME,
+			"guard",
+			"game_over",
+			"game_over_help",
+			GameAlignment.NEUTRAL,
+			LootStash.NONE),
 	COLOSSEUM_MASTER(0x73856D3A,
-		EventType.TYPE_END_GAME,
-		"sword_master",
-		GameAlignment.NEUTRAL,
-		"colosseum_master",
-		"colosseum_master_help");
+			EventType.TYPE_END_GAME,
+			"sword_master",
+			"colosseum_master",
+			"colosseum_master_help",
+			GameAlignment.NEUTRAL,
+			LootStash.NONE);
 
 	
 	// type
@@ -332,20 +363,22 @@ public enum EventType {
 	private static final int TYPE_SHOW_EQUIPMENT_DATA = TYPE_SHOP;
 					
 	// data				
-	private final int type;
 	public final int code;
+	private final int type;
 	public final String icon;
 	public final String name;
 	public final String help;
 	public final GameAlignment align;
+	public final LootStash stash;
 
-	EventType(int code, int type, String icon, GameAlignment align, String name, String help) {
+	EventType(int code, int type, String icon, String name, String help, GameAlignment align, LootStash stash) {
 		this.code = code;
 		this.type = type;
 		this.icon = icon;
-		this.align = align;
 		this.name = name;
 		this.help = help;
+		this.align = align;
+		this.stash = stash;
 	}
 	
 	public Ability getAbility(int level) {

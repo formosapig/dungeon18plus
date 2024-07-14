@@ -193,7 +193,7 @@ public class EventView extends QQButton implements QQView.IsParent {
                 item.setStatus(assets.getBackground("refined"));
             //else
             //    item.setStatus(assets.getBackground("refined"));
-            if (event.lootCount > 0) {
+            if (event.lootCount > 1) {
                 item.setText(Integer.toString(event.lootCount));
             } else {
                 item.setText("");

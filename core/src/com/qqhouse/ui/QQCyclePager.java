@@ -251,13 +251,18 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
      */
     @Override
     public boolean touchDragged(float relativeX, float relativeY) {
+        // no count
+        if (0 > touchX)
+            return false;
+
+
         // TODO 有時候會有一個位移等於零的 touchDragged 事件發生...真奇怪.
         // TODO 當位移大於某一個值時, 才觸發 scroll 事件...
         //Gdx.app.error("QQList", "touchDragged : " + (relativeY - touchY));
         // 1. do scroll ...
-        float moveDelta = touchX - relativeX;// - touchX;
+        float moveDelta = relativeX - touchX;// - relativeX;// - touchX;
         if (3 >= Math.abs(moveDelta))
-            return false;
+            return true;
         shiftX += moveDelta;
         touchX = relativeX;
         //if (shiftX < 0) scrollX = 0;
@@ -271,7 +276,9 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
         }
         longPressIndex = -1;
 
-        return false;
+        //return false;
+        // handled, skip swift right event.
+        return true;
     }
 
     @Override
@@ -290,6 +297,9 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
     @Override
     public void cancelTouching() {
         touchX = -1;
+        // calculate velocity of shift x
+        if (Math.abs(shiftX) > 0)
+            velocityX = shiftX / 0.5f; // move to 0 at 0.5 sec
     }
 
     /*

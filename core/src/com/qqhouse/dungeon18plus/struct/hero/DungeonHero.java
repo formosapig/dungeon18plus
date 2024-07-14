@@ -1,6 +1,7 @@
 package com.qqhouse.dungeon18plus.struct.hero;
 
 import com.qqhouse.dungeon18plus.core.Action;
+import com.qqhouse.dungeon18plus.core.Feat;
 
 public final class DungeonHero extends Hero {
 
@@ -23,5 +24,16 @@ public final class DungeonHero extends Hero {
 
     public void resetSkillAction() {
         inUse = Action.NONE;
+    }
+
+    public int getDropRatePlus() {
+        if (Feat.DARK_PRESENCE.in(feats))
+            return -40;
+        else if (Feat.LUCKY.in(feats))
+            return 60;
+        else if (Feat.HOLY_ONE.in(feats))
+            return 100;
+        else
+            return 0;
     }
 }

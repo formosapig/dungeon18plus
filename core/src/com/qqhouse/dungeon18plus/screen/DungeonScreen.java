@@ -189,6 +189,8 @@ public class DungeonScreen extends QQScreen {
             @Override
             public void onLongPress(int index) {
                 //Gdx.app.error("DungeonScreen", "special event long press : " + index);
+                eventInfoDialog.update(manager.getSpecialEvent(index));
+                openDialog(eventInfoDialog);
             }
         });
         //addView(specialEventList);
