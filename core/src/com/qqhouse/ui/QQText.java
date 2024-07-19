@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -17,6 +18,7 @@ public class QQText extends QQView {
     private String truncate = null;
     private boolean wrap = false;
     protected float shiftX, shiftY;
+    private GlyphLayout glyphs = new GlyphLayout();
 
     //private float alpha = 1; // 0 ~ 1
 
@@ -101,12 +103,17 @@ public class QQText extends QQView {
         if (null == text)
             return;
 
-        GlyphLayout glyphs = new GlyphLayout();
+        Gdx.app.error("QQText", "text = " + text);
+
+        //GlyphLayout glyphs = new GlyphLayout();
         if (null != truncate)
             glyphs.setText(font, text, 0, text.length(), color, (width - leftPadding - rightPadding), align, wrap, truncate);
         else {
+            Gdx.app.error("QQText", this + " : " + (width - leftPadding - rightPadding));
             glyphs.setText(font, text, 0, text.length(), color, (width - leftPadding - rightPadding), Align.topLeft, wrap, null);
         }
+
+        Gdx.app.error("QQText", this + " : " + glyphs.width);
 
         // wrap width
         if (wrapWidth) {
@@ -160,10 +167,10 @@ public class QQText extends QQView {
             font.setColor(color);
         }
         if (null != truncate)
-            font.draw(batch, text, originX + shiftX, originY + shiftY, 0, text.length(), width, Align.topLeft, false, truncate);
+            font.draw(batch, text, originX + shiftX, originY + shiftY, 0, text.length(), glyphs.width, Align.topLeft, false, truncate);
         else {
             //GroupLayout.Alignment
-            font.draw(batch, text, originX + shiftX, originY + shiftY, this.width, Align.left, wrap);
+            font.draw(batch, text, originX + shiftX, originY + shiftY, glyphs.width, /*this.width,*/ Align.left, wrap);
             //font.draw(batch, text, originX + shiftX, originY + shiftY);
         }
     }

@@ -15,6 +15,7 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
         touch events
      */
 
+    /*
     @Override
     public QQView hit(float relativeX, float relativeY) {
         // check children
@@ -32,6 +33,7 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
         // no hit
         return null;
     }
+    */
 
     // get (x, y) relative to my position
     @Override

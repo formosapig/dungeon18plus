@@ -82,7 +82,7 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     }
 
     public boolean touchDragged (int screenX, int screenY, int pointer) {
-        Gdx.app.error("QQSCreen", "touchDragged : start. " + screenX + "," + screenY);
+        //Gdx.app.error("QQSCreen", "touchDragged : start. " + screenX + "," + screenY);
         if (swipingRight)
             return false;
         //Gdx.app.error("QQScreen", "touchDragged : " + screenX + "," + screenY);
@@ -95,17 +95,17 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
             // 傳入相對於 (0, 0) 的座標...
             QQView v = views[i];
             if (v.touchDragged(screenPos.x - v.getX(), screenPos.y - v.getY())) {
-                Gdx.app.error("QQScreen", "touchDragged : " + v.toString() + " = true.");
+                //Gdx.app.error("QQScreen", "touchDragged : " + v.toString() + " = true.");
                 handled = true;
             }
         }
         if (handled) {
-            Gdx.app.error("QQScreen", "touchDragged : handled and return.");
+            //Gdx.app.error("QQScreen", "touchDragged : handled and return.");
             return true;
         }
         //        return false;
 
-        Gdx.app.error("QQSCreen", "touchDragged : swift right.");
+        //Gdx.app.error("QQSCreen", "touchDragged : swift right.");
         // TODO change event notify order. most top one first, ...
         // tell all child dragged ....
         //Gdx.app.error("QQScreen", "touchDragged : " + screenPos.x + "," + screenPos.y);

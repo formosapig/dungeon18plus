@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.Locale;
+
 public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
 
     public static abstract class Adapter {
@@ -36,8 +38,16 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
         Gdx.app.error("QQCyclePager", "maxShiftX = " + maxShiftX);
     }
 
+    private void moveCurrentPage(int diff) {
+        changeCurrentPage((currentPage + diff + adapter.getSize()) % adapter.getSize());
+    }
+
     private void changeCurrentPage(int page) {
         currentPage = page;
+
+        if (null != pageChangedListener)
+            pageChangedListener.onChange(currentPage);
+
         // set visible of childrenView
         // disable all other child
         for (QQView v : childrenView)
@@ -48,7 +58,6 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
             QQView child = childrenView.get((index + adapter.getSize()) % adapter.getSize());
             child.setVisible(true);
         }
-
     }
 
     @Override
@@ -256,6 +265,7 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
             return false;
 
 
+
         // TODO 有時候會有一個位移等於零的 touchDragged 事件發生...真奇怪.
         // TODO 當位移大於某一個值時, 才觸發 scroll 事件...
         //Gdx.app.error("QQList", "touchDragged : " + (relativeY - touchY));
@@ -265,6 +275,18 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
             return true;
         shiftX += moveDelta;
         touchX = relativeX;
+
+        //Gdx.app.error("QQCyclePager", "touchDragged : " + shiftX + "/" + maxShiftX + "(" + currentPage + ")");
+        if (shiftX < -(maxShiftX / 2)) {
+            shiftX = maxShiftX + shiftX;
+            moveCurrentPage(1);
+        } else if (shiftX > (maxShiftX / 2)) {
+            shiftX = shiftX - maxShiftX;
+            moveCurrentPage(-1);
+        }
+        //Gdx.app.error("QQCyclePager", "touchDragged : " + shiftX + "/" + maxShiftX + "(" + currentPage + ")");
+
+
         //if (shiftX < 0) scrollX = 0;
         //if (scrollX > maxScrollX) scrollX = maxScrollX;
         arrangeChildren();
@@ -319,6 +341,16 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
     }
 
     /*
+        page changed listener
+     */
+    public interface PageChangedListener {
+        void onChange(int page);
+    }
+
+    private QQCyclePager.PageChangedListener pageChangedListener;
+    public void setPageChangedListener(QQCyclePager.PageChangedListener listener) { this.pageChangedListener = listener; }
+
+    /*
         IsParent series
      */
     @Override
@@ -334,11 +366,12 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
             return;
 
         // -1 currentPos 1
-        for (int index = currentPage - 1; index <= currentPage + 1; ++index) {
-            QQView child = childrenView.get((index + adapter.getSize()) % adapter.getSize());
+        //for (int index = currentPage - 1; index <= currentPage + 1; ++index) {
+        for (int index = -1; index <= 1; ++index) {
+            QQView child = childrenView.get((currentPage + index + adapter.getSize()) % adapter.getSize());
             float childX = width / 2 + shiftX - child.width / 2 + maxShiftX * index;
             child.setPosition(childX, bottomPadding);
-            Gdx.app.error("QQCyclePager", "childX = " + childX);
+            //Gdx.app.error("QQCyclePager", String.format(Locale.US, "child(%d) at %f", index, childX));
         }
     }
 

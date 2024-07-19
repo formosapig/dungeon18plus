@@ -7,6 +7,7 @@ import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.ItemDetailView;
+import com.qqhouse.dungeon18plus.view.ProfileView;
 import com.qqhouse.dungeon18plus.view.TitleBarView2;
 import com.qqhouse.ui.QQCyclePager;
 import com.qqhouse.ui.QQLinear;
@@ -24,6 +25,7 @@ public class HeroAlbumScreen extends QQScreen {
     }
 
     private ArrayList<HeroClass> allHeroClass;
+    private ProfileView profile;
 
     @Override
     public void onEnter() {
@@ -35,7 +37,6 @@ public class HeroAlbumScreen extends QQScreen {
         group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
         group.setPosition(0, 0);
         addChild(group);
-
 
         // title bar with merchant and equipment count...
         TitleBarView2 merchant = new TitleBarView2(assets);
@@ -62,7 +63,19 @@ public class HeroAlbumScreen extends QQScreen {
         cyclePager.setAdapter(adapter);
         //viewPager.setPosition(0, 100);
         //viewPager.setBackground(assets.getNinePatchBG("blessed"));
+        cyclePager.setPageChangedListener(new QQCyclePager.PageChangedListener() {
+            @Override
+            public void onChange(int page) {
+                profile.update(savedGame.getHeroClassRecord(allHeroClass.get(page)));
+            }
+        });
         group.addChild(cyclePager);
+
+        // hero profile
+        profile = new ProfileView(assets);
+        profile.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
+        profile.update(savedGame.getHeroClassRecord(allHeroClass.get(0)));
+        group.addChild(profile);
 
     }
 
