@@ -103,17 +103,17 @@ public class QQText extends QQView {
         if (null == text)
             return;
 
-        Gdx.app.error("QQText", "text = " + text);
+        //Gdx.app.error("QQText", "text = " + text);
 
         //GlyphLayout glyphs = new GlyphLayout();
         if (null != truncate)
             glyphs.setText(font, text, 0, text.length(), color, (width - leftPadding - rightPadding), align, wrap, truncate);
         else {
-            Gdx.app.error("QQText", this + " : " + (width - leftPadding - rightPadding));
+            //Gdx.app.error("QQText", this + " : " + (width - leftPadding - rightPadding));
             glyphs.setText(font, text, 0, text.length(), color, (width - leftPadding - rightPadding), Align.topLeft, wrap, null);
         }
 
-        Gdx.app.error("QQText", this + " : " + glyphs.width);
+        //Gdx.app.error("QQText", this + " : " + glyphs.width);
 
         // wrap width
         if (wrapWidth) {

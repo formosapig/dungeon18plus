@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
@@ -10,18 +11,21 @@ import com.qqhouse.ui.QQView;
 
 public class ProfileView extends AssetGroup {
 
+    private final QQLinear root;
     private final QQText titleBiography;
     private final QQText biography;
     private final ProfileBaseAttributeView baseAttribute;
+    private final ProfileRestrictionView restriction;
 
     public ProfileView(Assets assets) {
         super(assets);
 
-        QQLinear group = new QQLinear(Game.Size.WIDGET_MARGIN);
-        group.setPadding(8);
-        group.setSize(MATCH_PARENT, MATCH_PARENT);
-        group.setBackground(assets.getNinePatchBG("help"));
-        addChild(group);
+        root = new QQLinear(Game.Size.WIDGET_MARGIN);
+        //root.setPadding(8);
+        root.setSize(MATCH_PARENT, WRAP_CONTENT);
+        //root.setBackground(assets.getNinePatchBG("help"));
+        //group.setPosition(0, 100);
+        addChild(root);
 
         // titles ...
         titleBiography = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
@@ -29,26 +33,29 @@ public class ProfileView extends AssetGroup {
         titleBiography.setSize(QQView.MATCH_PARENT, 24);//QQView.WRAP_CONTENT);
         //titleBiography.setPosition(8, 100);
         titleBiography.setAlign(Align.left);
-        group.addChild(titleBiography);
+        root.addChild(titleBiography);
 
         biography = new QQText(assets.getFont(Game.Font.HELP14));
-        biography.setPadding(4);
+        biography.setPadding(8);
         biography.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         //titleBiography.setPosition(8, 100);
         biography.setAlign(Align.left);
-        group.addChild(biography);
+        root.addChild(biography);
 
+        // base attribute
         QQText titleBaseAttribute = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
         titleBaseAttribute.setPadding(4);
         titleBaseAttribute.setSize(QQView.MATCH_PARENT, 24);//QQView.WRAP_CONTENT);
         titleBaseAttribute.setAlign(Align.left);
         titleBaseAttribute.setText(assets.geti18n("profile_base_attribute"));
-        group.addChild(titleBaseAttribute);
+        root.addChild(titleBaseAttribute);
 
-        baseAttribute = new ProfileBaseAttributeView(assets);
-        baseAttribute.setPadding(4);
+        baseAttribute = new ProfileBaseAttributeView(assets, Game.Size.INNER_MARGIN);
+        baseAttribute.setPadding(8);
         baseAttribute.setSize(MATCH_PARENT, WRAP_CONTENT);
-        group.addChild(baseAttribute);
+        root.addChild(baseAttribute);
+
+        // soul
 
         QQText titleSoul = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
         titleSoul.setPadding(4);
@@ -56,28 +63,36 @@ public class ProfileView extends AssetGroup {
         titleSoul.setAlign(Align.left);
         titleSoul.setText(assets.geti18n("profile_soul"));
         titleSoul.setVisible(false);
-        group.addChild(titleSoul);
+        root.addChild(titleSoul);
+
+        // restriction
 
         QQText titleRestriction = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
         titleRestriction.setPadding(4);
         titleRestriction.setSize(QQView.MATCH_PARENT, 24);//QQView.WRAP_CONTENT);
         titleRestriction.setAlign(Align.left);
         titleRestriction.setText(assets.geti18n("profile_restriction"));
-        group.addChild(titleRestriction);
+        root.addChild(titleRestriction);
+
+        restriction = new ProfileRestrictionView(assets, Game.Size.INNER_MARGIN);
+        //restriction.setPadding(4);
+        restriction.setSize(MATCH_PARENT, WRAP_CONTENT);
+        root.addChild(restriction);
+
 
         QQText titleUpgrade = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
         titleUpgrade.setPadding(4);
         titleUpgrade.setSize(QQView.MATCH_PARENT, 24);//QQView.WRAP_CONTENT);
         titleUpgrade.setAlign(Align.left);
         titleUpgrade.setText(assets.geti18n("profile_upgrade"));
-        group.addChild(titleUpgrade);
+        root.addChild(titleUpgrade);
 
         QQText titleFeat = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
         titleFeat.setPadding(4);
         titleFeat.setSize(QQView.MATCH_PARENT, 24);//QQView.WRAP_CONTENT);
         titleFeat.setAlign(Align.left);
         titleFeat.setText(assets.geti18n("profile_feat"));
-        group.addChild(titleFeat);
+        root.addChild(titleFeat);
 
         QQText titleMastery = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
         titleMastery.setPadding(4);
@@ -85,12 +100,16 @@ public class ProfileView extends AssetGroup {
         titleMastery.setAlign(Align.left);
         titleMastery.setText(assets.geti18n("profile_mastery"));
         titleMastery.setVisible(false);
-        group.addChild(titleMastery);
+        root.addChild(titleMastery);
 
     }
 
-
-
+    @Override
+    public void resetWrapHeight() {
+        height = root.getHeight();
+        if (null != parent)
+            parent.onChildSizeChanged(this);
+    }
 
     // create profile view with HeroClassRecord
     public void update(HeroClassRecord record) {
@@ -103,6 +122,9 @@ public class ProfileView extends AssetGroup {
 
         baseAttribute.update(record);
         baseAttribute.setBackground(assets.getNinePatchBG(record.heroClass.alignment.key));
+
+        restriction.update(record);
+        restriction.setBackground(assets.getNinePatchBG(record.heroClass.alignment.key));
     }
 
 

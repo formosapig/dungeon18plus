@@ -581,7 +581,7 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
             return false;
         // TODO 有時候會有一個位移等於零的 touchDragged 事件發生...真奇怪.
         // TODO 當位移大於某一個值時, 才觸發 scroll 事件...
-        //Gdx.app.error("QQList", "touchDragged : " + (relativeY - touchY));
+        //Gdx.app.error("QQList", "touchDragged : " + scrollY);
         // 1. do scroll ...
         float moveDelta = relativeY - touchY;
         if (3 >= Math.abs(moveDelta))

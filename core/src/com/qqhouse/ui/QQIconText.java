@@ -44,7 +44,7 @@ public class QQIconText extends QQText {
         GlyphLayout glyphs = new GlyphLayout();
         glyphs.setText(font, text);
 
-        width = (null != icon ? height + innerMargin : 0) + glyphs.width;
+        width = (null != icon ? icon.getWidth() + innerMargin : 0) + glyphs.width;
     }
 
     @Override
@@ -54,16 +54,16 @@ public class QQIconText extends QQText {
 
         // width
         if (wrapWidth) {
-            width = (null != icon ? height + innerMargin : 0) + glyphs.width;
+            width = (null != icon ? icon.getWidth()/*height*/ + innerMargin : 0) + glyphs.width;
         }
 
         // shift x
         if (Align.isCenterHorizontal(align)) {
-            shiftX = ((null != icon ? height + 2 : 0) + width - glyphs.width) / 2;
+            shiftX = ((null != icon ? icon.getWidth() + innerMargin/*height + 2*/ : 0) + width - glyphs.width) / 2;
         } else if (Align.isRight(align)) {
             shiftX = width - glyphs.width;
         } else {
-            shiftX = (null != icon ? height + 2 : 0);
+            shiftX = (null != icon ? icon.getWidth() + innerMargin/*height + 2*/ : 0);
         }
 
         // shift y
@@ -79,7 +79,7 @@ public class QQIconText extends QQText {
     @Override
     public void drawForeground(SpriteBatch batch, float originX, float originY) {
         if (null != icon)
-            batch.draw(icon, originX, originY, height, height);
+            batch.draw(icon, originX + leftPadding, originY + bottomPadding, icon.getWidth(), icon.getHeight()/*height, height*/);
         super.drawForeground(batch, originX, originY);
     }
 

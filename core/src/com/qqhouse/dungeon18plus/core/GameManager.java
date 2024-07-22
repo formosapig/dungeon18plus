@@ -53,26 +53,14 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
 			heroClass.startStar);
 
 		// limit
-		int min = heroClass.minLifeLimit;
-		int max = heroClass.maxLifeLimit;
-		if (null != record && 0 < record.yellowMirror) {
-			min += record.yellowMirror * 100;
-			max += record.yellowMirror * 250;
-		}
+		int min = (null != record) ? record.getMinLifeLimit() : heroClass.minLifeLimit;
+		int max = (null != record) ? record.getMaxLifeLimit() : heroClass.maxLifeLimit;
         int maxLife = createMaxValue(min, max, 50);
-		min = heroClass.minAttackLimit;
-		max = heroClass.maxAttackLimit;
-		if (null != record && 0 < record.redMirror) {
-			min += record.redMirror * 10;
-			max += record.redMirror * 25;
-		}
+		min = (null != record) ? record.getMinAttackLimit() : heroClass.minAttackLimit;
+		max = (null != record) ? record.getMaxAttackLimit() : heroClass.maxAttackLimit;
         int maxAttack = createMaxValue(min, max, 5);
-		min = heroClass.minDefenseLimit;
-		max = heroClass.maxDefenseLimit;
-		if (null != record && 0 < record.blueMirror) {
-			min += record.blueMirror * 10;
-			max += record.blueMirror * 25;
-		}
+		min = (null != record) ? record.getMinDefenseLimit() : heroClass.minDefenseLimit;
+		max = (null != record) ? record.getMaxDefenseLimit() : heroClass.maxDefenseLimit;
         int maxDefense = createMaxValue(min, max, 5);
 		if (HeroClass.CRUSADER == heroClass) {
 			if (maxDefense < maxAttack)
@@ -80,14 +68,10 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
 			else
                 maxDefense = maxAttack;
 		}
-		min = heroClass.minSpeedLimit;
-		max = heroClass.maxSpeedLimit;
-		if (null != record && 0 < record.greenMirror) {
-			min -= record.greenMirror / 2;
-			max -= (record.greenMirror + 1) / 2;
-			if (max < min)
-				max = min;
-		}
+		min = (null != record) ? record.getMinSpeedLimit() : heroClass.minSpeedLimit;
+		max = (null != record) ? record.getMaxSpeedLimit() : heroClass.maxSpeedLimit;
+        if (max < min)
+            max = min;
         int minSpeed = createMaxValue(min, max, 1);
         mHero.setLimit(maxLife, maxAttack, maxDefense, minSpeed);
 

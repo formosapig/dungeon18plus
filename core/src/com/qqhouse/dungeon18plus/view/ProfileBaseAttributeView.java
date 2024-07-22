@@ -12,35 +12,38 @@ import com.qqhouse.ui.QQView;
 public class ProfileBaseAttributeView extends AssetGroup {
 
     private final QQIconText life, attack, defense, speed, key, coin, star;
+    private final int innerMargin;
 
-    public ProfileBaseAttributeView(Assets assets) {
+    public ProfileBaseAttributeView(Assets assets, int innerMargin) {
         super(assets);
 
-        life = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon32("life"));
+        this.innerMargin = innerMargin;
+
+        life = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("life"));
         life.setColor(Game.Colour.LIFE);
         addChild(life);
 
-        attack = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon32("attack"));
+        attack = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("attack"));
         attack.setColor(Game.Colour.ATTACK);
         addChild(attack);
 
-        defense = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon32("defense"));
+        defense = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("defense"));
         defense.setColor(Game.Colour.DEFENSE);
         addChild(defense);
 
-        speed = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon32("speed"));
+        speed = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("speed"));
         speed.setColor(Game.Colour.SPEED);
         addChild(speed);
 
-        key = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getItem("key"));
+        key = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getItem("key"));
         key.setColor(Game.Colour.RARE);
         addChild(key);
 
-        coin = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getItem("copper_coin"));
+        coin = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getItem("copper_coin"));
         coin.setColor(Game.Colour.RARE);
         addChild(coin);
 
-        star = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getItem("star"));
+        star = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getItem("star"));
         star.setColor(Game.Colour.RARE);
         addChild(star);
     }
@@ -76,7 +79,7 @@ public class ProfileBaseAttributeView extends AssetGroup {
 
     @Override
     public void resetWrapHeight() {
-        height = topPadding + 32 + 2 + 32 + 2 + 32 + 2 + 32 + bottomPadding;
+        height = topPadding + 32 * 4 + innerMargin * 3 + bottomPadding;
     }
 
     //
@@ -99,14 +102,14 @@ public class ProfileBaseAttributeView extends AssetGroup {
         if (0 >= width || 0 >= height)
             return;
 
-        life.setPosition(leftPadding, bottomPadding + 32 + 2 + 32 + 2 + 32 + 2);
-        attack.setPosition(leftPadding, bottomPadding + 32 + 2 + 32 + 2);
-        defense.setPosition(leftPadding, bottomPadding + 32 + 2);
+        life.setPosition(leftPadding, bottomPadding + 32 * 3 + innerMargin * 3);
+        attack.setPosition(leftPadding, bottomPadding + 32 * 2 + innerMargin * 2);
+        defense.setPosition(leftPadding, bottomPadding + 32 + innerMargin);
         speed.setPosition(leftPadding, bottomPadding);
 
-        key.setPosition(width / 2, bottomPadding + 32 + 2 + 32 + 2 + 32 + 2);
-        coin.setPosition(width / 2, bottomPadding + 32 + 2 + 32 + 2);
-        star.setPosition(width / 2, bottomPadding + 32 + 2);
+        key.setPosition(width / 2, bottomPadding + 32 * 3 + innerMargin * 3);
+        coin.setPosition(width / 2, bottomPadding + 32 * 2 + innerMargin * 2);
+        star.setPosition(width / 2, bottomPadding + 32 + innerMargin);
 
     }
 

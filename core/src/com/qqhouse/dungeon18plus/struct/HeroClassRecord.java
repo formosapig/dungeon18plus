@@ -101,6 +101,22 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 			}
 		}
 	}
+
+	// limit series
+	public int getMinLifeLimit() { return heroClass.minLifeLimit + yellowMirror * 100; }
+	public int getMaxLifeLimit() { return heroClass.maxLifeLimit + yellowMirror * 250; }
+	public int getMinAttackLimit() { return heroClass.minAttackLimit + redMirror * 10; }
+	public int getMaxAttackLimit() { return heroClass.maxAttackLimit + redMirror * 25; }
+	public int getMinDefenseLimit() { return heroClass.minDefenseLimit + blueMirror * 10; }
+	public int getMaxDefenseLimit() { return heroClass.maxDefenseLimit + blueMirror * 25; }
+	public int getMinSpeedLimit() { return heroClass.minSpeedLimit - greenMirror / 2; }
+	// maxSpeedLimit can't less than minSpeedLimit
+	public int getMaxSpeedLimit() {
+		int max = heroClass.maxSpeedLimit - (greenMirror + 1) / 2;
+		if (max < getMinSpeedLimit())
+			max = getMinSpeedLimit();
+		return max;
+	}
 	
 	public int getMastery(Item equip) {
 		for (int i = 0, s = equips.size(); i < s; ++i) {

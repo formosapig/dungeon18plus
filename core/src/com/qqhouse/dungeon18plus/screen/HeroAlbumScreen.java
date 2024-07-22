@@ -13,6 +13,7 @@ import com.qqhouse.ui.QQCyclePager;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQScreen;
+import com.qqhouse.ui.QQScroll;
 import com.qqhouse.ui.QQView;
 import com.qqhouse.ui.QQViewPager;
 
@@ -72,10 +73,17 @@ public class HeroAlbumScreen extends QQScreen {
         group.addChild(cyclePager);
 
         // hero profile
+        QQScroll scroll = new QQScroll(getViewport());
+        scroll.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
+        scroll.setPadding(8);
+        scroll.setBackground(assets.getNinePatchBG("help"));
+        group.addChild(scroll);
+
+
         profile = new ProfileView(assets);
-        profile.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
+        profile.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         profile.update(savedGame.getHeroClassRecord(allHeroClass.get(0)));
-        group.addChild(profile);
+        scroll.addChild(profile);
 
     }
 
