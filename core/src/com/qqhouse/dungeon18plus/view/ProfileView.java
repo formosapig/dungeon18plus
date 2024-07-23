@@ -106,11 +106,20 @@ public class ProfileView extends AssetGroup {
 
     @Override
     public void resetWrapHeight() {
-        height = root.getHeight();
+        this.height = root.getHeight();
         if (null != parent)
             parent.onChildSizeChanged(this);
+        Gdx.app.error("ProfileView", "resetWrapHeight : " + this.height);
     }
 
+
+    @Override
+    public void setSize(float w, float h) {
+        Gdx.app.error("ProfileView", "setSize : " + w + "," + h);
+        Gdx.app.error("ProfileView", "before set size : " + this.width + "," + this.height);
+        super.setSize(w, h);
+        Gdx.app.error("ProfileView", "after set size : " + this.width + "," + this.height);
+    }
     // create profile view with HeroClassRecord
     public void update(HeroClassRecord record) {
         titleBiography.setText((record.isGameModeAvailable(Game.Mode.DUNGEON) || record.isGameModeAvailable(Game.Mode.COLOSSEUM)) ? 

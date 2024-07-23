@@ -35,7 +35,7 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
 
     private void calculateMaxShiftX() {
         maxShiftX = width + innerMargin;
-        Gdx.app.error("QQCyclePager", "maxShiftX = " + maxShiftX);
+        //Gdx.app.error("QQCyclePager", "maxShiftX = " + maxShiftX);
     }
 
     private void moveCurrentPage(int diff) {

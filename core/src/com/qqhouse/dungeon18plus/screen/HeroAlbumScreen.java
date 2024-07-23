@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
@@ -26,6 +27,7 @@ public class HeroAlbumScreen extends QQScreen {
     }
 
     private ArrayList<HeroClass> allHeroClass;
+    private QQScroll scroll;
     private ProfileView profile;
 
     @Override
@@ -67,13 +69,15 @@ public class HeroAlbumScreen extends QQScreen {
         cyclePager.setPageChangedListener(new QQCyclePager.PageChangedListener() {
             @Override
             public void onChange(int page) {
+                //Gdx.app.error("HeroAlbumScreen", "on cyclePager change");
                 profile.update(savedGame.getHeroClassRecord(allHeroClass.get(page)));
+                scroll.scrollToTop();
             }
         });
         group.addChild(cyclePager);
 
         // hero profile
-        QQScroll scroll = new QQScroll(getViewport());
+        scroll = new QQScroll(getViewport());
         scroll.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         scroll.setPadding(8);
         scroll.setBackground(assets.getNinePatchBG("help"));

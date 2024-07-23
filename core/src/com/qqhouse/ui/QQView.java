@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Game;
 
+import java.util.Locale;
+
 public class QQView {
 
     public interface IsParent {
@@ -128,6 +130,8 @@ public class QQView {
     public void setSize(float w, float h) {
         //Game.trace(this, "QQView.setSize w:%.0f, h:%.0f", w, h);
         //Gdx.app.error("QQView.setSize", String.format(Locale.US, "%s w:%4.2f, h:%4.2f", this, w, h));
+        boolean tellChildren = false;
+        boolean callParent = false;
         // width
         if (w == QQView.WRAP_CONTENT) {
             //calculateContentWidth();
@@ -136,16 +140,13 @@ public class QQView {
             matchWidth = true;
         } else if (0 < w && this.width != w) {
             this.width = w;
-            if (this instanceof IsParent) {
-                ((IsParent) this).onParentSizeChanged(this.width, this.height);
-                //((IsParent) this).arrangeChildren();
-            }
+            tellChildren = true;
+            //if (this instanceof IsParent) {
+            //    ((IsParent) this).onParentSizeChanged(this.width, this.height);
+            //    //((IsParent) this).arrangeChildren();
+            //}
         }
-        if (wrapWidth && this.width == 0) {
-            resetWrapWidth();
-            if (null != parent)
-                parent.onChildSizeChanged(this);
-        }
+
         // height
         if (h == QQView.WRAP_CONTENT) {
             //calculateContentHeight();
@@ -154,16 +155,35 @@ public class QQView {
             matchHeight = true;
         } else if (0 < h && this.height != h) {
             this.height = h;
-            if (this instanceof IsParent) {
-                ((IsParent) this).onParentSizeChanged(this.width, this.height);
+            tellChildren = true;
+            //if (this instanceof IsParent) {
+            //    ((IsParent) this).onParentSizeChanged(this.width, this.height);
                 //((IsParent) this).arrangeChildren();
-            }
+            //}
+        }
+
+        // tell children parent size changed.
+        if (tellChildren && this instanceof IsParent)
+            ((IsParent) this).onParentSizeChanged(this.width, this.height);
+
+
+        // wrap content...
+        if (wrapWidth && this.width == 0) {
+            resetWrapWidth();
+            callParent = true;
+            //if (null != parent)
+            //    parent.onChildSizeChanged(this);
         }
         if (wrapHeight && 0 == this.height) {
             resetWrapHeight();
-            if (null != parent)
-                parent.onChildSizeChanged(this);
+            callParent = true;
+            //if (null != parent)
+            //    parent.onChildSizeChanged(this);
         }
+
+        if (callParent && null != parent)
+            parent.onChildSizeChanged(this);
+
 
         if (0 < this.width && 0 < this.height && this instanceof IsParent) {
             ((IsParent) this).arrangeChildren();

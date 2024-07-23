@@ -26,6 +26,11 @@ public class QQScroll extends QQView implements QQView.IsParent, QQView.IsToucha
         this.isVertical = isVertical;
     }
 
+    public void scrollToTop() {
+        scrollY = 0;
+        arrangeChildren();
+    }
+
     private void calculateMaxScrollY() {
         maxScrollY = childView.height - (height - topPadding - bottomPadding);
         if (0 > maxScrollY)
@@ -188,15 +193,16 @@ public class QQScroll extends QQView implements QQView.IsParent, QQView.IsToucha
             if (wrapWidth)
                 throw new GdxRuntimeException("wrap width with match width child.");
             if (0 < width) {
-                child.setSize(width - leftPadding - rightPadding, child.getHeight());
+                childView.setSize(width - leftPadding - rightPadding, childView.getHeight());
             }
         }
         if (child.matchHeight) {
             if (wrapHeight)
                 throw new GdxRuntimeException("wrap height with match height child.");
             if (0 < height)
-                child.setSize(child.getWidth(), height - topPadding - bottomPadding);
+                childView.setSize(child.getWidth(), height - topPadding - bottomPadding);
         }
+
         // calculate my size
         if (wrapWidth)
             resetWrapWidth();
@@ -236,6 +242,8 @@ public class QQScroll extends QQView implements QQView.IsParent, QQView.IsToucha
             calculateMaxScrollY();
         else
             calculateMaxScrollX();
+        //Gdx.app.error("QQScroll", "onChildSizeChanged : " + child.height);
+        arrangeChildren();
     }
 
     @Override
@@ -251,6 +259,9 @@ public class QQScroll extends QQView implements QQView.IsParent, QQView.IsToucha
         } else {
             childView.setPosition(leftPadding, bottomPadding);
         }
+
+        //Gdx.app.error("QQScroll", "arrangeChildren : " + childView.getHeight() + " / scrollY = " + scrollY);
+
     }
 
     @Override
