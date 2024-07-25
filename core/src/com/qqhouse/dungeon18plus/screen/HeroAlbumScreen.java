@@ -70,7 +70,7 @@ public class HeroAlbumScreen extends QQScreen {
             @Override
             public void onChange(int page) {
                 //Gdx.app.error("HeroAlbumScreen", "on cyclePager change");
-                profile.update(savedGame.getHeroClassRecord(allHeroClass.get(page)));
+                profile.update(savedGame.getHeroClassRecord(allHeroClass.get(page)), savedGame);
                 scroll.scrollToTop();
             }
         });
@@ -86,7 +86,7 @@ public class HeroAlbumScreen extends QQScreen {
 
         profile = new ProfileView(assets);
         profile.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-        profile.update(savedGame.getHeroClassRecord(allHeroClass.get(0)));
+        profile.update(savedGame.getHeroClassRecord(allHeroClass.get(0)), savedGame);
         scroll.addChild(profile);
 
     }

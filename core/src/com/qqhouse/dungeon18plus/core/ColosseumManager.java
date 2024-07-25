@@ -8,7 +8,7 @@ import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.EventInfo;
 import com.qqhouse.dungeon18plus.struct.EventResult;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
-import com.qqhouse.dungeon18plus.struct.Varier;
+import com.qqhouse.dungeon18plus.struct.Variety;
 import com.qqhouse.dungeon18plus.struct.event.BattleEvent;
 import com.qqhouse.dungeon18plus.struct.event.ColosseumShop;
 import com.qqhouse.dungeon18plus.struct.event.Event;
@@ -355,25 +355,25 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
                         attackPlus = 2;
                     else if (50 < rate)
                         attackPlus = 1;
-                    mHero.upgradeAbility(new Varier(Varier.Type.ATTACK | Varier.Type.OFFSET, attackPlus), eventResult);
+                    mHero.upgradeAbility(new Variety(Variety.Type.ATTACK | Variety.Type.OFFSET, attackPlus), eventResult);
                 } else if (Feat.YELLOW_MIRROR.in(mHero.feats)) {
                     // copy life ~
                     if (contrast.life > mHero.getBody().life) {
-                        mHero.upgradeAbility(new Varier(Varier.Type.LIFE | Varier.Type.SET, contrast.life), eventResult);
+                        mHero.upgradeAbility(new Variety(Variety.Type.LIFE | Variety.Type.SET, contrast.life), eventResult);
                     }
                 } else if (Feat.RED_MIRROR.in(mHero.feats)) {
                     // copy attack
                     if (contrast.attack > mHero.getBody().attack) {
-                        mHero.upgradeAbility(new Varier(Varier.Type.ATTACK | Varier.Type.SET, contrast.attack), eventResult);
+                        mHero.upgradeAbility(new Variety(Variety.Type.ATTACK | Variety.Type.SET, contrast.attack), eventResult);
                     }
                 } else if (Feat.BLUE_MIRROR.in(mHero.feats)) {
                     // copy defense
                     if (contrast.defense > mHero.getBody().defense) {
-                        mHero.upgradeAbility(new Varier(Varier.Type.DEFENSE | Varier.Type.SET, contrast.defense), eventResult);
+                        mHero.upgradeAbility(new Variety(Variety.Type.DEFENSE | Variety.Type.SET, contrast.defense), eventResult);
                     }
                 } else if (Feat.GREEN_MIRROR.in(mHero.feats)) {
                     if (contrast.speed < mHero.getBody().speed) {
-                        mHero.upgradeAbility(new Varier(Varier.Type.SPEED | Varier.Type.SET, contrast.speed), eventResult);
+                        mHero.upgradeAbility(new Variety(Variety.Type.SPEED | Variety.Type.SET, contrast.speed), eventResult);
                     }
                 }
             }

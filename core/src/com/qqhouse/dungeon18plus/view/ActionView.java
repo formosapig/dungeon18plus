@@ -1,47 +1,61 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Align;
-import com.qqhouse.ui.QQButton;
-import com.qqhouse.ui.QQIconText;
+import com.qqhouse.dungeon18plus.Assets;
+import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.core.Action;
+import com.qqhouse.ui.QQImage;
 
-public class ActionView extends QQButton {
+public class ActionView extends AssetGroup {
 
-    /*
-        fixed icon.
-        fixed cost icon.
-        fixed cost value ?
-     */
+    // display action
+    private final QQImage icon;
+    private final ItemView cost;
+    private final VarietyView upgrade;
 
-    public ActionView(BackgroundSet set, Texture icon, BitmapFont costFont, Texture costIcon, int costValue) {
-        super(set);
-        this.icon = icon;
-        cost = new QQIconText(costFont, costIcon);
-        cost.setSize(36, 16);
-        cost.setAlign(Align.right);
-        cost.setText(Integer.toString(costValue));
+    public ActionView(Assets assets) {
+        super(assets);
+
+        icon = new QQImage();
+        icon.setSize(32, 32);
+        addChild(icon);
+
+        upgrade = new VarietyView(assets);
+        addChild(upgrade);
+
+        cost = new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        addChild(cost);
     }
 
-    private Texture icon;
-    private QQIconText cost;
-    private float iconShiftX, costShiftX;
+    public void update(Action action) {
+        icon.setImage(assets.getIcon32(action.key));
 
-    @Override
-    public void setSize(float w, float h) {
-        super.setSize(w, h);
-        iconShiftX = (w - 32) / 2;
-        costShiftX = (w - cost.getWidth()) / 2;
+        upgrade.update32(action.effects);
+
+        cost.setIcon(assets.getItem("star"));
+        cost.setText(Integer.toString(action.cost.value));
     }
 
     @Override
-    public void drawForeground(SpriteBatch batch, float originX, float originY) {
-        // draw icon
-        batch.draw(icon, originX + iconShiftX, originY + 24, 32, 32);
+    public void resetWrapHeight() {
+        height = topPadding + 32 + bottomPadding;
+    }
 
-        // draw IconText
-        cost.draw(batch, originX + costShiftX, originY + 8);
+    //
+    @Override
+    public void onParentSizeChanged(float width, float height) {
+        if (0 >= width || 0 >= height)
+            return;
+        upgrade.setSize(width - leftPadding - 32 - 8 - rightPadding - 32 - 8, 32);
+    }
+
+    @Override
+    public void arrangeChildren() {
+        if (0 >= width || 0 >= height)
+            return;
+
+        icon.setPosition(leftPadding, bottomPadding);
+        upgrade.setPosition(leftPadding + 32 + 8, bottomPadding);
+        cost.setPosition(width - rightPadding - 32, bottomPadding);
     }
 
 }

@@ -1,11 +1,11 @@
 package com.qqhouse.dungeon18plus.core;
 
-import com.qqhouse.dungeon18plus.struct.Varier;
+import com.qqhouse.dungeon18plus.struct.Variety;
 
 import static com.qqhouse.dungeon18plus.core.Action.Type.POTION;
 import static com.qqhouse.dungeon18plus.core.Action.Type.SKILL;
 import static com.qqhouse.dungeon18plus.core.Action.Type.UPGRADE;
-import static com.qqhouse.dungeon18plus.struct.Varier.*;
+import static com.qqhouse.dungeon18plus.struct.Variety.*;
 
 public enum Action {
 	
@@ -93,17 +93,17 @@ public enum Action {
 	 */
 	
 	// barbarian
-	WAR_CRY(SKILL, "yellow_sword", Varier.NONE),
+	WAR_CRY(SKILL, "yellow_sword", Variety.NONE),
 	
 	// berserker
-	FRENZY(SKILL, "attack", Varier.NONE),
-	TWO_HAND_HOLD(SKILL, "item_great_sword", Varier.NONE),
+	FRENZY(SKILL, "attack", Variety.NONE),
+	TWO_HAND_HOLD(SKILL, "item_great_sword", Variety.NONE),
 
 	// fairy
 	DOPPELGANGER(SKILL, "black_shoe", KEY_9),
 
     // test
-    HIT(SKILL, "item_star", Varier.NONE),
+    HIT(SKILL, "item_star", Variety.NONE),
 
 	/*
 	 * none
@@ -120,12 +120,12 @@ public enum Action {
     @Type
     public final int type;
 	public final String key;
-	public final Varier cost;
-	public final Varier[] effects;
+	public final Variety cost;
+	public final Variety[] effects;
 	
-	Action(@Type int type, String key, Varier cost, Varier... effects) {
-	    this.type = type;
-		this.key = key;
+	Action(@Type int type, String key, Variety cost, Variety... effects) {
+        this.type = type;
+        this.key = key;
 		this.cost = cost;
 		this.effects = effects;
 	}

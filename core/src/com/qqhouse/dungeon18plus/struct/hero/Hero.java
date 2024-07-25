@@ -5,22 +5,22 @@ import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.struct.Ability;
 import com.qqhouse.dungeon18plus.struct.EventResult;
 import com.qqhouse.dungeon18plus.struct.Fightable;
-import com.qqhouse.dungeon18plus.struct.Varier;
+import com.qqhouse.dungeon18plus.struct.Variety;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.qqhouse.dungeon18plus.struct.Varier.Type.ATTACK;
-import static com.qqhouse.dungeon18plus.struct.Varier.Type.COIN;
-import static com.qqhouse.dungeon18plus.struct.Varier.Type.COMBO;
-import static com.qqhouse.dungeon18plus.struct.Varier.Type.DAMAGE;
-import static com.qqhouse.dungeon18plus.struct.Varier.Type.DEFENSE;
-import static com.qqhouse.dungeon18plus.struct.Varier.Type.KEY;
-import static com.qqhouse.dungeon18plus.struct.Varier.Type.LIFE;
-import static com.qqhouse.dungeon18plus.struct.Varier.Type.NONE;
-import static com.qqhouse.dungeon18plus.struct.Varier.Type.SOUL;
-import static com.qqhouse.dungeon18plus.struct.Varier.Type.SPEED;
-import static com.qqhouse.dungeon18plus.struct.Varier.Type.STAR;
+import static com.qqhouse.dungeon18plus.struct.Variety.Type.ATTACK;
+import static com.qqhouse.dungeon18plus.struct.Variety.Type.COIN;
+import static com.qqhouse.dungeon18plus.struct.Variety.Type.COMBO;
+import static com.qqhouse.dungeon18plus.struct.Variety.Type.DAMAGE;
+import static com.qqhouse.dungeon18plus.struct.Variety.Type.DEFENSE;
+import static com.qqhouse.dungeon18plus.struct.Variety.Type.KEY;
+import static com.qqhouse.dungeon18plus.struct.Variety.Type.LIFE;
+import static com.qqhouse.dungeon18plus.struct.Variety.Type.NONE;
+import static com.qqhouse.dungeon18plus.struct.Variety.Type.SOUL;
+import static com.qqhouse.dungeon18plus.struct.Variety.Type.SPEED;
+import static com.qqhouse.dungeon18plus.struct.Variety.Type.STAR;
 
 // XXX feat 也采用熟練度感覺不錯嗎? 不好, 可能用等級制會好一點.
 // XXX feat 設定的限制? 方案 1. 最大等級 方案.  2. 最大分數. 3. 其他限制的方式
@@ -44,7 +44,7 @@ public class Hero extends Ability implements Fightable {
 	public long feats;
 
 	// buffer series, maybe potion or spell
-	private ArrayList<Varier> mBattleBuffer = new ArrayList<>();
+	private ArrayList<Variety> mBattleBuffer = new ArrayList<>();
 
 	private Ability mLimit;
 	private Ability mBody;
@@ -80,7 +80,7 @@ public class Hero extends Ability implements Fightable {
 	 * cost series...
 	 */
 	// TODO cost 並不僅僅只是單純的減一個值, 也有可能是減半之類的, 需要再加強.
-	public boolean canPayCost(Varier cost) {
+	public boolean canPayCost(Variety cost) {
         switch(cost.getPureType()) {
             case NONE:   return true;
             case STAR:   return star >= cost.value;
@@ -93,7 +93,7 @@ public class Hero extends Ability implements Fightable {
         }
     }
 
-    public void payCost(Varier cost) {
+    public void payCost(Variety cost) {
 		switch (cost.getPureType()) {
             case NONE:
                 break;
@@ -118,21 +118,21 @@ public class Hero extends Ability implements Fightable {
     }
 
     // return false if no ability can upgrade...
-    public boolean canUpgradeAbility(Varier[] upgrades) {
+    public boolean canUpgradeAbility(Variety[] upgrades) {
 	    if (0 == upgrades.length) {
             return true;
         }
 
         Ability tempBody = new Ability(mBody);
 
-	    for (Varier var : upgrades) {
+	    for (Variety var : upgrades) {
             applyVarier(tempBody, mBody, var, true, null);
         }
 
         return !tempBody.equals(mBody);
     }
 
-    public void upgradeAbility(Varier var, EventResult result) {
+    public void upgradeAbility(Variety var, EventResult result) {
 	    if (var.isLimit()) {
             applyVarier(mLimit, mLimit, var, false, null);
         } else {
@@ -143,7 +143,7 @@ public class Hero extends Ability implements Fightable {
 
 	// always can apply until max status.
 	// TODO remove EventResult, use other ....
-	private void applyVarier(Ability target, Ability source, Varier var, boolean checkLimit, EventResult result) {
+	private void applyVarier(Ability target, Ability source, Variety var, boolean checkLimit, EventResult result) {
 	    //Log.e(Game.Debug.TAG, String.format(Locale.US, "limit = %s", mLimit));
 		switch (var.getPureType()) {
 			case LIFE: {
@@ -310,7 +310,7 @@ public class Hero extends Ability implements Fightable {
 	/*
 	 * apply buffer
 	 */
-	public void addBattleBuffer(Varier buffer) {
+	public void addBattleBuffer(Variety buffer) {
         mBattleBuffer.add(buffer);
         calculateBuffer();
 	}
@@ -325,7 +325,7 @@ public class Hero extends Ability implements Fightable {
 	private void calculateBuffer() {
 		this.copy(this.mBody);
 		// apply buffer ...
-        for (Varier var : mBattleBuffer) {
+        for (Variety var : mBattleBuffer) {
             applyVarier(this, mBody, var, false, null);
         }
 	}
@@ -402,9 +402,9 @@ public class Hero extends Ability implements Fightable {
 	    return mPotionResistance;
     }
 
-    public void drinkPotionWithBuffers(Varier[] buffer) {
+    public void drinkPotionWithBuffers(Variety[] buffer) {
 	    mPotionResistance = true;
-	    for (Varier var : buffer)
+	    for (Variety var : buffer)
 	        addBattleBuffer(var);
     }
 

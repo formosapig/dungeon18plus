@@ -1,12 +1,11 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.Ability;
-import com.qqhouse.dungeon18plus.struct.Varier;
+import com.qqhouse.dungeon18plus.struct.Variety;
 import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQView;
 
@@ -17,7 +16,7 @@ public class AbilityView extends QQView implements QQView.IsParent {
 
     private Assets assets;
     private QQIconText life, attack, defense, speed, coin;
-    private final int VARIER_FILTER = Varier.Type.LIFE | Varier.Type.ATTACK | Varier.Type.DEFENSE | Varier.Type.SPEED | Varier.Type.COIN;
+    private final int VARIER_FILTER = Variety.Type.LIFE | Variety.Type.ATTACK | Variety.Type.DEFENSE | Variety.Type.SPEED | Variety.Type.COIN;
 
 
     public AbilityView(Assets assets) {
@@ -105,14 +104,14 @@ public class AbilityView extends QQView implements QQView.IsParent {
         rearrange();
     }
 
-    public void update(Varier... variers) {
+    public void update(Variety... variers) {
         life.setVisible(false);
         attack.setVisible(false);
         defense.setVisible(false);
         speed.setVisible(false);
         coin.setVisible(false);
 
-        for (Varier var : variers) {
+        for (Variety var : variers) {
             if ((var.type & VARIER_FILTER) == 0)
                 continue;
 

@@ -8,7 +8,7 @@ import com.qqhouse.dungeon18plus.struct.EventResult;
 import com.qqhouse.dungeon18plus.struct.Fightable;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.struct.SoulCount;
-import com.qqhouse.dungeon18plus.struct.Varier;
+import com.qqhouse.dungeon18plus.struct.Variety;
 import com.qqhouse.dungeon18plus.struct.hero.Hero;
 
 import java.util.ArrayList;
@@ -121,7 +121,7 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
 
     private void applySoulBonus(HeroClassRecord record) {
         for (SoulCount sc : record.souls) {
-            for (Varier var : sc.soul.getInfluence(sc.count)) {
+            for (Variety var : sc.soul.getInfluence(sc.count)) {
                 mHero.upgradeAbility(var, null);
             }
         }
@@ -171,7 +171,7 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
         final Action act = slot.action;
 
         // pay cost series.
-        final Varier cost = act.cost;
+        final Variety cost = act.cost;
         if (cost.isCount()) {
             slot.count--;
             drinkSpecialPotion(act);
@@ -185,7 +185,7 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
         // do action series.
         switch (act.type) {
             case UPGRADE:
-                for (Varier var : act.effects) {
+                for (Variety var : act.effects) {
                     mHero.upgradeAbility(var, result);
                 }
             break;
@@ -211,7 +211,7 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
             throw new RuntimeException(String.format(Locale.US, "%s should handled before call GameManager.gianLoot().", loot));
         }
 
-        for (Varier var : loot.upgrade) {
+        for (Variety var : loot.upgrade) {
             // feat : undead, holy one
             // life will not add or sub.
             if ((Feat.UNDEAD.in(mHero.feats) || Feat.HOLY_ONE.in(mHero.feats)) && var.isLife()) {
@@ -228,10 +228,10 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
             if (Feat.FORGING.in(mHero.feats)) {
                 if (loot.isSword() && var.isAttack() && var.isOffset()) {
                     // 可以頂替掉的啊 ~~
-                    var = new Varier(Varier.Type.ATTACK | Varier.Type.OFFSET, var.value + 2);
+                    var = new Variety(Variety.Type.ATTACK | Variety.Type.OFFSET, var.value + 2);
                 }
                 if (loot.isShield() && var.isDefense() && var.isOffset()) {
-                    var = new Varier(Varier.Type.DEFENSE | Varier.Type.OFFSET, var.value + 2);
+                    var = new Variety(Variety.Type.DEFENSE | Variety.Type.OFFSET, var.value + 2);
                 }
             }
             if (loot.isPotion())

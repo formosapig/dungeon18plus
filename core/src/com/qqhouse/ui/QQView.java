@@ -247,6 +247,7 @@ public class QQView {
     protected boolean matchWidth = false, matchHeight = false;
     public void setWrapWidth(boolean wrapWidth) {this.wrapWidth = wrapWidth;}
     public void setMatchHeight(boolean matchHeight) {this.matchHeight = matchHeight;}
+    public boolean isMatchWidth() { return matchWidth; }
 
     /*
         IsParent ...

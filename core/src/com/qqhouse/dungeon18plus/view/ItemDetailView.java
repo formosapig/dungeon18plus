@@ -1,11 +1,9 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Item;
-import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
@@ -15,7 +13,7 @@ public class ItemDetailView extends AssetGroup {
 
     private ItemView icon;
     private QQText name, help;
-    private VarierView upgrade;
+    private VarietyView upgrade;
 
 
     public ItemDetailView(Assets assets) {
@@ -33,7 +31,7 @@ public class ItemDetailView extends AssetGroup {
         name.setColor(Game.Colour.RARE);
         addChild(name);
 
-        upgrade = new VarierView(assets);
+        upgrade = new VarietyView(assets);
         addChild(upgrade);
 
         help = new QQText(assets.getFont(Game.Font.HELP14));

@@ -8,7 +8,7 @@ import com.qqhouse.ui.QQImage;
 public class ProfileUpgradeView extends AssetGroup {
 
     private QQImage icon;
-    private VarierView upgrade;
+    private VarietyView upgrade;
     private ItemView cost;
 
     public ProfileUpgradeView(Assets assets) {
@@ -21,7 +21,7 @@ public class ProfileUpgradeView extends AssetGroup {
         icon.setSize(32, 32);
         //icon.setPosition(4, 4);
 
-        upgrade = new VarierView(assets);
+        upgrade = new VarietyView(assets);
         upgrade.update(act.effects);
         upgrade.setSize(MATCH_PARENT, 32);
 

@@ -171,19 +171,26 @@ public class Assets {
     }
 
     public BitmapFont getFont(FontSet set) {
-        return getFont(set.name, set.size);
+        return getFont(set.name, set.size, set.fixedWidth);
     }
 
     public static final class FontSet {
         public String name;
         public int size;
+        public boolean fixedWidth = false;
         public FontSet(String name, int size) {
             this.name = name;
             this.size = size;
         }
+
+        public FontSet(String name, int size, boolean fixedWidth) {
+            this.name = name;
+            this.size = size;
+            this.fixedWidth = fixedWidth;
+        }
     }
 
-    private BitmapFont getFont(String fontName, int fontSize) {
+    private BitmapFont getFont(String fontName, int fontSize, boolean fixedWidth) {
         String fileName = String.format("%s%d.ttf", fontName, fontSize);
         if (!manager.contains(fileName)) {
             long t = TimeUtils.millis();
@@ -201,7 +208,10 @@ public class Assets {
             //Gdx.app.error("Assets", String.format(Locale.US, "getFont(%S) : %d", fontName, (TimeUtils.millis() - t)));
 
         }
-        return manager.get(fileName, BitmapFont.class);
+        BitmapFont font = manager.get(fileName, BitmapFont.class);
+        if (fixedWidth)
+            font.setFixedWidthGlyphs("0123456789");
+        return font;
     }
 
     /*

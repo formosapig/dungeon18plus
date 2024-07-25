@@ -1,7 +1,7 @@
 package com.qqhouse.dungeon18plus.core;
 
-import com.qqhouse.dungeon18plus.struct.Varier;
-import static com.qqhouse.dungeon18plus.struct.Varier.*;
+import com.qqhouse.dungeon18plus.struct.Variety;
+import static com.qqhouse.dungeon18plus.struct.Variety.*;
 
 public enum Item {
     // NONE
@@ -332,10 +332,10 @@ public enum Item {
     private final int type;
     public final int price;
     public final UniqueSkill skill;
-    public final Varier[] upgrade;
+    public final Variety[] upgrade;
 
     Item(int code, String icon, String name, String help,
-         @Type int type, int price, UniqueSkill skill, Varier... upgrade) {
+         @Type int type, int price, UniqueSkill skill, Variety... upgrade) {
         this.code = code;
         this.icon = icon;
         this.name = name;
@@ -349,7 +349,7 @@ public enum Item {
 
     // without ultimate skill
     Item(int code, String icon, String name, String help,
-         @Type int type, int price, Varier... upgrade) {
+         @Type int type, int price, Variety... upgrade) {
         this.code = code;
         this.icon = icon;
         this.name = name;

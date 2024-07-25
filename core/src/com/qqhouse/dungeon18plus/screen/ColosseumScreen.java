@@ -9,10 +9,9 @@ import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.dialog.SelectEquipmentDialog;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
-import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
-import com.qqhouse.dungeon18plus.view.ActionView;
+import com.qqhouse.dungeon18plus.view.ActionShortcutView;
 import com.qqhouse.dungeon18plus.dialog.EventInfoDialog;
 import com.qqhouse.dungeon18plus.view.EventInfoView;
 import com.qqhouse.dungeon18plus.view.EventView;
@@ -26,7 +25,6 @@ import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ColosseumScreen extends QQScreen {
     public interface ColosseumCallback {
@@ -46,7 +44,7 @@ public class ColosseumScreen extends QQScreen {
     }
 
     private HeroView heroView;
-    private final ArrayList<ActionView> actionViews = new ArrayList<>();
+    private final ArrayList<ActionShortcutView> actionViews = new ArrayList<>();
     private LootInfoView lootInfo;
     private EventInfoView eventInfo;
     private EventInfoDialog eventInfoDialog;
@@ -176,7 +174,7 @@ public class ColosseumScreen extends QQScreen {
         for (int i = 0; i < actionCount; ++i) {
             ActionSlot slot = manager.getActionSlot(i);
 
-            ActionView action = new ActionView(
+            ActionShortcutView action = new ActionShortcutView(
                     assets.getBackgroundSet(manager.getHero().heroClass.alignment.key),
                     assets.getIcon32(manager.getActionSlot(i).action.key),
                     assets.getFont(Game.Font.LEVEL16),

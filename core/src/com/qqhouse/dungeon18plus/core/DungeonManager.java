@@ -6,7 +6,6 @@ import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DOOR_3;
 import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DOOR_4;
 import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DOOR_5;
 import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DOOR_6;
-import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DUNGEON_DOOR;
 import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DUNGEON_SKELETON_FIGHTER;
 import static com.qqhouse.dungeon18plus.struct.loot.LootStash.DUNGEON_SQULETON;
 
@@ -24,7 +23,7 @@ import com.qqhouse.dungeon18plus.struct.event.VariedHero;
 import com.qqhouse.dungeon18plus.struct.EventInfo;
 import com.qqhouse.dungeon18plus.struct.EventResult;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
-import com.qqhouse.dungeon18plus.struct.Varier;
+import com.qqhouse.dungeon18plus.struct.Variety;
 import com.qqhouse.dungeon18plus.struct.hero.ScoreHero;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.dungeon18plus.struct.loot.CountableLoot;
@@ -544,7 +543,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
              *
              */
             case DOPPELGANGER: {
-                mHero.addBattleBuffer(Varier.COMBO_1);
+                mHero.addBattleBuffer(Variety.COMBO_1);
                 mHero.inUse = act;
                 //mHero.combo = 2;
 
@@ -1015,18 +1014,18 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             break;
         case Game.Cost.DAMAGE:
         {
-            mHero.upgradeAbility(new Varier(Varier.Type.LIFE | Varier.Type.OFFSET, -evt.costValue), null);
+            mHero.upgradeAbility(new Variety(Variety.Type.LIFE | Variety.Type.OFFSET, -evt.costValue), null);
             if (evt.costValue < 0) {
                 eventResult.life = -evt.costValue;
             }
             if (Feat.RAGE.in(mHero.feats)) {
                 final int attackPlus = getAttackPlusFromRage(evt.costValue);
-                mHero.upgradeAbility(new Varier(Varier.Type.ATTACK | Varier.Type.OFFSET, attackPlus), eventResult);
+                mHero.upgradeAbility(new Variety(Variety.Type.ATTACK | Variety.Type.OFFSET, attackPlus), eventResult);
             }
             // heal
             if (Feat.HEAL.in(mHero.feats)) {
                 // restore to max life.
-                mHero.upgradeAbility(new Varier(Varier.Type.LIFE | Varier.Type.SET, mHero.getLimit().life), null);
+                mHero.upgradeAbility(new Variety(Variety.Type.LIFE | Variety.Type.SET, mHero.getLimit().life), null);
             }
             // try try.,..
             mHero.clearBattleBuffer();

@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Item;
+import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
+import com.qqhouse.dungeon18plus.struct.SoulCount;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
@@ -88,6 +90,32 @@ public class ItemView extends QQView {
 
     @Override
     public void dispose() {}
+
+    /*
+        Equipment Mastery
+     */
+    public void setEquipmentMastery(Assets assets, EquipmentMastery em) {
+        setIcon(assets.getItem(em.equipment.icon));
+        if (em.equipment.isBlessed())
+            setStatus(assets.getBackground("blessed"));
+        else if (em.equipment.isCursed())
+            setStatus(assets.getBackground("cursed"));
+        else if (em.equipment.isRefined())
+            setStatus(assets.getBackground("refined"));
+        count.setColor(Game.Colour.MASTERY);
+        count.setText(Integer.toString(em.mastery));
+        count.setPosition(34 - count.getWidth(), -2);
+    }
+
+    /*
+        Soul Count
+     */
+    public void setSoulCount(Assets assets, SoulCount sc) {
+        setIcon(assets.getItem(sc.soul.iconKey));
+        count.setColor(Game.Colour.SOUL_LEVEL);
+        count.setText(Integer.toString(sc.count));
+        count.setPosition(34 - count.getWidth(), 34 - count.getHeight());
+    }
 
     /*
         chain method

@@ -1,46 +1,25 @@
 package com.qqhouse.dungeon18plus.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
-import com.qqhouse.dungeon18plus.core.DungeonManager;
 import com.qqhouse.dungeon18plus.core.GiantRace;
-import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.core.WildernessManager;
-import com.qqhouse.dungeon18plus.dialog.EventInfoDialog;
-import com.qqhouse.dungeon18plus.dialog.SummaryDialog;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
-import com.qqhouse.dungeon18plus.struct.ActionSlot;
-import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignAction;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignResult;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignScore;
-import com.qqhouse.dungeon18plus.struct.campaign.Campaigner;
 import com.qqhouse.dungeon18plus.struct.campaign.Legion;
-import com.qqhouse.dungeon18plus.struct.event.Event;
-import com.qqhouse.dungeon18plus.struct.hero.Veteran;
-import com.qqhouse.dungeon18plus.view.ActionView;
 import com.qqhouse.dungeon18plus.view.CampaignActionView;
 import com.qqhouse.dungeon18plus.view.CampaignResultView;
 import com.qqhouse.dungeon18plus.view.CampaignScoreView;
-import com.qqhouse.dungeon18plus.view.EventInfoView;
-import com.qqhouse.dungeon18plus.view.EventView;
 import com.qqhouse.dungeon18plus.view.GiantView;
-import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LegionHeroView;
-import com.qqhouse.dungeon18plus.view.LootInfoView;
 import com.qqhouse.ui.QQGrid;
-import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQLinear;
-import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQList1;
-import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class WildernessScreen extends QQScreen {
 

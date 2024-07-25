@@ -175,6 +175,8 @@ public class Game {
         public static final Color ZAKO_LEVEL = new Color(0xFFFFFFFF);
         public static final Color COUNT      = new Color(0xFFFFFFFF);
         public static final Color SOUL       = new Color(0xFFB0A0C0);
+        public static final Color MASTERY    = new Color(0x80E0FFFF);
+        public static final Color SOUL_LEVEL = new Color(0xFFE080FF);
     }
 
     /*
@@ -186,12 +188,25 @@ public class Game {
         public static final Assets.FontSet HELP14 = new Assets.FontSet("NotoSansTC-Regular", 14);
 
         public static final Assets.FontSet LEVEL16 = new Assets.FontSet("ConsolaMono-Bold", 16);
+        //public static final Assets.FontSet LEVEL16 = new Assets.FontSet("overpass-mono.bold", 15);//ConsolaMono-Bold", 16);
         public static final Assets.FontSet MASTERY14 = new Assets.FontSet("whitrabt", 14);
         public static final Assets.FontSet DIGITAL16 = new Assets.FontSet("whitrabt", 16);
         //public static final Assets.FontSet HERO_ABILITY = new Assets.FontSet("Nouveau_IBM", 18);
         public static final Assets.FontSet HERO_ABILITY = new Assets.FontSet("whitrabt", 18);
         public static final Assets.FontSet LOOT_INFO = new Assets.FontSet("whitrabt", 18);
         public static final Assets.FontSet EVENT_COST = new Assets.FontSet("whitrabt", 22);
+
+        // mastery ?
+        public static final Assets.FontSet ITEM_COUNT = new Assets.FontSet("overpass-mono.bold", 15);
+        //public static final Assets.FontSet ITEM_COUNT = new Assets.FontSet("ConsolaMono-Bold", 16);
+        //public static final Assets.FontSet ITEM_COUNT = new Assets.FontSet("natural-mono.bold", 16);
+        //public static final Assets.FontSet ITEM_COUNT = new Assets.FontSet("minim.100", 16);
+        //public static final Assets.FontSet ITEM_COUNT = new Assets.FontSet("intelone-mono.bold", 16);
+        //public static final Assets.FontSet ITEM_COUNT = new Assets.FontSet("panoptic-monospace.bold", 10);
+        //public static final Assets.FontSet ITEM_COUNT = new Assets.FontSet("quadaptor.regular", 14, true);
+
+
+
     }
 
 

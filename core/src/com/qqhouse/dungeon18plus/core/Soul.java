@@ -1,7 +1,7 @@
 package com.qqhouse.dungeon18plus.core;
 
 import com.qqhouse.dungeon18plus.struct.SoulEffect;
-import com.qqhouse.dungeon18plus.struct.Varier;
+import com.qqhouse.dungeon18plus.struct.Variety;
 
 import java.util.Locale;
 import java.util.Random;
@@ -103,11 +103,11 @@ public enum Soul {
     // Everything seems to be so unfamiliar, you need more practice.
 	NEGATIVE_STAR( 0x748D17B4, 1, 3, "broken_black_soul") {
 		@Override
-        public Varier[] getInfluence(int count) {
-		    return new Varier[] {
-		        Varier.LIFE_N20,
-                Varier.SPEED_N1,
-                new Varier(Varier.Type.STAR | Varier.Type.OFFSET, count * count + 2)
+        public Variety[] getInfluence(int count) {
+		    return new Variety[] {
+		        Variety.LIFE_N20,
+                Variety.SPEED_N1,
+                new Variety(Variety.Type.STAR | Variety.Type.OFFSET, count * count + 2)
             };
         }
 	},
@@ -129,8 +129,8 @@ public enum Soul {
 	 */
 	STAR( 0x9480E2D8, 4, 8, "complete_black_soul") {
 		@Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {new Varier(Varier.Type.STAR | Varier.Type.OFFSET, count * (count + 2) / 2)};
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {new Variety(Variety.Type.STAR | Variety.Type.OFFSET, count * (count + 2) / 2)};
         }
 	},
 
@@ -147,11 +147,11 @@ public enum Soul {
 	 */
 	NEGATIVE_COIN( 0x59C3FED9, 1, 3, "broken_black_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    Varier.ATTACK_N1,
-                    Varier.DEFENSE_N1,
-                    new Varier(Varier.Type.COIN | Varier.Type.OFFSET, count * (count + 3))
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    Variety.ATTACK_N1,
+                    Variety.DEFENSE_N1,
+                    new Variety(Variety.Type.COIN | Variety.Type.OFFSET, count * (count + 3))
             };
         }
 	},
@@ -173,9 +173,9 @@ public enum Soul {
 	 */
 	COIN( 0x7C78490B, 4, 8, "complete_black_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.COIN | Varier.Type.OFFSET, count * (count + 2))
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.COIN | Variety.Type.OFFSET, count * (count + 2))
             };
         }
 	},
@@ -197,11 +197,11 @@ public enum Soul {
 	 */
 	NEGATIVE_LUCKY( 0x987CA3CB, 2, 5, "complete_black_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.LIFE | Varier.Type.OFFSET, count * 5 - 85),
-                    new Varier(Varier.Type.COIN | Varier.Type.OFFSET, count * 4 - 1),
-                    new Varier(Varier.Type.STAR | Varier.Type.OFFSET, count * 2 - 1)
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.LIFE | Variety.Type.OFFSET, count * 5 - 85),
+                    new Variety(Variety.Type.COIN | Variety.Type.OFFSET, count * 4 - 1),
+                    new Variety(Variety.Type.STAR | Variety.Type.OFFSET, count * 2 - 1)
             };
         }
 	},
@@ -223,9 +223,9 @@ public enum Soul {
 	 */
 	KEY( 0xC2BC6C6E, 6, 5, "complete_black_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.KEY | Varier.Type.OFFSET, (count * 30) / 8)
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.KEY | Variety.Type.OFFSET, (count * 30) / 8)
             };
         }
 	},
@@ -243,11 +243,11 @@ public enum Soul {
 	 */
 	NEGATIVE_LIFE( 0x830591A0, 2, 3, "broken_yellow_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.LIFE | Varier.Type.OFFSET, count * 50),
-                    new Varier(Varier.Type.COIN | Varier.Type.OFFSET, -(count + 2)),
-                    new Varier(Varier.Type.STAR | Varier.Type.OFFSET, -(count + 2))
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.LIFE | Variety.Type.OFFSET, count * 50),
+                    new Variety(Variety.Type.COIN | Variety.Type.OFFSET, -(count + 2)),
+                    new Variety(Variety.Type.STAR | Variety.Type.OFFSET, -(count + 2))
             };
         }
 	},
@@ -268,12 +268,12 @@ public enum Soul {
 	 */
 	LONG_LIFE( 0xAA388930, 3, 5, "broken_yellow_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.LIFE | Varier.Type.OFFSET, count * 25 + 175),
-                    Varier.ATTACK_N1,
-                    Varier.DEFENSE_N1,
-                    new Varier(Varier.Type.SPEED | Varier.Type.OFFSET, 6 - count)
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.LIFE | Variety.Type.OFFSET, count * 25 + 175),
+                    Variety.ATTACK_N1,
+                    Variety.DEFENSE_N1,
+                    new Variety(Variety.Type.SPEED | Variety.Type.OFFSET, 6 - count)
             };
         }
 	},
@@ -290,9 +290,9 @@ public enum Soul {
 	 */
 	LIFE( 0xF3CA11D7, 4, 3, "complete_yellow_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.LIFE | Varier.Type.OFFSET, count * (count + 2) * 10)
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.LIFE | Variety.Type.OFFSET, count * (count + 2) * 10)
             };
         }
 
@@ -311,10 +311,10 @@ public enum Soul {
 	 */
 	NEGATIVE_ATTACK( 0x80161B2D, 2, 3, "broken_red_soul") {
 		@Override
-        public Varier[] getInfluence(int count) {
-		    return new Varier[] {
-		        new Varier(Varier.Type.ATTACK | Varier.Type.OFFSET, count * 3 - 1),
-                new Varier(Varier.Type.STAR | Varier.Type.OFFSET, (count + 3) * -2)
+        public Variety[] getInfluence(int count) {
+		    return new Variety[] {
+		        new Variety(Variety.Type.ATTACK | Variety.Type.OFFSET, count * 3 - 1),
+                new Variety(Variety.Type.STAR | Variety.Type.OFFSET, (count + 3) * -2)
             };
         }
 	},
@@ -333,10 +333,10 @@ public enum Soul {
 	 */
 	BERSERK( 0xDC7776BB, 3, 4, "broken_red_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.ATTACK | Varier.Type.OFFSET, count * (count + 1) / 2 + 3),
-                    new Varier(Varier.Type.DEFENSE | Varier.Type.OFFSET, - count - 3)
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.ATTACK | Variety.Type.OFFSET, count * (count + 1) / 2 + 3),
+                    new Variety(Variety.Type.DEFENSE | Variety.Type.OFFSET, - count - 3)
             };
         }
 
@@ -356,9 +356,9 @@ public enum Soul {
 	 */
 	ATTACK( 0x22EA9185, 4, 4, "complete_red_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.ATTACK | Varier.Type.OFFSET, count + 4)
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.ATTACK | Variety.Type.OFFSET, count + 4)
             };
         }
 
@@ -378,10 +378,10 @@ public enum Soul {
 	 */
 	NEGATIVE_DEFENSE( 0x4C3C74BA, 2, 3, "broken_blue_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.DEFENSE | Varier.Type.OFFSET, count * 3 - 1),
-                    new Varier(Varier.Type.COIN | Varier.Type.OFFSET, (count + 3) * -4)
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.DEFENSE | Variety.Type.OFFSET, count * 3 - 1),
+                    new Variety(Variety.Type.COIN | Variety.Type.OFFSET, (count + 3) * -4)
             };
         }
 
@@ -401,10 +401,10 @@ public enum Soul {
 	 */
 	HARD_DEFENSE( 0x10C0E49C, 3, 4, "broken_blue_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.DEFENSE | Varier.Type.OFFSET, count * (count + 1)),
-                    new Varier(Varier.Type.SPEED | Varier.Type.OFFSET, count * 2 - 1)
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.DEFENSE | Variety.Type.OFFSET, count * (count + 1)),
+                    new Variety(Variety.Type.SPEED | Variety.Type.OFFSET, count * 2 - 1)
             };
         }
 
@@ -423,9 +423,9 @@ public enum Soul {
 	 */
 	DEFENSE( 0xDC894F5B, 4, 4, "complete_blue_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.DEFENSE | Varier.Type.OFFSET, 1 << (count - 1))
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.DEFENSE | Variety.Type.OFFSET, 1 << (count - 1))
             };
         }
 	},
@@ -443,11 +443,11 @@ public enum Soul {
 	 */
 	NEGATIVE_SPEED( 0x31E2E774, 2, 3, "broken_green_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.SPEED | Varier.Type.OFFSET, -count),
-                    new Varier(Varier.Type.COIN | Varier.Type.OFFSET, -(count + 2)),
-                    new Varier(Varier.Type.STAR | Varier.Type.OFFSET, -(count + 2))
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.SPEED | Variety.Type.OFFSET, -count),
+                    new Variety(Variety.Type.COIN | Variety.Type.OFFSET, -(count + 2)),
+                    new Variety(Variety.Type.STAR | Variety.Type.OFFSET, -(count + 2))
             };
         }
 	},
@@ -465,10 +465,10 @@ public enum Soul {
 	 */
 	RUNAWAY( 0xC3A77D4E, 3, 3, "broken_green_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.ATTACK | Varier.Type.OFFSET, count * -2 - 1),
-                    new Varier(Varier.Type.SPEED | Varier.Type.OFFSET, count * -2)
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.ATTACK | Variety.Type.OFFSET, count * -2 - 1),
+                    new Variety(Variety.Type.SPEED | Variety.Type.OFFSET, count * -2)
             };
         }
 	},
@@ -487,9 +487,9 @@ public enum Soul {
 	 */
 	SPEED( 0x0A1A981B, 4, 5, "complete_green_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.SPEED | Varier.Type.OFFSET, - count)
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.SPEED | Variety.Type.OFFSET, - count)
             };
         }
 	},
@@ -505,10 +505,10 @@ public enum Soul {
 	 */
 	PROTECT( 0xF23B16C6, 4, 2, "complete_cyan_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.LIFE | Varier.Type.OFFSET, count * 25),
-                    new Varier(Varier.Type.DEFENSE | Varier.Type.OFFSET, count),
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.LIFE | Variety.Type.OFFSET, count * 25),
+                    new Variety(Variety.Type.DEFENSE | Variety.Type.OFFSET, count),
             };
         }
 	},
@@ -527,10 +527,10 @@ public enum Soul {
 	 */
 	CHARGE( 0x38AE3194, 4, 3, "complete_purple_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
-            return new Varier[] {
-                    new Varier(Varier.Type.ATTACK | Varier.Type.OFFSET, count + 1),
-                    Varier.SPEED_1
+        public Variety[] getInfluence(int count) {
+            return new Variety[] {
+                    new Variety(Variety.Type.ATTACK | Variety.Type.OFFSET, count + 1),
+                    Variety.SPEED_1
             };
         }
 	},
@@ -555,11 +555,11 @@ public enum Soul {
 	 */
 	BRAVE(0x21EE5B97, 5, 8, "broken_white_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
+        public Variety[] getInfluence(int count) {
 		    if (8 <= count) {
-		        return new Varier[] {Varier.LIFE_200, Varier.ATTACK_8, Varier.STAR_10};
+		        return new Variety[] {Variety.LIFE_200, Variety.ATTACK_8, Variety.STAR_10};
             } else {
-		        return new Varier[] {Varier.STAR_10};
+		        return new Variety[] {Variety.STAR_10};
             }
         }
 	},
@@ -585,11 +585,11 @@ public enum Soul {
 	 */
 	DREAM(0x643AD8E5, 5, 8, "broken_white_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
+        public Variety[] getInfluence(int count) {
             if (8 <= count) {
-                return new Varier[] {Varier.ATTACK_1, Varier.DEFENSE_1, Varier.SPEED_1, Varier.COIN_80};
+                return new Variety[] {Variety.ATTACK_1, Variety.DEFENSE_1, Variety.SPEED_1, Variety.COIN_80};
             } else {
-                return new Varier[] {Varier.ATTACK_1, Varier.DEFENSE_1, Varier.SPEED_1};
+                return new Variety[] {Variety.ATTACK_1, Variety.DEFENSE_1, Variety.SPEED_1};
             }
         }
 
@@ -615,11 +615,11 @@ public enum Soul {
 	 */
 	HOPE(0x4DA9FA4F, 5, 8, "broken_white_soul") {
         @Override
-        public Varier[] getInfluence(int count) {
+        public Variety[] getInfluence(int count) {
             if (8 <= count) {
-                return new Varier[] {Varier.LIFE_150, Varier.KEY_10, Varier.COIN_10, Varier.STAR_10};
+                return new Variety[] {Variety.LIFE_150, Variety.KEY_10, Variety.COIN_10, Variety.STAR_10};
             } else {
-                return new Varier[] {Varier.LIFE_150};
+                return new Variety[] {Variety.LIFE_150};
             }
         }
 	},
@@ -644,31 +644,31 @@ public enum Soul {
     public final SoulEffect getEffect(int count) {
         SoulEffect sc = new SoulEffect();
 
-        for (Varier var : getInfluence(count)) {
+        for (Variety var : getInfluence(count)) {
             switch (var.getPureType()) {
-                case Varier.Type.LIFE:
+                case Variety.Type.LIFE:
                     sc.life += var.value;
                     break;
-                case Varier.Type.ATTACK:
+                case Variety.Type.ATTACK:
                     sc.attack += var.value;
                     break;
-                case Varier.Type.DEFENSE:
+                case Variety.Type.DEFENSE:
                     sc.defense += var.value;
                     break;
-                case Varier.Type.SPEED:
+                case Variety.Type.SPEED:
                     sc.speed += var.value;
                     break;
-                case Varier.Type.KEY:
+                case Variety.Type.KEY:
                     sc.key += var.value;
                     break;
-                case Varier.Type.COIN:
+                case Variety.Type.COIN:
                     sc.coin += var.value;
                     break;
-                case Varier.Type.STAR:
+                case Variety.Type.STAR:
                     sc.star += var.value;
                     break;
                 default:
-                    throw new RuntimeException(String.format(Locale.US, "invalid soul varier type : %08X", var.type));
+                    throw new RuntimeException(String.format(Locale.US, "invalid soul variety type : %08X", var.type));
             }
         }
 
@@ -676,9 +676,9 @@ public enum Soul {
     }
 
 	// override
-	public Varier[] getInfluence(int level) {
+	public Variety[] getInfluence(int level) {
 		// return empty array.
-		return new Varier[] {};
+		return new Variety[] {};
 	}
 
 	// override

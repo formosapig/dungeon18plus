@@ -1,24 +1,23 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.Ability;
-import com.qqhouse.dungeon18plus.struct.Varier;
+import com.qqhouse.dungeon18plus.struct.Variety;
 import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQView;
 
-public class VarierView extends AssetGroup {
+public class VarietyView extends AssetGroup {
 
-    private final int VARIER_FILTER = Varier.Type.LIFE | Varier.Type.ATTACK | Varier.Type.DEFENSE | Varier.Type.SPEED |
-            Varier.Type.COIN | Varier.Type.KEY | Varier.Type.STAR;
+    private final int VARIETY_FILTER = Variety.Type.LIFE | Variety.Type.ATTACK | Variety.Type.DEFENSE | Variety.Type.SPEED |
+            Variety.Type.COIN | Variety.Type.KEY | Variety.Type.STAR;
     private QQLinear container;
 
-    public VarierView(Assets assets) {
+    public VarietyView(Assets assets) {
         super(assets);
-        container = new QQLinear(false, Game.Size.INNER_MARGIN);
+        container = new QQLinear(false, Game.Size.WIDGET_MARGIN);//INNER_MARGIN);
         //container.setPosition(0, 0);
         addChild(container);
     }
@@ -36,13 +35,13 @@ public class VarierView extends AssetGroup {
         //arrangeChildren();
     }
 
-    public void update(Varier... variers) {
+    public void update(Variety... variers) {
         // FIXME 1111 不需要反覆的創建 QQIconText...
         container.removeAllChildren();
         //childrenView.clear();
 
-        for (Varier varier : variers) {
-            if ((varier.type & VARIER_FILTER) == 0 || varier.isLimit())
+        for (Variety varier : variers) {
+            if ((varier.type & VARIETY_FILTER) == 0 || varier.isLimit())
                 continue;
 
             QQIconText itVarier = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16(varier.getIcon16Key()));
@@ -53,6 +52,22 @@ public class VarierView extends AssetGroup {
             container.addChild(itVarier);
         }
 
+    }
+
+    public void update32(Variety... varieties) {
+        container.removeAllChildren();
+
+        for (Variety var : varieties) {
+            if ((var.type & VARIETY_FILTER) == 0 || var.isLimit())
+                continue;
+
+            QQIconText itVar = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32(var.getIconKey()));
+            itVar.setText(var.getText(true));
+            itVar.setColor(var.getColor());
+            itVar.setAlign(Align.right);
+            itVar.setSize(QQView.WRAP_CONTENT, 32);
+            container.addChild(itVar);
+        }
     }
 
     @Override
