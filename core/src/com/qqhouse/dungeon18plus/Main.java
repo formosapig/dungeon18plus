@@ -11,6 +11,7 @@ import com.qqhouse.dungeon18plus.screen.ColosseumScreen;
 import com.qqhouse.dungeon18plus.screen.DungeonScreen;
 import com.qqhouse.dungeon18plus.screen.EquipmentCatalogScreen;
 import com.qqhouse.dungeon18plus.screen.GalleryScreen;
+import com.qqhouse.dungeon18plus.screen.GiantAlbumScreen;
 import com.qqhouse.dungeon18plus.screen.HeroAlbumScreen;
 import com.qqhouse.dungeon18plus.screen.LeaderboardScreen;
 import com.qqhouse.dungeon18plus.screen.LegionTrainerScreen;
@@ -51,6 +52,7 @@ public class Main extends QQGameMachine implements
     private LeaderboardScreen leaderboard;
     private BarrackScreen barrack;
     private HeroAlbumScreen heroAlbum;
+    private GiantAlbumScreen giantAlbum;
     private LegionTrainerScreen legionTrainer;
     private WildernessScreen wilderness;
     private Assets assets;
@@ -196,6 +198,10 @@ public class Main extends QQGameMachine implements
                 push(heroAlbum);
                 break;
             case Game.GalleryAction.GIANT_ALBUM:
+                if (null == giantAlbum) {
+                    giantAlbum = new GiantAlbumScreen((SaveGame) savedGame, viewport, assets);
+                }
+                push(giantAlbum);
                 break;
             default:
                 throw new GdxRuntimeException("Gallery action doesn't exist. : " + action);

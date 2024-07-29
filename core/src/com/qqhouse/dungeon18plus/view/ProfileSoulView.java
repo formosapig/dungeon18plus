@@ -27,8 +27,8 @@ public class ProfileSoulView extends AssetGroup {
 
         for (SoulCount sc : record.souls) {
             SoulView sv = new SoulView(assets);
-            sv.setSize(MATCH_PARENT, 40);
-            sv.setPadding(4, 4, 8, 8);
+            sv.setSize(MATCH_PARENT, 48);
+            sv.setPadding(8);//4, 4, 8, 8);
             sv.update(sc);
             addChild(sv);
         }

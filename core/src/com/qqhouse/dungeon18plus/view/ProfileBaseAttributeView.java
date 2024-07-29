@@ -1,5 +1,7 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
@@ -11,13 +13,24 @@ import com.qqhouse.ui.QQView;
 
 public class ProfileBaseAttributeView extends AssetGroup {
 
+    private final QQText title;
     private final QQIconText life, attack, defense, speed, key, coin, star;
+    private final QQView bg;
     private final int innerMargin;
 
     public ProfileBaseAttributeView(Assets assets, int innerMargin) {
         super(assets);
 
         this.innerMargin = innerMargin;
+
+        title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
+        title.setPadding(8);
+        title.setAlign(Align.left);
+        title.setText(assets.geti18n("profile_base_attribute"));
+        addChild(title);
+
+        bg = new QQView();
+        addChild(bg);
 
         life = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("life"));
         life.setColor(Game.Colour.LIFE);
@@ -46,6 +59,8 @@ public class ProfileBaseAttributeView extends AssetGroup {
         star = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getItem("star"));
         star.setColor(Game.Colour.RARE);
         addChild(star);
+
+
     }
 
     public void update(HeroClassRecord record) {
@@ -76,10 +91,16 @@ public class ProfileBaseAttributeView extends AssetGroup {
         tv.setText(result);
     }
 
+    @Override
+    public void setBackground(NinePatch bg) {
+        this.bg.setBackground(bg);
+    }
 
     @Override
     public void resetWrapHeight() {
-        height = topPadding + 32 * 4 + innerMargin * 3 + bottomPadding;
+        height = 32 + 4 + 8 + 32 * 4 + innerMargin * 3 + 8;
+        if (null != parent)
+            parent.onChildSizeChanged(this);
     }
 
     //
@@ -87,6 +108,7 @@ public class ProfileBaseAttributeView extends AssetGroup {
     public void onParentSizeChanged(float width, float height) {
         if (0 >= width || 0 >= height)
             return;
+        title.setSize(width, 32);
         float fixWidth = (width - leftPadding - rightPadding) / 2;
         life.setSize(fixWidth, 32);
         attack.setSize(fixWidth, 32);
@@ -95,6 +117,7 @@ public class ProfileBaseAttributeView extends AssetGroup {
         key.setSize(fixWidth, 32);
         coin.setSize(fixWidth, 32);
         star.setSize(fixWidth, 32);
+        bg.setSize(width, 8 + 32 * 4 + innerMargin * 3 + 8);
     }
 
     @Override
@@ -102,14 +125,18 @@ public class ProfileBaseAttributeView extends AssetGroup {
         if (0 >= width || 0 >= height)
             return;
 
-        life.setPosition(leftPadding, bottomPadding + 32 * 3 + innerMargin * 3);
-        attack.setPosition(leftPadding, bottomPadding + 32 * 2 + innerMargin * 2);
-        defense.setPosition(leftPadding, bottomPadding + 32 + innerMargin);
-        speed.setPosition(leftPadding, bottomPadding);
+        title.setPosition(0, bg.getHeight() + Game.Size.WIDGET_MARGIN);
 
-        key.setPosition(width / 2, bottomPadding + 32 * 3 + innerMargin * 3);
-        coin.setPosition(width / 2, bottomPadding + 32 * 2 + innerMargin * 2);
-        star.setPosition(width / 2, bottomPadding + 32 + innerMargin);
+        life.setPosition(8, 8 + 32 * 3 + innerMargin * 3);
+        attack.setPosition(8, 8 + 32 * 2 + innerMargin * 2);
+        defense.setPosition(8, 8 + 32 + innerMargin);
+        speed.setPosition(8, 8);
+
+        key.setPosition(width / 2 + 8, 8 + 32 * 3 + innerMargin * 3);
+        coin.setPosition(width / 2 + 8, 8 + 32 * 2 + innerMargin * 2);
+        star.setPosition(width / 2 + 8, 8 + 32 + innerMargin);
+
+        //bg.setPosition(leftPadding, bottomPadding);
 
     }
 

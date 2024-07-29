@@ -168,7 +168,7 @@ public class QQView {
 
 
         // wrap content...
-        if (wrapWidth && this.width == 0) {
+        if (wrapWidth && 0 == this.width) {
             resetWrapWidth();
             callParent = true;
             //if (null != parent)

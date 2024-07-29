@@ -1,33 +1,29 @@
 package com.qqhouse.dungeon18plus.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.HeroClass;
-import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
-import com.qqhouse.dungeon18plus.view.ItemDetailView;
 import com.qqhouse.dungeon18plus.view.ProfileTitleView;
 import com.qqhouse.dungeon18plus.view.ProfileView;
 import com.qqhouse.dungeon18plus.view.TitleBarView2;
 import com.qqhouse.ui.QQCyclePager;
 import com.qqhouse.ui.QQLinear;
-import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQScroll;
 import com.qqhouse.ui.QQView;
-import com.qqhouse.ui.QQViewPager;
 
 import java.util.ArrayList;
 
-public class HeroAlbumScreen extends QQScreen {
+public class GiantAlbumScreen extends QQScreen {
 
-    public HeroAlbumScreen(SaveGame savedGame, Viewport viewport, Assets assets) {
+    public GiantAlbumScreen(SaveGame savedGame, Viewport viewport, Assets assets) {
         super(savedGame, viewport, assets);
     }
 
-    private ArrayList<HeroClass> allHeroClass;
+    private ArrayList<GiantRace> allGiantRace;
     private QQScroll scroll;
     private ProfileView profile;
 
@@ -35,21 +31,21 @@ public class HeroAlbumScreen extends QQScreen {
     public void onEnter() {
 
         // data
-        allHeroClass = savedGame.getHeroClass();//equipments = savedGame.getEquipmentData();
+        allGiantRace = savedGame.getGiant();//.getHeroClass();//equipments = savedGame.getEquipmentData();
 
         QQLinear group = new QQLinear(Game.Size.WIDGET_MARGIN);
         group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
-        group.setPosition(0, 0);
+        //group.setPosition(0, 0);
         addChild(group);
 
         // title bar with merchant and equipment count...
-        TitleBarView2 merchant = new TitleBarView2(assets);
-        merchant.reset("fairy", "fairy", null, Game.Colour.RARE, "");
-        merchant.setSize(QQView.MATCH_PARENT, 48);
+        TitleBarView2 valkyrie = new TitleBarView2(assets);
+        valkyrie.reset("valkyrie", "valkyrie", null, Game.Colour.RARE, "");
+        valkyrie.setSize(QQView.MATCH_PARENT, 48);
         //merchant.setPosition(0, Game.Size.HEIGHT - 48);
-        merchant.setPadding(8);
-        merchant.setBackground(assets.getNinePatchBG("neutral"));
-        group.addChild(merchant);
+        valkyrie.setPadding(8);
+        valkyrie.setBackground(assets.getNinePatchBG("neutral"));
+        group.addChild(valkyrie);
 
         // split line...
         QQView line = new QQView();
@@ -71,7 +67,7 @@ public class HeroAlbumScreen extends QQScreen {
             @Override
             public void onChange(int page) {
                 //Gdx.app.error("HeroAlbumScreen", "on cyclePager change");
-                profile.update(savedGame.getHeroClassRecord(allHeroClass.get(page)), savedGame);
+                //profile.update(savedGame.getHeroClassRecord(allHeroClass.get(page)), savedGame);
                 scroll.scrollToTop();
             }
         });
@@ -87,7 +83,7 @@ public class HeroAlbumScreen extends QQScreen {
 
         profile = new ProfileView(assets);
         profile.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-        profile.update(savedGame.getHeroClassRecord(allHeroClass.get(0)), savedGame);
+        //profile.update(savedGame.getHeroClassRecord(allHeroClass.get(0)), savedGame);
         scroll.addChild(profile);
 
     }
@@ -104,16 +100,16 @@ public class HeroAlbumScreen extends QQScreen {
 
         @Override
         public int getSize() {
-            return allHeroClass.size();
+            return allGiantRace.size();
         }
 
         @Override
         public QQView getView(int index, QQView view) {
-            HeroClass hr = allHeroClass.get(index);
+            GiantRace gr = allGiantRace.get(index);
             ProfileTitleView v = new ProfileTitleView(assets);
-            v.update(hr.key, hr.key);
+            v.update(gr.iconKey, gr.nameKey);
             v.setPadding(8);
-            v.setBackground(assets.getNinePatchBG(hr.alignment.key));
+            v.setBackground(assets.getNinePatchBG(gr.alignment.key));
             v.setSize(Game.Size.WIDTH * 0.9f, QQView.WRAP_CONTENT);
             return v;
         }

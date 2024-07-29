@@ -14,8 +14,9 @@ import com.qqhouse.ui.QQView;
 public class ProfileView extends AssetGroup {
 
     private final QQLinear root;
-    private final QQText titleBiography, titleBaseAttribute, titleRestriction, titleAction, titleFeat, titleSoul, titleMastery;
-    private final QQText biography;
+    private final QQText /*titleBiography,*/ titleBaseAttribute, titleRestriction, titleAction, titleFeat, titleSoul, titleMastery;
+    //private final QQText biography;
+    private final ProfileBiographyView biography;
     private final ProfileBaseAttributeView baseAttribute;
     private final ProfileRestrictionView restriction;
     private final ProfileActionView action;
@@ -30,19 +31,23 @@ public class ProfileView extends AssetGroup {
         root.setSize(MATCH_PARENT, WRAP_CONTENT);
         addChild(root);
 
-        // titles ...
-        titleBiography = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
-        titleBiography.setPadding(8);
-        titleBiography.setSize(QQView.MATCH_PARENT, 32);
-        titleBiography.setAlign(Align.left);
-        root.addChild(titleBiography);
-
-        biography = new QQText(assets.getFont(Game.Font.HELP14));
-        biography.setPadding(8);
-        biography.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-        //titleBiography.setPosition(8, 100);
-        biography.setAlign(Align.left);
+        // biography
+        biography = new ProfileBiographyView(assets, Game.Size.WIDGET_MARGIN);
+        biography.setSize(MATCH_PARENT, WRAP_CONTENT);
         root.addChild(biography);
+
+        // titles ...
+        //titleBiography = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
+        //titleBiography.setPadding(8);
+        //titleBiography.setSize(QQView.MATCH_PARENT, 32);
+        //titleBiography.setAlign(Align.left);
+        //root.addChild(titleBiography);
+
+        //biography = new QQText(assets.getFont(Game.Font.HELP14));
+        //biography.setPadding(8);
+        //biography.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        //biography.setAlign(Align.left);
+        //root.addChild(biography);
 
         // base attribute
         titleBaseAttribute = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
@@ -53,7 +58,7 @@ public class ProfileView extends AssetGroup {
         root.addChild(titleBaseAttribute);
 
         baseAttribute = new ProfileBaseAttributeView(assets, Game.Size.INNER_MARGIN);
-        baseAttribute.setPadding(8);
+        //baseAttribute.setPadding(8);
         baseAttribute.setSize(MATCH_PARENT, WRAP_CONTENT);
         root.addChild(baseAttribute);
 
@@ -61,6 +66,7 @@ public class ProfileView extends AssetGroup {
         titleRestriction = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
         titleRestriction.setPadding(8);//, 4, 4, 4);
         titleRestriction.setSize(QQView.MATCH_PARENT, 32);//QQView.WRAP_CONTENT);
+        //titleRestriction.setSize(200, 50);
         titleRestriction.setAlign(Align.left);
         titleRestriction.setText(assets.geti18n("profile_restriction"));
         root.addChild(titleRestriction);
@@ -132,13 +138,15 @@ public class ProfileView extends AssetGroup {
     public void update(HeroClassRecord record, SaveGame savedGame) {
 
         if (record.isGameModeAvailable(Game.Mode.DUNGEON) || record.isGameModeAvailable(Game.Mode.COLOSSEUM)) {
-            titleBiography.setText(assets.geti18n("profile_biography"));
+            //titleBiography.setText(assets.geti18n("profile_biography"));
 
             NinePatch bg = assets.getNinePatchBG(record.heroClass.alignment.key);
 
-            biography.setText(assets.geti18n(record.heroClass.key + "_help"), true);
+            biography.update(assets.geti18n("profile_biography"), assets.geti18n(record.heroClass.key + "_help"));
             biography.setBackground(bg);
-            biography.setVisible(true);
+            //biography.setText(assets.geti18n(record.heroClass.key + "_help"), true);
+            //biography.setBackground(bg);
+            //biography.setVisible(true);
 
             titleBaseAttribute.setVisible(true);
             baseAttribute.update(record);
@@ -179,7 +187,7 @@ public class ProfileView extends AssetGroup {
                 mastery.setVisible(false);
             }
         } else {
-            titleBiography.setText(assets.geti18n("profile_unlock_condition"));
+            //titleBiography.setText(assets.geti18n("profile_unlock_condition"));
 
             NinePatch bg = assets.getNinePatchBG(record.heroClass.alignment.key);
 
@@ -224,9 +232,11 @@ public class ProfileView extends AssetGroup {
                     break;
             }
 
-            biography.setText(help, true);
+            //biography.setText(help, true);
+            //biography.setBackground(bg);
+            //biography.setVisible(true);
+            biography.update(assets.geti18n("profile_unlock_condition"), help);
             biography.setBackground(bg);
-            biography.setVisible(true);
 
             titleBaseAttribute.setVisible(false);
             baseAttribute.setVisible(false);

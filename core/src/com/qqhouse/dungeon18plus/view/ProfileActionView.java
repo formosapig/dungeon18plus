@@ -30,8 +30,8 @@ public class ProfileActionView extends AssetGroup {
 
         for (Action act : record.heroClass.actions) {
             ActionView av = new ActionView(assets);
-            av.setSize(MATCH_PARENT, 40);
-            av.setPadding(4, 4, 8, 8);
+            av.setSize(MATCH_PARENT, 48);
+            av.setPadding(8);//4, 4, 8, 8);
             av.update(act);
             addChild(av);
         }

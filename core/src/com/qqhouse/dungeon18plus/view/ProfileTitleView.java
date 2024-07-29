@@ -1,0 +1,62 @@
+package com.qqhouse.dungeon18plus.view;
+
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.qqhouse.dungeon18plus.Assets;
+import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.core.Action;
+import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
+import com.qqhouse.ui.QQIconText;
+import com.qqhouse.ui.QQImage;
+import com.qqhouse.ui.QQText;
+import com.qqhouse.ui.QQView;
+
+import java.util.ArrayList;
+
+public class ProfileTitleView extends AssetGroup {
+
+    private final QQImage blockee;
+    private final QQText name;
+    private final QQIconText resource;
+
+    public ProfileTitleView(Assets assets) {
+        super(assets);
+
+        blockee = new QQImage();
+        blockee.setSize(48, 48);
+        addChild(blockee);
+        name = new QQText(assets.getFont(Game.Font.NAME20));
+        name.setColor(Game.Colour.RARE);
+        addChild(name);
+        resource = null;//new QQIconText();
+    }
+
+    public void update(String blockeeKey, String nameKey) {
+        blockee.setImage(assets.getBlockee(blockeeKey));
+        name.setText(assets.geti18n(nameKey));
+    }
+
+    @Override
+    public void resetWrapHeight() {
+        height = topPadding + blockee.getHeight() + bottomPadding;
+
+        if (null != parent)
+            parent.onChildSizeChanged(this);
+    }
+
+    //
+    @Override
+    public void onParentSizeChanged(float width, float height) {
+        if (0 >= width)// || 0 >= height)
+            return;
+        name.setSize(width - leftPadding - rightPadding - 48 - 4, 48);
+    }
+
+    @Override
+    public void arrangeChildren() {
+        if (0 >= width || 0 >= height)
+            return;
+        blockee.setPosition(leftPadding, bottomPadding);
+        name.setPosition(leftPadding + 48 + 4, bottomPadding);
+    }
+
+}

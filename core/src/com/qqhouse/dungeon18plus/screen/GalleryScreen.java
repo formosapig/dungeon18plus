@@ -4,7 +4,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
-import com.qqhouse.dungeon18plus.view.PreviewView2;
 import com.qqhouse.dungeon18plus.view.PreviewView3;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQPressAdapter;

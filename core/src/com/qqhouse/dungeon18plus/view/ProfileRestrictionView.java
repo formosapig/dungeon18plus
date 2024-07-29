@@ -21,35 +21,35 @@ public class ProfileRestrictionView extends AssetGroup {
         this.innerMargin = innerMargin;
 
         life = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("life"));
-        life.setPadding(4, 4, 8, 8);
+        life.setPadding(8);
         life.setColor(Game.Colour.LIFE);
         addChild(life);
 
-        yellowMirror = new ItemView(assets.getItem("yellow_mirror"), assets.getFont(Game.Font.DIGITAL16), assets.getBackground("black"));
+        yellowMirror = new ItemView(assets.getItem("yellow_mirror"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
         addChild(yellowMirror);
 
         attack = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("attack"));
-        attack.setPadding(4, 4, 8, 8);
+        attack.setPadding(8);
         attack.setColor(Game.Colour.ATTACK);
         addChild(attack);
 
-        redMirror = new ItemView(assets.getItem("red_mirror"), assets.getFont(Game.Font.DIGITAL16), assets.getBackground("black"));
+        redMirror = new ItemView(assets.getItem("red_mirror"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
         addChild(redMirror);
 
         defense = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("defense"));
-        defense.setPadding(4, 4, 8, 8);
+        defense.setPadding(8);
         defense.setColor(Game.Colour.DEFENSE);
         addChild(defense);
 
-        blueMirror = new ItemView(assets.getItem("blue_mirror"), assets.getFont(Game.Font.DIGITAL16), assets.getBackground("black"));
+        blueMirror = new ItemView(assets.getItem("blue_mirror"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
         addChild(blueMirror);
 
         speed = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("speed"));
-        speed.setPadding(4, 4, 8, 8);
+        speed.setPadding(8);
         speed.setColor(Game.Colour.SPEED);
         addChild(speed);
 
-        greenMirror = new ItemView(assets.getItem("green_mirror"), assets.getFont(Game.Font.DIGITAL16), assets.getBackground("black"));
+        greenMirror = new ItemView(assets.getItem("green_mirror"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
         addChild(greenMirror);
     }
 
@@ -85,7 +85,7 @@ public class ProfileRestrictionView extends AssetGroup {
 
     @Override
     public void resetWrapHeight() {
-        height = topPadding + 40 * 4 + innerMargin * 3 + bottomPadding;
+        height = topPadding + 48 * 4 + innerMargin * 3 + bottomPadding;
     }
 
     //
@@ -94,10 +94,10 @@ public class ProfileRestrictionView extends AssetGroup {
         if (0 >= width || 0 >= height)
             return;
         float fixWidth = width - leftPadding - rightPadding;
-        life.setSize(fixWidth, 40);
-        attack.setSize(fixWidth, 40);
-        defense.setSize(fixWidth, 40);
-        speed.setSize(fixWidth, 40);
+        life.setSize(fixWidth, 48);
+        attack.setSize(fixWidth, 48);
+        defense.setSize(fixWidth, 48);
+        speed.setSize(fixWidth, 48);
     }
 
     @Override
@@ -105,14 +105,14 @@ public class ProfileRestrictionView extends AssetGroup {
         if (0 >= width || 0 >= height)
             return;
 
-        life.setPosition(leftPadding, bottomPadding + 40 * 3 + innerMargin * 3);
-        yellowMirror.setPosition(leftPadding + 48, bottomPadding + 4 + 40 * 3 + innerMargin * 3);
-        attack.setPosition(leftPadding, bottomPadding + 40 * 2 + innerMargin * 2);
-        redMirror.setPosition(leftPadding + 48, bottomPadding + 4 + 40 * 2 + innerMargin * 2);
-        defense.setPosition(leftPadding, bottomPadding + 40 + innerMargin);
-        blueMirror.setPosition(leftPadding + 48, bottomPadding + 4 + 40 + innerMargin);
+        life.setPosition(leftPadding, bottomPadding + 48 * 3 + innerMargin * 3);
+        yellowMirror.setPosition(leftPadding + 48, bottomPadding + 8 + 48 * 3 + innerMargin * 3);
+        attack.setPosition(leftPadding, bottomPadding + 48 * 2 + innerMargin * 2);
+        redMirror.setPosition(leftPadding + 48, bottomPadding + 8 + 48 * 2 + innerMargin * 2);
+        defense.setPosition(leftPadding, bottomPadding + 48 + innerMargin);
+        blueMirror.setPosition(leftPadding + 48, bottomPadding + 8 + 48 + innerMargin);
         speed.setPosition(leftPadding, bottomPadding);
-        greenMirror.setPosition(leftPadding + 48, bottomPadding + 4);
+        greenMirror.setPosition(leftPadding + 48, bottomPadding + 8);
 
     }
 
