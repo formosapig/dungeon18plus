@@ -9,32 +9,53 @@ import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.Operation2;
 import com.qqhouse.dungeon18plus.struct.campaign.UniqueSkillData;
 import com.qqhouse.ui.QQIconText;
-import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
 import java.util.Locale;
 
-public class UniqueSkillView extends AssetGroup {
+/*
+        Equipment : ItemView
+        mastery : TextView
 
-    private QQImage icon;
+        attribute x 1 ~ 3 : TextView
+        CD : TextView
+
+ */
+public class UniqueSkillButton extends AssetGroupButton {
+
+    private ItemView item;
+    private QQText txtMastery;
     private QQIconText[] itOps;
     private QQIconText coolDown;
 
-    public UniqueSkillView(Assets assets) {
+    public UniqueSkillButton(Assets assets) {
         super(assets);
+        //setPadding(4);
         itOps = new QQIconText[UniqueSkill.MAX_OPERATIONS];
     }
 
-    public void reset(UniqueSkillData data, Ability base) {
+    public void reset(EquipmentMastery mastery, boolean isMastery, Ability base) {
+        // initial all item.
+        if (null != mastery) {
+            item = ItemView.create(assets, mastery.equipment);
+            item.setSize(32, 32);
+            item.setPosition(8, 8);
+            //item.setPosition(leftPadding, bottomPadding);
+            addChild(item);
 
-        icon = new QQImage(assets.getItem(data.skill.icon));
-        icon.setSize(32, 32);
-        icon.setPosition(leftPadding, bottomPadding);
-        addChild(icon);
 
-        itOps = new QQIconText[data.operations.length];
-        int index = 0;
+            // mastery
+            txtMastery = new QQText(assets.getFont(Game.Font.DIGITAL16));
+            txtMastery.setText(String.format(Locale.US, "%03d", mastery.mastery));
+            txtMastery.setColor(Game.Colour.RARE);
+            txtMastery.setAlign(Align.left);
+            addChild(txtMastery);
+
+            UniqueSkillData data = mastery.equipment.skill.get(mastery.mastery);
+
+            itOps = new QQIconText[data.operations.length];
+            int index = 0;
 
             for (Operation2 op : data.operations) {
                 String opStr = "";
@@ -72,6 +93,9 @@ public class UniqueSkillView extends AssetGroup {
             coolDown.setColor(Game.Colour.SPEED);
             coolDown.setText(Integer.toString(data.coolDown));
             addChild(coolDown);
+
+            setBackground(assets.getBackgroundSet(isMastery ? "special" : "ordinary"));
+        }
     }
 
 
@@ -79,6 +103,7 @@ public class UniqueSkillView extends AssetGroup {
     public void onParentSizeChanged(float width, float height) {
         if (0 >= width || 0 >= height)
             return;
+        txtMastery.setSize(QQView.WRAP_CONTENT, 16);
         if (null != itOps) {
             //int OpsWidth = 0;
             for (int i = 0; i < itOps.length; ++i) {
@@ -98,6 +123,10 @@ public class UniqueSkillView extends AssetGroup {
     public void arrangeChildren() {
         if (0 == width || 0 == height)
             return;
+        if (null != txtMastery) {
+
+            txtMastery.setPosition(44, 6);
+        }
 
         if (null != itOps) {
             int OpsWidth = 0;

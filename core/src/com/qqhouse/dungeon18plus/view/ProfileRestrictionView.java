@@ -1,6 +1,7 @@
 package com.qqhouse.dungeon18plus.view;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
@@ -11,6 +12,7 @@ import com.qqhouse.ui.QQText;
 
 public class ProfileRestrictionView extends AssetGroup {
 
+    private final QQText title;
     private final QQIconText life, attack, defense, speed;
     private final ItemView yellowMirror, redMirror, blueMirror, greenMirror;
     private final int innerMargin;
@@ -19,6 +21,12 @@ public class ProfileRestrictionView extends AssetGroup {
         super(assets);
 
         this.innerMargin = innerMargin;
+
+        title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
+        title.setPadding(8);
+        title.setAlign(Align.left);
+        title.setText(assets.geti18n("profile_restriction"));
+        addChild(title);
 
         life = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("life"));
         life.setPadding(8);
@@ -85,7 +93,9 @@ public class ProfileRestrictionView extends AssetGroup {
 
     @Override
     public void resetWrapHeight() {
-        height = topPadding + 48 * 4 + innerMargin * 3 + bottomPadding;
+        height = topPadding + 32 + 4 + 48 * 4 + innerMargin * 3 + bottomPadding;
+        if (null != parent)
+            parent.onChildSizeChanged(this);
     }
 
     //
@@ -93,6 +103,7 @@ public class ProfileRestrictionView extends AssetGroup {
     public void onParentSizeChanged(float width, float height) {
         if (0 >= width || 0 >= height)
             return;
+        title.setSize(width, 32);
         float fixWidth = width - leftPadding - rightPadding;
         life.setSize(fixWidth, 48);
         attack.setSize(fixWidth, 48);
@@ -104,6 +115,8 @@ public class ProfileRestrictionView extends AssetGroup {
     public void arrangeChildren() {
         if (0 >= width || 0 >= height)
             return;
+
+        title.setPosition(leftPadding, bottomPadding + 48 * 4 + innerMargin * 3 + 4);
 
         life.setPosition(leftPadding, bottomPadding + 48 * 3 + innerMargin * 3);
         yellowMirror.setPosition(leftPadding + 48, bottomPadding + 8 + 48 * 3 + innerMargin * 3);

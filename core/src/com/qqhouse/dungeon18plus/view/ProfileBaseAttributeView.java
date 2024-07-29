@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.struct.GiantRecord;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.struct.SoulCount;
 import com.qqhouse.dungeon18plus.struct.SoulEffect;
@@ -79,6 +80,31 @@ public class ProfileBaseAttributeView extends AssetGroup {
         setTextData(coin, record.heroClass.startCoin, bonus.coin);
         setTextData(star, record.heroClass.startStar, bonus.star);
 
+    }
+
+    public void update(GiantRecord record) {
+        // key -> exp
+        key.setIcon(assets.getIcon32("rank"));
+        key.setColor(Game.Colour.RANK);
+        key.setText(Integer.toString(record.exp));
+
+        // coin -> fast win
+        coin.setIcon(assets.getIcon32("time"));
+        coin.setColor(Game.Colour.SPEED);
+        coin.setText(0 < record.fastWin ? Integer.toString(record.fastWin) : "-");
+
+        // star -> kill count
+        star.setIcon(assets.getIcon32("soul"));
+        star.setColor(Game.Colour.SOUL);
+        star.setText(0 < record.killCount ? Integer.toString(record.killCount) : "-");
+
+        /*
+         * life, attack, defense, speed
+         */
+        life.setText(record.displayLife() ? Integer.toString(record.race.attr.life) : "?");
+        attack.setText(record.displayAttack() ? Integer.toString(record.race.attr.attack) : "?");
+        defense.setText(record.displayDefense() ? Integer.toString(record.race.attr.defense) : "?");
+        speed.setText(record.displaySpeed() ? Integer.toString(record.race.attr.speed) : "?");
     }
 
     private void setTextData(QQText tv, int value, int bonus) {

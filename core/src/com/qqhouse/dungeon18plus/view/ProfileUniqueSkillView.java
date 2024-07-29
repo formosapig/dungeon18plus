@@ -1,25 +1,24 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Action;
-import com.qqhouse.dungeon18plus.core.Feat;
+import com.qqhouse.dungeon18plus.core.UniqueSkill;
+import com.qqhouse.dungeon18plus.struct.GiantRecord;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
 
-public class ProfileFeatView extends AssetGroup {
+public class ProfileUniqueSkillView extends AssetGroup {
 
     private final QQText title;
-    private final ArrayList<FeatView> feats;
     private final int innerMargin;
 
-    public ProfileFeatView(Assets assets, int innerMargin) {
+    public ProfileUniqueSkillView(Assets assets, int innerMargin) {
         super(assets);
 
         this.innerMargin = innerMargin;
@@ -27,30 +26,20 @@ public class ProfileFeatView extends AssetGroup {
         title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
         title.setPadding(8);
         title.setAlign(Align.left);
-        title.setText(assets.geti18n("profile_feat"));
+        title.setText(assets.geti18n("profile_action"));
         addChild(title);
-
-        feats = new ArrayList<>();
     }
 
-    public void update(HeroClassRecord record) {
+    public void update(GiantRecord record) {
         for (int i = childrenView.size() - 1; i > 0; --i)
             childrenView.remove(i);
 
-        int featCount = Long.bitCount(record.heroClass.feat);
-        for (Feat feat : Feat.values()) {
-            if (feat.in(record.heroClass.feat)) {
-                //Gdx.app.error("ProfileFeatView", "feat = " + feat);
-                FeatView fv = new FeatView(assets);
-                fv.setSize(MATCH_PARENT, WRAP_CONTENT);
-                fv.setPadding(8);//4, 4, 8, 8);
-                fv.update(feat);
-                addChild(fv);
-                // check feat count
-                featCount --;
-                if (featCount == 0)
-                    break;
-            }
+        for (UniqueSkill skill : record.skills) {
+            UniqueSkillView v = new UniqueSkillView(assets);
+            v.setSize(MATCH_PARENT, 48);
+            v.setPadding(8);
+            v.reset(skill.get(Game.Setting.GENERAL_MASTERY_MAX), record.race.attr);
+            addChild(v);
         }
     }
 

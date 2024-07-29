@@ -106,7 +106,7 @@ public class SelectEquipmentView extends QQGroup {
 
         @Override
         public QQView getView(int index) {
-            final UniqueSkillView v = new UniqueSkillView(assets);
+            final UniqueSkillButton v = new UniqueSkillButton(assets);
             EquipmentMastery em = backpack.get(index);
             // check isMastery
             boolean isMastery = false;

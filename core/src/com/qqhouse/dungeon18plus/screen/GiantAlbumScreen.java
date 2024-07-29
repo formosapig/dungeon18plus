@@ -67,7 +67,7 @@ public class GiantAlbumScreen extends QQScreen {
             @Override
             public void onChange(int page) {
                 //Gdx.app.error("HeroAlbumScreen", "on cyclePager change");
-                //profile.update(savedGame.getHeroClassRecord(allHeroClass.get(page)), savedGame);
+                profile.update(savedGame.getGiantRecord(allGiantRace.get(page)), savedGame);
                 scroll.scrollToTop();
             }
         });
@@ -83,7 +83,7 @@ public class GiantAlbumScreen extends QQScreen {
 
         profile = new ProfileView(assets);
         profile.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-        //profile.update(savedGame.getHeroClassRecord(allHeroClass.get(0)), savedGame);
+        profile.update(savedGame.getGiantRecord(allGiantRace.get(0)), savedGame);
         scroll.addChild(profile);
 
     }

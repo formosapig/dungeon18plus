@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
+import com.qqhouse.dungeon18plus.struct.GiantRecord;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQText;
@@ -14,13 +15,12 @@ import com.qqhouse.ui.QQView;
 public class ProfileView extends AssetGroup {
 
     private final QQLinear root;
-    private final QQText /*titleBiography,*/ titleBaseAttribute, titleRestriction, titleAction, titleFeat, titleSoul, titleMastery;
-    //private final QQText biography;
     private final ProfileBiographyView biography;
     private final ProfileBaseAttributeView baseAttribute;
     private final ProfileRestrictionView restriction;
     private final ProfileActionView action;
     private final ProfileFeatView feat;
+    private final ProfileUniqueSkillView uniqueSkill;
     private final ProfileSoulView soul;
     private final ProfileMasteryView mastery;
 
@@ -36,92 +36,37 @@ public class ProfileView extends AssetGroup {
         biography.setSize(MATCH_PARENT, WRAP_CONTENT);
         root.addChild(biography);
 
-        // titles ...
-        //titleBiography = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
-        //titleBiography.setPadding(8);
-        //titleBiography.setSize(QQView.MATCH_PARENT, 32);
-        //titleBiography.setAlign(Align.left);
-        //root.addChild(titleBiography);
-
-        //biography = new QQText(assets.getFont(Game.Font.HELP14));
-        //biography.setPadding(8);
-        //biography.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-        //biography.setAlign(Align.left);
-        //root.addChild(biography);
-
         // base attribute
-        titleBaseAttribute = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
-        titleBaseAttribute.setPadding(8);
-        titleBaseAttribute.setSize(QQView.MATCH_PARENT, 32);
-        titleBaseAttribute.setAlign(Align.left);
-        titleBaseAttribute.setText(assets.geti18n("profile_base_attribute"));
-        root.addChild(titleBaseAttribute);
-
         baseAttribute = new ProfileBaseAttributeView(assets, Game.Size.INNER_MARGIN);
-        //baseAttribute.setPadding(8);
         baseAttribute.setSize(MATCH_PARENT, WRAP_CONTENT);
         root.addChild(baseAttribute);
 
         // restriction
-        titleRestriction = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
-        titleRestriction.setPadding(8);//, 4, 4, 4);
-        titleRestriction.setSize(QQView.MATCH_PARENT, 32);//QQView.WRAP_CONTENT);
-        //titleRestriction.setSize(200, 50);
-        titleRestriction.setAlign(Align.left);
-        titleRestriction.setText(assets.geti18n("profile_restriction"));
-        root.addChild(titleRestriction);
-
         restriction = new ProfileRestrictionView(assets, Game.Size.INNER_MARGIN);
-        //restriction.setPadding(4);
         restriction.setSize(MATCH_PARENT, WRAP_CONTENT);
         root.addChild(restriction);
 
         // action
-        titleAction = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
-        titleAction.setPadding(8);//, 8, 4, 4);
-        titleAction.setSize(QQView.MATCH_PARENT, 32);//QQView.WRAP_CONTENT);
-        titleAction.setAlign(Align.left);
-        titleAction.setText(assets.geti18n("profile_action"));
-        root.addChild(titleAction);
-
         action = new ProfileActionView(assets, Game.Size.INNER_MARGIN);
         action.setSize(MATCH_PARENT, WRAP_CONTENT);
         root.addChild(action);
 
         // feat
-        titleFeat = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
-        titleFeat.setPadding(8);
-        titleFeat.setSize(QQView.MATCH_PARENT, 32);
-        titleFeat.setAlign(Align.left);
-        titleFeat.setText(assets.geti18n("profile_feat"));
-        root.addChild(titleFeat);
-
         feat = new ProfileFeatView(assets, Game.Size.INNER_MARGIN);
         feat.setSize(MATCH_PARENT, WRAP_CONTENT);
         root.addChild(feat);
 
-        // soul
-        titleSoul = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
-        titleSoul.setPadding(4);
-        titleSoul.setSize(QQView.MATCH_PARENT, 24);//QQView.WRAP_CONTENT);
-        titleSoul.setAlign(Align.left);
-        titleSoul.setText(assets.geti18n("profile_soul"));
-        titleSoul.setVisible(false);
-        root.addChild(titleSoul);
+        // unique skill
+        uniqueSkill = new ProfileUniqueSkillView(assets, Game.Size.INNER_MARGIN);
+        uniqueSkill.setSize(MATCH_PARENT, WRAP_CONTENT);
+        root.addChild(uniqueSkill);
 
+        // soul
         soul = new ProfileSoulView(assets, Game.Size.INNER_MARGIN);
         soul.setSize(MATCH_PARENT, WRAP_CONTENT);
         root.addChild(soul);
 
         // mastery
-        titleMastery = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
-        titleMastery.setPadding(8);
-        titleMastery.setSize(QQView.MATCH_PARENT, 32);
-        titleMastery.setAlign(Align.left);
-        titleMastery.setText(assets.geti18n("profile_mastery"));
-        //titleMastery.setVisible(false);
-        root.addChild(titleMastery);
-
         mastery = new ProfileMasteryView(assets, Game.Size.INNER_MARGIN);
         mastery.setSize(MATCH_PARENT, WRAP_CONTENT);
         root.addChild(mastery);
@@ -136,63 +81,45 @@ public class ProfileView extends AssetGroup {
 
     // create profile view with HeroClassRecord
     public void update(HeroClassRecord record, SaveGame savedGame) {
+        NinePatch bg = assets.getNinePatchBG(record.heroClass.alignment.key);
+        uniqueSkill.setVisible(false);
 
         if (record.isGameModeAvailable(Game.Mode.DUNGEON) || record.isGameModeAvailable(Game.Mode.COLOSSEUM)) {
-            //titleBiography.setText(assets.geti18n("profile_biography"));
-
-            NinePatch bg = assets.getNinePatchBG(record.heroClass.alignment.key);
-
             biography.update(assets.geti18n("profile_biography"), assets.geti18n(record.heroClass.key + "_help"));
             biography.setBackground(bg);
-            //biography.setText(assets.geti18n(record.heroClass.key + "_help"), true);
-            //biography.setBackground(bg);
-            //biography.setVisible(true);
 
-            titleBaseAttribute.setVisible(true);
             baseAttribute.update(record);
             baseAttribute.setBackground(bg);
             baseAttribute.setVisible(true);
 
-            titleRestriction.setVisible(true);
             restriction.update(record);
             restriction.setBackground(bg);
             restriction.setVisible(true);
 
-            titleAction.setVisible(true);
             action.update(record);
             action.setBackground(bg);
             action.setVisible(true);
 
-            titleFeat.setVisible(true);
             feat.update(record);
             feat.setBackground(bg);
             feat.setVisible(true);
 
             if (!record.souls.isEmpty()) {
-                titleSoul.setVisible(true);
                 soul.update(record);
                 soul.setBackground(bg);
                 soul.setVisible(true);
             } else {
-                titleSoul.setVisible(false);
                 soul.setVisible(false);
             }
 
             if (!record.equips.isEmpty()) {
-                titleMastery.setVisible(true);
                 mastery.update(record);
                 mastery.setVisible(true);
             } else {
-                titleMastery.setVisible(false);
                 mastery.setVisible(false);
             }
         } else {
-            //titleBiography.setText(assets.geti18n("profile_unlock_condition"));
-
-            NinePatch bg = assets.getNinePatchBG(record.heroClass.alignment.key);
-
             String help = "";
-
             switch (record.heroClass) {
                 case ASSASSIN:
                     help = assets.formati18n("assassin_unlock", savedGame.getMonsterCount(), 180);
@@ -232,29 +159,54 @@ public class ProfileView extends AssetGroup {
                     break;
             }
 
-            //biography.setText(help, true);
-            //biography.setBackground(bg);
-            //biography.setVisible(true);
             biography.update(assets.geti18n("profile_unlock_condition"), help);
             biography.setBackground(bg);
 
-            titleBaseAttribute.setVisible(false);
             baseAttribute.setVisible(false);
-
-            titleRestriction.setVisible(false);
             restriction.setVisible(false);
-
-            titleAction.setVisible(false);
             action.setVisible(false);
-
-            titleFeat.setVisible(false);
             feat.setVisible(false);
-
-            titleSoul.setVisible(false);
             soul.setVisible(false);
-
-            titleMastery.setVisible(false);
             mastery.setVisible(false);
+        }
+    }
+
+    // create profile view with HeroClassRecord
+    public void update(GiantRecord record, SaveGame savedGame) {
+        NinePatch bg = assets.getNinePatchBG(record.race.alignment.key);
+        restriction.setVisible(false);
+        action.setVisible(false);
+        feat.setVisible(false);
+        mastery.setVisible(false);
+
+        if (record.isUnlocked()) {
+            biography.update(assets.geti18n("profile_biography"), assets.geti18n(record.race.helpKey));
+            biography.setBackground(bg);
+
+            baseAttribute.update(record);
+            baseAttribute.setBackground(bg);
+            baseAttribute.setVisible(true);
+
+            if (!record.skills.isEmpty()) {
+                uniqueSkill.update(record);
+                uniqueSkill.setBackground(bg);
+                uniqueSkill.setVisible(true);
+            } else
+                uniqueSkill.setVisible(false);
+
+            if (!record.souls.isEmpty()) {
+                soul.update(record);
+                soul.setBackground(bg);
+                soul.setVisible(true);
+            } else
+                soul.setVisible(false);
+        } else {
+            biography.update(assets.geti18n("profile_unlock_condition"), assets.geti18n("unlock_not_found"));
+            biography.setBackground(bg);
+
+            baseAttribute.setVisible(false);
+            uniqueSkill.setVisible(false);
+            soul.setVisible(false);
         }
     }
 }

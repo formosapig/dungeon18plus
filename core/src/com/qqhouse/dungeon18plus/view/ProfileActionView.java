@@ -2,6 +2,7 @@ package com.qqhouse.dungeon18plus.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Action;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 public class ProfileActionView extends AssetGroup {
 
+    private final QQText title;
     private final ArrayList<ActionView> actions;
     private final int innerMargin;
 
@@ -22,11 +24,18 @@ public class ProfileActionView extends AssetGroup {
 
         this.innerMargin = innerMargin;
 
+        title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
+        title.setPadding(8);
+        title.setAlign(Align.left);
+        title.setText(assets.geti18n("profile_action"));
+        addChild(title);
+
         actions = new ArrayList<>();
     }
 
     public void update(HeroClassRecord record) {
-        childrenView.clear();
+        for (int i = childrenView.size() - 1; i > 0; --i)
+            childrenView.remove(i);
 
         for (Action act : record.heroClass.actions) {
             ActionView av = new ActionView(assets);
@@ -39,15 +48,18 @@ public class ProfileActionView extends AssetGroup {
 
     @Override
     public void setBackground(NinePatch bg) {
-        for (QQView child : childrenView)
+        for (int i = 1; i < childrenView.size(); ++i) {
+            QQView child = childrenView.get(i);
             child.setBackground(bg);
+        }
     }
 
     @Override
     public void resetWrapHeight() {
-        float h = topPadding + bottomPadding;
+        float h = topPadding + 32 + 4 + bottomPadding;
 
-        for (QQView child : childrenView) {
+        for (int i = 1; i < childrenView.size(); ++i) {
+            QQView child = childrenView.get(i);
             h += child.getHeight();
             h += innerMargin;
         }
@@ -66,7 +78,10 @@ public class ProfileActionView extends AssetGroup {
         if (0 >= width || 0 >= height)
             return;
 
-        for (QQView child : childrenView) {
+        title.setSize(width, 32);
+
+        for (int i = 1; i < childrenView.size(); ++i) {
+            QQView child = childrenView.get(i);
             if (child.isMatchWidth())
                 child.setSize(width - leftPadding - rightPadding, child.getHeight());
         }
@@ -77,8 +92,11 @@ public class ProfileActionView extends AssetGroup {
         if (0 >= width || 0 >= height)
             return;
 
-        float anchorY = height - topPadding;
-        for (QQView child : childrenView) {
+        title.setPosition(leftPadding, height - topPadding - 32);
+
+        float anchorY = height - topPadding - 32 - 4;
+        for (int i = 1; i < childrenView.size(); ++i) {
+            QQView child = childrenView.get(i);
             child.setPosition(leftPadding, anchorY - child.getHeight());
             anchorY -= child.getHeight() + innerMargin;
         }

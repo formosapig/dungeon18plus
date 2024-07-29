@@ -174,7 +174,7 @@ public class Game {
         public static final Color GUARD      = new Color(0xF0F0F0FF);
         public static final Color ZAKO_LEVEL = new Color(0xFFFFFFFF);
         public static final Color COUNT      = new Color(0xFFFFFFFF);
-        public static final Color SOUL       = new Color(0xFFB0A0C0);
+        public static final Color SOUL       = new Color(0xB0A0C0FF);
         public static final Color MASTERY    = new Color(0x80E0FFFF);
         public static final Color SOUL_LEVEL = new Color(0xFFE080FF);
     }
