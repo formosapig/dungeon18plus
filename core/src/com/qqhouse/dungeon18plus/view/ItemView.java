@@ -24,6 +24,7 @@ public class ItemView extends QQView {
      */
 
     private Texture icon, status;
+    private QQText rank;
     private QQText count;
 
     public ItemView() {}
@@ -42,6 +43,15 @@ public class ItemView extends QQView {
         count = new QQText(font, new NinePatch(bg, 4, 4, 4, 4), 0.5f);
         count.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
         count.setPosition(0, 0);
+        count.setPadding(2);
+    }
+
+    public ItemView(BitmapFont font, NinePatch bg) {
+        rank = new QQText(font, bg, 0.5f);
+        rank.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
+        rank.setPadding(2);
+        count = new QQText(font, bg, 0.5f);
+        count.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
         count.setPadding(2);
     }
 
@@ -84,6 +94,8 @@ public class ItemView extends QQView {
             batch.draw(icon, originX, originY, 32, 32);
 
         // draw count if exist
+        if (null != rank)
+            rank.draw(batch, originX, originY);
         if (null != count)
             count.draw(batch, originX, originY);
     }
@@ -112,9 +124,13 @@ public class ItemView extends QQView {
      */
     public void setSoulCount(Assets assets, SoulCount sc) {
         setIcon(assets.getItem(sc.soul.iconKey));
-        count.setColor(Game.Colour.SOUL_LEVEL);
+
+        rank.setColor(Game.Colour.SOUL_LEVEL);
+        rank.setText(Integer.toString(sc.soul.rank));
+        rank.setPosition(-2, 34 - rank.getHeight());
+
         count.setText(Integer.toString(sc.count));
-        count.setPosition(34 - count.getWidth(), 34 - count.getHeight());
+        count.setPosition(34 - count.getWidth(), -2);
     }
 
     /*

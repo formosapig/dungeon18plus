@@ -63,6 +63,13 @@ public class SelectGiantScreen extends QQScreen {
             PreviewView3 soulMaster = new PreviewView3(assets);
             soulMaster.reset("valkyrie", "valkyrie", "soul_master_help", "neutral");
             soulMaster.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+            soulMaster.setQQPressListener(new QQPressAdapter() {
+                @Override
+                public void onPress(int index) {
+                    if (null != callback)
+                        callback.onSoulMaster();
+                }
+            });
             group.addChild(soulMaster);
         }
 

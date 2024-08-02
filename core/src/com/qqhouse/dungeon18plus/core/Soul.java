@@ -597,7 +597,7 @@ public enum Soul {
 
 	/*
 	 * HOPE
-	 * LV   LIFE kEY  COIN STAR
+	 * LV   LIFE KEY  COIN STAR
 	 * 1 :   150    0    0    0
 	 * 2 :   150    0    0    0
 	 * 3 :   150    0    0    0

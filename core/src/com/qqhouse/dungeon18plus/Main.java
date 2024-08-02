@@ -18,6 +18,7 @@ import com.qqhouse.dungeon18plus.screen.LegionTrainerScreen;
 import com.qqhouse.dungeon18plus.screen.MonsterGuideScreen;
 import com.qqhouse.dungeon18plus.screen.PopupScreen;
 import com.qqhouse.dungeon18plus.screen.SelectGiantScreen;
+import com.qqhouse.dungeon18plus.screen.SoulMasterScreen;
 import com.qqhouse.dungeon18plus.screen.TitleScreen;
 import com.qqhouse.dungeon18plus.screen.SelectHeroScreen;
 import com.qqhouse.dungeon18plus.screen.WildernessScreen;
@@ -54,6 +55,7 @@ public class Main extends QQGameMachine implements
     private HeroAlbumScreen heroAlbum;
     private GiantAlbumScreen giantAlbum;
     private LegionTrainerScreen legionTrainer;
+    private SoulMasterScreen soulMaster;
     private WildernessScreen wilderness;
     private Assets assets;
 
@@ -226,7 +228,10 @@ public class Main extends QQGameMachine implements
 
     @Override
     public void onSoulMaster() {
-
+        if (null == soulMaster) {
+            soulMaster = new SoulMasterScreen((SaveGame) savedGame, viewport, assets);
+        }
+        push(soulMaster);
     }
 
     @Override

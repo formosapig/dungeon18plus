@@ -14,7 +14,7 @@ public class SoulView extends AssetGroup {
     public SoulView(Assets assets) {
         super(assets);
 
-        soul = new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        soul = new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatchBG("black"));
         addChild(soul);
 
         upgrade = new VarietyView(assets);
