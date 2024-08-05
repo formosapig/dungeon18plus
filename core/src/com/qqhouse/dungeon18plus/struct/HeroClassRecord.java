@@ -178,6 +178,31 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 	}
 
 	/*
+		extend size
+	 */
+	public int getExtendSoulSizePrice() {
+		switch (maxSoulSize) {
+			case 4: return 10;
+			case 5: return 25;
+			case 6: return 50;
+			case 7: return 99;
+			default: return Integer.MAX_VALUE;
+		}
+	}
+
+	public boolean extendSoulSize() {
+		int price = getExtendSoulSizePrice();
+		if (coin >= price) {
+			maxSoulSize++;
+			coin -= price;
+			return true;
+		}
+		return false;
+	}
+
+
+
+	/*
 		game mode series...
 	 */
 	public void unlockGameMode(int gameMode) {

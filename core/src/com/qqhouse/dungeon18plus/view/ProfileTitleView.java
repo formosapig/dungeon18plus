@@ -1,22 +1,15 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
-import com.qqhouse.dungeon18plus.core.Action;
-import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
-import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQText;
-import com.qqhouse.ui.QQView;
-
-import java.util.ArrayList;
 
 public class ProfileTitleView extends AssetGroup {
 
     private final QQImage blockee;
     private final QQText name;
-    private final QQIconText resource;
+    private final ItemView coin;
 
     public ProfileTitleView(Assets assets) {
         super(assets);
@@ -27,12 +20,22 @@ public class ProfileTitleView extends AssetGroup {
         name = new QQText(assets.getFont(Game.Font.NAME20));
         name.setColor(Game.Colour.RARE);
         addChild(name);
-        resource = null;//new QQIconText();
+        coin = new ItemView(assets.getItem("golden_coin"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        coin.setSize(32, 32);
+        coin.setVisible(false);
+        addChild(coin);
     }
 
     public void update(String blockeeKey, String nameKey) {
         blockee.setImage(assets.getBlockee(blockeeKey));
         name.setText(assets.geti18n(nameKey));
+    }
+
+    public void update(String blockeeKey, String nameKey, int goldenCoin) {
+        blockee.setImage(assets.getBlockee(blockeeKey));
+        name.setText(assets.geti18n(nameKey));
+        coin.setText(Integer.toString(goldenCoin));
+        coin.setVisible(true);
     }
 
     @Override
@@ -57,6 +60,7 @@ public class ProfileTitleView extends AssetGroup {
             return;
         blockee.setPosition(leftPadding, bottomPadding);
         name.setPosition(leftPadding + 48 + 4, bottomPadding);
+        coin.setPosition(width - rightPadding - 32, bottomPadding + 8);
     }
 
 }

@@ -60,6 +60,10 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
         }
     }
 
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
     @Override
     public void setSize(float width, float height) {
         super.setSize(width, height);
@@ -131,7 +135,10 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
     }
 
     public void updateAll() {
-        childrenView.clear();
+        for (int i = 0, s = childrenView.size(); i < s; ++i) {
+            adapter.updateView(i, childrenView.get(i));
+        }
+        /*childrenView.clear();
         for (int i = 0, s = adapter.getSize(); i < s; ++i) {
             QQView child = adapter.getView(i, null);
             childrenView.add(child);
@@ -155,7 +162,7 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
             resetWrapWidth();
 
         arrangeChildren();
-        calculateMaxShiftX();
+        calculateMaxShiftX();*/
     }
 
     @Override

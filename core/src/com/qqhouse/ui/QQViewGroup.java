@@ -40,7 +40,8 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
     public boolean touchDown(float relativeX, float relativeY) {
         // walk through children view
         QQView target = null;
-        for (QQView child : childrenView) {
+        for (int i = childrenView.size() - 1; i >= 0; --i) {
+            QQView child = childrenView.get(i);
             float childRelativeX = relativeX - child.getX();
             float childRelativeY = relativeY - child.getY();
             target = child.hit(childRelativeX, childRelativeY);
@@ -60,7 +61,7 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
     public boolean touchUp(float relativeX, float relativeY) {
         // 2. tell child touch up
         QQView target = null;
-        for (int i = 0, s = childrenView.size(); i < s; ++i) {
+        for (int i = childrenView.size() - 1; i >= 0; --i) {
             QQView child = childrenView.get(i);
             float childRelativeX = relativeX - child.getX();
             float childRelativeY = relativeY - child.getY();
@@ -82,8 +83,9 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
     @Override
     public boolean touchDragged(float relativeX, float relativeY) {
         boolean handled = false;
-        for (QQView v : childrenView) {
-            if (v.touchDragged(relativeX - v.getX(), relativeY - v.getY()))
+        for (int i = childrenView.size() - 1; i >= 0; --i) {
+            QQView child = childrenView.get(i);
+            if (child.touchDragged(relativeX - child.getX(), relativeY - child.getY()))
                 handled = true;
         }
         return handled;
@@ -91,8 +93,9 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        for (QQView v : childrenView) {
-            v.scrolled(amountX, amountY);
+        for (int i = childrenView.size() - 1; i >= 0; --i) {
+            QQView child = childrenView.get(i);
+            child.scrolled(amountX, amountY);
         }
         return false;
     }

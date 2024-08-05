@@ -1,15 +1,21 @@
 package com.qqhouse.dungeon18plus.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
+import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
+import com.qqhouse.dungeon18plus.view.ExtendSoulSizeButton;
+import com.qqhouse.dungeon18plus.view.ProfileSoulView;
 import com.qqhouse.dungeon18plus.view.ProfileTitleView;
 import com.qqhouse.dungeon18plus.view.ProfileView;
 import com.qqhouse.dungeon18plus.view.TitleBarView2;
 import com.qqhouse.ui.QQCyclePager;
 import com.qqhouse.ui.QQLinear;
+import com.qqhouse.ui.QQPressAdapter;
+import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQScroll;
 import com.qqhouse.ui.QQView;
@@ -18,13 +24,14 @@ import java.util.ArrayList;
 
 public class SoulMasterScreen extends QQScreen {
 
+    private ArrayList<HeroClass> heroClassWithSoul;
+    private QQCyclePager cyclePager;
+    private ExtendSoulSizeButton extendSize;
+    private ProfileSoulView soulView;
+
     public SoulMasterScreen(SaveGame savedGame, Viewport viewport, Assets assets) {
         super(savedGame, viewport, assets);
     }
-
-    private ArrayList<HeroClass> heroClassWithSoul;
-    private QQScroll scroll;
-    private ProfileView profile;
 
     @Override
     public void onEnter() {
@@ -54,7 +61,7 @@ public class SoulMasterScreen extends QQScreen {
         group.addChild(line);
 
         // all hero ...
-        QQCyclePager cyclePager = new QQCyclePager(getViewport(), Game.Size.WIDGET_MARGIN);
+        cyclePager = new QQCyclePager(getViewport(), Game.Size.WIDGET_MARGIN);
         //QQList list = new QQList(getViewport());
         //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         //list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 48 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4
@@ -65,27 +72,58 @@ public class SoulMasterScreen extends QQScreen {
         cyclePager.setPageChangedListener(new QQCyclePager.PageChangedListener() {
             @Override
             public void onChange(int page) {
-                //Gdx.app.error("HeroAlbumScreen", "on cyclePager change");
-                profile.update(savedGame.getHeroClassRecord(heroClassWithSoul.get(page)), savedGame);
-                scroll.scrollToTop();
+                update(page);
             }
         });
         group.addChild(cyclePager);
 
-        // hero profile
-        scroll = new QQScroll(getViewport());
-        scroll.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
-        scroll.setPadding(8);
-        scroll.setBackground(assets.getNinePatchBG("help"));
-        group.addChild(scroll);
+        // extend size button
+        extendSize = new ExtendSoulSizeButton(assets);
+        extendSize.setPadding(8);
+        extendSize.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        extendSize.setQQPressListener(new QQPressAdapter() {
+            @Override
+            public void onPress(int index) {
+                final int currentPage = cyclePager.getCurrentPage();
+                HeroClassRecord record = savedGame.getHeroClassRecord(heroClassWithSoul.get(currentPage));
+                if (record.extendSoulSize()) {
+                    update(currentPage);
+                    cyclePager.updateAll();
+                }
+            }
+        });
+        group.addChild(extendSize);
 
+        // soul view
+        soulView = new ProfileSoulView(assets, Game.Size.INNER_MARGIN);
+        soulView.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        group.addChild(soulView);
 
-        profile = new ProfileView(assets);
-        profile.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-        profile.update(savedGame.getHeroClassRecord(heroClassWithSoul.get(0)), savedGame);
-        scroll.addChild(profile);
-
+        // default update
+        update(0);
     }
+
+    private void update(int index) {
+        HeroClassRecord record = savedGame.getHeroClassRecord(heroClassWithSoul.get(index));
+        extendSize.update(record);
+        soulView.update(record, removeSoul);
+        soulView.setBackground(assets.getNinePatchBG(record.heroClass.alignment.key));
+    }
+
+    private QQPressListener removeSoul = new QQPressAdapter() {
+        @Override
+        public void onPress(int index) {
+            //super.onPress(index);
+            Gdx.app.error("SoulMasterScreen", "remove soul " + index);
+            final int currentPage = cyclePager.getCurrentPage();
+            HeroClassRecord record = savedGame.getHeroClassRecord(heroClassWithSoul.get(currentPage));
+            record.removeSoulAt(index);
+            //if (record.extendSoulSize()) {
+                update(currentPage);
+                //cyclePager.updateAll();
+            //}
+        }
+    };
 
     @Override
     public void onLeave() {
@@ -105,8 +143,9 @@ public class SoulMasterScreen extends QQScreen {
         @Override
         public QQView getView(int index, QQView view) {
             HeroClass hr = heroClassWithSoul.get(index);
+            HeroClassRecord record = savedGame.getHeroClassRecord(hr);
             ProfileTitleView v = new ProfileTitleView(assets);
-            v.update(hr.key, hr.key);
+            v.update(hr.key, hr.key, record.coin);
             v.setPadding(8);
             v.setBackground(assets.getNinePatchBG(hr.alignment.key));
             v.setSize(Game.Size.WIDTH * 0.9f, QQView.WRAP_CONTENT);
@@ -115,7 +154,11 @@ public class SoulMasterScreen extends QQScreen {
 
         @Override
         public void updateView(int index, QQView view) {
-
+            if (view instanceof ProfileTitleView) {
+                HeroClass hr = heroClassWithSoul.get(index);
+                HeroClassRecord record = savedGame.getHeroClassRecord(hr);
+                ((ProfileTitleView)view).update(hr.key, hr.key, record.coin);
+            }
         }
     };
 }

@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -20,10 +21,19 @@ public class QQButtonEx extends QQButton implements QQView.IsParent {
         }
     }
 
+    public void setImage(Texture img) {
+        if (null == this.img) {
+            this.img = new QQImage(img);
+        }
+    }
+
     @Override
     public void drawForeground(SpriteBatch batch, float originX, float originY) {
         if (null != text) {
             text.draw(batch, originX, originY);
+        }
+        if (null != img) {
+            img.draw(batch, originX, originY);
         }
     }
 
@@ -35,7 +45,6 @@ public class QQButtonEx extends QQButton implements QQView.IsParent {
 
     @Override
     public void onParentSizeChanged(float width, float height) {
-
     }
 
     @Override
@@ -48,6 +57,9 @@ public class QQButtonEx extends QQButton implements QQView.IsParent {
         if (text != null) {
             text.setSize(this.width, this.height);
             text.setPosition(0, 0);
+        }
+        if (null != img) {
+            img.setPosition(leftPadding, bottomPadding);
         }
     }
 

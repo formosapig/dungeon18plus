@@ -8,6 +8,7 @@ import com.qqhouse.dungeon18plus.core.Action;
 import com.qqhouse.dungeon18plus.struct.GiantRecord;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.struct.SoulCount;
+import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
@@ -43,6 +44,21 @@ public class ProfileSoulView extends AssetGroup {
             sv.setPadding(8);//4, 4, 8, 8);
             sv.update(sc);
             addChild(sv);
+        }
+    }
+
+    public void update(HeroClassRecord record, QQPressListener listener) {
+        for (int i = childrenView.size() - 1; i > 0; --i)
+            childrenView.remove(i);
+
+        int index = 0;
+        for (SoulCount sc : record.souls) {
+            SoulButton sb = new SoulButton(assets);
+            sb.setSize(MATCH_PARENT, 48);
+            sb.setPadding(8);//4, 4, 8, 8);
+            sb.update(sc);
+            sb.addQQClickListener(listener, index++);
+            addChild(sb);
         }
     }
 
