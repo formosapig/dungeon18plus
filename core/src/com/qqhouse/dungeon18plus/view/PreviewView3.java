@@ -59,7 +59,7 @@ public class PreviewView3 extends AssetGroupButton {
     }
 
     public void resetExtra(String iconKey, String strExtra, Color color) {
-        extra = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16(iconKey));
+        extra = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/" + iconKey));
         extra.setSize(54, 16);
         extra.setColor(color);
         extra.setText(strExtra);

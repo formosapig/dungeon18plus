@@ -2,26 +2,25 @@ package com.qqhouse.ui;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class QQImage extends QQView {
-    private Texture img;
+    private TextureRegion region;
 
     public QQImage() {}
 
-    public QQImage(Texture texture) {
-        this.img = texture;
-        this.width = texture.getWidth();
-        this.height = texture.getHeight();
+    public QQImage(TextureRegion region) {
+        setImage(region);
     }
 
-    public void setImage(Texture texture) {
-        this.img = texture;
-        this.width = texture.getWidth();
-        this.height = texture.getHeight();
+    public void setImage(TextureRegion region) {
+        this.region = region;
+        this.width = region.getRegionWidth();
+        this.height = region.getRegionHeight();
     }
 
     @Override
     public void drawForeground(SpriteBatch batch, float originX, float originY) {
-        batch.draw(img, originX, originY, width, height);
+        batch.draw(region, originX, originY, width, height);
     }
 }

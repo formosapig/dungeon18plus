@@ -29,7 +29,7 @@ public class ExtendSoulSizeButton extends AssetGroupButton {
         title.setColor(Game.Colour.RARE);
         addChild(title);
 
-        goldenCoin = new ItemView(assets.getItem("golden_coin"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        goldenCoin = new ItemView(assets.getIcon("item/golden_coin"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
         goldenCoin.setSize(32, 32);
         addChild(goldenCoin);
 

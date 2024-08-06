@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Item;
@@ -23,23 +24,23 @@ public class ItemView extends QQView {
         total size = 32 x 32 (+2) , display quantity's play needs 2 pixel...
      */
 
-    private Texture icon, status;
+    private TextureRegion icon, status;
     private QQText rank;
     private QQText count;
 
     public ItemView() {}
 
-    public ItemView(Texture icon) {
+    public ItemView(TextureRegion icon) {
         this.icon = icon;
     }
 
     // cursed / blessed / refined type items are countless.
-    public ItemView(Texture icon, Texture status) {
+    public ItemView(TextureRegion icon, TextureRegion status) {
         this.icon = icon;
         this.status = status;
     }
 
-    public ItemView(BitmapFont font, Texture bg) {
+    public ItemView(BitmapFont font, TextureRegion bg) {
         count = new QQText(font, new NinePatch(bg, 4, 4, 4, 4), 0.5f);
         count.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
         count.setPosition(0, 0);
@@ -55,7 +56,7 @@ public class ItemView extends QQView {
         count.setPadding(2);
     }
 
-    public ItemView(Texture icon, BitmapFont font, Texture bg) {
+    public ItemView(TextureRegion icon, BitmapFont font, TextureRegion bg) {
         this.icon = icon;
         count = new QQText(font, new NinePatch(bg, 4, 4, 4, 4), 0.5f);
         count.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
@@ -63,11 +64,11 @@ public class ItemView extends QQView {
         count.setPadding(2);
     }
 
-    public void setIcon(Texture icon) {
+    public void setIcon(TextureRegion icon) {
         this.icon = icon;
     }
 
-    public void setStatus(Texture status) {
+    public void setStatus(TextureRegion status) {
         this.status = status;
     }
 
@@ -107,7 +108,7 @@ public class ItemView extends QQView {
         Equipment Mastery
      */
     public void setEquipmentMastery(Assets assets, EquipmentMastery em) {
-        setIcon(assets.getItem(em.equipment.icon));
+        setIcon(assets.getIcon(em.equipment.icon));
         if (em.equipment.isBlessed())
             setStatus(assets.getBackground("blessed"));
         else if (em.equipment.isCursed())
@@ -123,7 +124,7 @@ public class ItemView extends QQView {
         Soul Count
      */
     public void setSoulCount(Assets assets, SoulCount sc) {
-        setIcon(assets.getItem(sc.soul.iconKey));
+        setIcon(assets.getIcon(sc.soul.iconKey));
 
         rank.setColor(Game.Colour.SOUL_LEVEL);
         rank.setText(Integer.toString(sc.soul.rank));
@@ -162,7 +163,7 @@ public class ItemView extends QQView {
         ItemView creator
      */
     public static ItemView create(Assets assets, Item item) {
-        ItemView iv = new ItemView(assets.getItem(item.icon));
+        ItemView iv = new ItemView(assets.getIcon(item.icon));
         if (item.isBlessed())
             iv.setStatus(assets.getBackground("blessed"));
         else if (item.isCursed())
@@ -173,7 +174,7 @@ public class ItemView extends QQView {
     }
 
     public static ItemView create(Assets assets, Item item, int count) {
-        ItemView iv = new ItemView(assets.getItem(item.icon), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"));
+        ItemView iv = new ItemView(assets.getIcon(item.icon), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"));
         return iv;
     }
 

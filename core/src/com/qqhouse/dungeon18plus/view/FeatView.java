@@ -33,7 +33,7 @@ public class FeatView extends AssetGroup {
     }
 
     public void update(@NotNull Feat feat) {
-        icon.setImage(assets.getIcon32(feat.icon));
+        icon.setImage(assets.getIcon(feat.icon));
         name.setText(assets.geti18n(feat.name));
         help.setText(assets.geti18n(feat.help), true);
     }

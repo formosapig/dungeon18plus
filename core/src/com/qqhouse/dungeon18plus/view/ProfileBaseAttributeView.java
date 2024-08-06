@@ -33,31 +33,31 @@ public class ProfileBaseAttributeView extends AssetGroup {
         bg = new QQView();
         addChild(bg);
 
-        life = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("life"));
+        life = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon/life"));
         life.setColor(Game.Colour.LIFE);
         addChild(life);
 
-        attack = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("attack"));
+        attack = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon/attack"));
         attack.setColor(Game.Colour.ATTACK);
         addChild(attack);
 
-        defense = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("defense"));
+        defense = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon/defense"));
         defense.setColor(Game.Colour.DEFENSE);
         addChild(defense);
 
-        speed = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("speed"));
+        speed = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon/speed"));
         speed.setColor(Game.Colour.SPEED);
         addChild(speed);
 
-        key = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getItem("key"));
+        key = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("item/key"));
         key.setColor(Game.Colour.RARE);
         addChild(key);
 
-        coin = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getItem("copper_coin"));
+        coin = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("item/copper_coin"));
         coin.setColor(Game.Colour.RARE);
         addChild(coin);
 
-        star = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getItem("star"));
+        star = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("item/star"));
         star.setColor(Game.Colour.RARE);
         addChild(star);
 
@@ -84,17 +84,17 @@ public class ProfileBaseAttributeView extends AssetGroup {
 
     public void update(GiantRecord record) {
         // key -> exp
-        key.setIcon(assets.getIcon32("rank"));
+        key.setIcon(assets.getIcon("icon/rank"));
         key.setColor(Game.Colour.RANK);
         key.setText(Integer.toString(record.exp));
 
         // coin -> fast win
-        coin.setIcon(assets.getIcon32("time"));
+        coin.setIcon(assets.getIcon("icon/time"));
         coin.setColor(Game.Colour.SPEED);
         coin.setText(0 < record.fastWin ? Integer.toString(record.fastWin) : "-");
 
         // star -> kill count
-        star.setIcon(assets.getIcon32("soul"));
+        star.setIcon(assets.getIcon("item/soul"));
         star.setColor(Game.Colour.SOUL);
         star.setText(0 < record.killCount ? Integer.toString(record.killCount) : "-");
 

@@ -28,7 +28,7 @@ public class UniqueSkillView extends AssetGroup {
 
     public void reset(UniqueSkillData data, Ability base) {
 
-        icon = new QQImage(assets.getItem(data.skill.icon));
+        icon = new QQImage(assets.getIcon(data.skill.icon));
         icon.setSize(32, 32);
         icon.setPosition(leftPadding, bottomPadding);
         addChild(icon);
@@ -61,14 +61,14 @@ public class UniqueSkillView extends AssetGroup {
 
                 }
 
-                itOps[index] = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16(op.getIconName()));
+                itOps[index] = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/" + op.getIconName()));
                 itOps[index].setText(opStr);
                 itOps[index].setColor(op.getIconColor());
                 addChild(itOps[index]);
                 index++;
             }
 
-            coolDown = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("time"));
+            coolDown = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/time"));
             coolDown.setColor(Game.Colour.SPEED);
             coolDown.setText(Integer.toString(data.coolDown));
             addChild(coolDown);

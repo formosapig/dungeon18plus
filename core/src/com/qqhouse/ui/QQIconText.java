@@ -7,35 +7,35 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Align;
 
-/*
-    icon's size = this.height x this.height ...
-    icon may be null.
- */
-
 public class QQIconText extends QQText {
+    /*
+        icon's size = this.height x this.height ...
+        icon may be null.
+     */
 
     private static final int innerMargin = 2;
     public QQIconText(BitmapFont font) {
         super(font);
     }
 
-    public QQIconText(BitmapFont font, Texture icon) {
+    public QQIconText(BitmapFont font, TextureRegion icon) {
         super(font);
         this.icon = icon;
         //font.setFixedWidthGlyphs("01234567890+-=%");
     }
 
-    public QQIconText(BitmapFont font, NinePatch bg, Texture icon) {
+    public QQIconText(BitmapFont font, NinePatch bg, TextureRegion icon) {
         super(font, bg);
         this.icon = icon;
         //this.align = Align.right;
     }
 
-    private Texture icon;
+    private TextureRegion icon;
 
-    public void setIcon(Texture icon) {
+    public void setIcon(TextureRegion icon) {
         this.icon = icon;
     }
 
@@ -44,7 +44,7 @@ public class QQIconText extends QQText {
         GlyphLayout glyphs = new GlyphLayout();
         glyphs.setText(font, text);
 
-        width = (null != icon ? icon.getWidth() + innerMargin : 0) + glyphs.width;
+        width = (null != icon ? icon.getRegionWidth() + innerMargin : 0) + glyphs.width;
     }
 
     @Override
@@ -54,16 +54,16 @@ public class QQIconText extends QQText {
 
         // width
         if (wrapWidth) {
-            width = (null != icon ? icon.getWidth()/*height*/ + innerMargin : 0) + glyphs.width;
+            width = (null != icon ? icon.getRegionWidth() + innerMargin : 0) + glyphs.width;
         }
 
         // shift x
         if (Align.isCenterHorizontal(align)) {
-            shiftX = ((null != icon ? icon.getWidth() + innerMargin/*height + 2*/ : 0) + width - glyphs.width) / 2;
+            shiftX = ((null != icon ? icon.getRegionWidth() + innerMargin/*height + 2*/ : 0) + width - glyphs.width) / 2;
         } else if (Align.isRight(align)) {
             shiftX = width - glyphs.width;
         } else {
-            shiftX = (null != icon ? icon.getWidth() + innerMargin/*height + 2*/ : 0);
+            shiftX = (null != icon ? icon.getRegionWidth() + innerMargin/*height + 2*/ : 0);
         }
 
         // shift y
@@ -79,7 +79,7 @@ public class QQIconText extends QQText {
     @Override
     public void drawForeground(SpriteBatch batch, float originX, float originY) {
         if (null != icon)
-            batch.draw(icon, originX + leftPadding, originY + bottomPadding, icon.getWidth(), icon.getHeight()/*height, height*/);
+            batch.draw(icon, originX + leftPadding, originY + bottomPadding, icon.getRegionWidth(), icon.getRegionHeight()/*height, height*/);
         super.drawForeground(batch, originX, originY);
     }
 

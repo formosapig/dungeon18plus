@@ -3,6 +3,7 @@ package com.qqhouse.ui;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 // TODO should implements IsParent ??????
 public class QQButtonEx extends QQButton implements QQView.IsParent {
@@ -21,7 +22,7 @@ public class QQButtonEx extends QQButton implements QQView.IsParent {
         }
     }
 
-    public void setImage(Texture img) {
+    public void setImage(TextureRegion img) {
         if (null == this.img) {
             this.img = new QQImage(img);
         }

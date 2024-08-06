@@ -28,7 +28,7 @@ public class SoulButton extends AssetGroup {
         addChild(upgrade);
 
         remove = new QQButtonEx(assets.getBackgroundSet("ordinary"));
-        remove.setImage(assets.getIcon32("collapse"));
+        remove.setImage(assets.getIcon("icon/collapse"));
         remove.setPadding(8);
         addChild(remove);
     }

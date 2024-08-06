@@ -1,6 +1,11 @@
 package com.qqhouse.dungeon18plus.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
@@ -21,6 +26,7 @@ import com.qqhouse.ui.QQScroll;
 import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class SoulMasterScreen extends QQScreen {
 
@@ -35,7 +41,6 @@ public class SoulMasterScreen extends QQScreen {
 
     @Override
     public void onEnter() {
-
         // data
         heroClassWithSoul = savedGame.getHeroClassWithSoul();
 

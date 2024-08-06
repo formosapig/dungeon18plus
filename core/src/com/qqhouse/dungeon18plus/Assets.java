@@ -8,6 +8,8 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
@@ -46,17 +48,17 @@ public class Assets {
         get series
      */
 
-    public Texture getBlockee(String key) {
-        String fileName = "blockee/" + key + ".png";
-        if (!manager.contains(fileName, Texture.class)) {
-            long t = TimeUtils.millis();
-            manager.load(fileName, Texture.class, ttParam);
-            manager.finishLoadingAsset(fileName);
-            //Gdx.app.error("Assets", String.format(Locale.US, "getBlockee(%S) : %d", key, (TimeUtils.millis() - t)));
-        }
-        return manager.get(fileName, Texture.class);
-    }
-
+    //public Texture getBlockee(String key) {
+    //    String fileName = "blockee/" + key + ".png";
+    //    if (!manager.contains(fileName, Texture.class)) {
+    //        long t = TimeUtils.millis();
+    //        manager.load(fileName, Texture.class, ttParam);
+    //        manager.finishLoadingAsset(fileName);
+    //        //Gdx.app.error("Assets", String.format(Locale.US, "getBlockee(%S) : %d", key, (TimeUtils.millis() - t)));
+    //    }
+    //    return manager.get(fileName, Texture.class);
+    //}
+/*
     public Texture getIcon16(String key) {
         String fileName = "icon16/" + key + ".png";
         if (!manager.contains(fileName, Texture.class)) {
@@ -99,7 +101,7 @@ public class Assets {
             //Gdx.app.error("Assets", String.format(Locale.US, "getBackground(%S) : %d", key, (TimeUtils.millis() - t)));
         }
         return manager.get(fileName, Texture.class);
-    }
+    }*/
 
     public NinePatch getNinePatchBG(String key) {
         long t = TimeUtils.millis();
@@ -245,4 +247,35 @@ public class Assets {
         return buttonBackgroundSets.get(key);
     }
 
+    /*
+        text region series
+     */
+    private TextureAtlas atlas;
+
+    public TextureRegion getBlockee(String key) {
+        if (null == atlas) {
+            manager.load("game.atlas", TextureAtlas.class);
+            manager.finishLoadingAsset("game.atlas");
+            atlas = manager.get("game.atlas", TextureAtlas.class);
+        }
+        return atlas.findRegion("blockee/" + key);
+    }
+
+    public TextureRegion getIcon(String key) {
+        if (null == atlas) {
+            manager.load("game.atlas", TextureAtlas.class);
+            manager.finishLoadingAsset("game.atlas");
+            atlas = manager.get("game.atlas", TextureAtlas.class);
+        }
+        return atlas.findRegion(key);
+    }
+
+    public TextureRegion getBackground(String key) {
+        if (null == atlas) {
+            manager.load("game.atlas", TextureAtlas.class);
+            manager.finishLoadingAsset("game.atlas");
+            atlas = manager.get("game.atlas", TextureAtlas.class);
+        }
+        return atlas.findRegion("bg/" + key);
+    }
 }

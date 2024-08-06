@@ -25,20 +25,20 @@ public class CampaignScoreView extends AssetGroup {
         addChild(icon);
 
         // damage
-        damage = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("damage"));
+        damage = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/damage"));
         damage.setColor(Game.Colour.DAMAGE);
         damage.setText(Integer.toString(score.damage));
         addChild(damage);
 
         // guard
-        guard = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("guard"));
+        guard = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/guard"));
         guard.setColor(Game.Colour.GUARD);
         guard.setText(Integer.toString(score.guard));
         addChild(guard);
 
 
         // heal
-        heal = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("life"));
+        heal = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/life"));
         heal.setColor(Game.Colour.LIFE);
         heal.setText(Integer.toString(score.heal));
         addChild(heal);

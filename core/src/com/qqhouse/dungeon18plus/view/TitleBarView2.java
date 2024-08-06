@@ -42,7 +42,7 @@ public class TitleBarView2 extends AssetGroup {
         if (null == resourceKey)
             resource = new QQIconText(assets.getFont(Game.Font.DIGITAL16));
         else
-            resource = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16(resourceKey));
+            resource = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/" + resourceKey));
         resource.setColor(color);
         resource.setText(value);
         addChild(resource);

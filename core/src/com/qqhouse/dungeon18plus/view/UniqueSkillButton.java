@@ -82,14 +82,14 @@ public class UniqueSkillButton extends AssetGroupButton {
 
                 }
 
-                itOps[index] = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16(op.getIconName()));
+                itOps[index] = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/" + op.getIconName()));
                 itOps[index].setText(opStr);
                 itOps[index].setColor(op.getIconColor());
                 addChild(itOps[index]);
                 index++;
             }
 
-            coolDown = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("time"));
+            coolDown = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/time"));
             coolDown.setColor(Game.Colour.SPEED);
             coolDown.setText(Integer.toString(data.coolDown));
             addChild(coolDown);

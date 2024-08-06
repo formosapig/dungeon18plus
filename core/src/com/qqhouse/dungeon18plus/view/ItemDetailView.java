@@ -45,7 +45,7 @@ public class ItemDetailView extends AssetGroup {
     public void update(@NotNull Item item, boolean isUnknown) {
         //Gdx.app.error("ItemDetailView", "update : " + item);
         // item...
-        icon.setIcon(assets.getItem(item.icon));
+        icon.setIcon(assets.getIcon(item.icon));
         if (!isUnknown) {
             if (item.isBlessed())
                 icon.setStatus(assets.getBackground("blessed"));

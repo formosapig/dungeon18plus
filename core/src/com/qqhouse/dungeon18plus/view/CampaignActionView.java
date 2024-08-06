@@ -26,7 +26,7 @@ public class CampaignActionView extends AssetGroupButton {
 
         // no skill icon and display info
         if (null != action.skillIconKey) {
-            skill = new QQImage(assets.getItem(action.skillIconKey));
+            skill = new QQImage(assets.getIcon(action.skillIconKey));
             skill.setSize(24, 24);
             addChild(skill);
         }
@@ -41,7 +41,7 @@ public class CampaignActionView extends AssetGroupButton {
         }
 
         // time
-        time = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("time"));
+        time = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/time"));
         time.setColor(Game.Colour.SPEED);
         time.setText(Integer.toString(action.time));
         time.setSize(/*QQView.WRAP_CONTENT*/54, 24);

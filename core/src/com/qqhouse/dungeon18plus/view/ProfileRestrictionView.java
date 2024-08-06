@@ -28,36 +28,36 @@ public class ProfileRestrictionView extends AssetGroup {
         title.setText(assets.geti18n("profile_restriction"));
         addChild(title);
 
-        life = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("life"));
+        life = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon/life"));
         life.setPadding(8);
         life.setColor(Game.Colour.LIFE);
         addChild(life);
 
-        yellowMirror = new ItemView(assets.getItem("yellow_mirror"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        yellowMirror = new ItemView(assets.getIcon("item/yellow_mirror"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
         addChild(yellowMirror);
 
-        attack = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("attack"));
+        attack = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon/attack"));
         attack.setPadding(8);
         attack.setColor(Game.Colour.ATTACK);
         addChild(attack);
 
-        redMirror = new ItemView(assets.getItem("red_mirror"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        redMirror = new ItemView(assets.getIcon("item/red_mirror"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
         addChild(redMirror);
 
-        defense = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("defense"));
+        defense = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon/defense"));
         defense.setPadding(8);
         defense.setColor(Game.Colour.DEFENSE);
         addChild(defense);
 
-        blueMirror = new ItemView(assets.getItem("blue_mirror"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        blueMirror = new ItemView(assets.getIcon("item/blue_mirror"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
         addChild(blueMirror);
 
-        speed = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32("speed"));
+        speed = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon/speed"));
         speed.setPadding(8);
         speed.setColor(Game.Colour.SPEED);
         addChild(speed);
 
-        greenMirror = new ItemView(assets.getItem("green_mirror"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        greenMirror = new ItemView(assets.getIcon("item/green_mirror"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
         addChild(greenMirror);
     }
 

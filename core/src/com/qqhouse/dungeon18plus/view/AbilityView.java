@@ -25,7 +25,7 @@ public class AbilityView extends QQView implements QQView.IsParent {
         // align right ...
         align = Align.right;
 
-        life = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("life"));
+        life = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/life"));
         life.setSize(48, 16);
         life.setPosition(0, 0);
         life.setColor(Game.Colour.LIFE);
@@ -33,7 +33,7 @@ public class AbilityView extends QQView implements QQView.IsParent {
         life.setWrapWidth(true);
         childrenView.add(life);
 
-        attack = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("attack"));
+        attack = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/attack"));
         attack.setSize(48, 16);
         attack.setPosition(48, 0);
         attack.setColor(Game.Colour.ATTACK);
@@ -41,7 +41,7 @@ public class AbilityView extends QQView implements QQView.IsParent {
         attack.setWrapWidth(true);
         childrenView.add(attack);
 
-        defense = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("defense"));
+        defense = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/defense"));
         defense.setSize(48, 16);
         defense.setPosition(96, 0);
         defense.setColor(Game.Colour.DEFENSE);
@@ -49,7 +49,7 @@ public class AbilityView extends QQView implements QQView.IsParent {
         defense.setWrapWidth(true);
         childrenView.add(defense);
 
-        speed = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("speed"));
+        speed = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/speed"));
         speed.setSize(48, 16);
         speed.setPosition(144, 0);
         speed.setColor(Game.Colour.SPEED);
@@ -57,7 +57,7 @@ public class AbilityView extends QQView implements QQView.IsParent {
         speed.setWrapWidth(true);
         childrenView.add(speed);
 
-        coin = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("cost_coin"));
+        coin = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/cost_coin"));
         coin.setSize(48, 16);
         coin.setPosition(192, 0);
         coin.setColor(Game.Colour.RARE);

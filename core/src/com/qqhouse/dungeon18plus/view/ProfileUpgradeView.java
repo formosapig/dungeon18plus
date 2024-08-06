@@ -17,7 +17,7 @@ public class ProfileUpgradeView extends AssetGroup {
     }
 
     public void reset(Action act) {
-        icon = new QQImage(assets.getIcon32(act.key));
+        icon = new QQImage(assets.getIcon(act.key));
         icon.setSize(32, 32);
         //icon.setPosition(4, 4);
 
@@ -26,7 +26,7 @@ public class ProfileUpgradeView extends AssetGroup {
         upgrade.setSize(MATCH_PARENT, 32);
 
 
-        cost = new ItemView(assets.getIcon32(act.cost.getIconKey()), assets.getFont(Game.Font.DIGITAL16), assets.getBackground("black"));
+        cost = new ItemView(assets.getIcon(act.cost.getIconKey()), assets.getFont(Game.Font.DIGITAL16), assets.getBackground("black"));
         cost.setText(Integer.toString(act.cost.value));
         cost.setSize(32, 32);
         //cost.setPosition(  ,4);

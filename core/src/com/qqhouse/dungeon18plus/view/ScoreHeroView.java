@@ -61,7 +61,7 @@ public class ScoreHeroView extends AssetGroup {
         addChild(ranking);
 
         // score
-        score = new QQIconText(assets.getFont(Game.Font.EVENT_COST), assets.getIcon32("rank"));
+        score = new QQIconText(assets.getFont(Game.Font.EVENT_COST), assets.getIcon("icon/rank"));
         score.setColor(Game.Colour.RANK);
         score.setPadding(4);
         score.setSize(80, 32);

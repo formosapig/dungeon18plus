@@ -44,7 +44,7 @@ public class VarietyView extends AssetGroup {
             if ((varier.type & VARIETY_FILTER) == 0 || varier.isLimit())
                 continue;
 
-            QQIconText itVarier = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16(varier.getIcon16Key()));
+            QQIconText itVarier = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon(varier.getIcon16Key()));
             itVarier.setText(varier.getText(true));
             itVarier.setColor(varier.getColor());
             itVarier.setAlign(Align.right);
@@ -61,7 +61,7 @@ public class VarietyView extends AssetGroup {
             if ((var.type & VARIETY_FILTER) == 0 || var.isLimit())
                 continue;
 
-            QQIconText itVar = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon32(var.getIconKey()));
+            QQIconText itVar = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon(var.getIconKey()));
             itVar.setText(var.getText(true));
             itVar.setColor(var.getColor());
             itVar.setAlign(Align.right);

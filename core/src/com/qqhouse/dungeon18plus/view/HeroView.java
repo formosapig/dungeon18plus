@@ -68,42 +68,42 @@ public class HeroView extends QQButton implements QQView.IsParent {
 
         // life view ?!
         //lifeText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("life"))
-        lifeText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "life"))
+        lifeText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/life"))
                 .size(72, 16).position(64, 6).color(Game.Colour.LIFE).attach(this);
 
         // attack view
         //attackText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("attack"))
-        attackText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "attack"))
+        attackText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/attack"))
                 .size(72, 16).position(136, 6).color(Game.Colour.ATTACK).attach(this);
 
         // defense view
         //defenseText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("defense"))
-        defenseText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "defense"))
+        defenseText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/defense"))
                 .size(72, 16).position(208, 6).color(Game.Colour.DEFENSE).attach(this);
 
         // speed view
         //speedText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("speed"))
-        speedText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "speed"))
+        speedText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/speed"))
                 .size(72, 16).position(280, 6).color(Game.Colour.SPEED).attach(this);
 
 
         if (Feat.DARK_PRESENCE.in(hero.feats)) {
             // soul
-            soulItem = new ItemView(assets.getTexture("item", "soul"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
+            soulItem = new ItemView(assets.getIcon("item/soul"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
                     .color(Game.Colour.COUNT).size(32, 32).position(312, 26).attach(this);
         } else {
             // key item
             //keyItem = new ItemView(assets.getTexture("item", "key"), assets.getFont(Game.Font.DIGITAL16))
             //        .color(Game.color.COUNT).size(32, 32).position(212, 26).attach(this);
-            keyItem = new ItemView(assets.getTexture("item", "key"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
+            keyItem = new ItemView(assets.getIcon("item/key"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
                     .color(Game.Colour.COUNT).size(32, 32).position(212, 26).attach(this);
 
             // coin
-            coinItem = new ItemView(assets.getTexture("item", "copper_coin"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
+            coinItem = new ItemView(assets.getIcon("item/copper_coin"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
                     .color(Game.Colour.COUNT).size(32, 32).position(262, 26).attach(this);
 
             // star
-            starItem = new ItemView(assets.getTexture("item", "star"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
+            starItem = new ItemView(assets.getIcon("item/star"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
                     .color(Game.Colour.COUNT).size(32, 32).position(312, 26).attach(this);
         }
         // background
@@ -165,22 +165,22 @@ public class HeroView extends QQButton implements QQView.IsParent {
 
         // life view ?!
         //lifeText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("life"))
-        lifeText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "life"))
+        lifeText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/life"))
                 .size(72, 16).position(64, 6).color(Game.Colour.LIFE).attach(this);
 
         // attack view
         //attackText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("attack"))
-        attackText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "attack"))
+        attackText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/attack"))
                 .size(72, 16).position(136, 6).color(Game.Colour.ATTACK).attach(this);
 
         // defense view
         //defenseText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("defense"))
-        defenseText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "defense"))
+        defenseText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/defense"))
                 .size(72, 16).position(208, 6).color(Game.Colour.DEFENSE).attach(this);
 
         // speed view
         //speedText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("speed"))
-        speedText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getTexture("icon16", "speed"))
+        speedText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/speed"))
                 .size(72, 16).position(280, 6).color(Game.Colour.SPEED).attach(this);
 
         // Round use Item.SOUL
@@ -191,11 +191,11 @@ public class HeroView extends QQButton implements QQView.IsParent {
         addChild(soulItem);
 
         // coin
-        coinItem = new ItemView(assets.getTexture("item", "copper_coin"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
+        coinItem = new ItemView(assets.getIcon("item/copper_coin"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
                 .color(Game.Colour.COUNT).size(32, 32).position(262, 26).attach(this);
 
         // star
-        starItem = new ItemView(assets.getTexture("item", "star"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
+        starItem = new ItemView(assets.getIcon("item/star"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
                 .color(Game.Colour.COUNT).size(32, 32).position(312, 26).attach(this);
 
         // background

@@ -49,13 +49,13 @@ public class VeteranView extends AssetGroup {
             addChild(oper[i]);
         }
 
-        coolDown = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon16("time"));
+        coolDown = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/time"));
         coolDown.setColor(Game.Colour.SPEED);
         coolDown.setText("000");
         coolDown.setSize(QQView.WRAP_CONTENT, 16);
         addChild(coolDown);
 
-        round = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("cost_soul"));
+        round = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/cost_soul"));
         round.setText(Integer.toString(veteran.round));
         round.setSize(QQView.WRAP_CONTENT, 16);
         addChild(round);
@@ -71,7 +71,7 @@ public class VeteranView extends AssetGroup {
 
     public void updateUniqueSkill(Veteran veteran) {
         //skill.update(veteran.equipment, veteran.mastery, veteran);
-        equip.setIcon(assets.getItem(veteran.equipment.icon));
+        equip.setIcon(assets.getIcon(veteran.equipment.icon));
         if (veteran.equipment.isBlessed())
             equip.setStatus(assets.getBackground("blessed"));
         else if (veteran.equipment.isCursed())
@@ -116,7 +116,7 @@ public class VeteranView extends AssetGroup {
 
             }
             oper[index].setText(opStr);
-            oper[index].setIcon(assets.getIcon16(op.getIconName()));
+            oper[index].setIcon(assets.getIcon("icon16/" + op.getIconName()));
             oper[index].setColor(op.getIconColor());
             //oper[index].setSize(QQView.WRAP_CONTENT, 16);
             index++;

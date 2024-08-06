@@ -27,11 +27,11 @@ public class ActionView extends AssetGroup {
     }
 
     public void update(Action action) {
-        icon.setImage(assets.getIcon32(action.key));
+        icon.setImage(assets.getIcon(action.key));
 
         upgrade.update32(action.effects);
 
-        cost.setIcon(assets.getItem("star"));
+        cost.setIcon(assets.getIcon("item/star"));
         cost.setText(Integer.toString(action.cost.value));
     }
 

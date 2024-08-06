@@ -3,6 +3,7 @@ package com.qqhouse.dungeon18plus.view;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQIconText;
@@ -15,7 +16,11 @@ public class ActionShortcutView extends QQButton {
         fixed cost value ?
      */
 
-    public ActionShortcutView(BackgroundSet set, Texture icon, BitmapFont costFont, Texture costIcon, int costValue) {
+    private TextureRegion icon;
+    private QQIconText cost;
+    private float iconShiftX, costShiftX;
+
+    public ActionShortcutView(BackgroundSet set, TextureRegion icon, BitmapFont costFont, TextureRegion costIcon, int costValue) {
         super(set);
         this.icon = icon;
         cost = new QQIconText(costFont, costIcon);
@@ -23,10 +28,6 @@ public class ActionShortcutView extends QQButton {
         cost.setAlign(Align.right);
         cost.setText(Integer.toString(costValue));
     }
-
-    private Texture icon;
-    private QQIconText cost;
-    private float iconShiftX, costShiftX;
 
     @Override
     public void setSize(float w, float h) {

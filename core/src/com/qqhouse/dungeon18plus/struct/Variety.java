@@ -268,15 +268,15 @@ public class Variety {
     // get icon
     public String getIconKey() {
         switch (getPureType()) {
-            case Type.LIFE: return "life";
-            case Type.ATTACK: return "attack";
-            case Type.DEFENSE: return "defense";
-            case Type.SPEED: return "speed";
-            case Type.HEAL: return "resurrection";
-            case Type.DAMAGE: return "damage";
-            case Type.KEY: return "key";
-            case Type.COIN: return "coin";
-            case Type.STAR: return "star";
+            case Type.LIFE: return "icon/life";
+            case Type.ATTACK: return "icon/attack";
+            case Type.DEFENSE: return "icon/defense";
+            case Type.SPEED: return "icon/speed";
+            case Type.HEAL: return "icon/resurrection";
+            case Type.DAMAGE: return "icon/damage";
+            case Type.KEY: return "item/key";
+            case Type.COIN: return "item/copper_coin";
+            case Type.STAR: return "item/star";
             default:
                 throw new RuntimeException(String.format(Locale.US, "unhandled type : %08X.", type));
         }
@@ -284,16 +284,16 @@ public class Variety {
 
     public String getIcon16Key() {
         switch (getPureType()) {
-            case Type.LIFE: return "life";
-            case Type.ATTACK: return "attack";
-            case Type.DEFENSE: return "defense";
-            case Type.SPEED: return "speed";
-            case Type.HEAL: return "resurrection";
-            case Type.DAMAGE: return "damage";
-            case Type.KEY: return "cost_key";
-            case Type.COIN: return "cost_coin";
-            case Type.STAR: return "cost_star";
-            case Type.SOUL: return "cost_soul";
+            case Type.LIFE: return "icon16/life";
+            case Type.ATTACK: return "icon16/attack";
+            case Type.DEFENSE: return "icon16/defense";
+            case Type.SPEED: return "icon16/speed";
+            case Type.HEAL: return "icon16/resurrection";
+            case Type.DAMAGE: return "icon16/damage";
+            case Type.KEY: return "icon16/cost_key";
+            case Type.COIN: return "icon16/cost_coin";
+            case Type.STAR: return "icon16/cost_star";
+            case Type.SOUL: return "icon16/cost_soul";
             default:
                 throw new RuntimeException(String.format(Locale.US, "unhandled type : %08X.", type));
         }

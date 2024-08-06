@@ -85,7 +85,7 @@ public class PreviewView extends QQButton implements QQView.IsParent {
 
         // scoreOrRound
         if (Game.Mode.DUNGEON == gameMode && 0 < record.highScore) {
-            scoreOrRound = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("rank"));
+            scoreOrRound = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/rank"));
             scoreOrRound.setSize(54, 16);
             //scoreOrRound.setPosition(this.width - 64 - 4, 40);
             scoreOrRound.setAlign(Align.right);
@@ -93,7 +93,7 @@ public class PreviewView extends QQButton implements QQView.IsParent {
             scoreOrRound.setText(Integer.toString(record.highScore/* + 1000*/));
             addChild(scoreOrRound);
         } else if (Game.Mode.COLOSSEUM == gameMode && 0 < record.maxRound) {
-            scoreOrRound = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16("cost_soul"));
+            scoreOrRound = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/cost_soul"));
             scoreOrRound.setSize(40, 16);
             //scoreOrRound.setPosition(...);
             scoreOrRound.setAlign(Align.right);

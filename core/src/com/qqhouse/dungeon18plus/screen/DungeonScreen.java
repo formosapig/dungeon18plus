@@ -247,9 +247,9 @@ public class DungeonScreen extends QQScreen {
 
             ActionShortcutView action = new ActionShortcutView(
                     assets.getBackgroundSet(manager.getHero().heroClass.alignment.key),
-                    assets.getIcon32(manager.getActionSlot(i).action.key),
+                    assets.getIcon(manager.getActionSlot(i).action.key),
                     assets.getFont(Game.Font.LEVEL16),
-                    assets.getIcon16(slot.action.cost.getIcon16Key()),
+                    assets.getIcon(slot.action.cost.getIcon16Key()),
                     slot.action.cost.value
                     );
             action.setSize(actionWidth, 64);

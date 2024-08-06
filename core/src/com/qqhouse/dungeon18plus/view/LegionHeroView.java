@@ -23,7 +23,7 @@ public class LegionHeroView extends AssetGroupButton {
         addChild(icon);
 
         item = new ItemView();
-        item.setIcon(assets.getItem(veteran.equipment.icon));
+        item.setIcon(assets.getIcon(veteran.equipment.icon));
         item.setSize(32, 32);
         addChild(item);
 
@@ -36,7 +36,7 @@ public class LegionHeroView extends AssetGroupButton {
         addChild(icon);
 
         item = new ItemView();
-        item.setIcon(assets.getItem(legion.action.skill.icon));
+        item.setIcon(assets.getIcon(legion.action.skill.icon));
         item.setSize(32, 32);
         addChild(item);
 

@@ -40,7 +40,7 @@ public class GiantView extends AssetGroup  {
 
     public void update(Campaigner giant) {
         if (null != action && null != giant.action) {
-            action.setIcon(assets.getItem(giant.action.skill.icon));
+            action.setIcon(assets.getIcon(giant.action.skill.icon));
             action.setText(Integer.toString(giant.coolDown));
         }
 

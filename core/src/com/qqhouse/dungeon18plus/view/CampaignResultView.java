@@ -41,7 +41,7 @@ public class CampaignResultView extends AssetGroup {
                 // icon and value, check special type...
                 switch (result.type[i]) {
                     case Operation.GIANT_SOUL: {
-                        values[i] = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getItem(Soul.find(result.value[i]).iconKey));
+                        values[i] = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon(Soul.find(result.value[i]).iconKey));
                         values[i].setSize(QQView.WRAP_CONTENT, 24);
                         values[i].setText("");
                         //addChild(values[i]);
@@ -56,7 +56,7 @@ public class CampaignResultView extends AssetGroup {
                     }
                     break;
                     default: {
-                        values[i] = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon16(Operation.getIconName(result.type[i])));
+                        values[i] = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/" + Operation.getIconName(result.type[i])));
                         values[i].setColor(Operation.getIconColor(result.type[i]));
                         values[i].setText(result.value[i] > 0 ? ("+" + result.value[i]) : Integer.toString(result.value[i]));
                         values[i].setSize(QQView.WRAP_CONTENT, 24);

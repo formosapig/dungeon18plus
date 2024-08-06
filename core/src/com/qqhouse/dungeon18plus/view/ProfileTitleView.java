@@ -20,7 +20,7 @@ public class ProfileTitleView extends AssetGroup {
         name = new QQText(assets.getFont(Game.Font.NAME20));
         name.setColor(Game.Colour.RARE);
         addChild(name);
-        coin = new ItemView(assets.getItem("golden_coin"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        coin = new ItemView(assets.getIcon("item/golden_coin"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
         coin.setSize(32, 32);
         coin.setVisible(false);
         addChild(coin);
