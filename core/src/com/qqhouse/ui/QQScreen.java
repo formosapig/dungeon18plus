@@ -271,8 +271,10 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     }
 
     public final void draw(SpriteBatch batch) {
-        for (QQView child : childrenView)
+        for (QQView child : childrenView) {
             child.draw(batch, 0 + swipeRightX, 0);
+            //Gdx.app.error("QQScreen", "draw : " + child);
+        }
 
         //QQView[] views = childrenView.begin();
         //for (int i = 0, n = childrenView.size; i < n; ++i) {

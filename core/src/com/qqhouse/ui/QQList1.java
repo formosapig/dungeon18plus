@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Locale;
 
-
 public class QQList1 extends QQLinear implements QQView.IsTouchable {
 
     public static abstract class Adapter {

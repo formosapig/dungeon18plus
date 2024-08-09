@@ -601,7 +601,7 @@ icon/attack
   index: -1
 icon/black_shield
   rotate: false
-  xy: 784, 374
+  xy: 818, 374
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -776,7 +776,7 @@ icon/time
   index: -1
 icon/white_shield
   rotate: false
-  xy: 690, 170
+  xy: 724, 204
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -951,7 +951,7 @@ item/black_ring
   index: -1
 item/black_shield
   rotate: false
-  xy: 818, 374
+  xy: 784, 374
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -1574,7 +1574,7 @@ item/white_ring
   index: -1
 item/white_shield
   rotate: false
-  xy: 724, 204
+  xy: 690, 170
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

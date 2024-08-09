@@ -16,10 +16,13 @@ import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.dialog.SummaryDialog;
+import com.qqhouse.dungeon18plus.view.ProfileView;
+import com.qqhouse.ui.QQPressAdapter;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQScreen;
+import com.qqhouse.ui.QQScroll;
 import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
@@ -31,24 +34,25 @@ public class DungeonScreen extends QQScreen {
     }
 
     private DungeonManager manager;
-
-    public void setHero(HeroClass hero) {
-        manager = new DungeonManager(hero, savedGame);
-        manager.setAdapter(eventAdapter);
-        manager.setSpecialAdapter(specialEventAdapter);
-    }
+    private HeroView heroView;
+    private final ArrayList<ActionShortcutView> actionViews = new ArrayList<>();
+    private LootInfoView lootInfo;
+    private EventInfoView eventInfo;
+    private EventInfoDialog eventInfoDialog;
+    private final PopupScreen callback;
+    private QQScroll scroll;
+    private ProfileView profile;
 
     public DungeonScreen(SaveGame savedGame, Viewport viewport, Assets assets, PopupScreen callback) {
         super(savedGame, viewport, assets);
         this.callback = callback;
     }
 
-    private HeroView heroView;
-    private final ArrayList<ActionShortcutView> actionViews = new ArrayList<>();
-    private LootInfoView lootInfo;
-    private EventInfoView eventInfo;
-    private EventInfoDialog eventInfoDialog;
-    private PopupScreen callback;
+    public void setHero(HeroClass hero) {
+        manager = new DungeonManager(hero, savedGame);
+        manager.setAdapter(eventAdapter);
+        manager.setSpecialAdapter(specialEventAdapter);
+    }
 
     /*
         QQList Adapter ...
@@ -156,6 +160,12 @@ public class DungeonScreen extends QQScreen {
         heroView.setSize(Game.Size.WIDTH, 64);
         heroView.reset(manager.getHero());
         //heroView.setData(manager.getHero());
+        heroView.addQQClickListener(new QQPressAdapter() {
+            @Override
+            public void onPress(int index) {
+                scroll.setVisible(true);
+            }
+        }, 1);
         addChild(heroView);
 
         // group ( event, special event ), just a container...
@@ -229,6 +239,25 @@ public class DungeonScreen extends QQScreen {
         });
         //addView(eventList);
         group.addChild(eventList);
+
+        //group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 24 - 64 - Game.Size.WIDGET_MARGIN * 3);
+        //group.setPosition(0, 64 + Game.Size.WIDGET_MARGIN * 2 + 24);
+        //addChild(group);
+
+        // hero profile
+        scroll = new QQScroll(getViewport());
+        scroll.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 24 - 64 - Game.Size.WIDGET_MARGIN * 3);
+        scroll.setPosition(0, 64 + Game.Size.WIDGET_MARGIN * 2 + 24);
+        scroll.setPadding(8);
+        scroll.setBackground(assets.getNinePatchBG("help"));
+        scroll.setVisible(false);
+        addChild(scroll);
+
+        profile = new ProfileView(assets);
+        profile.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        //profile.update(savedGame.getHeroClassRecord(allHeroClass.get(0)), savedGame);
+        profile.update(savedGame.getHeroClassRecord(manager.getHero().heroClass), savedGame);
+        scroll.addChild(profile);
 
         // message view ...
         lootInfo = new LootInfoView(assets);
