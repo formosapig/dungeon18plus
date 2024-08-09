@@ -9,10 +9,10 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 
-		Settings settings = new Settings();
-		settings.maxWidth = 512;
-		settings.maxHeight = 512;
-		TexturePacker.process(settings, "assets/image", "assets/", "game");
+		//Settings settings = new Settings();
+		//settings.maxWidth = 512;
+		//settings.maxHeight = 512;
+		TexturePacker.processIfModified(/*settings,*/ "assets/image", "assets/", "game");
 
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setTitle("Dungeon 18+");
