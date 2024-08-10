@@ -296,6 +296,10 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
      * action adapter
      */
 
+    public ArrayList<ActionSlot> getActionSlots() {
+        return mActionSlots;
+    }
+
     public int getActionSlotCount() {
         return mActionSlots.size();
     }

@@ -77,6 +77,7 @@ public class QQList extends QQView implements QQView.IsParent, QQView.IsTouchabl
         //    totalHeight += (Game.Size.WIDGET_MARGIN + v.height); // 2 = widget margin...
         //}
         //maxScrollY = totalHeight - h + bottomPadding + topPadding; // padding not counting.
+        //Gdx.app.error("QQList", "size = " + w + "," + h);
     }
 
     @Override

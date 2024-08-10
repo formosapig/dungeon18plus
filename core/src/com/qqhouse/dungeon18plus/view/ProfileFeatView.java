@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class ProfileFeatView extends AssetGroup {
 
     private final QQText title;
-    private final ArrayList<FeatView> feats;
     private final int innerMargin;
 
     public ProfileFeatView(Assets assets, int innerMargin) {
@@ -29,17 +28,36 @@ public class ProfileFeatView extends AssetGroup {
         title.setAlign(Align.left);
         title.setText(assets.geti18n("profile_feat"));
         addChild(title);
-
-        feats = new ArrayList<>();
     }
 
-    public void update(HeroClassRecord record) {
+    /*public void update(HeroClassRecord record) {
         for (int i = childrenView.size() - 1; i > 0; --i)
             childrenView.remove(i);
 
         int featCount = Long.bitCount(record.heroClass.feat);
         for (Feat feat : Feat.values()) {
             if (feat.in(record.heroClass.feat)) {
+                //Gdx.app.error("ProfileFeatView", "feat = " + feat);
+                FeatView fv = new FeatView(assets);
+                fv.setSize(MATCH_PARENT, WRAP_CONTENT);
+                fv.setPadding(8);//4, 4, 8, 8);
+                fv.update(feat);
+                addChild(fv);
+                // check feat count
+                featCount --;
+                if (featCount == 0)
+                    break;
+            }
+        }
+    }*/
+
+    public void update(long feats) {
+        for (int i = childrenView.size() - 1; i > 0; --i)
+            childrenView.remove(i);
+
+        int featCount = Long.bitCount(feats);
+        for (Feat feat : Feat.values()) {
+            if (feat.in(feats)) {
                 //Gdx.app.error("ProfileFeatView", "feat = " + feat);
                 FeatView fv = new FeatView(assets);
                 fv.setSize(MATCH_PARENT, WRAP_CONTENT);

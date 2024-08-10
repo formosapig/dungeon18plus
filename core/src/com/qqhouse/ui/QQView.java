@@ -40,6 +40,8 @@ public class QQView {
     public static final int MATCH_PARENT  = -2;  // 最大的填充 parent 的 size
 
     public QQView hit(float relativeX, float relativeY) {
+        if (!visible)
+            return null;
         if (relativeX >= 0 && relativeX <= width && relativeY >= 0 && relativeY <= height)
             return this;
         else

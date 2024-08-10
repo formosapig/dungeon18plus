@@ -36,6 +36,8 @@ public class Game {
         public static final int WIDGET_MARGIN = 4; // margin between widgets
         public static final int INNER_MARGIN = 2;  // margin inside widget
         public static final int BLOCKEE_PADDING = 8; // padding around blockee....
+
+        public static final int BLOCKEE_SIZE = 48; // 48 x 48
     }
 
 

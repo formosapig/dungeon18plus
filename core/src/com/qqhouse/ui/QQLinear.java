@@ -38,8 +38,10 @@ public class QQLinear extends QQViewGroup {
         if (childrenView.isEmpty())
             return;
         float w = 0;
-        for (QQView v : childrenView)
-            w += v.getWidth() + innerMargin;
+        for (QQView v : childrenView) {
+            if (v.isVisible())
+                w += v.getWidth() + innerMargin;
+        }
         width = w - innerMargin + leftPadding + rightPadding;
         if (null != parent)
             parent.onChildSizeChanged(this);
@@ -50,8 +52,10 @@ public class QQLinear extends QQViewGroup {
         if (childrenView.isEmpty())
             return;
         float h = 0;
-        for (QQView v : childrenView)
-            h += v.getHeight() + innerMargin;
+        for (QQView v : childrenView) {
+            if (v.isVisible())
+                h += v.getHeight() + innerMargin;
+        }
         height = h - innerMargin + topPadding + bottomPadding;
         if (null != parent)
             parent.onChildSizeChanged(this);

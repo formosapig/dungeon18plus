@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Action;
+import com.qqhouse.dungeon18plus.struct.ActionSlot;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQText;
@@ -42,6 +43,19 @@ public class ProfileActionView extends AssetGroup {
             av.setSize(MATCH_PARENT, 48);
             av.setPadding(8);//4, 4, 8, 8);
             av.update(act);
+            addChild(av);
+        }
+    }
+
+    public void update(ArrayList<ActionSlot> actions) {
+        for (int i = childrenView.size() - 1; i > 0; --i)
+            childrenView.remove(i);
+
+        for (ActionSlot slot : actions) {
+            ActionView av = new ActionView(assets);
+            av.setSize(MATCH_PARENT, 48);
+            av.setPadding(8);//4, 4, 8, 8);
+            av.update(slot.action);
             addChild(av);
         }
     }

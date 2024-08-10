@@ -1,249 +1,211 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Feat;
-import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.hero.ColosseumHero;
 import com.qqhouse.dungeon18plus.struct.hero.DungeonHero;
-import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQIconText;
+import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQProgress;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
-import java.util.ArrayList;
-
-public class HeroView extends QQButton implements QQView.IsParent {
-
-    private final Assets assets;
-
-    public HeroView(Assets assets) {
-        this.assets = assets;
-    }
+public class HeroView extends AssetGroupButton {
 
     /*
         fix data.
         1. hero class icon.
         2. life / attack / defense / speed icon.
-        3. key / coin / star icon.
+        3. soul / key / coin / star icon.
+        4. level / exp
      */
-    private Texture hero;
-    private QQIconText lifeText, attackText, defenseText, speedText;
-    private ItemView soulItem, keyItem, coinItem, starItem;
+    private final QQImage blockee;
+    private final QQIconText life, attack, defense, speed;
+    private ItemView soul, key, coin, star;
     private QQText level;
     private QQProgress exp;
 
-    public void reset(DungeonHero hero) {
-        this.hero = assets.getTexture("blockee", hero.heroClass.key);
+    public HeroView(Assets assets, DungeonHero hero) {
+        super(assets);
 
-        /*
-              experience hero : key, coin, star
-              fairy           : key, coin, star, no exp
-              skeleton king   : soul, no exp
-         */
-        if (Feat.EXPERIENCE.in(hero.feats)) {
-            // level
-            level = new QQText(assets.getFont(Game.Font.LEVEL16), new NinePatch(assets.getTexture("background", "level"), 4, 4, 4, 4), 0.75f);
-            level.setColor(Game.Colour.RANK);
-            level.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT); // TODO 1007 希望可以浮動的調整寬度...
-            level.setPadding(4);//2, 2, 2, 2);
-            level.setPosition(4, 40);
-            level.setAlign(Align.center);
-            //level.setText("22");
-            childrenView.add(level);
+        blockee = new QQImage();
+        blockee.setSize(Game.Size.BLOCKEE_SIZE, Game.Size.BLOCKEE_SIZE);
+        blockee.setPosition(8, 8);
+        blockee.setImage(assets.getBlockee(hero.heroClass.key));
+        addChild(blockee);
 
-            // progress bar for exp...
-            exp = new QQProgress(
-                    new NinePatch(assets.getTexture("background","black"), 4, 4, 4, 4),
-                    new NinePatch(assets.getTexture("background","white"), 4, 4, 4, 4));
-            exp.setSize(50, 8);
-            exp.setPosition(7, 4);
-            childrenView.add(exp);
-        }
+        life = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/life"));
+        life.setColor(Game.Colour.LIFE);
+        addChild(life);
 
-        // life view ?!
-        //lifeText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("life"))
-        lifeText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/life"))
-                .size(72, 16).position(64, 6).color(Game.Colour.LIFE).attach(this);
+        attack = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/attack"));
+        attack.setColor(Game.Colour.ATTACK);
+        addChild(attack);
 
-        // attack view
-        //attackText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("attack"))
-        attackText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/attack"))
-                .size(72, 16).position(136, 6).color(Game.Colour.ATTACK).attach(this);
+        defense = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/defense"));
+        defense.setColor(Game.Colour.DEFENSE);
+        addChild(defense);
 
-        // defense view
-        //defenseText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("defense"))
-        defenseText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/defense"))
-                .size(72, 16).position(208, 6).color(Game.Colour.DEFENSE).attach(this);
-
-        // speed view
-        //speedText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("speed"))
-        speedText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/speed"))
-                .size(72, 16).position(280, 6).color(Game.Colour.SPEED).attach(this);
-
+        speed = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/speed"));
+        speed.setColor(Game.Colour.SPEED);
+        addChild(speed);
 
         if (Feat.DARK_PRESENCE.in(hero.feats)) {
-            // soul
-            soulItem = new ItemView(assets.getIcon("item/soul"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                    .color(Game.Colour.COUNT).size(32, 32).position(312, 26).attach(this);
+            soul = new ItemView(assets.getIcon("item/soul"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+            soul.setSize(32, 32);
+            soul.setColor(Game.Colour.COUNT);
+            addChild(soul);
         } else {
-            // key item
-            //keyItem = new ItemView(assets.getTexture("item", "key"), assets.getFont(Game.Font.DIGITAL16))
-            //        .color(Game.color.COUNT).size(32, 32).position(212, 26).attach(this);
-            keyItem = new ItemView(assets.getIcon("item/key"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                    .color(Game.Colour.COUNT).size(32, 32).position(212, 26).attach(this);
+            key = new ItemView(assets.getIcon("item/key"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+            key.setSize(32, 32);
+            key.setColor(Game.Colour.COUNT);
+            addChild(key);
 
-            // coin
-            coinItem = new ItemView(assets.getIcon("item/copper_coin"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                    .color(Game.Colour.COUNT).size(32, 32).position(262, 26).attach(this);
+            coin = new ItemView(assets.getIcon("item/copper_coin"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+            coin.setSize(32, 32);
+            coin.setColor(Game.Colour.COUNT);
+            addChild(coin);
 
-            // star
-            starItem = new ItemView(assets.getIcon("item/star"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                    .color(Game.Colour.COUNT).size(32, 32).position(312, 26).attach(this);
+            star = new ItemView(assets.getIcon("item/star"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+            star.setSize(32, 32);
+            star.setColor(Game.Colour.COUNT);
+            addChild(star);
         }
-        // background
+
+        if (Feat.EXPERIENCE.in(hero.feats)) {
+            // level
+            level = new QQText(assets.getFont(Game.Font.LEVEL16), assets.getNinePatchBG("level"), 0.75f);
+            level.setColor(Game.Colour.RANK);
+            level.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
+            level.setPadding(4);
+            level.setPosition(4, 40);
+            level.setAlign(Align.center);
+            addChild(level);
+
+            // progress bar for exp...
+            exp = new QQProgress(assets.getNinePatchBG("black"), assets.getNinePatchBG("white"));
+            exp.setSize(50, 8);
+            exp.setPosition(7, 4);
+            addChild(exp);
+        }
+
+        setBackground(assets.getBackgroundSet(hero.heroClass.alignment.key));
+    }
+
+    public HeroView(Assets assets, ColosseumHero hero) {
+        super(assets);
+
+        blockee = new QQImage();
+        blockee.setSize(Game.Size.BLOCKEE_SIZE, Game.Size.BLOCKEE_SIZE);
+        blockee.setPosition(8, 8);
+        blockee.setImage(assets.getBlockee(hero.heroClass.key));
+        addChild(blockee);
+
+        life = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/life"));
+        life.setColor(Game.Colour.LIFE);
+        addChild(life);
+
+        attack = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/attack"));
+        attack.setColor(Game.Colour.ATTACK);
+        addChild(attack);
+
+        defense = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/defense"));
+        defense.setColor(Game.Colour.DEFENSE);
+        addChild(defense);
+
+        speed = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/speed"));
+        speed.setColor(Game.Colour.SPEED);
+        addChild(speed);
+
+        coin = new ItemView(assets.getIcon("item/copper_coin"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        coin.setSize(32, 32);
+        coin.setColor(Game.Colour.COUNT);
+        addChild(coin);
+
+        star = new ItemView(assets.getIcon("item/star"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        star.setSize(32, 32);
+        star.setColor(Game.Colour.COUNT);
+        addChild(star);
+
+        soul = new ItemView(assets.getIcon("item/soul"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        soul.setSize(32, 32);
+        soul.setPosition(64, 26);
+        soul.setColor(Game.Colour.COUNT);
+        addChild(soul);
+
         setBackground(assets.getBackgroundSet(hero.heroClass.alignment.key));
     }
 
     public void update(DungeonHero hero) {
 
-        if (null != level) {
-            level.setText(Integer.toString(hero.level));
-        }
-        if (null != exp) {
-            exp.setPercent(hero.exp * 100/ hero.maxExp);
-        }
+        life.setText(hero.displayLife());
+        attack.setText(hero.displayAttack());
+        defense.setText(hero.displayDefense());
+        speed.setText(hero.displaySpeed());
 
-        lifeText.setText(hero.displayLife());
-        attackText.setText(hero.displayAttack());
-        //attackText.setText("199x2");
-        defenseText.setText(hero.displayDefense());
-        speedText.setText(hero.displaySpeed());
         if (Feat.DARK_PRESENCE.in(hero.feats)) {
-            soulItem.setText(Integer.toString(hero.soul));
+            soul.setText(Integer.toString(hero.soul));
         } else {
-            keyItem.setText(Integer.toString(hero.key));
-            coinItem.setText(Integer.toString(hero.coin));
-            starItem.setText(Integer.toString(hero.star));
+            key.setText(Integer.toString(hero.key));
+            coin.setText(Integer.toString(hero.coin));
+            star.setText(Integer.toString(hero.star));
         }
-        // level
-        // exp...
-    }
 
-    public void reset(ColosseumHero hero) {
-        this.hero = assets.getTexture("blockee", hero.heroClass.key);
-
-        /*
-              experience hero : key, coin, star
-              fairy           : key, coin, star, no exp
-              skeleton king   : soul, no exp
-         */
         if (Feat.EXPERIENCE.in(hero.feats)) {
-            // level
-            level = new QQText(assets.getFont(Game.Font.LEVEL16), new NinePatch(assets.getTexture("background", "level"), 4, 4, 4, 4), 0.75f);
-            level.setColor(Game.Colour.RANK);
-            level.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT); // TODO 1007 希望可以浮動的調整寬度...
-            level.setPadding(4);//2, 2, 2, 2);
-            level.setPosition(4, 40);
-            level.setAlign(Align.center);
-            //level.setText("22");
-            childrenView.add(level);
-
-            // progress bar for exp...
-            exp = new QQProgress(
-                    new NinePatch(assets.getTexture("background","black"), 4, 4, 4, 4),
-                    new NinePatch(assets.getTexture("background","white"), 4, 4, 4, 4));
-            exp.setSize(50, 8);
-            exp.setPosition(7, 4);
-            childrenView.add(exp);
+            level.setText(Integer.toString(hero.level));
+            exp.setPercent(hero.exp * 100 / hero.maxExp);
         }
 
-        // life view ?!
-        //lifeText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("life"))
-        lifeText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/life"))
-                .size(72, 16).position(64, 6).color(Game.Colour.LIFE).attach(this);
-
-        // attack view
-        //attackText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("attack"))
-        attackText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/attack"))
-                .size(72, 16).position(136, 6).color(Game.Colour.ATTACK).attach(this);
-
-        // defense view
-        //defenseText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("defense"))
-        defenseText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/defense"))
-                .size(72, 16).position(208, 6).color(Game.Colour.DEFENSE).attach(this);
-
-        // speed view
-        //speedText = new QQIconText(assets.getFont("whitrabt", 18), new NinePatch(assets.getBackground("refined")), assets.getIcon16("speed"))
-        speedText = new QQIconText(assets.getFont(Game.Font.HERO_ABILITY), assets.getIcon("icon16/speed"))
-                .size(72, 16).position(280, 6).color(Game.Colour.SPEED).attach(this);
-
-        // Round use Item.SOUL
-        soulItem = ItemView.create(assets, Item.SOUL, 0);
-        soulItem.setColor(Game.Colour.COUNT);
-        soulItem.setSize(32, 32);
-        soulItem.setPosition(64, 26);
-        addChild(soulItem);
-
-        // coin
-        coinItem = new ItemView(assets.getIcon("item/copper_coin"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                .color(Game.Colour.COUNT).size(32, 32).position(262, 26).attach(this);
-
-        // star
-        starItem = new ItemView(assets.getIcon("item/star"), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"))
-                .color(Game.Colour.COUNT).size(32, 32).position(312, 26).attach(this);
-
-        // background
-        setBackground(assets.getBackgroundSet(hero.heroClass.alignment.key));
     }
 
     public void update(ColosseumHero hero) {
 
-        lifeText.setText(hero.displayLife());
-        attackText.setText(hero.displayAttack());
-        defenseText.setText(hero.displayDefense());
-        speedText.setText(hero.displaySpeed());
+        life.setText(hero.displayLife());
+        attack.setText(hero.displayAttack());
+        defense.setText(hero.displayDefense());
+        speed.setText(hero.displaySpeed());
 
-        soulItem.setText(Integer.toString(hero.round));
-        coinItem.setText(Integer.toString(hero.coin));
-        starItem.setText(Integer.toString(hero.star));
-    }
-
-    @Override
-    public void drawForeground(SpriteBatch batch, float originX, float originY) {
-        // 1. draw hero icon
-        batch.draw(hero, originX + 8, originY + 8);
-    }
-
-    private ArrayList<QQView> childrenView = new ArrayList<>();
-
-    @Override
-    public void arrangeChildren() {}
-
-    @Override
-    public void addChild(QQView view) {
-        childrenView.add(view);
-    }
-
-    @Override
-    public void removeChild(QQView view) {}
-
-    @Override
-    public void onParentSizeChanged(float width, float height) {}
-
-    @Override
-    public void onChildSizeChanged(QQView child) {
+        soul.setText(Integer.toString(hero.round));
+        coin.setText(Integer.toString(hero.coin));
+        star.setText(Integer.toString(hero.star));
 
     }
 
+    /*
+        IsParent...
+     */
     @Override
-    public void drawChildren(SpriteBatch batch, float originX, float originY) {
-        for (QQView child : childrenView)
-            child.draw(batch, originX, originY);
+    public void onParentSizeChanged(float width, float height) {
+        if (0 >= width || 0 >= height)
+            return;
+
+        // reset life, attack, defense, speed size.
+        float fixWidth = (width - leftPadding - rightPadding - 48 - 8) / 4;
+        life.setSize(fixWidth, 16);
+        attack.setSize(fixWidth, 16);
+        defense.setSize(fixWidth, 16);
+        speed.setSize(fixWidth, 16);
+    }
+
+    @Override
+    public void arrangeChildren() {
+        if (0 >= width || 0 >= height)
+            return;
+        // set life, attack, defense, speed position.
+        life.setPosition(64, 6);
+        attack.setPosition(life.getX() + life.getWidth(), 6);
+        defense.setPosition(attack.getX() + attack.getWidth(), 6);
+        speed.setPosition(defense.getX() + defense.getWidth(), 6);
+
+        if (null != soul && 0 == soul.getX())
+            soul.setPosition(width - rightPadding - 32 - 8, 26);
+        if (null != star)
+            star.setPosition(width - rightPadding - 32 - 8, 26);
+        if (null != coin && null != star)
+            coin.setPosition(star.getX() - 32 - 20, 26);
+        if (null != key && coin != null)
+            key.setPosition(coin.getX() - 32 - 20, 26);
     }
 }

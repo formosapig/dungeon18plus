@@ -108,12 +108,12 @@ public class ColosseumScreen extends QQScreen {
     public void onEnter() {
 
         // hero view ...
-        heroView = new HeroView(assets);
+        heroView = new HeroView(assets, manager.getHero());
         heroView.setPadding(8);
         heroView.setPosition(0, Game.Size.HEIGHT - 64);
         //heroView.setSize(QQView.FILL_PARENT, 64);
         heroView.setSize(Game.Size.WIDTH, 64);
-        heroView.reset(manager.getHero());
+        //heroView.reset(manager.getHero());
         //heroView.setData(manager.getHero());
         addChild(heroView);
 

@@ -6,11 +6,15 @@ import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
+import com.qqhouse.dungeon18plus.struct.ActionSlot;
 import com.qqhouse.dungeon18plus.struct.GiantRecord;
 import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
+import com.qqhouse.dungeon18plus.struct.hero.Hero;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
+
+import java.util.ArrayList;
 
 public class ProfileView extends AssetGroup {
 
@@ -100,7 +104,7 @@ public class ProfileView extends AssetGroup {
             action.setBackground(bg);
             action.setVisible(true);
 
-            feat.update(record);
+            feat.update(record.heroClass.feat);
             feat.setBackground(bg);
             feat.setVisible(true);
 
@@ -208,5 +212,24 @@ public class ProfileView extends AssetGroup {
             uniqueSkill.setVisible(false);
             soul.setVisible(false);
         }
+    }
+
+    // create profile view with HeroClassRecord
+    public void update(Hero hero, ArrayList<ActionSlot> actions) {
+        NinePatch bg = assets.getNinePatchBG(hero.heroClass.alignment.key);
+
+        biography.setVisible(false);
+        baseAttribute.setVisible(false);
+        restriction.setVisible(false);
+
+        action.update(actions);
+        action.setBackground(bg);
+
+        feat.update(hero.feats);
+        feat.setBackground(bg);
+
+        uniqueSkill.setVisible(false);
+        soul.setVisible(false);
+        mastery.setVisible(false);
     }
 }

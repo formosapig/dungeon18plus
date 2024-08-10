@@ -6,7 +6,6 @@ import com.qqhouse.dungeon18plus.core.DungeonManager;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
-import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.view.ActionShortcutView;
 import com.qqhouse.dungeon18plus.dialog.EventInfoDialog;
@@ -28,10 +27,6 @@ import com.qqhouse.ui.QQView;
 import java.util.ArrayList;
 
 public class DungeonScreen extends QQScreen {
-
-    public interface DungeonCallback {
-        void onDungeonResult(boolean isWin, ArrayList<BossKill> kills);
-    }
 
     private DungeonManager manager;
     private HeroView heroView;
@@ -153,19 +148,18 @@ public class DungeonScreen extends QQScreen {
     public void onEnter() {
 
         // hero view ...
-        heroView = new HeroView(assets);
+        heroView = new HeroView(assets, manager.getHero());
         heroView.setPadding(8);
         heroView.setPosition(0, Game.Size.HEIGHT - 64);
         //heroView.setSize(QQView.FILL_PARENT, 64);
         heroView.setSize(Game.Size.WIDTH, 64);
-        heroView.reset(manager.getHero());
-        //heroView.setData(manager.getHero());
-        heroView.addQQClickListener(new QQPressAdapter() {
+        //heroView.reset(manager.getHero());
+        heroView.setQQPressListener(new QQPressAdapter() {
             @Override
             public void onPress(int index) {
-                scroll.setVisible(true);
+                scroll.setVisible(!scroll.isVisible());
             }
-        }, 1);
+        });
         addChild(heroView);
 
         // group ( event, special event ), just a container...
@@ -240,14 +234,16 @@ public class DungeonScreen extends QQScreen {
         //addView(eventList);
         group.addChild(eventList);
 
-        //group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 24 - 64 - Game.Size.WIDGET_MARGIN * 3);
-        //group.setPosition(0, 64 + Game.Size.WIDGET_MARGIN * 2 + 24);
-        //addChild(group);
+        // message view ...
+        lootInfo = new LootInfoView(assets);
+        lootInfo.setSize(Game.Size.WIDTH, 24);
+        lootInfo.setPosition(0, 64 + Game.Size.WIDGET_MARGIN);
+        addChild(lootInfo);
 
         // hero profile
         scroll = new QQScroll(getViewport());
-        scroll.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 24 - 64 - Game.Size.WIDGET_MARGIN * 3);
-        scroll.setPosition(0, 64 + Game.Size.WIDGET_MARGIN * 2 + 24);
+        scroll.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 64 - Game.Size.WIDGET_MARGIN * 2);
+        scroll.setPosition(0, 64 + Game.Size.WIDGET_MARGIN);
         scroll.setPadding(8);
         scroll.setBackground(assets.getNinePatchBG("help"));
         scroll.setVisible(false);
@@ -256,14 +252,8 @@ public class DungeonScreen extends QQScreen {
         profile = new ProfileView(assets);
         profile.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         //profile.update(savedGame.getHeroClassRecord(allHeroClass.get(0)), savedGame);
-        profile.update(savedGame.getHeroClassRecord(manager.getHero().heroClass), savedGame);
+        profile.update(manager.getHero(), manager.getActionSlots());
         scroll.addChild(profile);
-
-        // message view ...
-        lootInfo = new LootInfoView(assets);
-        lootInfo.setSize(Game.Size.WIDTH, 24);
-        lootInfo.setPosition(0, 64 + Game.Size.WIDGET_MARGIN);
-        addChild(lootInfo);
 
         // action view ...
         actionViews.clear();
