@@ -7,6 +7,7 @@ import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
 import com.qqhouse.dungeon18plus.struct.event.Event;
+import com.qqhouse.dungeon18plus.view.ActionShortcutButton;
 import com.qqhouse.dungeon18plus.view.ActionShortcutView;
 import com.qqhouse.dungeon18plus.dialog.EventInfoDialog;
 import com.qqhouse.dungeon18plus.view.EventInfoView;
@@ -30,7 +31,7 @@ public class DungeonScreen extends QQScreen {
 
     private DungeonManager manager;
     private HeroView heroView;
-    private final ArrayList<ActionShortcutView> actionViews = new ArrayList<>();
+    private final ArrayList<ActionShortcutButton> actionViews = new ArrayList<>();
     private LootInfoView lootInfo;
     private EventInfoView eventInfo;
     private EventInfoDialog eventInfoDialog;
@@ -158,6 +159,8 @@ public class DungeonScreen extends QQScreen {
             @Override
             public void onPress(int index) {
                 scroll.setVisible(!scroll.isVisible());
+                if (scroll.isVisible())
+                    profile.update(manager.getHero(), manager.getActionSlots());
             }
         });
         addChild(heroView);
@@ -264,16 +267,19 @@ public class DungeonScreen extends QQScreen {
         for (int i = 0; i < actionCount; ++i) {
             ActionSlot slot = manager.getActionSlot(i);
 
-            ActionShortcutView action = new ActionShortcutView(
-                    assets.getBackgroundSet(manager.getHero().heroClass.alignment.key),
-                    assets.getIcon(manager.getActionSlot(i).action.key),
-                    assets.getFont(Game.Font.LEVEL16),
-                    assets.getIcon(slot.action.cost.getIcon16Key()),
-                    slot.action.cost.value
-                    );
+            //ActionShortcutView action = new ActionShortcutView(
+            //        assets.getBackgroundSet(manager.getHero().heroClass.alignment.key),
+            //        assets.getIcon(manager.getActionSlot(i).action.key),
+            //        assets.getFont(Game.Font.LEVEL16),
+            //        assets.getIcon(slot.action.cost.getIcon16Key()),
+            //        slot.action.cost.value
+            //        );
+            ActionShortcutButton action = new ActionShortcutButton(assets);
+            action.update(slot, true);
             action.setSize(actionWidth, 64);
             action.setPosition((actionWidth + 2) * i, 0);
-            action.addQQClickListener(new QQPressListener() {
+            action.setBackground(assets.getBackgroundSet(manager.getHero().heroClass.alignment.key));
+            action.setQQPressListener(new QQPressListener() {
                 @Override
                 public void onPress(int index) {
                     //Gdx.app.error("DungeonScreen", "press action.");
@@ -326,7 +332,7 @@ public class DungeonScreen extends QQScreen {
         lootInfo.update(manager.eventResult);
         // 4. action list
         for (int i = 0, s = actionViews.size(); i < s; ++i) {
-            actionViews.get(i).setEnable(manager.canDoAction(i));
+            actionViews.get(i).update(manager.getActionSlot(i), manager.canDoAction(i));
         }
     }
 

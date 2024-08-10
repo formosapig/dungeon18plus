@@ -40,13 +40,6 @@ public class Game {
         public static final int BLOCKEE_SIZE = 48; // 48 x 48
     }
 
-
-    // blockee size.
-    public static final int BLOCKEE_SIZE = 48;
-
-    // test title menu
-    public static final boolean FULL_TITLE_MENU = true;
-
     // version name ?
     public static final String VER = "2.0.0";
     public static final String SAVE_FILE = "d18p2";
