@@ -108,6 +108,8 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
     }
 
     public void updateAll() {
+        // 在 act 中呼叫了 update all , 然後清除全部的 view 又全部加回來,就引發了
+        // ConcurrentModificationException
         childrenView.clear();
         for (int i = 0, s = adapter.getSize(); i < s; ++i) {
             QQView child = adapter.getView(i);

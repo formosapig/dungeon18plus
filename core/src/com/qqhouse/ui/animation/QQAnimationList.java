@@ -246,11 +246,20 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
                 maxScrollY = 0;
             // on animation end
             if (null != adapter) {
-                Gdx.app.error("QQList", String.format(Locale.US, "adapter.onAnimationEnd %d", childrenView.size()));
+                Gdx.app.error("QQAnimationList", String.format(Locale.US, "adapter.onAnimationEnd %d", childrenView.size()));
                 adapter.onAnimationEnd();
             }
         } else if (0 > animLock) {
             throw new GdxRuntimeException("animation lock error.");
+        }
+    }
+
+    // with insert, remove supported. adapter size not change through updateAll
+    // FIXME consider update all function.
+    @Override
+    public void updateAll() {
+        for (int i = 0, s = childrenView.size(); i < s; ++i) {
+            adapter.updateView(i, childrenView.get(i));
         }
     }
 
@@ -285,7 +294,7 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
     public boolean touchDragged(float relativeX, float relativeY) {
         if (0 < animLock || 0 > touchY)
             return false;
-        return touchDragged(relativeX, relativeY);
+        return super.touchDragged(relativeX, relativeY);
     }
 
     @Override

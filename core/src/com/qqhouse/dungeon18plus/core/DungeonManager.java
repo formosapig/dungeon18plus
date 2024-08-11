@@ -29,6 +29,7 @@ import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.dungeon18plus.struct.loot.CountableLoot;
 import com.qqhouse.dungeon18plus.struct.loot.LootStash;
 import com.qqhouse.ui.QQList;
+import com.qqhouse.ui.QQListAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,7 +76,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     private int bossLevel = 0;
 
     // QQList Adapter
-    private QQList.Adapter mAdapter;
+    private QQListAdapter mAdapter;
     private QQList.Adapter specialEventAdapter;
 
     // special event
@@ -437,7 +438,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         return isEventDoable(mEvents.get(position));
     }
     
-    public void setAdapter(QQList.Adapter adapter) {
+    public void setAdapter(QQListAdapter adapter) {
         mAdapter = adapter;
     }
 
