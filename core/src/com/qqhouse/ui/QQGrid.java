@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.ui.animation.QQAnimation;
 
 import java.util.ArrayList;
 import java.util.Locale;

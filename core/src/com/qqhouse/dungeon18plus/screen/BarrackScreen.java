@@ -10,8 +10,8 @@ import com.qqhouse.dungeon18plus.view.TitleBarView2;
 import com.qqhouse.dungeon18plus.view.VeteranButton;
 import com.qqhouse.dungeon18plus.view.VeteranView;
 import com.qqhouse.ui.QQLinear;
-import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQList1;
+import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQPressAdapter;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQText;
@@ -23,7 +23,7 @@ public class BarrackScreen extends QQScreen {
 
     private ArrayList<Veteran> barrack;
     private Veteran veteran;
-    private PopupScreen callback;
+    private final PopupScreen callback;
 
     public BarrackScreen(SaveGame savedGame, Viewport viewport, Assets assets, PopupScreen callback) {
         super(savedGame, viewport, assets);
@@ -125,7 +125,7 @@ public class BarrackScreen extends QQScreen {
     /*
         QQList.Adapter series...
      */
-    private final QQList1.Adapter adapter2 = new QQList1.Adapter() {
+    private final QQListAdapter adapter2 = new QQListAdapter() {
 
         @Override
         public int getSize() {
@@ -151,7 +151,7 @@ public class BarrackScreen extends QQScreen {
         }
     };
 
-    private final QQList1.Adapter adapter = new QQList1.Adapter() {
+    private final QQListAdapter adapter = new QQListAdapter() {
 
         @Override
         public int getSize() {

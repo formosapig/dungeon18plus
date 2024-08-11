@@ -1,7 +1,5 @@
 package com.qqhouse.ui;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -9,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.ui.animation.QQAnimation;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 
 // TODO QQList should extends QQList ?

@@ -9,6 +9,7 @@ import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.PreviewView3;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList1;
+import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQPressAdapter;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQText;
@@ -107,7 +108,7 @@ public class SelectGiantScreen extends QQScreen {
         removeAllChildren();
     }
 
-    private final QQList1.Adapter availableGiantsAdapter = new QQList1.Adapter() {
+    private final QQListAdapter availableGiantsAdapter = new QQListAdapter() {
         @Override
         public int getSize() {
             return availableGiants.size();

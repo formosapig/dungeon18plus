@@ -46,10 +46,8 @@ public abstract class QQSaveGame {
             } finally {
                 bis.close();
             }
-        } catch (GdxRuntimeException e) {
+        } catch (GdxRuntimeException | IOException e) {
             e.printStackTrace();
-	    } catch (IOException e) {
-	    	e.printStackTrace();
 	    }
         afterLoad();
     }

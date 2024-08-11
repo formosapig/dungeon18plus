@@ -24,6 +24,7 @@ public class Game {
         Gdx.app.error(clsInfo.substring(clsInfo.lastIndexOf(".") + 1), String.format(Locale.US, format, param));
     }
 
+    // graphic
     public static final class Size {
         // UI Setting
         // 主流是 19 : 9 , 縮小成 16 : 9 依然好看... 相反的話就很醜....

@@ -1,4 +1,6 @@
-package com.qqhouse.ui;
+package com.qqhouse.ui.animation;
+
+import com.qqhouse.ui.QQView;
 
 public abstract class QQAnimation {
 
@@ -9,6 +11,10 @@ public abstract class QQAnimation {
 
     protected QQView target;
     private AnimationListener listener;
+
+    public void setTarget(QQView view) {
+        target = view;
+    }
 
     public void start() {
         if (null != listener)

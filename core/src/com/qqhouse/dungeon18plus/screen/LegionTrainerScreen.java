@@ -12,6 +12,7 @@ import com.qqhouse.dungeon18plus.view.VeteranButton;
 import com.qqhouse.ui.QQGrid;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList1;
+import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
@@ -147,7 +148,7 @@ public class LegionTrainerScreen extends QQScreen {
         }
     };
 
-    private final QQList1.Adapter barrackAdapter = new QQList1.Adapter() {
+    private final QQListAdapter barrackAdapter = new QQListAdapter() {
 
         @Override
         public int getSize() {

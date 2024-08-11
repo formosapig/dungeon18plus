@@ -76,33 +76,11 @@ public class DungeonScreen extends QQScreen {
             EventView v = (EventView) view;
             v.setEnable(manager.isEventDoable(index));
             v.update(manager.getEvent(index));
-
         }
 
         // animation end, then update event value.
         @Override
-        public void onAnimationEnd() {
-            //Gdx.app.error("DungeonScreen", String.format(Locale.US, "onAnimationEnd %d", manager.getEventCount()));
-            //Gdx.app.error("DungeonScreen", "event animation end.");
-            //eventAdapter.updateAll();
-            //specialEventAdapter.updateAll();
-            //lootInfo.update(manager.eventResult);
-            update();
-            // FIXME consider new item change status immediately....looks strange.
-            // 1. hero view
-            //heroView.update(manager.getHero());
-
-            // 2. event list
-            //eventAdapter.updateAll();
-            //specialEventAdapter.updateAll();
-            // 3. loot info
-            //lootInfo.update(manager.eventResult);
-            // 4. action list
-            //for (int i = 0, s = actionViews.size(); i < s; ++i) {
-            //    actionViews.get(i).setEnable(manager.canDoAction(i));
-            //}
-
-        }
+        public void onAnimationEnd() {update();}
     };
 
     private final QQList.Adapter specialEventAdapter = new QQList.Adapter() {
@@ -127,20 +105,11 @@ public class DungeonScreen extends QQScreen {
             EventView v = (EventView) view;
             v.setEnable(manager.isSpecialEventDoable(index));
             v.update(manager.getSpecialEvent(index));
-            //Gdx.app.error("DungeonScreen", "SpecialAdapter.updateView : " + index + " = " + v.getX() + "," + v.getX());
-
         }
 
         // animation end, then update event value.
         @Override
-        public void onAnimationEnd() {
-            //Gdx.app.error("DungeonScreen", "special event animation end.");
-            update();
-            //eventAdapter.updateAll();
-            //specialEventAdapter.updateAll();
-            //lootInfo.update(manager.eventResult);
-
-        }
+        public void onAnimationEnd() {update();}
     };
 
 
@@ -152,9 +121,7 @@ public class DungeonScreen extends QQScreen {
         heroView = new HeroView(assets, manager.getHero());
         heroView.setPadding(8);
         heroView.setPosition(0, Game.Size.HEIGHT - 64);
-        //heroView.setSize(QQView.FILL_PARENT, 64);
         heroView.setSize(Game.Size.WIDTH, 64);
-        //heroView.reset(manager.getHero());
         heroView.setQQPressListener(new QQPressAdapter() {
             @Override
             public void onPress(int index) {
@@ -174,7 +141,6 @@ public class DungeonScreen extends QQScreen {
 
         // special event list
         QQList specialEventList = new QQList(getViewport());
-        //specialEventList.setSize(Game.WIDTH, QQView.WRAP_CONTENT);//64 + 64 + 2 + 2 + 2);
         specialEventList.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         specialEventList.setPosition(0, 0);
 
@@ -184,7 +150,6 @@ public class DungeonScreen extends QQScreen {
             public void onPress(int index) {
                 if (manager.isSpecialEventDoable(index)) {
                     int result = manager.doSpecialEvent(index);
-                    //update();
                     if (Game.result.process > result) {
                         endGame(Game.result.win == result);
                     }
@@ -193,29 +158,21 @@ public class DungeonScreen extends QQScreen {
 
             @Override
             public void onLongPress(int index) {
-                //Gdx.app.error("DungeonScreen", "special event long press : " + index);
                 eventInfoDialog.update(manager.getSpecialEvent(index));
                 openDialog(eventInfoDialog);
             }
         });
-        //addView(specialEventList);
         group.addChild(specialEventList);
 
         // event listview ...
         QQList eventList = new QQList(getViewport());
-        //eventList.setSize(Game.WIDTH, Game.HEIGHT - 64 - 2 - 2 - 24 -2 - 64);
         eventList.setSize(Game.Size.WIDTH, QQView.MATCH_PARENT);
-        //eventList.setPosition(0, 64 + 2 + 24 + 2);
-        //eventList.setCamera(getCamera());
         eventList.setAdapter(eventAdapter);
         eventList.addListener(new QQList.PressListener() {
             @Override
             public void onPress(int index) {
                 if (manager.isEventDoable(index)) {
-                    //Gdx.app.error("DungeonScreen", " do event.");
                     int result = manager.doEvent();
-                    //Gdx.app.error("DungeonScreen", " update.");
-                    //update();
                     if (Game.result.process > result) {
                         endGame(Game.result.win == result);
                     }
@@ -224,17 +181,10 @@ public class DungeonScreen extends QQScreen {
 
             @Override
             public void onLongPress(int index) {
-                //Gdx.app.error("DungeonScreen", "event long press : " + index);
-                //eventInfo.setSize(320, 480);
-                //eventInfo.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-                //eventInfo.update(manager.getEvent(index));
-
-                //QQCustomDialog eventInfoDialog = new QQCustomDialog(assets, eventInfo, false);
                 eventInfoDialog.update(manager.getEvent(index));
                 openDialog(eventInfoDialog);
             }
         });
-        //addView(eventList);
         group.addChild(eventList);
 
         // message view ...
@@ -254,47 +204,30 @@ public class DungeonScreen extends QQScreen {
 
         profile = new ProfileView(assets);
         profile.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-        //profile.update(savedGame.getHeroClassRecord(allHeroClass.get(0)), savedGame);
         profile.update(manager.getHero(), manager.getActionSlots());
         scroll.addChild(profile);
 
         // action view ...
         actionViews.clear();
         int actionCount = manager.getActionSlotCount();
-        // 由於會縮放,需要注意 int 會導致捨位誤差...
         float actionWidth = ((Game.Size.WIDTH) - (actionCount - 1) * 2) / (float)actionCount;
 
         for (int i = 0; i < actionCount; ++i) {
             ActionSlot slot = manager.getActionSlot(i);
 
-            //ActionShortcutView action = new ActionShortcutView(
-            //        assets.getBackgroundSet(manager.getHero().heroClass.alignment.key),
-            //        assets.getIcon(manager.getActionSlot(i).action.key),
-            //        assets.getFont(Game.Font.LEVEL16),
-            //        assets.getIcon(slot.action.cost.getIcon16Key()),
-            //        slot.action.cost.value
-            //        );
             ActionShortcutButton action = new ActionShortcutButton(assets);
             action.update(slot, true);
             action.setSize(actionWidth, 64);
             action.setPosition((actionWidth + 2) * i, 0);
             action.setBackground(assets.getBackgroundSet(manager.getHero().heroClass.alignment.key));
-            action.setQQPressListener(new QQPressListener() {
+            action.setQQPressListener(new QQPressAdapter() {
                 @Override
                 public void onPress(int index) {
-                    //Gdx.app.error("DungeonScreen", "press action.");
                     if (manager.canDoAction(index)) {
                         manager.doAction(index);
-                        // update status...
                         update();
-                        //Gdx.app.error("DungeonScreen", "do action and update.");
                     }
                     //debug();
-                }
-
-                @Override
-                public void onLongPress(QQView view) {
-
                 }
             }, i);
             actionViews.add(action);
@@ -303,12 +236,8 @@ public class DungeonScreen extends QQScreen {
 
         // event info dialog
         eventInfoDialog = new EventInfoDialog(assets);
-        //eventInfo = new EventInfoView(assets);
-        //eventInfo.setBackground(assets.getNinePatchBG("help"));
 
         update();
-        //eventAdapter.updateAll();
-        //specialEventAdapter.updateAll();
     }
 
     private void debug() {
@@ -321,15 +250,16 @@ public class DungeonScreen extends QQScreen {
     }
 
     private void update() {
-        //Gdx.app.error("DungeonScreen", "update");
         // 1. hero view
         heroView.update(manager.getHero());
 
         // 2. event list
         eventAdapter.updateAll();
         specialEventAdapter.updateAll();
+
         // 3. loot info
         lootInfo.update(manager.eventResult);
+
         // 4. action list
         for (int i = 0, s = actionViews.size(); i < s; ++i) {
             actionViews.get(i).update(manager.getActionSlot(i), manager.canDoAction(i));

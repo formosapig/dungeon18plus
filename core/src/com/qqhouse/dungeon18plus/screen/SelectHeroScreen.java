@@ -10,6 +10,7 @@ import com.qqhouse.dungeon18plus.struct.HeroClassRecord;
 import com.qqhouse.dungeon18plus.view.PreviewView3;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList1;
+import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQText;
@@ -104,7 +105,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
 
     }
 
-    private final QQList1.Adapter availableHeroesAdapter = new QQList1.Adapter() {
+    private final QQListAdapter availableHeroesAdapter = new QQListAdapter() {
         @Override
         public int getSize() {
             return availableHeroes.size();

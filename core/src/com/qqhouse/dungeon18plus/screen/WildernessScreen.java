@@ -18,6 +18,7 @@ import com.qqhouse.dungeon18plus.view.LegionHeroView;
 import com.qqhouse.ui.QQGrid;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList1;
+import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
@@ -137,7 +138,7 @@ public class WildernessScreen extends QQScreen {
         }
     };
 
-    private final QQList1.Adapter battleHistoryAdapter = new QQList1.Adapter() {
+    private final QQListAdapter battleHistoryAdapter = new QQListAdapter() {
 
         private static final int TYPE_ACTION = 0;
         private static final int TYPE_RESULT = 1;

@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
-import com.qqhouse.dungeon18plus.Game;
-
-import java.util.Locale;
+import com.qqhouse.ui.animation.QQAnimation;
 
 public class QQView {
 
@@ -70,7 +68,7 @@ public class QQView {
             Gdx.app.error("QQView", "I am working.");
         }
         this.animation = animation;
-        animation.target = this;
+        animation.setTarget(this);
         animation.start();
     }
 

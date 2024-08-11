@@ -225,8 +225,13 @@ public class ProfileView extends AssetGroup {
         action.update(actions);
         action.setBackground(bg);
 
-        feat.update(hero.feats);
-        feat.setBackground(bg);
+        if (0 != hero.feats) {
+            feat.update(hero.feats);
+            feat.setBackground(bg);
+            feat.setVisible(true);
+        } else {
+            feat.setVisible(false);
+        }
 
         uniqueSkill.setVisible(false);
         soul.setVisible(false);
