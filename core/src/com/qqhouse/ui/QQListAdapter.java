@@ -9,23 +9,27 @@ public abstract class QQListAdapter {
         this.list = list;
     }
 
+    // for animation list
     public void insert(int index) {
         if (list instanceof QQAnimationList)
             ((QQAnimationList) list).insert(index);
     }
-
+    // for animation list
     public void remove(int index) {
         if (list instanceof QQAnimationList)
             ((QQAnimationList) list).remove(index);
     }
-
+    // for animation list
     public void updateAll() {
         list.updateAll();
     }
 
+    // must implement for list
     public abstract int getSize();
     public abstract QQView getView(int index);
-    public abstract void updateView(int index, QQView view);
+
+    // for animation list ...
+    public void updateView(int index, QQView view) {}
 
     // callback
     public void onAnimationEnd() {}

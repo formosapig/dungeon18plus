@@ -9,7 +9,8 @@ public class QQScrollAccelerator {
     private float startPos = -1;
     private float time;
     private float velocity;
-    private static final float acceleration = 0.5f;
+    // 注意 desktop 模組的 FPS 高達 1000, 所以加減速的效果會變異...
+    private static final float acceleration = 20f;
     private ScrollCallback callback;
 
     public QQScrollAccelerator(ScrollCallback callback) {
@@ -43,6 +44,14 @@ public class QQScrollAccelerator {
         startPos = pos;
         time = 0;
         velocity = 0;
+    }
+
+    public boolean touchDownAndCancel(float pos) {
+        boolean cancel = Math.abs(velocity) > 0;
+        startPos = pos;
+        time = 0;
+        velocity = 0;
+        return cancel;
     }
 
     public void touchUp(float pos) {

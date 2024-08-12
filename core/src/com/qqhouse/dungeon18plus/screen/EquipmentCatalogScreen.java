@@ -11,6 +11,8 @@ import com.qqhouse.dungeon18plus.view.ItemDetailView;
 import com.qqhouse.dungeon18plus.view.TitleBarView2;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList;
+import com.qqhouse.ui.QQList1;
+import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
@@ -50,7 +52,7 @@ public class EquipmentCatalogScreen extends QQScreen {
         group.addChild(line);
 
         // equipment adapter ....
-        QQList list = new QQList(getViewport());
+        QQList1 list = new QQList1(getViewport(), Game.Size.WIDGET_MARGIN);
         list.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         list.setAdapter(adapter);
         group.addChild(list);
@@ -65,12 +67,10 @@ public class EquipmentCatalogScreen extends QQScreen {
     /*
         QQList.Adapter series...
      */
-    private QQList.Adapter adapter = new QQList.Adapter() {
+    private final QQListAdapter adapter = new QQListAdapter() {
 
         @Override
-        public int getSize() {
-            return equipments.size();
-        }
+        public int getSize() {return equipments.size();}
 
         @Override
         public QQView getView(int index) {

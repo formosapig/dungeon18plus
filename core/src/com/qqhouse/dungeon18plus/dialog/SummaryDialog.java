@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.view.SummaryView;
+import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQView;
 
@@ -24,7 +25,7 @@ public class SummaryDialog extends AssetDialog {
         setCustomView(summary);
     }
 
-    public void reset(ArrayList<BossKill> killList, boolean isWin, QQPressListener listener) {
-        summary.reset(killList, isWin, listener);
+    public void reset(ArrayList<BossKill> killList, boolean isWin, QQButton.BackgroundSet bgSet, QQPressListener listener) {
+        summary.reset(killList, isWin, bgSet, listener);
     }
 }

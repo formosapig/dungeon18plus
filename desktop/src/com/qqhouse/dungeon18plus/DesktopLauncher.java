@@ -19,10 +19,11 @@ public class DesktopLauncher {
 		//config.setWindowedMode(375, 667); // iPhone SE 3
 		config.setWindowedMode(330, 510); // desktop
 		//config.setWindowedMode(Game.Size.WIDTH, Game.Size.HEIGHT);
+
 		// break fps-limit
-		config.useVsync(false);
-		config.setForegroundFPS(0);
-		config.setIdleFPS(0);
+		//config.useVsync(false);
+		//config.setForegroundFPS(0);
+		//config.setIdleFPS(0);
 
 		// normal setting
 		//config.useVsync(true);

@@ -173,10 +173,12 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
     // get (x, y) relative to my position
     @Override
     public boolean touchDown(float relativeX, float relativeY) {
+        // 加速模式中,點擊一下會取消加速. 要 return true / false 要再考慮一下.
+        if (accelerator.touchDownAndCancel(relativeY))
+            return false;
+
         // 1. keep touch down position for scroll
-        //touchDownPos = new Vector2(relativeX, relativeY);
         touchY = relativeY;
-        accelerator.touchDown(relativeY);
 
         // 2. walk through all child and find out hit one, send touch down to it.
         QQView target = null;

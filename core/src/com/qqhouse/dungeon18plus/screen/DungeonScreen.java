@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.DungeonManager;
+import com.qqhouse.dungeon18plus.core.EventType;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.ActionSlot;
+import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.view.ActionShortcutButton;
 import com.qqhouse.dungeon18plus.view.ActionShortcutView;
@@ -231,7 +233,7 @@ public class DungeonScreen extends QQScreen {
                         manager.doAction(index);
                         update();
                     }
-                    //debug();
+                    debug();
                 }
             }, i);
             actionViews.add(action);
@@ -251,6 +253,18 @@ public class DungeonScreen extends QQScreen {
         //}
         //manager.test();
         //manager.test2();
+
+        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 120, 99));
+        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 110, 80));
+        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 100, 3));
+        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 90, 5));
+        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 80, 19));
+        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 70, 29));
+        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 60, 39));
+        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 50, 49));
+        manager.killList.add(new BossKill(EventType.BLACK_SLIME, 111, 199));
+        manager.killList.add(new BossKill(EventType.DEMON, 999, 1));
+        endGame(false);
     }
 
     private void update() {
@@ -276,13 +290,11 @@ public class DungeonScreen extends QQScreen {
 
         // call summary dialog.
         SummaryDialog dialog = new SummaryDialog(assets, getViewport());
-        dialog.reset(manager.killList, isWin, new QQPressListener() {
+        dialog.reset(manager.killList, isWin, assets.getBackgroundSet(manager.getHero().heroClass.alignment.key), new QQPressAdapter() {
             @Override
             public void onPress(int index) {
                 callback.onPopupScreen();
             }
-            @Override
-            public void onLongPress(QQView view) {}
         });
         openDialog(dialog);
     }

@@ -7,9 +7,12 @@ import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GameAlignment;
 import com.qqhouse.dungeon18plus.struct.BossKill;
+import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQButtonEx;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
+import com.qqhouse.ui.QQList1;
+import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQView;
 
@@ -31,14 +34,14 @@ public class SummaryView extends QQGroup {
         bgNormal = new NinePatch(assets.getBackground("dialog"), 4, 4, 4, 4);
     }
 
-    public void reset(ArrayList<BossKill> kills, boolean isWin, QQPressListener listener) {
+    public void reset(ArrayList<BossKill> kills, boolean isWin, QQButton.BackgroundSet bgSet, QQPressListener listener) {
         this.kills = kills;
         this.isWin = isWin;
 
         // create ...
         // button
         // TODO QQButton can add image / text ...
-        QQButtonEx done = new QQButtonEx(assets.getBackgroundSet(GameAlignment.NEUTRAL.key));
+        QQButtonEx done = new QQButtonEx(bgSet);//assets.getBackgroundSet(GameAlignment.NEUTRAL.key));
         //done.setPosition(leftPadding, bottomPadding);
         done.setSize(QQView.MATCH_PARENT, 40);
         done.addQQClickListener(listener, 0);
@@ -46,7 +49,7 @@ public class SummaryView extends QQGroup {
         addChild(done);
 
         // list
-        QQList scores = new QQList(viewport);
+        QQList1 scores = new QQList1(viewport, Game.Size.INNER_MARGIN);
         //scores.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         scores.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         scores.setMaxHeight(400);
@@ -86,7 +89,7 @@ public class SummaryView extends QQGroup {
     /*
         list view of boss kill....
      */
-    private final QQList.Adapter adapter = new QQList.Adapter() {
+    private final QQListAdapter adapter = new QQListAdapter() {
         @Override
         public int getSize() {
             return kills.size();
@@ -94,15 +97,10 @@ public class SummaryView extends QQGroup {
 
         @Override
         public QQView getView(int index) {
-            final BossKillView v = new BossKillView(assets);
-            v.reset(kills.get(index));
+            final BossKillView v = new BossKillView(assets, kills.get(index));
+            //v.reset(kills.get(index));
             v.setSize(QQView.MATCH_PARENT, 56);
             return v;
-        }
-
-        @Override
-        public void updateView(int index, QQView view) {
-
         }
     };
 }
