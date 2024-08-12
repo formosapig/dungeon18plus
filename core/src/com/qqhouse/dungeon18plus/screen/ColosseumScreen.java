@@ -179,7 +179,7 @@ public class ColosseumScreen extends QQScreen {
                         manager.doAction(index);
                         update();
                     }
-                    //debug();
+                    debug();
                 }
             }, i);
             actionViews.add(action);
@@ -206,6 +206,11 @@ public class ColosseumScreen extends QQScreen {
         for (int i = 0, s = actionViews.size(); i < s; ++i) {
             actionViews.get(i).update(manager.getActionSlot(i), manager.canDoAction(i));
         }
+    }
+
+    private void debug() {
+        manager.debugFillBackpack();
+        endGame(true);
     }
 
     private void endGame(boolean isWin) {

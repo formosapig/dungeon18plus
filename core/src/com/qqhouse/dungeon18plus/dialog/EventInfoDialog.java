@@ -6,7 +6,7 @@ import com.qqhouse.dungeon18plus.view.EventInfoView;
 import com.qqhouse.ui.QQView;
 
 public class EventInfoDialog extends AssetDialog {
-    private EventInfoView evtInfo;
+    private final EventInfoView evtInfo;
 
     public EventInfoDialog(Assets assets) {
         super(assets);

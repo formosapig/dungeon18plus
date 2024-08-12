@@ -105,5 +105,7 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+        // QRCode Library...
+        //implementation 'com.google.zxing:core:3.5.3'
     }
 }

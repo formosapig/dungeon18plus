@@ -72,8 +72,5 @@ public class LeaderboardScreen extends QQScreen {
             v.setSize(QQView.MATCH_PARENT, 64);
             return v;
         }
-
-        @Override
-        public void updateView(int index, QQView view) {}
     };
 }

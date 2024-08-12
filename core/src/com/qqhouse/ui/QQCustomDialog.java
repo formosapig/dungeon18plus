@@ -9,23 +9,25 @@ import com.qqhouse.dungeon18plus.Game;
 
 public class QQCustomDialog extends QQView implements QQView.IsParent {
 
-    public QQCustomDialog() {
-        // FIXME SDK 不能依存於專案, assets 不是能隨時存取到的資源...
+    private final float fullWidth, fullHeight, dialogMargin;
+
+    public QQCustomDialog(float fullWidth, float fullHeight, float dialogMargin) {
+        this.fullWidth = fullWidth;
+        this.fullHeight = fullHeight;
+        this.dialogMargin = dialogMargin;
+
         setPosition(0, 0);
-        setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
+        setSize(fullWidth, fullHeight);
     }
 
     protected void setModal(boolean isModal) {
         // add click listener to dialogMask , any click on it will dismiss dialog.
         if (!isModal) {
-            addPressListener(new QQView.PressListener() {
+            addPressListener(new QQPressAdapter() {
                 @Override
-                public void onPress(QQView view) {
+                public void onPress(int index) {
                     dismiss();
                 }
-
-                @Override
-                public void onLongPress(QQView view) {}
             });
         }
     }
@@ -35,11 +37,11 @@ public class QQCustomDialog extends QQView implements QQView.IsParent {
 
         // calculate view's size
         if (customView.matchWidth)
-            customView.setSize(Game.Size.WIDTH - Game.Size.DIALOG_MARGIN * 2, customView.getHeight());
+            customView.setSize(fullWidth - dialogMargin * 2, customView.getHeight());
 
         // set position
-        customView.setPosition((Game.Size.WIDTH - customView.getWidth())/2,
-                (Game.Size.HEIGHT - customView.getHeight())/2);
+        customView.setPosition((fullWidth - customView.getWidth())/2,
+                (fullHeight - customView.getHeight())/2);
 
         addChild(customView);
     }
@@ -74,8 +76,8 @@ public class QQCustomDialog extends QQView implements QQView.IsParent {
         // 1. my size does not change.
         // 2. change child position only.
         // set position
-        customView.setPosition((Game.Size.WIDTH - customView.getWidth())/2,
-                (Game.Size.HEIGHT - customView.getHeight())/2);
+        customView.setPosition((fullWidth - customView.getWidth())/2,
+                (fullHeight - customView.getHeight())/2);
     }
 
     @Override
@@ -128,7 +130,7 @@ public class QQCustomDialog extends QQView implements QQView.IsParent {
             if (null != hit(relativeX, relativeY) && pressed) {
                 pressed = false;
                 if (null != pressListener) {
-                    pressListener.onPress(this);
+                    pressListener.onPress(0);
                 }
             }
         }

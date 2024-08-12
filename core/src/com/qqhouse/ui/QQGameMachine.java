@@ -174,20 +174,17 @@ public abstract class QQGameMachine implements ApplicationListener {
     @Override
     public void pause() {
         current.pause();
-        //mCurrentScreen.pause();
         savedGame.save();
     }
 
     @Override
     public void resume() {
         current.resume();
-        //mCurrentScreen.resume();
         savedGame.load();
     }
 
     @Override
     public void dispose() {
         batch.dispose();
-        //changeState(EMPTY_STATE);
     }
 }

@@ -75,7 +75,7 @@ public class BarrackScreen extends QQScreen {
         list.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         //list.setPosition(0, 0);
         list.setAdapter(veteran != null ? adapter : adapter2);
-        list.setPressListener(new QQList1.PressListener() {
+        list.setPressListener(new QQList1.PressAdapter() {
             @Override
             public void onPress(int index) {
                 savedGame.addVeteranToBarrack(index, veteran);
@@ -83,9 +83,6 @@ public class BarrackScreen extends QQScreen {
                 if (null != callback)
                     callback.onPopupScreen();
             }
-
-            @Override
-            public void onLongPress(int index) {}
         });
         group.addChild(list);
 
@@ -144,11 +141,6 @@ public class BarrackScreen extends QQScreen {
 
             return v;
         }
-
-        @Override
-        public void updateView(int index, QQView view) {
-
-        }
     };
 
     private final QQListAdapter adapter = new QQListAdapter() {
@@ -169,11 +161,6 @@ public class BarrackScreen extends QQScreen {
             v.setSize(QQView.MATCH_PARENT, 64);
 
             return v;
-        }
-
-        @Override
-        public void updateView(int index, QQView view) {
-
         }
     };
 }

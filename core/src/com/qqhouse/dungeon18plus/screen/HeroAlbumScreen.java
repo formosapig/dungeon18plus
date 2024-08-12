@@ -1,23 +1,18 @@
 package com.qqhouse.dungeon18plus.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.HeroClass;
-import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
-import com.qqhouse.dungeon18plus.view.ItemDetailView;
 import com.qqhouse.dungeon18plus.view.ProfileTitleView;
 import com.qqhouse.dungeon18plus.view.ProfileView;
 import com.qqhouse.dungeon18plus.view.TitleBarView2;
 import com.qqhouse.ui.QQCyclePager;
 import com.qqhouse.ui.QQLinear;
-import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQScroll;
 import com.qqhouse.ui.QQView;
-import com.qqhouse.ui.QQViewPager;
 
 import java.util.ArrayList;
 

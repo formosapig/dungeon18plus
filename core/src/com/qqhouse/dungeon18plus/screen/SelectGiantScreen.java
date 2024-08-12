@@ -88,14 +88,11 @@ public class SelectGiantScreen extends QQScreen {
         list.setMaxHeight(Game.Size.HEIGHT * 0.5f); // 680 * 0.9 - 48 - 4
         list.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         list.setAdapter(availableGiantsAdapter);
-        list.addListener(new QQList1.PressListener() {
+        list.addListener(new QQList1.PressAdapter() {
             @Override
             public void onPress(int index) {
                 callback.onSelectGiant(availableGiants.get(index));
             }
-
-            @Override
-            public void onLongPress(int index) {}
         });
         group.addChild(list);
 
@@ -121,14 +118,7 @@ public class SelectGiantScreen extends QQScreen {
             v.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
             v.reset(giant.iconKey, giant.nameKey, giant.helpKey, giant.alignment.key);
             // update extra value...
-
-
             return v;
-        }
-
-        @Override
-        public void updateView(int index, QQView view) {
-
         }
     };
 }

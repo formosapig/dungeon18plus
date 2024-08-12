@@ -18,7 +18,7 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
 
     protected final SaveGame savedGame;
     protected final Assets assets;
-    private Viewport viewport;
+    private final Viewport viewport;
 
     public QQScreen(SaveGame savedGame, Viewport viewport, Assets assets) {
         this.savedGame = savedGame;
@@ -291,17 +291,6 @@ public abstract class QQScreen extends InputAdapter implements QQView.IsParent {
     /*
         Dialog series...
      */
-    public void openDialog(QQDialog dialog) {
-        // 1. set dialog size to fit screen
-        dialog.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
-        dialog.setPosition(0, 0); // ...
-
-        // 2. set parent
-        addChild(dialog);
-
-
-    }
-
     public void openDialog(QQCustomDialog dialog) {
         // 1. set dialog size to fit screen
         //dialog.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);

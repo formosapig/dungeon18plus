@@ -181,10 +181,5 @@ public class WildernessScreen extends QQScreen {
 
             return convertView;
         }
-
-        @Override
-        public void updateView(int index, QQView view) {
-
-        }
     };
 }

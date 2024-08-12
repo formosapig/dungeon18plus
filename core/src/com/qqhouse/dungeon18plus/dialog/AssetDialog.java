@@ -2,13 +2,14 @@ package com.qqhouse.dungeon18plus.dialog;
 
 import com.badlogic.gdx.graphics.Color;
 import com.qqhouse.dungeon18plus.Assets;
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.ui.QQCustomDialog;
 
 public class AssetDialog extends QQCustomDialog {
 
-    private Assets assets;
+    protected final Assets assets;
     public AssetDialog(Assets assets) {
-        super();
+        super(Game.Size.WIDTH, Game.Size.HEIGHT, Game.Size.DIALOG_MARGIN);
         this.assets = assets;
 
         // set background

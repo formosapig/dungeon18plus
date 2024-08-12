@@ -38,10 +38,12 @@ public class UniqueSkillButton extends AssetGroupButton {
     public void reset(EquipmentMastery mastery, boolean isMastery, Ability base) {
         // initial all item.
         if (null != mastery) {
-            item = ItemView.create(assets, mastery.equipment);
+            item = new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+            //item = ItemView.create(assets, mastery.equipment);
             item.setSize(32, 32);
             item.setPosition(8, 8);
             //item.setPosition(leftPadding, bottomPadding);
+            item.setEquipmentMastery(assets, mastery);
             addChild(item);
 
 

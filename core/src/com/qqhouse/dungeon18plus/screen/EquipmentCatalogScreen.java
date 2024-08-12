@@ -10,7 +10,6 @@ import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.ItemDetailView;
 import com.qqhouse.dungeon18plus.view.TitleBarView2;
 import com.qqhouse.ui.QQLinear;
-import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQList1;
 import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQScreen;
@@ -80,11 +79,6 @@ public class EquipmentCatalogScreen extends QQScreen {
             view.setSize(MATCH_PARENT, QQView.WRAP_CONTENT);
 
             return view;
-        }
-
-        @Override
-        public void updateView(int index, QQView view) {
-
         }
     };
 }

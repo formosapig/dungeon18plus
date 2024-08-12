@@ -8,7 +8,8 @@ import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.ui.QQGroup;
-import com.qqhouse.ui.QQList;
+import com.qqhouse.ui.QQList1;
+import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQView;
 
@@ -23,7 +24,6 @@ public class SelectEquipmentView extends QQGroup {
     // data
     private Veteran veteran;
     private ArrayList<EquipmentMastery> backpack;
-
     private VeteranButton vv;
     private SelectEquipmentCallback callback;
 
@@ -60,12 +60,12 @@ public class SelectEquipmentView extends QQGroup {
         addChild(vv);
 
         // list
-        QQList equips = new QQList(viewport);
+        QQList1 equips = new QQList1(viewport, Game.Size.INNER_MARGIN);
         //scores.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         equips.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         equips.setMaxHeight(400);
         equips.setAdapter(adapter);
-        equips.addListener(new QQList.PressListener() {
+        equips.addListener(new QQList1.PressListener() {
             @Override
             public void onPress(int index) {
                 // set UniqueSkill
@@ -98,7 +98,7 @@ public class SelectEquipmentView extends QQGroup {
     /*
         list view of boss kill....
      */
-    private final QQList.Adapter adapter = new QQList.Adapter() {
+    private final QQListAdapter adapter = new QQListAdapter() {
         @Override
         public int getSize() {
             return backpack.size();
@@ -121,11 +121,6 @@ public class SelectEquipmentView extends QQGroup {
             v.reset(em, isMastery, veteran);
             v.setSize(QQView.MATCH_PARENT, 48);
             return v;
-        }
-
-        @Override
-        public void updateView(int index, QQView view) {
-
         }
     };
 }

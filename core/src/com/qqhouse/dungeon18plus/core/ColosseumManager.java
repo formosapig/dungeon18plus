@@ -506,6 +506,12 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
 		return backpack;
 	}
 
+	public void debugFillBackpack() {
+		for (Item i : savedGame.getEquipmentData()) {
+			if (!backpackItems.contains(i))
+				backpackItems.add(i);
+		}
+	}
 
 
     /*

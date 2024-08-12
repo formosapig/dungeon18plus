@@ -66,14 +66,11 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 28 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4
         list.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         list.setAdapter(availableHeroesAdapter);
-        list.addListener(new QQList1.PressListener() {
+        list.addListener(new QQList1.PressAdapter() {
             @Override
             public void onPress(int index) {
                 callback.onSelectHero(gameMode, availableHeroes.get(index).heroClass);
             }
-
-            @Override
-            public void onLongPress(int index) {}
         });
         group.addChild(list);
 
@@ -124,8 +121,5 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
             }
             return v;
         }
-
-        @Override
-        public void updateView(int index, QQView view) {}
     };
 }

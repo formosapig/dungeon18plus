@@ -1,16 +1,13 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
-import com.qqhouse.dungeon18plus.core.GameAlignment;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQButtonEx;
 import com.qqhouse.ui.QQGroup;
-import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQList1;
 import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQPressListener;

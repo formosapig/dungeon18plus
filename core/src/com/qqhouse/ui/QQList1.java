@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -165,6 +166,7 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
                 if (null != listener)
                     listener.onLongPress(longPressIndex);
                 longPressIndex = -1;
+                touchY = -1;
             }
         }
     }
@@ -322,6 +324,13 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
     public interface PressListener {
         void onPress(int index);
         void onLongPress(int index);
+    }
+
+    public static class PressAdapter implements PressListener {
+        @Override
+        public void onPress(int index) {}
+        @Override
+        public void onLongPress(int index) {}
     }
 
     private PressListener listener;

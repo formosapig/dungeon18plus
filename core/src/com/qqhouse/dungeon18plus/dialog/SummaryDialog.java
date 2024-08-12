@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class SummaryDialog extends AssetDialog {
 
-    private SummaryView summary;
+    private final SummaryView summary;
 
     public SummaryDialog(Assets assets, Viewport viewport) {
         super(assets);

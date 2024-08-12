@@ -86,7 +86,7 @@ public class LegionTrainerScreen extends QQScreen {
         QQList1 list = new QQList1(getViewport(), Game.Size.WIDGET_MARGIN);
         list.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         list.setAdapter(barrackAdapter);
-        list.setPressListener(new QQList1.PressListener() {
+        list.setPressListener(new QQList1.PressAdapter() {
 
             @Override
             public void onPress(int index) {
@@ -98,9 +98,6 @@ public class LegionTrainerScreen extends QQScreen {
                     barrackAdapter.updateAll();
                 }
             }
-
-            @Override
-            public void onLongPress(int index) {}
         });
         group.addChild(list);
 
@@ -166,11 +163,6 @@ public class LegionTrainerScreen extends QQScreen {
             v.setSize(QQView.MATCH_PARENT, 64);
             v.setEnabled(canAddFromBarrackPosition(index));
             return v;
-        }
-
-        @Override
-        public void updateView(int index, QQView view) {
-
         }
     };
 }

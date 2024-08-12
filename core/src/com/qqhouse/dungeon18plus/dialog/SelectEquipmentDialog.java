@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class SelectEquipmentDialog extends AssetDialog {
 
-    private SelectEquipmentView selectEquipment;
+    private final SelectEquipmentView selectEquipment;
 
     public SelectEquipmentDialog(Assets assets, Viewport viewport) {
         super(assets);
