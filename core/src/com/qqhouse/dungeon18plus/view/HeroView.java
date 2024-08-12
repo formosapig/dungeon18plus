@@ -85,7 +85,7 @@ public class HeroView extends AssetGroupButton {
             addChild(level);
 
             // progress bar for exp...
-            exp = new QQProgress(assets.getNinePatchBG("black"), assets.getNinePatchBG("white"));
+            exp = new QQProgress(assets.getNinePatchBG("black"), assets.getNinePatchBG("cyan"));
             exp.setSize(50, 8);
             exp.setPosition(7, 4);
             addChild(exp);
