@@ -1,8 +1,6 @@
 package com.qqhouse.ui;
 
-import com.badlogic.gdx.Gdx;
-
-public class QQListScrollAccelerator {
+public class QQScrollAccelerator {
 
     public interface ScrollCallback {
         boolean doScroll(float shift);
@@ -14,7 +12,7 @@ public class QQListScrollAccelerator {
     private static final float acceleration = 0.5f;
     private ScrollCallback callback;
 
-    public QQListScrollAccelerator(ScrollCallback callback) {
+    public QQScrollAccelerator(ScrollCallback callback) {
         this.callback = callback;
     }
 

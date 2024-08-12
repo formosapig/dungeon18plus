@@ -35,9 +35,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         this.callback = callback;
     }
 
-    public void setGameMode(int gameMode) {
-        this.gameMode = gameMode;
-    }
+    public void setGameMode(int gameMode) {this.gameMode = gameMode;}
 
     @Override
     public void onEnter() {
@@ -84,9 +82,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
     }
 
     @Override
-    public void onLeave() {
-        removeAllChildren();
-    }
+    public void onLeave() {removeAllChildren();}
 
     /*
         click to select hero class...
@@ -107,9 +103,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
 
     private final QQListAdapter availableHeroesAdapter = new QQListAdapter() {
         @Override
-        public int getSize() {
-            return availableHeroes.size();
-        }
+        public int getSize() {return availableHeroes.size();}
 
         @Override
         public QQView getView(int index) {

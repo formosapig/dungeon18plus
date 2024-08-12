@@ -61,7 +61,7 @@ public class QQIconText extends QQText {
         if (Align.isCenterHorizontal(align)) {
             shiftX = ((null != icon ? icon.getRegionWidth() + innerMargin/*height + 2*/ : 0) + width - glyphs.width) / 2;
         } else if (Align.isRight(align)) {
-            shiftX = width - glyphs.width;
+            shiftX = width - glyphs.width - rightPadding;
         } else {
             shiftX = (null != icon ? icon.getRegionWidth() + innerMargin/*height + 2*/ : 0);
         }

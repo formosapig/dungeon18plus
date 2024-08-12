@@ -59,15 +59,48 @@ public class QQScroll extends QQView implements QQView.IsParent, QQView.IsToucha
     }
 
     /*
+        scroll accelerator
+     */
+
+    private final QQScrollAccelerator accelerator = new QQScrollAccelerator(new QQScrollAccelerator.ScrollCallback() {
+        @Override
+        public boolean doScroll(float shift) {
+            // do Y shift.
+            boolean result = false;
+            if (isVertical) {
+                scrollY += shift;
+                if (scrollY < 0) {
+                    scrollY = 0;
+                    result = true;
+                }
+                if (scrollY > maxScrollY) {
+                    scrollY = maxScrollY;
+                    result = true;
+                }
+            }
+            arrangeChildren();
+            return result;
+        }
+    });
+
+    // Scroll accelerator needs this.
+    @Override
+    public void act(float delta) {
+        accelerator.act(delta);
+    }
+
+    /*
         touch series
      */
     @Override
     public boolean touchDown(float relativeX, float relativeY) {
-        if (isVertical)
+        if (isVertical) {
             touchY = relativeY;
-        else
+            accelerator.touchDown(relativeY);
+        } else {
             touchX = relativeX;
-
+            accelerator.touchDown(relativeX);
+        }
         QQView target = null;
         float childRelativeX = relativeX - childView.getX();
         float childRelativeY = relativeY - childView.getY();
@@ -89,8 +122,13 @@ public class QQScroll extends QQView implements QQView.IsParent, QQView.IsToucha
     @Override
     public boolean touchUp(float relativeX, float relativeY) {
 
-        touchY = -1;
-
+        if (isVertical) {
+            accelerator.touchUp(relativeY);
+            touchY = -1;
+        } else {
+            accelerator.touchUp(relativeX);
+            touchX = -1;
+        }
 
         QQView target = null;
         float childRelativeX = relativeX - childView.getX();

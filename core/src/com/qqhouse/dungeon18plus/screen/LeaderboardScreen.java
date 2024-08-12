@@ -7,7 +7,8 @@ import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.hero.ScoreHero;
 import com.qqhouse.dungeon18plus.view.ScoreHeroView;
 import com.qqhouse.dungeon18plus.view.TitleBarView2;
-import com.qqhouse.ui.QQList;
+import com.qqhouse.ui.QQList1;
+import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
@@ -24,7 +25,6 @@ public class LeaderboardScreen extends QQScreen {
 
     @Override
     public void onEnter() {
-
         // data
         leaderboard = savedGame.getLeaderboardData();
 
@@ -45,43 +45,35 @@ public class LeaderboardScreen extends QQScreen {
         addChild(line);
 
         // equipment adapter ....
-        QQList list = new QQList(getViewport());
+        QQList1 list = new QQList1(getViewport(), Game.Size.WIDGET_MARGIN);
         //list.setBackground(new NinePatch(assets.getBackground("help"), 4, 4, 4, 4));
         //list.setMaxHeight(Game.Size.HEIGHT * 0.9f - 48 - 4 - 8 - 8); // 680 * 0.9 - 48 - 4
         list.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 48 - 8 - 4);
         list.setPosition(0, 0);
         list.setAdapter(adapter);
         addChild(list);
-
     }
 
     @Override
-    public void onLeave() {
-        removeAllChildren();
-    }
+    public void onLeave() {removeAllChildren();}
 
     /*
         QQList.Adapter series...
      */
-    private final QQList.Adapter adapter = new QQList.Adapter() {
+    private final QQListAdapter adapter = new QQListAdapter() {
 
         @Override
-        public int getSize() {
-            return leaderboard.size();
-        }
+        public int getSize() {return leaderboard.size();}
 
         @Override
         public QQView getView(int index) {
             ScoreHeroView v = new ScoreHeroView(assets);
             v.reset(leaderboard.get(index), index + 1);
             v.setSize(QQView.MATCH_PARENT, 64);
-
             return v;
         }
 
         @Override
-        public void updateView(int index, QQView view) {
-
-        }
+        public void updateView(int index, QQView view) {}
     };
 }

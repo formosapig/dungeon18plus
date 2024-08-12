@@ -1,18 +1,11 @@
 package com.qqhouse.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.qqhouse.ui.animation.QQAnimation;
-import com.qqhouse.ui.animation.QQInsertAnimation;
-import com.qqhouse.ui.animation.QQMoveVerticalAnimation;
-import com.qqhouse.ui.animation.QQRemoveAnimation;
-
-import java.util.Locale;
 
 public class QQList1 extends QQLinear implements QQView.IsTouchable {
 
@@ -143,7 +136,7 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
         scroll accelerator
      */
 
-    private QQListScrollAccelerator accelerator = new QQListScrollAccelerator(new QQListScrollAccelerator.ScrollCallback() {
+    private QQScrollAccelerator accelerator = new QQScrollAccelerator(new QQScrollAccelerator.ScrollCallback() {
         @Override
         public boolean doScroll(float shift) {
             // do Y shift.

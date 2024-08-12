@@ -54,20 +54,21 @@ public class ScoreHeroView extends AssetGroup {
         // ranking
         ranking = new QQText(assets.getFont(Game.Font.EVENT_COST));
         ranking.setSize(64, 32);
-        ranking.setPosition(64, 24);
+        ranking.setPosition(68, 26);
         ranking.setAlign(Align.left);
         ranking.setColor(Game.Colour.RARE);
         ranking.setText(Integer.toString(rankingNum));
         addChild(ranking);
 
         // score
-        score = new QQIconText(assets.getFont(Game.Font.EVENT_COST), assets.getIcon("icon/rank"));
+        score = new QQIconText(assets.getFont(Game.Font.EVENT_COST));//, assets.getIcon("icon/rank"));
         score.setColor(Game.Colour.RANK);
         score.setPadding(4);
-        score.setSize(80, 32);
+        score.setSize(88, 32);
         score.setAlign(Align.right);
-        score.setPosition(Game.Size.WIDTH - 8 - 80, 32);
+        score.setPosition(Game.Size.WIDTH - 8 - 88, 26);
         score.setText(Integer.toString(hero.score));
+        //score.setBackground(assets.getNinePatchBG("blessed"));
         addChild(score);
 
         // ability view
