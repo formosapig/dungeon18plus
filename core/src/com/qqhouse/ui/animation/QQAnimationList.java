@@ -55,7 +55,7 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
                 // remove +1 ^
                 //           ^
                 // insert    ^
-                Gdx.app.error("QQList", String.format(Locale.US, "MoveUpward rI : %d , iI : %d", removeIndex, insertIndex));
+                //Gdx.app.error("QQList", String.format(Locale.US, "MoveUpward rI : %d , iI : %d", removeIndex, insertIndex));
                 moveUpward(removeIndex, insertIndex - 1, animHPeriod);
                 preDelay = animVPeriod;
             } else {
@@ -164,7 +164,7 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
             moveDownward(0, index - 1, animHPeriod);
             changeScrollY = -gap;
         } else {
-            Gdx.app.error("QQList", String.format(Locale.US, "MoveUpward index : %d", index));
+            //Gdx.app.error("QQList", String.format(Locale.US, "MoveUpward index : %d", index));
 
             moveUpward(index, childrenView.size() - 1, animHPeriod);
         }
@@ -246,7 +246,7 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
                 maxScrollY = 0;
             // on animation end
             if (null != adapter) {
-                Gdx.app.error("QQAnimationList", String.format(Locale.US, "adapter.onAnimationEnd %d", childrenView.size()));
+                //Gdx.app.error("QQAnimationList", String.format(Locale.US, "adapter.onAnimationEnd %d", childrenView.size()));
                 adapter.onAnimationEnd();
             }
         } else if (0 > animLock) {
@@ -275,7 +275,7 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
     @Override
     public boolean touchDown(float relativeX, float relativeY) {
         if (0 < animLock) {
-            Gdx.app.error("QQList.touchDown", "animLock = " + animLock);
+            //Gdx.app.error("QQList.touchDown", "animLock = " + animLock);
             return false;
         }
         return super.touchDown(relativeX, relativeY);
@@ -284,7 +284,7 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
     @Override
     public boolean touchUp(float relativeX, float relativeY) {
         if (0 < animLock) {
-            Gdx.app.error("QQList.touchUp", "animLock = " + animLock);
+            //Gdx.app.error("QQList.touchUp", "animLock = " + animLock);
             return false;
         }
         return super.touchUp(relativeX, relativeY);

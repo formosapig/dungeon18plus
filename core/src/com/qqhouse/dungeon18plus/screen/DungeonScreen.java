@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.DungeonManager;
@@ -168,7 +169,7 @@ public class DungeonScreen extends QQScreen {
         group.addChild(specialEventList);
 
         // event listview ...
-        QQAnimationList eventList = new QQAnimationList(getViewport(), Game.Size.INNER_MARGIN);
+        QQAnimationList eventList = new QQAnimationList(getViewport(), Game.Size.WIDGET_MARGIN);
         eventList.setSize(Game.Size.WIDTH, QQView.MATCH_PARENT);
         eventList.setAdapter(eventAdapter);
         eventList.addListener(new QQList1.PressListener() {

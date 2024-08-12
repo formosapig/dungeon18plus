@@ -17,7 +17,8 @@ import java.util.Locale;
 public class QQList1 extends QQLinear implements QQView.IsTouchable {
 
     protected float touchY = -1, scrollY, maxScrollY, previousScrollY; // vertical only.
-    private IsTouchable hitBeforeScroll;// = null;
+    private float velocityStartY = -1, velocityStartDelta, velocityY; // velocity of scrollY
+    private IsTouchable hitBeforeScroll;
     protected final Viewport viewport;
 
     public QQList1(Viewport viewport, int innerMargin) {
@@ -138,8 +139,32 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
 
     }
 
+    /*
+        scroll accelerator
+     */
+
+    private QQListScrollAccelerator accelerator = new QQListScrollAccelerator(new QQListScrollAccelerator.ScrollCallback() {
+        @Override
+        public boolean doScroll(float shift) {
+            // do Y shift.
+            boolean result = false;
+            scrollY += shift;
+            if (scrollY < 0) {
+                scrollY = 0;
+                result = true;
+            }
+            if (scrollY > maxScrollY) {
+                scrollY = maxScrollY;
+                result = true;
+            }
+            arrangeChildren();
+            return result;
+        }
+    });
+
     @Override
     public void act(float delta) {
+        accelerator.act(delta);
         // long press series
         if (-1 != longPressIndex) {
             longPressCounter += delta;
@@ -158,6 +183,7 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
         // 1. keep touch down position for scroll
         //touchDownPos = new Vector2(relativeX, relativeY);
         touchY = relativeY;
+        accelerator.touchDown(relativeY);
 
         // 2. walk through all child and find out hit one, send touch down to it.
         QQView target = null;
@@ -186,6 +212,8 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
      */
     @Override
     public boolean touchUp(float relativeX, float relativeY) {
+        accelerator.touchUp(relativeY);
+
         touchY = -1;
         // long press reset
         longPressIndex =  -1;

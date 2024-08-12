@@ -233,7 +233,7 @@ public class QQGroup extends QQView implements QQView.IsParent {
                     continue;
                 if (v.matchHeight)
                     matchChildren++;
-                else // TODO if height == 0 ? should consider this.
+                else if (0 < v.getHeight())// TODO if height == 0 ? should consider this.
                     heightForMatch -= v.getHeight();
                 if (v.matchWidth && 0 == v.width)
                     v.setSize(this.width - leftPadding - rightPadding, v.getHeight());
@@ -253,7 +253,7 @@ public class QQGroup extends QQView implements QQView.IsParent {
             // reset position
             float anchorY = bottomPadding;
             for (QQView v : childrenView) {
-                if (!v.isVisible() || v.getHeight() == 0)
+                if (!v.isVisible() || 0 > v.getHeight())
                     continue;
                 // 滿版時, 重設 x 的位置, 否則依照 v 原本的設定...
                 v.setPosition(v.matchWidth ? leftPadding : v.getX(), anchorY);
