@@ -1,16 +1,11 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.EventType;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.event.Event;
-import com.qqhouse.ui.QQGroup;
-import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQLinear;
-import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
 public class EventInfoView extends AssetGroup {

@@ -1,21 +1,20 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
-import com.qqhouse.ui.QQGroup;
+import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList1;
 import com.qqhouse.ui.QQListAdapter;
-import com.qqhouse.ui.QQPressListener;
+import com.qqhouse.ui.QQPressAdapter;
 import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;
 
-public class SelectEquipmentView extends QQGroup {
+public class SelectEquipmentView extends AssetGroup {
 
     public interface SelectEquipmentCallback {
         void SelectEquipmentDone(Veteran veteran);
@@ -25,47 +24,38 @@ public class SelectEquipmentView extends QQGroup {
     private Veteran veteran;
     private ArrayList<EquipmentMastery> backpack;
     private VeteranButton vv;
-    private SelectEquipmentCallback callback;
-
-    private final Assets assets;
     private final Viewport viewport;
+    private final QQLinear group;
+
     public SelectEquipmentView(Assets assets, Viewport viewport) {
-        super(DIRECT_VERTICAL, Game.Size.WIDGET_MARGIN);
-        this.assets = assets;
+        super(assets);
         this.viewport = viewport;
-        setPadding(Game.Size.BLOCKEE_PADDING);
-        bgNormal = new NinePatch(assets.getBackground("dialog"), 4, 4, 4, 4);
+        setPadding(8);
+        bgNormal = assets.getNinePatchBG("dialog");
+
+        group = new QQLinear(Game.Size.WIDGET_MARGIN);
+        group.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        group.setPosition(leftPadding, bottomPadding);
+        addChild(group);
     }
 
     public void reset(Veteran veteran, ArrayList<EquipmentMastery> backpack, SelectEquipmentCallback callback) {
         this.veteran = veteran;
         this.backpack = backpack;
-        this.callback = callback;
 
-        // veteran
-        vv = new VeteranButton(assets);
-        vv.setPadding(8);
-        vv.setSize(QQView.MATCH_PARENT, 64);
-        vv.setQQPressListener(new QQPressListener() {
-            @Override
-            public void onPress(int index) {
-                if (Item.NONE != veteran.equipment) {
-                    callback.SelectEquipmentDone(veteran);
-                }
-            }
-            @Override
-            public void onLongPress(QQView view) {}
-        }, 0);
-        vv.reset(veteran);
-        addChild(vv);
+        TitleBarView2 master = new TitleBarView2(assets);
+        master.reset("sword_master", "colosseum_master");
+        master.setSize(QQView.MATCH_PARENT, 48);
+        master.setPadding(8);
+        master.setBackground(assets.getNinePatchBG("neutral"));
+        group.addChild(master);
 
         // list
         QQList1 equips = new QQList1(viewport, Game.Size.INNER_MARGIN);
-        //scores.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         equips.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         equips.setMaxHeight(400);
         equips.setAdapter(adapter);
-        equips.addListener(new QQList1.PressListener() {
+        equips.addListener(new QQList1.PressAdapter() {
             @Override
             public void onPress(int index) {
                 // set UniqueSkill
@@ -73,27 +63,39 @@ public class SelectEquipmentView extends QQGroup {
                 veteran.mastery = backpack.get(index).mastery;
                 vv.updateUniqueSkill(veteran);
             }
+        });
+        group.addChild(equips);
 
+        // veteran
+        vv = new VeteranButton(assets);
+        vv.setPadding(8);
+        vv.setSize(QQView.MATCH_PARENT, 64);
+        vv.setQQPressListener(new QQPressAdapter() {
             @Override
-            public void onLongPress(int index) {
-
+            public void onPress(int index) {
+                if (Item.NONE != veteran.equipment) {
+                    callback.SelectEquipmentDone(veteran);
+                }
             }
         });
-        addChild(equips);
-        //scores.setBackground(new NinePatch(assets.getBackground("white"), 4, 4, 4, 4));
+        vv.reset(veteran);
+        group.addChild(vv);
+    }
 
-        TitleBarView2 master = new TitleBarView2(assets);
-        master.reset("sword_master", "colosseum_master");
-        master.setPosition(leftPadding + 4, height - 40 - topPadding);
-        master.setSize(QQView.MATCH_PARENT, 48);
-        master.setPadding(8);
-        master.setBackground(assets.getNinePatchBG("neutral"));
-        addChild(master);
-
-        resetWrapHeight();
+    @Override
+    public void resetWrapHeight() {
+        height = group.getHeight() + topPadding + bottomPadding;
         if (null != parent)
             parent.onChildSizeChanged(this);
     }
+
+    @Override
+    public void onParentSizeChanged(float width, float height) {
+        if (0 < width)
+            group.setSize(width - leftPadding - rightPadding, group.getHeight());
+    }
+
+
 
     /*
         list view of boss kill....

@@ -179,7 +179,7 @@ public class ColosseumScreen extends QQScreen {
                         manager.doAction(index);
                         update();
                     }
-                    debug();
+                    //debug();
                 }
             }, i);
             actionViews.add(action);

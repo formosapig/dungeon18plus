@@ -48,11 +48,11 @@ public class UniqueSkillButton extends AssetGroupButton {
 
 
             // mastery
-            txtMastery = new QQText(assets.getFont(Game.Font.DIGITAL16));
-            txtMastery.setText(String.format(Locale.US, "%03d", mastery.mastery));
-            txtMastery.setColor(Game.Colour.RARE);
-            txtMastery.setAlign(Align.left);
-            addChild(txtMastery);
+            //txtMastery = new QQText(assets.getFont(Game.Font.DIGITAL16));
+            //txtMastery.setText(String.format(Locale.US, "%03d", mastery.mastery));
+            //txtMastery.setColor(Game.Colour.RARE);
+            //txtMastery.setAlign(Align.left);
+            //addChild(txtMastery);
 
             UniqueSkillData data = mastery.equipment.skill.get(mastery.mastery);
 
@@ -94,6 +94,7 @@ public class UniqueSkillButton extends AssetGroupButton {
             coolDown = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/time"));
             coolDown.setColor(Game.Colour.SPEED);
             coolDown.setText(Integer.toString(data.coolDown));
+            coolDown.setAlign(Align.right);
             addChild(coolDown);
 
             setBackground(assets.getBackgroundSet(isMastery ? "special" : "ordinary"));
@@ -105,7 +106,7 @@ public class UniqueSkillButton extends AssetGroupButton {
     public void onParentSizeChanged(float width, float height) {
         if (0 >= width || 0 >= height)
             return;
-        txtMastery.setSize(QQView.WRAP_CONTENT, 16);
+        //txtMastery.setSize(QQView.WRAP_CONTENT, 16);
         if (null != itOps) {
             //int OpsWidth = 0;
             for (int i = 0; i < itOps.length; ++i) {
@@ -118,7 +119,7 @@ public class UniqueSkillButton extends AssetGroupButton {
             //    startX += itOps[i].getWidth() + 2;
             //}
         }
-        coolDown.setSize(50, 16);
+        coolDown.setSize(48, 16);
     }
 
     @Override

@@ -18,7 +18,7 @@ import com.qqhouse.dungeon18plus.view.EventView;
 import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
 import com.qqhouse.dungeon18plus.view.ProfileView;
-import com.qqhouse.ui.QQGroup;
+import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList;
 import com.qqhouse.ui.QQList1;
 import com.qqhouse.ui.QQListAdapter;
@@ -115,8 +115,6 @@ public class DungeonScreen extends QQScreen {
         public void onAnimationEnd() {update();}
     };
 
-
-
     @Override
     public void onEnter() {
 
@@ -136,36 +134,17 @@ public class DungeonScreen extends QQScreen {
         addChild(heroView);
 
         // group ( event, special event ), just a container...
-        QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, 2);
+        QQLinear container = new QQLinear(Game.Size.WIDGET_MARGIN);
+        container.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 24 - 64 - Game.Size.WIDGET_MARGIN * 3);
+        container.setPosition(0, 64 + Game.Size.WIDGET_MARGIN * 2 + 24);
+        addChild(container);
+        //QQGroup group = new QQGroup(QQGroup.DIRECT_VERTICAL, 2);
         // FIXME 使用 match_parent 以及 Screen 內含 QQView ...
-        group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 24 - 64 - Game.Size.WIDGET_MARGIN * 3);
-        group.setPosition(0, 64 + Game.Size.WIDGET_MARGIN * 2 + 24);
-        addChild(group);
+        //group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 24 - 64 - Game.Size.WIDGET_MARGIN * 3);
+        //group.setPosition(0, 64 + Game.Size.WIDGET_MARGIN * 2 + 24);
+        //addChild(group);
 
-        // special event list
-        QQList specialEventList = new QQList(getViewport());
-        specialEventList.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
-        specialEventList.setPosition(0, 0);
 
-        specialEventList.setAdapter(specialEventAdapter);
-        specialEventList.addListener(new QQList.PressListener() {
-            @Override
-            public void onPress(int index) {
-                if (manager.isSpecialEventDoable(index)) {
-                    int result = manager.doSpecialEvent(index);
-                    if (Game.result.process > result) {
-                        endGame(Game.result.win == result);
-                    }
-                }
-            }
-
-            @Override
-            public void onLongPress(int index) {
-                eventInfoDialog.update(manager.getSpecialEvent(index));
-                openDialog(eventInfoDialog);
-            }
-        });
-        group.addChild(specialEventList);
 
         // event listview ...
         QQAnimationList eventList = new QQAnimationList(getViewport(), Game.Size.WIDGET_MARGIN);
@@ -188,7 +167,31 @@ public class DungeonScreen extends QQScreen {
                 openDialog(eventInfoDialog);
             }
         });
-        group.addChild(eventList);
+        container.addChild(eventList);
+
+        // special event list
+        QQList specialEventList = new QQList(getViewport());
+        specialEventList.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
+        //specialEventList.setPosition(0, 0);
+        specialEventList.setAdapter(specialEventAdapter);
+        specialEventList.addListener(new QQList.PressListener() {
+            @Override
+            public void onPress(int index) {
+                if (manager.isSpecialEventDoable(index)) {
+                    int result = manager.doSpecialEvent(index);
+                    if (Game.result.process > result) {
+                        endGame(Game.result.win == result);
+                    }
+                }
+            }
+
+            @Override
+            public void onLongPress(int index) {
+                eventInfoDialog.update(manager.getSpecialEvent(index));
+                openDialog(eventInfoDialog);
+            }
+        });
+        container.addChild(specialEventList);
 
         // message view ...
         lootInfo = new LootInfoView(assets);
@@ -230,7 +233,7 @@ public class DungeonScreen extends QQScreen {
                         manager.doAction(index);
                         update();
                     }
-                    debug();
+                    //debug();
                 }
             }, i);
             actionViews.add(action);

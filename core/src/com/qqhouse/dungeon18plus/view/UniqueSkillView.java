@@ -71,6 +71,7 @@ public class UniqueSkillView extends AssetGroup {
             coolDown = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/time"));
             coolDown.setColor(Game.Colour.SPEED);
             coolDown.setText(Integer.toString(data.coolDown));
+            coolDown.setAlign(Align.right);
             addChild(coolDown);
     }
 
@@ -91,7 +92,7 @@ public class UniqueSkillView extends AssetGroup {
             //    startX += itOps[i].getWidth() + 2;
             //}
         }
-        coolDown.setSize(50, 16);
+        coolDown.setSize(48, 16);
     }
 
     @Override

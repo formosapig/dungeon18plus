@@ -483,7 +483,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
 			int masteryPlus = getMasteryPlus(mHero.round);
 			int finalMastery = 0;
 
-			Gdx.app.error("ColosseumManager", "createBackpack " + bi + " : " + mastery + "," + masteryPlus);
+			//Gdx.app.error("ColosseumManager", "createBackpack " + bi + " : " + mastery + "," + masteryPlus);
 			//if (Game.Setting.MASTERY_NOT_FOUND == mastery) {
 			//	if (Game.Setting.GENERAL_MASTERY_MAX < masteryPlus)
 			//		masteryPlus = Game.Setting.GENERAL_MASTERY_MAX;

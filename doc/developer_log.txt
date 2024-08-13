@@ -1,3 +1,11 @@
+--------------- 20240813(二) ---------------
+產生 QRCode 使用 google zxing library 看起來似乎沒有問題.
+讀取 QRCode 有問題,
+  1. Url Scheme / Deep Link / App Link 等等 libgdx 沒有支援, 要自己寫 code
+  2. 在 libgdx 內按制 camera 也沒有比較好的方法...
+
+以上相關問題 Unity 都有成熟的解法....哭了.
+
 --------------- 20240806(二) ---------------
 今天使用了 Texture Packer 了, 解決了 1/16 發現的問題, 效果還蠻不錯的...
 此外 loading 的速度快很多....

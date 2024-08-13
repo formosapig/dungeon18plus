@@ -133,6 +133,8 @@ public class Assets {
 
 
     public void dispose() {
+        if (null != atlas)
+            atlas.dispose();
         manager.dispose();
     }
 
