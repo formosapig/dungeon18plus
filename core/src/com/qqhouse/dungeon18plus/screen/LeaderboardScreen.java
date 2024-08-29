@@ -28,9 +28,9 @@ public class LeaderboardScreen extends QQScreen {
         // data
         leaderboard = savedGame.getLeaderboardData();
 
-        // title bar with merchant and equipment count...
+        // title bar with novice
         TitleBarView2 novice = new TitleBarView2(assets);
-        novice.reset("novice", "old_hero", null, Game.Colour.COUNT, "");
+        novice.reset("novice", "veteran", null, Game.Colour.COUNT, "");
         novice.setSize(Game.Size.WIDTH, 48);
         novice.setPosition(0, Game.Size.HEIGHT - 48);
         novice.setPadding(8);

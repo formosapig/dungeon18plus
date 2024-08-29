@@ -35,7 +35,7 @@ class WildernessData_1_6_2 extends QQSaveGame.DataPart {
     		buffer.putInt(giant.flag);
     		buffer.putInt(giant.fastWin);
     		buffer.putInt(giant.killCount);
-    		// ultimate skills
+    		// unique skills
     		buffer.putInt(giant.skills.size());
     		for (UniqueSkill us : giant.skills) {
                 buffer.putInt(us.code);
@@ -60,7 +60,7 @@ class WildernessData_1_6_2 extends QQSaveGame.DataPart {
     		record.flag = buffer.getInt();
     		record.fastWin = buffer.getInt();
     		record.killCount = buffer.getInt();
-    		// ultimate skills
+    		// unique skills
     		int size = buffer.getInt();
         	record.skills.clear();
     		for (int i = 0; i < size; ++i) {

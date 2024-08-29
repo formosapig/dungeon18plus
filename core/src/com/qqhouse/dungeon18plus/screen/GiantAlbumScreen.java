@@ -38,11 +38,10 @@ public class GiantAlbumScreen extends QQScreen {
         //group.setPosition(0, 0);
         addChild(group);
 
-        // title bar with merchant and equipment count...
+        // title bar with valkyrie
         TitleBarView2 valkyrie = new TitleBarView2(assets);
         valkyrie.reset("valkyrie", "valkyrie", null, Game.Colour.RARE, "");
         valkyrie.setSize(QQView.MATCH_PARENT, 48);
-        //merchant.setPosition(0, Game.Size.HEIGHT - 48);
         valkyrie.setPadding(8);
         valkyrie.setBackground(assets.getNinePatchBG("neutral"));
         group.addChild(valkyrie);

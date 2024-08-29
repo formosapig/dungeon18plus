@@ -1,3 +1,20 @@
+--------------- 20240829(四) ---------------
+1. 由於新增了 scroll accelerator , 在 QQAnimationList 點擊時, 會觸發 doScroll, 然後重排子元件,
+   導致動畫的效果變成跳動的.
+   [X] A1 : 在 touchDown 內觸發 onPress 時, 取消捲動加速相關程式碼．
+   [O] A2 : arrangeChildren 先檢查是否在動畫中, 若是則跳出, 在所有動畫完成後會觸發 arrangeChildren.
+2. Dungeon Mode 中, 兩個 list 的 setSize 問題還沒有解決.
+3. QQAnimationList 中, 在重覆的位置 remove 後再 insert 時, 可以將 removeIndex 設為零...
+
+關於中文化, 使用 notepad++ 處理
+1. 移除所有非中文字 [^\x{4e00}-\x{9fa5}] -> ""
+2. 將一串字變成一行一行的 (.) -> \1\r\n
+3. 使用 notepad++ 移除重覆行
+4. 將一行一行變成一串字 \r\n -> ""
+
+中／英 loading time = 180 / 80 ms. (中文約 700 字)
+
+
 --------------- 20240813(二) ---------------
 產生 QRCode 使用 google zxing library 看起來似乎沒有問題.
 讀取 QRCode 有問題,

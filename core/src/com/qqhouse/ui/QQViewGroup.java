@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import java.util.ArrayList;
 
-public class QQViewGroup extends QQView implements QQView.IsParent {
+public class QQViewGroup extends QQView implements QQView.IsParent, QQView.IsTouchable {
 
     public QQViewGroup() {}
 
@@ -46,6 +46,8 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
             float childRelativeY = relativeY - child.getY();
             target = child.hit(childRelativeX, childRelativeY);
             if (null != target) {
+                if (target instanceof QQView.IsTouchable)
+                    touchDownTarget = (QQView.IsTouchable) target;
                 return target.touchDown(childRelativeX, childRelativeY);
             }
         }
@@ -66,10 +68,18 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
             float childRelativeX = relativeX - child.getX();
             float childRelativeY = relativeY - child.getY();
             target = child.hit(childRelativeX, childRelativeY);
-            if (null != target) {
-                if (target.touchUp(childRelativeX, childRelativeY)) {
-                    return true;
-                }
+            if (null != target)
+                break;
+        }
+        if (target != touchDownTarget && null != touchDownTarget) {
+            //Gdx.app.error("QQViewGroup", "touchUp and cancelTouch at" + touchDownTarget);
+            touchDownTarget.cancelTouching();
+            touchDownTarget = null;
+        }
+        if (null != target) {
+            //Gdx.app.error("QQViewGroup", "touchUp at" + target);
+            if (target.touchUp(relativeX - target.getX(), relativeY - target.getY())) {
+                return true;
             }
         }
 
@@ -100,6 +110,14 @@ public class QQViewGroup extends QQView implements QQView.IsParent {
         return false;
     }
 
+    private QQView.IsTouchable touchDownTarget = null;
+
+    @Override
+    public void cancelTouching() {
+        //Gdx.app.error("QQViewGroup", "cancelTouching.");
+        if (null != touchDownTarget)
+            touchDownTarget.cancelTouching();
+    }
     /*
         act...
      */

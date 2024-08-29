@@ -3,19 +3,11 @@ package com.qqhouse.ui.animation;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.ui.QQList1;
-import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQView;
-import com.qqhouse.ui.animation.QQAnimation;
-import com.qqhouse.ui.animation.QQInsertAnimation;
-import com.qqhouse.ui.animation.QQMoveVerticalAnimation;
-import com.qqhouse.ui.animation.QQRemoveAnimation;
-
-import java.util.Locale;
 
 public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
 
@@ -29,12 +21,13 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
 
     private int insertIndex = -1;
     public void insert(int index) {
+        //Gdx.app.error("QQAnimationList", "insert : " + index);
         insertIndex = index;
         float preDelay = 0;
         if (removeIndex >= 0) {
             changeScrollY = 0;
             //Gdx.app.error("QQList.insert", "remove then insert...");
-            // remove then inser...
+            // remove then insert...
             // 1. cancel all animation ...
             for (QQView child : childrenView) {
                 if (child.removeAnimation()) {
@@ -55,11 +48,14 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
                 // remove +1 ^
                 //           ^
                 // insert    ^
-                //Gdx.app.error("QQList", String.format(Locale.US, "MoveUpward rI : %d , iI : %d", removeIndex, insertIndex));
+                //Gdx.app.error("QQList", String.format(Locale.US, "MoveUpward rI : %d , iI : %d", removeIndex, insertIndex))
                 moveUpward(removeIndex, insertIndex - 1, animHPeriod);
                 preDelay = animVPeriod;
             } else {
                 // remove insert no move....
+                //Gdx.app.error("QQAnimationList", "removeIndex = insertIndex");
+                //Gdx.app.error("QQAnimationList", "size = " + childrenView.size());
+                removeIndex = -1;
             }
         } else {
             moveDownward(index, childrenView.size() - 1, 0);
@@ -131,6 +127,8 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
 
     private int removeIndex = -1;
     public void remove(int index) {
+        //Gdx.app.error("QQAnimationList", "remove : " + index);
+
         //Gdx.app.error("QQList", "start remove.");
         // FIXME remove not resetWrapHeight ...
         removeIndex = index;
@@ -173,6 +171,7 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
 
     // 由上往下填滿被移掉的 view
     private void moveDownward(int start, int end, float delay) {
+        //Gdx.app.error("QQAnimationList", "moveDownward " + start + " -> " + end);
         for (int i = start; i <= end; ++i) {
             QQView child = childrenView.get(i);
             float gap = child.getHeight() + innerMargin;
@@ -196,6 +195,7 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
 
     // 由下往上填滿被移掉的 view
     private void moveUpward(int start, int end, float delay) {
+        //Gdx.app.error("QQAnimationList", "moveUpward " + start + " -> " + end);
         for (int i = start; i <= end; ++i) {
             QQView child = childrenView.get(i);
             float gap = child.getHeight() + innerMargin;
@@ -258,6 +258,8 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
     // FIXME consider update all function.
     @Override
     public void updateAll() {
+        //Gdx.app.error("QQAnimationList", "updateAll.");
+
         for (int i = 0, s = childrenView.size(); i < s; ++i) {
             adapter.updateView(i, childrenView.get(i));
         }
@@ -305,13 +307,21 @@ public class QQAnimationList extends QQList1 implements QQView.IsTouchable {
     }
 
     @Override
+    public void arrangeChildren() {
+        if (0 < animLock)
+            return;
+        super.arrangeChildren();
+    }
+
+
+    @Override
     public void drawChildren(SpriteBatch batch, float originX, float originY) {
         batch.flush();
         Rectangle scissors = new Rectangle();
         Rectangle clipBounds = new Rectangle(originX, originY, width, height);
         // QQList 變成 sub view 時, 座標又變換了....
-        //Rectangle clipBounds = new Rectangle(x, y, width, height);
-        //ScissorStack.calculateScissors(viewport.getCamera(), batch.getTransformMatrix(), clipBounds, scissors);
+        //Rectangle clipBounds = new Rectangle(x, y, width, height)
+        //ScissorStack.calculateScissors(viewport.getCamera(), batch.getTransformMatrix(), clipBounds, scissors)
         ScissorStack.calculateScissors(viewport.getCamera(), viewport.getScreenX(), viewport.getScreenY(), viewport.getScreenWidth(), viewport.getScreenHeight(), batch.getTransformMatrix(), clipBounds, scissors);
 
         if (ScissorStack.pushScissors(scissors)) {

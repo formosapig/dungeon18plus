@@ -9,7 +9,7 @@ public class ColosseumShop extends Event {
     private boolean mMasteryEquipment = false;
 
     public ColosseumShop(Item equip) {
-        super(EventType.MERCHANT);
+        super(EventType.PEDDLER);
         this.loot = equip;
         this.costType = Game.Cost.COIN;
         this.costValue = equip.price;

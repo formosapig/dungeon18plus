@@ -48,7 +48,7 @@ public class SelectGiantScreen extends QQScreen {
 
         // legion trainer
         PreviewView3 legionTrainer = new PreviewView3(assets);
-        legionTrainer.reset("crusader","crusader","legion_trainer_help", "lawful");
+        legionTrainer.reset("crusader","crusader","legion_trainer_intro", "lawful");
         legionTrainer.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         legionTrainer.setQQPressListener(new QQPressAdapter() {
             @Override
@@ -62,7 +62,7 @@ public class SelectGiantScreen extends QQScreen {
         // soul master if open
         if (savedGame.openSoulMaster()) {
             PreviewView3 soulMaster = new PreviewView3(assets);
-            soulMaster.reset("valkyrie", "valkyrie", "soul_master_help", "neutral");
+            soulMaster.reset("valkyrie", "valkyrie", "soul_master_intro", "neutral");
             soulMaster.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
             soulMaster.setQQPressListener(new QQPressAdapter() {
                 @Override

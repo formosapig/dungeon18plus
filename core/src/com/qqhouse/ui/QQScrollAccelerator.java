@@ -1,5 +1,7 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.Gdx;
+
 public class QQScrollAccelerator {
 
     public interface ScrollCallback {
@@ -61,5 +63,4 @@ public class QQScrollAccelerator {
             time = 0;
         }
     }
-
 }

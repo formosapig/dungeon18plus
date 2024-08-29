@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
@@ -233,7 +234,7 @@ public class DungeonScreen extends QQScreen {
                         manager.doAction(index);
                         update();
                     }
-                    //debug();
+                    debug();
                 }
             }, i);
             actionViews.add(action);

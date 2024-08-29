@@ -1,5 +1,7 @@
 package com.qqhouse.dungeon18plus.core;
 
+import static com.qqhouse.dungeon18plus.core.HeroClass.PEDDLER;
+
 import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
@@ -17,6 +19,7 @@ import com.qqhouse.dungeon18plus.struct.hero.ColosseumHero;
 import com.qqhouse.dungeon18plus.struct.hero.Hero;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.ui.QQList;
+import com.qqhouse.ui.QQListAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -165,8 +168,8 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
 	/*
 		data source for event adapter
 	 */
-	private QQList.Adapter adapter;
-	public void setAdapter(QQList.Adapter adapter) {
+	private QQListAdapter adapter;
+	public void setAdapter(QQListAdapter adapter) {
 		this.adapter = adapter;
 	}
 
@@ -270,7 +273,7 @@ public class ColosseumManager extends GameManager<ColosseumHero> {
 		
 		for (Event evt : mEvents) {
 			switch (evt.type) {
-			case MERCHANT: {
+			case PEDDLER: {
 				evt.costValue = evt.loot.price;
 				if (Feat.BARGAIN.in(mHero.feats)) {
 					evt.costValue = evt.costValue * 9 / 10;

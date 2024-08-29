@@ -44,7 +44,7 @@ public class BarrackScreen extends QQScreen {
         group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT);
         addChild(group);
 
-        // title bar with merchant and equipment count...
+        // title bar with crusader
         TitleBarView2 crusader = new TitleBarView2(assets);
         crusader.reset("crusader", "crusader", null, Game.Colour.COUNT, "");
         crusader.setSize(Game.Size.WIDTH, 48);

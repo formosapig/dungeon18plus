@@ -200,7 +200,7 @@ blockee/bloody_werewolf
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/blue_mage
+blockee/blue_apprentice_mage
   rotate: false
   xy: 614, 450
   size: 48, 48
@@ -228,238 +228,238 @@ blockee/chomper
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/cleric
+blockee/crusader
   rotate: false
   xy: 814, 450
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/crusader
+blockee/cyclops
   rotate: false
   xy: 864, 450
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/cyclops
+blockee/demon
   rotate: false
   xy: 914, 450
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/demon
+blockee/door
   rotate: false
   xy: 964, 450
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/door
+blockee/dragoon
   rotate: false
   xy: 200, 86
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/dragoon
+blockee/earth_knight
   rotate: false
   xy: 250, 186
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/earth_knight
+blockee/fairy
   rotate: false
   xy: 250, 136
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/fairy
+blockee/fire_knight
   rotate: false
   xy: 250, 86
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/fire_knight
+blockee/fire_sorcerer
   rotate: false
   xy: 316, 252
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/fire_sorcerer
+blockee/golden_arena
   rotate: false
   xy: 300, 202
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/golden_arena
+blockee/green_apprentice_mage
   rotate: false
   xy: 300, 152
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/green_mage
+blockee/green_pumpkin
   rotate: false
   xy: 300, 102
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/green_pumpkin
+blockee/griffon
   rotate: false
   xy: 382, 318
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/griffon
+blockee/guard
   rotate: false
   xy: 366, 268
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/guard
+blockee/ice_sorcerer
   rotate: false
   xy: 448, 384
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/ice_sorcerer
+blockee/iron_face
   rotate: false
   xy: 432, 334
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/iron_face
+blockee/novice
   rotate: false
   xy: 498, 400
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/merchant
+blockee/peddler
   rotate: false
   xy: 548, 400
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/novice
+blockee/pumpkin
   rotate: false
   xy: 598, 400
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/pumpkin
+blockee/red_apprentice_mage
   rotate: false
   xy: 648, 400
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/red_mage
+blockee/red_slime
   rotate: false
   xy: 698, 400
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/red_slime
+blockee/skeleton
   rotate: false
   xy: 748, 400
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/skeleton
+blockee/skeleton2
   rotate: false
   xy: 798, 400
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/skeleton2
+blockee/skeleton_fighter
   rotate: false
   xy: 848, 400
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/skeleton_fighter
+blockee/skeleton_king
   rotate: false
   xy: 898, 400
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/skeleton_king
+blockee/slime
   rotate: false
   xy: 948, 400
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/slime
+blockee/squleton
   rotate: false
   xy: 134, 4
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/squleton
+blockee/steel_cyclops
   rotate: false
   xy: 184, 36
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/steel_cyclops
+blockee/stone_face
   rotate: false
   xy: 234, 36
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/stone_face
+blockee/sword_master
   rotate: false
   xy: 284, 36
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/sword_master
+blockee/thief
   rotate: false
   xy: 350, 202
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/thief
+blockee/thunder_bird
   rotate: false
   xy: 350, 152
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/thunder_bird
+blockee/thunder_sorcerer
   rotate: false
   xy: 350, 102
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blockee/thunder_sorcerer
+blockee/trainee_cleric
   rotate: false
   xy: 334, 52
   size: 48, 48

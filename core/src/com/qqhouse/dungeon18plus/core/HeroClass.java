@@ -40,7 +40,7 @@ public enum HeroClass {
 			NEUTRAL, // 野蠻人是中立的
 			new Item[] {WOODEN_SWORD, IRON_SWORD, WOODEN_STAFF, MITHRIL_STAFF, IRON_SHIELD, IRON_RING, YELLOW_RING, IRON_BOOTS}, // mastery equipment
 			new Action[] {ANCESTOR_COURAGE, ANCESTOR_STRONG, ANCESTOR_WISDOM, /*WAR_CRY*/}, // action
-			Feat.combine(EXPERIENCE, GEM_SEEKER, RICH), // feat
+			Feat.combine(EXPERIENCE, CRYSTAL_HUNTER, RICH), // feat
 			LootStash.BARBARIAN, // loot stash
 			 300,  25,  10, 40, // start attribute
 			1750, 215, 200,  8, // min limit
@@ -121,8 +121,8 @@ public enum HeroClass {
 		  30,  50,  20),    // key, coin, star
 		
 	// magician
-	CLERIC(0x09E8E5E3, // code
-	    "cleric",      // key
+	TRAINEE_CLERIC(0x09E8E5E3, // code
+	    "trainee_cleric",      // key
         LAWFUL,        // 守序, 沒問題
 	    new Item[] {}, // mastery equipment
 	    new Action[] {Action.LIFE_UP, Action.ATTACK_UP, Action.DEFENSE_UP, Action.SPEED_UP}, // action
@@ -133,8 +133,8 @@ public enum HeroClass {
 	    2000, 210, 220,  9, // max limit
 	      30,  30,  30),    // key, coin, star
 			
-	RED_MAGE(0x50E8E6E6, // code
-	    "red_mage",      // key
+	RED_APPRENTICE_MAGE(0x50E8E6E6, // code
+	    "red_apprentice_mage",      // key
         NEUTRAL,         // 魔法師類的都中立居多... neutral
 	    new Item[] {}, // mastery equipment
 	    new Action[] {Action.LIFE_UP, Action.ATTACK_UP, Action.DEFENSE_UP, Action.SPEED_UP}, // action
@@ -145,8 +145,8 @@ public enum HeroClass {
 	    2000, 255, 255,  9, // max limit
 	       3,   3,   3), // key, coin, star),
 			
-	BLUE_MAGE(0x386503A8, // code
-	    "blue_mage",      // key
+	BLUE_APPRENTICE_MAGE(0x386503A8, // code
+	    "blue_apprentice_mage",      // key
         NEUTRAL,          // mage = neutral
 	    new Item[] {}, // mastery equipment
 	    new Action[] {Action.LIFE_UP, Action.ATTACK_UP, Action.DEFENSE_UP, Action.SPEED_UP}, // action
@@ -157,8 +157,8 @@ public enum HeroClass {
 	    2000, 255, 255,  9, // max limit
 	       3,   3,   3), // key, coin, star),
 			
-	GREEN_MAGE(0x82B269EC, // code
-	    "green_mage",      // key
+	GREEN_APPRENTICE_MAGE(0x82B269EC, // code
+	    "green_apprentice_mage",      // key
         NEUTRAL,           // mage = neutral
 	    new Item[] {}, // mastery equipment
 	    new Action[] {Action.LIFE_UP, Action.ATTACK_UP, Action.DEFENSE_UP, Action.SPEED_UP}, // action
@@ -170,9 +170,9 @@ public enum HeroClass {
 	       3,   3,   3), // key, coin, star),
 
 	// special mHero , may buy equipments...
-	MERCHANT(0x1E17343B, // code
-	    "merchant",      // key
-        SPECIAL,         // merchant is special.
+	PEDDLER(0x1E17343B, // code
+	    "peddler",      // key
+        SPECIAL,         // peddler is special.
 	    new Item[] {}, // mastery equipment
 	    new Action[] {Action.LIFE_UP, Action.ATTACK_UP, Action.DEFENSE_UP, Action.SPEED_UP}, // action
 	    Feat.combine(EXPERIENCE, QUICK_LEARNER, APPRENTICE), // feat
@@ -341,7 +341,7 @@ public enum HeroClass {
 	//		return "bg_boss";
 	//	} else if (HOLY_ONE.in(this.feat) || this.isKnight() || this == VALKYRIE) {
 	//		return "bg_fairy";
-	//	} else if (this == MERCHANT)
+	//	} else if (this == PEDDLER)
 	//		return "bg_shop";
 	//	else
 	//		return "bg_brave";
@@ -352,7 +352,7 @@ public enum HeroClass {
 			return "btn_boss";
 		} else if (HOLY_ONE.in(this.feat) || this.isKnight() || this == VALKYRIE) {
 			return "btn_fairy";
-		} else if (this == MERCHANT)
+		} else if (this == PEDDLER)
 			return "btn_shop";
 		else
 			return "btn_brave";

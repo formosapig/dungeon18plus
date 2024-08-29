@@ -37,14 +37,14 @@ public class HeroAlbumScreen extends QQScreen {
         group.setPosition(0, 0);
         addChild(group);
 
-        // title bar with merchant and equipment count...
-        TitleBarView2 merchant = new TitleBarView2(assets);
-        merchant.reset("fairy", "fairy", null, Game.Colour.RARE, "");
-        merchant.setSize(QQView.MATCH_PARENT, 48);
-        //merchant.setPosition(0, Game.Size.HEIGHT - 48);
-        merchant.setPadding(8);
-        merchant.setBackground(assets.getNinePatchBG("neutral"));
-        group.addChild(merchant);
+        // title bar with peddler and equipment count...
+        TitleBarView2 fairy = new TitleBarView2(assets);
+        fairy.reset("fairy", "fairy", null, Game.Colour.RARE, "");
+        fairy.setSize(QQView.MATCH_PARENT, 48);
+        //fairy.setPosition(0, Game.Size.HEIGHT - 48);
+        fairy.setPadding(8);
+        fairy.setBackground(assets.getNinePatchBG("neutral"));
+        group.addChild(fairy);
 
         // split line...
         QQView line = new QQView();

@@ -58,7 +58,7 @@ public class TitleScreen extends QQScreen {
 
         // Library : default
         MainMenuView gallery = new MainMenuView(assets);
-        gallery.reset("merchant", "gallery", "special");
+        gallery.reset("peddler", "gallery", "special");
         gallery.setSize(QQView.MATCH_PARENT, 64);
         gallery.setQQPressListener(clickListener, Game.Mode.GALLERY);
         group.addChild(gallery);

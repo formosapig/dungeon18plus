@@ -26,7 +26,7 @@ public class ProfileUniqueSkillView extends AssetGroup {
         title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
         title.setPadding(8);
         title.setAlign(Align.left);
-        title.setText(assets.geti18n("profile_ultimate_skill"));
+        title.setText(assets.geti18n("profile_unique_skill"));
         addChild(title);
     }
 

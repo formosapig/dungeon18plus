@@ -27,6 +27,7 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
     private IsTouchable hitBeforeScroll;
     private int pageNum = 1;
     private int currentPage;
+    private final float homingTime = 0.33f; // homing in 0.5 sec
 
     public QQCyclePager(Viewport viewport, int innerMargin) {
         super(false, innerMargin);
@@ -168,12 +169,15 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
     @Override
     public void act(float delta) {
         // move shiftX to 0
-        if (Float.compare(shiftX, 0) != 0 && Float.compare(velocityX, 0) != 0) {
-            if (Math.abs(shiftX) < Math.abs(velocityX)) {
+        //if (Float.compare(shiftX, 0) != 0 && Float.compare(velocityX, 0) != 0) {
+        if (shiftX != 0 && velocityX != 0) {
+                //Gdx.app.error("QQCyclePager", "shiftX = " + shiftX + ", velocityX = " + velocityX);
+            if (Math.abs(shiftX) < Math.abs(velocityX * delta)) {
                 shiftX = 0;
                 velocityX = 0;
-            } else
-                shiftX += velocityX;
+            } else {
+                shiftX -= velocityX * delta;
+            }
             arrangeChildren();
         }
 
@@ -231,9 +235,10 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
         //longPressCounter = 0;
 
         // calculate velocity of shift x
-        if (Math.abs(shiftX) > 0)
-            velocityX = shiftX / 0.5f; // move to 0 at 0.5 sec
-
+        if (Math.abs(shiftX) > 0) {
+            velocityX = shiftX / homingTime;//0.5f; // move to 0 at 0.5 sec
+            //Gdx.app.error("QQCyclePager", "velocityX = " + velocityX);
+        }
         // 1. trace this event to exit scroll mode ...
         //touchDownPos = null; // ??
         //previousScrollY = scrollY;
@@ -328,7 +333,7 @@ public class QQCyclePager extends QQLinear implements QQView.IsTouchable {
         touchX = -1;
         // calculate velocity of shift x
         if (Math.abs(shiftX) > 0)
-            velocityX = shiftX / 0.5f; // move to 0 at 0.5 sec
+            velocityX = shiftX / homingTime;//0.5f; // move to 0 at 0.5 sec
     }
 
     /*

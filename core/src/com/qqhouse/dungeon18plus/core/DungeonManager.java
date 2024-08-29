@@ -48,7 +48,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
     public static final int ZAKO_EXPAND_NUM         = 2;    // after kill one boss.
         
     // total number of shop 6
-    private static final int SHOP_NUM   = 6;
+    private static final int PEDDLER_NUM = 6;
 
     // total number of boss 3
     private static final int BOSS_NUM   = 2;
@@ -236,12 +236,12 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         
         initialZako();
         
-        // give shop
-        int shopNum = SHOP_NUM;
+        // give peddler
+        int shopNum = PEDDLER_NUM;
         for (int i = 0; i < shopNum; ++i) {
             if (!mShopItems.isEmpty()) {
                 Item shopItem = mShopItems.remove(0);
-                Event shop = new Event(EventType.MERCHANT)
+                Event shop = new Event(EventType.PEDDLER)
                         .setLoot(shopItem)
                         .setCost(Game.Cost.COIN, shopItem.price);
                 int position = (int) (Math.random() * mAllEvent.size());
@@ -360,7 +360,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
         for (int i = 0; i < shopNum; ++i) {
             if (!mShopItems.isEmpty()) {
                 Item shopItem = mShopItems.remove(0);
-                Event shop = new Event(EventType.MERCHANT)
+                Event shop = new Event(EventType.PEDDLER)
                         .setLoot(shopItem)
                         .setCost(Game.Cost.COIN, shopItem.price);
                 mAllEvent.add(shop);
@@ -474,7 +474,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
              * War Cry :
              *   range : all
              *   zako : life -1
-             *   merchant : runaway
+             *   peddler : runaway
              */
             case WAR_CRY: {
 //                int damage = 99 / mEvents.size();
@@ -485,7 +485,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 //                        if (evt.life < 1)
 //                            evt.life = 1;
 //                        mAdapter.change(i);
-//                    } else if (evt.type == EventType.MERCHANT) {
+//                    } else if (evt.type == EventType.PEDDLER) {
 //                        mEvents.remove(i);
 //                        mAdapter.remove(i);
 //                    }
@@ -563,7 +563,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             return mHero.key >= evt.costValue;
         case Game.Cost.COIN:
             // TODO check equip with all type attribute, pure attack & max attack cap ???
-            return mHero.coin >= evt.costValue && (!evt.loot.isPureSpeed() || mHero.getLimit().speed < mHero.speed || EventType.MERCHANT != evt.type);
+            return mHero.coin >= evt.costValue && (!evt.loot.isPureSpeed() || mHero.getLimit().speed < mHero.speed || EventType.PEDDLER != evt.type);
         case Game.Cost.STAR:
             return mHero.star >= evt.costValue;
         case Game.Cost.DAMAGE:
@@ -962,7 +962,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
                 // damage = random (1 ~ 100) * 10
                 evt.costValue = (mRandom.nextInt(10) + 1) * (mRandom.nextInt(10) + 1) * 10;
             }
-        } else if (EventType.MERCHANT == evt.type) {
+        } else if (EventType.PEDDLER == evt.type) {
             /*
              * shop
              * dark presence : none
@@ -1096,7 +1096,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
             if (seed < 4)
                 changeAction(Action.LIFE_UP, Action.MORE_LIFE_UP);
             else if (seed < 8)
-                addNewFeat(Feat.GEM_SEEKER);
+                addNewFeat(Feat.CRYSTAL_HUNTER);
             else
                 addNewFeat(Feat.RICH);
             break;
@@ -1210,7 +1210,7 @@ public class DungeonManager extends GameManager<DungeonHero> /*implements Action
 
         int yellowGem, redGem, blueGem, greenGem, whiteGem, copperCoin, silverCoin, goldenCoin;
         
-        if (Feat.GEM_SEEKER.in(feats) || Feat.HOLY_ONE.in(feats)) {
+        if (Feat.CRYSTAL_HUNTER.in(feats) || Feat.HOLY_ONE.in(feats)) {
             yellowGem = 6;
             redGem = 12;
             blueGem = 18;

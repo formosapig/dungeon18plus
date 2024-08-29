@@ -190,17 +190,17 @@ public enum Item {
             Type.NORMAL | Type.RING, 40, UniqueSkill.IRON_RING, ATTACK_3, DEFENSE_3),
     IRON_RING_1(0x40E46204, "item/iron_ring", "iron_ring_1", "iron_1_help",
             Type.REFINED | Type.RING, 50, UniqueSkill.IRON_RING_1, ATTACK_4, DEFENSE_5),
-    YELLOW_RING(0x359E6775, "item/yellow_ring", "yellow_ring", null,
+    YELLOW_RING(0x359E6775, "item/yellow_ring", "yellow_ring", "ring_help",
             Type.NORMAL | Type.RING, 60, UniqueSkill.YELLOW_RING, LIFE_500),
-    RED_RING(0x1FC9667C, "item/red_ring", "red_ring", null,
+    RED_RING(0x1FC9667C, "item/red_ring", "red_ring", "ring_help",
             Type.NORMAL | Type.RING, 60, UniqueSkill.RED_RING, ATTACK_10),
-    BLUE_RING(0x63A51AB8, "item/blue_ring", "blue_ring", null,
+    BLUE_RING(0x63A51AB8, "item/blue_ring", "blue_ring", "ring_help",
             Type.NORMAL | Type.RING, 60, UniqueSkill.BLUE_RING, DEFENSE_10),
-    GREEN_RING(0x5F9BD7D9, "item/green_ring", "green_ring", null,
+    GREEN_RING(0x5F9BD7D9, "item/green_ring", "green_ring", "ring_help",
             Type.NORMAL | Type.RING, 60, UniqueSkill.GREEN_RING, SPEED_5),
     BLACK_RING(0xA37D6B01, "item/black_ring", "black_ring", "black_ring_help",
             Type.CURSED | Type.RING, 60, UniqueSkill.BLACK_RING, LIFE_N40, ATTACK_5, DEFENSE_5, SPEED_1),
-    WHITE_RING(0x8868001E, "item/white_ring", "white_ring", null,
+    WHITE_RING(0x8868001E, "item/white_ring", "white_ring", "ring_help",
             Type.NORMAL | Type.RING, 60, UniqueSkill.WHITE_RING, LIFE_25, ATTACK_5, DEFENSE_5),
     IRON_RING_2(0x5D179F43, "item/iron_ring", "iron_ring_2", "iron_2_help",
             Type.REFINED | Type.RING, 66, ATTACK_7, DEFENSE_6),
@@ -347,7 +347,7 @@ public enum Item {
         this.upgrade = upgrade;
     }
 
-    // without ultimate skill
+    // without unique skill
     Item(int code, String icon, String name, String help,
          @Type int type, int price, Variety... upgrade) {
         this.code = code;

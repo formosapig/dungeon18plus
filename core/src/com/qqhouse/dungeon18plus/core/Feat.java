@@ -5,7 +5,7 @@ public enum Feat {
 	EXPERIENCE("item/star", "experience", "experience_help"),
 	QUICK_LEARNER("item/star", "quick_learner", "quick_learner_help"),
 	APPRENTICE("item/key", "apprentice", "apprentice_help"),
-	GEM_SEEKER("item/key", "gem_seeker", "gem_seeker_help"),
+	CRYSTAL_HUNTER("item/key", "crystal_hunter", "crystal_hunter_help"),
 	RICH("item/copper_coin", "rich", "rich_help"),
 	LUCKY("item/key", "lucky", "lucky_help"),
 	RAGE("icon/damage", "rage", "rage_help"),

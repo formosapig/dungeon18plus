@@ -68,7 +68,7 @@ public class LegionTrainerScreen extends QQScreen {
         line.setBackground(assets.getNinePatchBG("white"));
         group.addChild(line);
 
-        // title bar with merchant and equipment count...
+        // title bar with crusader
         TitleBarView2 crusader = new TitleBarView2(assets);
         crusader.reset("crusader", "crusader", null, Game.Colour.COUNT, "");
         crusader.setSize(QQView.MATCH_PARENT, 48);

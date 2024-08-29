@@ -36,7 +36,7 @@ public class GalleryScreen extends QQScreen {
         if (0 < savedGame.getEquipmentCount()) {
             // equipment preview ... ?
             PreviewView3 equip = new PreviewView3(assets);
-            equip.reset("merchant", "merchant", "equipment_catalog_help", "special");
+            equip.reset("peddler", "peddler", "equipment_catalog_intro", "special");
             equip.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
             equip.setQQPressListener(new QQPressAdapter() {
                 @Override
@@ -51,7 +51,7 @@ public class GalleryScreen extends QQScreen {
         // monster collect
         if (0 < savedGame.getMonsterCount()) {
             PreviewView3 monster = new PreviewView3(assets);
-            monster.reset("skeleton", "skeleton", "monster_guide_help", "ordinary");
+            monster.reset("skeleton", "skeleton", "monster_guide_intro", "ordinary");
             monster.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
             monster.setQQPressListener(new QQPressAdapter() {
                 @Override
@@ -66,7 +66,7 @@ public class GalleryScreen extends QQScreen {
         // leader board.
         if (0 < savedGame.getLeaderboardCount()) {
             PreviewView3 leaderboard = new PreviewView3(assets);
-            leaderboard.reset("novice", "old_hero", "leaderboard_help", "lawful");
+            leaderboard.reset("novice", "veteran", "leaderboard_intro", "lawful");
             leaderboard.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
             leaderboard.setQQPressListener(new QQPressAdapter() {
                 @Override
@@ -81,7 +81,7 @@ public class GalleryScreen extends QQScreen {
         // barrack.
         if (0 < savedGame.getBarrackCount()) {
             PreviewView3 barrack = new PreviewView3(assets);
-            barrack.reset("crusader", "crusader", "barrack_help", "lawful");
+            barrack.reset("crusader", "crusader", "barrack_intro", "lawful");
             barrack.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
             barrack.setQQPressListener(new QQPressAdapter() {
                 @Override
@@ -95,7 +95,7 @@ public class GalleryScreen extends QQScreen {
 
         // hero album, must have.
         PreviewView3 heroAlbum = new PreviewView3(assets);
-        heroAlbum.reset("fairy", "fairy", "hero_album_help", "neutral");
+        heroAlbum.reset("fairy", "fairy", "hero_album_intro", "neutral");
         heroAlbum.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         heroAlbum.setQQPressListener(new QQPressAdapter() {
             @Override
@@ -110,7 +110,7 @@ public class GalleryScreen extends QQScreen {
         // giant album
         if (savedGame.isOpenGiantAlbum()) {
             PreviewView3 giantAlbum = new PreviewView3(assets);
-            giantAlbum.reset("valkyrie", "valkyrie", "giant_album_help", "neutral");
+            giantAlbum.reset("valkyrie", "valkyrie", "giant_album_intro", "neutral");
             giantAlbum.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
             giantAlbum.setQQPressListener(new QQPressAdapter() {
                 @Override

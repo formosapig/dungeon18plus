@@ -49,14 +49,14 @@ public class SoulMasterScreen extends QQScreen {
         group.setPosition(0, 0);
         addChild(group);
 
-        // title bar with merchant and equipment count...
-        TitleBarView2 merchant = new TitleBarView2(assets);
-        merchant.reset("valkyrie", "valkyrie", null, Game.Colour.RARE, "");
-        merchant.setSize(QQView.MATCH_PARENT, 48);
-        //merchant.setPosition(0, Game.Size.HEIGHT - 48);
-        merchant.setPadding(8);
-        merchant.setBackground(assets.getNinePatchBG("neutral"));
-        group.addChild(merchant);
+        // title bar with valkyrie
+        TitleBarView2 valkyrie = new TitleBarView2(assets);
+        valkyrie.reset("valkyrie", "valkyrie", null, Game.Colour.RARE, "");
+        valkyrie.setSize(QQView.MATCH_PARENT, 48);
+        //valkyrie.setPosition(0, Game.Size.HEIGHT - 48);
+        valkyrie.setPadding(8);
+        valkyrie.setBackground(assets.getNinePatchBG("neutral"));
+        group.addChild(valkyrie);
 
         // split line...
         QQView line = new QQView();

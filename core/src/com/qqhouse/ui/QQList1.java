@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.qqhouse.dungeon18plus.Game;
 
 public class QQList1 extends QQLinear implements QQView.IsTouchable {
 
@@ -234,6 +235,8 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
                 if (target.touchUp(childRelativeX, childRelativeY)) {
                     if (null != listener) {
                         listener.onPress(i);
+                        // cancel scroll
+                        //accelerator.cancelScroll();
                     }
                     return true;
                 }
@@ -346,7 +349,6 @@ public class QQList1 extends QQLinear implements QQView.IsTouchable {
     public void arrangeChildren() {
         if (0 >= this.width || 0 >= this.height)
             return;
-
         // from top to bottom...
         float anchorY = this.height - topPadding + scrollY;
         for (QQView child : childrenView) {

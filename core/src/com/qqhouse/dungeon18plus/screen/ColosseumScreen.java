@@ -22,11 +22,14 @@ import com.qqhouse.dungeon18plus.view.ProfileView;
 import com.qqhouse.dungeon18plus.view.SelectEquipmentView;
 import com.qqhouse.ui.QQGroup;
 import com.qqhouse.ui.QQList;
+import com.qqhouse.ui.QQList1;
+import com.qqhouse.ui.QQListAdapter;
 import com.qqhouse.ui.QQPressAdapter;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQScroll;
 import com.qqhouse.ui.QQView;
+import com.qqhouse.ui.animation.QQAnimationList;
 
 import java.util.ArrayList;
 
@@ -60,7 +63,7 @@ public class ColosseumScreen extends QQScreen {
     /*
         QQList Adapter ...
      */
-    private final QQList.Adapter eventAdapter = new QQList.Adapter() {
+    private final QQListAdapter eventAdapter = new QQListAdapter() {
 
         @Override
         public int getSize() {
@@ -117,10 +120,10 @@ public class ColosseumScreen extends QQScreen {
         addChild(group);
 
         // event listview ...
-        QQList eventList = new QQList(getViewport());
+        QQAnimationList eventList = new QQAnimationList(getViewport(), Game.Size.WIDGET_MARGIN);
         eventList.setSize(Game.Size.WIDTH, QQView.MATCH_PARENT);
         eventList.setAdapter(eventAdapter);
-        eventList.addListener(new QQList.PressListener() {
+        eventList.addListener(new QQList1.PressListener() {
             @Override
             public void onPress(int index) {
                 if (manager.isEventDoable(index)) {

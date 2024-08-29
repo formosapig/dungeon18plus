@@ -36,13 +36,13 @@ public class EquipmentCatalogScreen extends QQScreen {
         group.setPosition(0, 0);
         addChild(group);
 
-        // title bar with merchant and equipment count...
-        TitleBarView2 merchant = new TitleBarView2(assets);
-        merchant.reset("merchant", "merchant", null, Game.Colour.COUNT, Integer.toString(equipments.size()));
-        merchant.setSize(QQView.MATCH_PARENT, 48);
-        merchant.setPadding(8);
-        merchant.setBackground(assets.getNinePatchBG("special"));
-        group.addChild(merchant);
+        // title bar with peddler and equipment count...
+        TitleBarView2 peddler = new TitleBarView2(assets);
+        peddler.reset("peddler", "peddler", null, Game.Colour.COUNT, Integer.toString(equipments.size()));
+        peddler.setSize(QQView.MATCH_PARENT, 48);
+        peddler.setPadding(8);
+        peddler.setBackground(assets.getNinePatchBG("special"));
+        group.addChild(peddler);
 
         // split line...
         QQView line = new QQView();

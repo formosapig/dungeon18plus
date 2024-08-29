@@ -134,14 +134,14 @@ public class ProfileView extends AssetGroup {
                 case SWORD_MASTER:
                     help = assets.geti18n("sword_master_unlock");
                     break;
-                case CLERIC:
-                case RED_MAGE:
-                case BLUE_MAGE:
-                case GREEN_MAGE:
+                case TRAINEE_CLERIC:
+                case RED_APPRENTICE_MAGE:
+                case BLUE_APPRENTICE_MAGE:
+                case GREEN_APPRENTICE_MAGE:
                     help = assets.geti18n("unlock_coming_soon");
                     break;
-                case MERCHANT:
-                    help = assets.geti18n("merchant_unlock");
+                case PEDDLER:
+                    help = assets.geti18n("peddler_unlock");
                     break;
                 case FAIRY:
                 case FIRE_KNIGHT:

@@ -35,14 +35,14 @@ public class MonsterGuideScreen extends QQScreen {
         group.setPosition(0, 0);
         addChild(group);
 
-        // title bar with merchant and equipment count...
-        TitleBarView2 merchant = new TitleBarView2(assets);
-        merchant.reset("skeleton", "skeleton", null, Game.Colour.COUNT, Integer.toString(monsters.size()));
-        merchant.setSize(QQView.MATCH_PARENT, 48);
-        //merchant.setPosition(0, Game.Size.HEIGHT - 48);
-        merchant.setPadding(8);
-        merchant.setBackground(assets.getNinePatchBG("ordinary"));
-        group.addChild(merchant);
+        // title bar with skeleton and equipment count...
+        TitleBarView2 skeleton = new TitleBarView2(assets);
+        skeleton.reset("skeleton", "skeleton", null, Game.Colour.COUNT, Integer.toString(monsters.size()));
+        skeleton.setSize(QQView.MATCH_PARENT, 48);
+        //skeleton.setPosition(0, Game.Size.HEIGHT - 48);
+        skeleton.setPadding(8);
+        skeleton.setBackground(assets.getNinePatchBG("ordinary"));
+        group.addChild(skeleton);
 
         // split line...
         QQView line = new QQView();
