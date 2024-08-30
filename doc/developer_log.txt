@@ -1,3 +1,8 @@
+--------------- 20240830(五) ---------------
+這裏藏著 URLScheme / DeepLink for iOS 的作法參考 https://github.com/robovm/robovm-samples
+要從 robovm 下手...
+iOSApplication 本身就擁有相關函式....
+
 --------------- 20240829(四) ---------------
 1. 由於新增了 scroll accelerator , 在 QQAnimationList 點擊時, 會觸發 doScroll, 然後重排子元件,
    導致動畫的效果變成跳動的.
