@@ -33,6 +33,8 @@ public class DesktopLauncher {
 		//config.setDecorated(false);
 		config.setResizable(false);
 		//new Lwjgl3Application(new Dungeon18Plus(), config);
+		//Main main = new Main();
+		//main.purchaseManager = new FakePurchaseManager();
 		new Lwjgl3Application(new Main(), config);
 	}
 }

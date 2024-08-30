@@ -1,0 +1,32 @@
+Common
+
+# app bundle
+    com.qqhouse.dungeon18plus (new game)
+
+
+
+# in app billing / in app purchase
+
+    1. sku id : com.qqhouse.dungeon18plus.premium
+       price : $1.99 (US dollars)
+       function : can use Fairy, Fire Knight, Water Knight in certain game mode.
+                  can use Yggdrasil series equipment.
+       memo : this will increase over version upgrade.
+
+    2. sku id : com.qqhouse.dungeon18plus.fairy
+       price : $0.99 (US dollars)
+       function : can use Fairy in Dungeon mode.
+
+    3. sku id : com.qqhouse.dungeon18plus.fire_knight
+       price : $0.99 (US dollars)
+       function : can use Fire Knight in Colosseum mode / Wilderness mode.
+
+    4. sku id : com.qqhouse.dungeon18plus.water_knight
+       price : $0.99 (US dollars)
+       function : can use Water Knight in Colosseum mode / Wilderness mode.
+
+
+Android
+
+
+iOS

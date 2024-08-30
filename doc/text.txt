@@ -1,1 +1,7 @@
 colosseum = 圓形競技場, 特指古羅馬圓形競技場. 所以統一翻譯為圓形競技場.
+
+biography = bio
+introductions = intro
+使用縮寫跟前綴可以排序... (prefix)
+
+是否要拆分檔案呢??? 目前看起來沒有明顯的必要性...

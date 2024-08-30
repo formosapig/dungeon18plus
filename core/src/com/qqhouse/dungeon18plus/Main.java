@@ -1,11 +1,19 @@
 package com.qqhouse.dungeon18plus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.pay.Information;
+import com.badlogic.gdx.pay.Offer;
+import com.badlogic.gdx.pay.OfferType;
+import com.badlogic.gdx.pay.PurchaseManager;
+import com.badlogic.gdx.pay.PurchaseManagerConfig;
+import com.badlogic.gdx.pay.PurchaseObserver;
+import com.badlogic.gdx.pay.Transaction;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.qqhouse.dungeon18plus.core.ColosseumManager;
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
+import com.qqhouse.dungeon18plus.purchase.IAB;
 import com.qqhouse.dungeon18plus.screen.BarrackScreen;
 import com.qqhouse.dungeon18plus.screen.ColosseumScreen;
 import com.qqhouse.dungeon18plus.screen.DungeonScreen;
@@ -36,11 +44,8 @@ public class Main extends QQGameMachine implements
         GalleryScreen.GalleryCallback,
         PopupScreen {
 
-    public static final int STATE_TITLE       = 0;
-    public static final int STATE_SELECT_HERO = 1;
-    //public static final int
-
-    // state machine 有用嗎, 目前還沒有想到只有 state 而沒有 screen 的情況
+    // purchase
+    public PurchaseManager purchaseManager;
 
     private TitleScreen title;
     private SelectHeroScreen selectHero;
@@ -83,6 +88,102 @@ public class Main extends QQGameMachine implements
         //Gdx.app.error("Main.java", "SafeInsetLeft : " + Gdx.graphics.getSafeInsetLeft());
         //Gdx.app.error("Main.java", "SafeInsetRight : " + Gdx.graphics.getSafeInsetRight());
 
+        initialPurchaseManager();
+    }
+
+    private void initialPurchaseManager() {
+
+        PurchaseManagerConfig pmc = new PurchaseManagerConfig();
+        pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.PREMIUM.sku));
+        pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.FAIRY.sku));
+        pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.FIRE_KNIGHT.sku));
+        pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.WATER_KNIGHT.sku));
+
+        purchaseManager.install(new MyPurchaseObserver(), pmc, true);
+    }
+
+    private class MyPurchaseObserver implements PurchaseObserver {
+
+        private boolean restorePressed;
+
+        @Override
+        public void handleInstall() {
+            Gdx.app.log("IAP", "Installed");
+
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    //updateGuiWhenPurchaseManInstalled(null);
+                    Information skuInfo = purchaseManager.getInformation(IAB.PREMIUM.sku);
+                    //skuInfo.
+
+                }
+            });
+        }
+
+        @Override
+        public void handleInstallError(final Throwable e) {
+            Gdx.app.error("IAP", "Error when trying to install PurchaseManager", e);
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    //updateGuiWhenPurchaseManInstalled(e.getMessage());
+                }
+            });
+        }
+
+        @Override
+        public void handleRestore(final Transaction[] transactions) {
+            if (transactions != null && transactions.length > 0)
+                for (Transaction t : transactions) {
+                    handlePurchase(t, true);
+                }
+            else if (restorePressed) {
+                showErrorOnMainThread("Nothing to restore");
+            }
+        }
+
+        @Override
+        public void handleRestoreError(Throwable e) {
+            if (restorePressed)
+                showErrorOnMainThread("Error restoring purchases: " + e.getMessage());
+        }
+
+        @Override
+        public void handlePurchase(final Transaction transaction) {
+            handlePurchase(transaction, false);
+        }
+
+        protected void handlePurchase(final Transaction transaction, final boolean fromRestore) {
+            Gdx.app.postRunnable(() -> {
+                if (transaction.isPurchased()) {
+                    for (IAB item : IAB.values()) {
+                        if (transaction.getIdentifier().equals(item.sku)) {
+                            //this.flag |= item.flag;
+                        }
+                    }
+                }
+            });
+        }
+
+        @Override
+        public void handlePurchaseError(Throwable e) {
+            showErrorOnMainThread("Error on buying:\n" + e.getMessage());
+        }
+
+        @Override
+        public void handlePurchaseCanceled() {
+
+        }
+
+        private void showErrorOnMainThread(final String message) {
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    // show a dialog here...
+                }
+            });
+        }
     }
 
     @Override
@@ -241,5 +342,12 @@ public class Main extends QQGameMachine implements
         }
         wilderness.setGiantRace(giant);
         push(wilderness);
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        if (null != purchaseManager)
+            purchaseManager.dispose();
     }
 }
