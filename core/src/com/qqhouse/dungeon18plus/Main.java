@@ -99,7 +99,7 @@ public class Main extends QQGameMachine implements
         pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.FIRE_KNIGHT.sku));
         pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.WATER_KNIGHT.sku));
 
-        purchaseManager.install(new MyPurchaseObserver(), pmc, true);
+        //purchaseManager.install(new MyPurchaseObserver(), pmc, true);
     }
 
     private class MyPurchaseObserver implements PurchaseObserver {
