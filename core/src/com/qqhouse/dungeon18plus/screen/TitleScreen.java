@@ -1,5 +1,9 @@
 package com.qqhouse.dungeon18plus.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
@@ -9,6 +13,8 @@ import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
+
+import java.util.Locale;
 
 public class TitleScreen extends QQScreen {
 
@@ -73,7 +79,14 @@ public class TitleScreen extends QQScreen {
         }
 
         @Override
-        public void onLongPress(QQView view) {}
+        public void onLongPress(QQView view) {
+            String[] data = {"black","chaotic","chaotic_down","chaotic_up","dialog","disable","help","hero_info","lawful","lawful_down","lawful_up","level","loot_info","neutral","neutral_down","neutral_up","ordinary","ordinary_down","ordinary_up","progress_back","progress_cyan_primary","progress_cyan_secondary","progress_yellow_primary","progress_yellow_secondary","special","special_down","special_up","underline","white","zako_level"};
+            long t = TimeUtils.millis();
+            for (int i = 0; i < 20000; ++i)
+                for (String key : data)
+                    assets.getNinePatch(key);
+            Gdx.app.error("TitleScreen", "total time : " + (TimeUtils.millis() - t));
+        }
     };
 
     @Override

@@ -29,9 +29,6 @@ public class Assets {
 
     private I18NBundle langBundle;
 
-    // Texture parameter for TextureFilter = linear... make graphic more smooth....
-    private TextureLoader.TextureParameter ttParam;
-
     //private final String i18nFile = "i18n/dungeon18plus";
     private final String i18nFile = "i18n/game_text";
     private final String chineseChar = "。！：，／？";
@@ -39,9 +36,6 @@ public class Assets {
 
     public Assets() {
         manager = new AssetManager();
-        ttParam = new TextureLoader.TextureParameter();
-        ttParam.minFilter = Texture.TextureFilter.Linear;
-        ttParam.magFilter = Texture.TextureFilter.Linear;
 
         // free type font ...
         FileHandleResolver resolver = new InternalFileHandleResolver();
@@ -49,17 +43,8 @@ public class Assets {
         manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
         // change locale...
-        Locale.setDefault(Locale.ENGLISH);
+        //Locale.setDefault(Locale.ENGLISH);
     }
-
-
-    //public NinePatch getNinePatchBG(String key) {
-    //    long t = TimeUtils.millis();
-    //    NinePatch np = new NinePatch(getBackground(key), 4, 4, 4, 4);
-    //    //Gdx.app.error("Assets", String.format(Locale.US, "getNinePatchBG(%S) : %d", key, (TimeUtils.millis() - t)));
-
-    //    return np;//new NinePatch(getBackground(key), 4, 4, 4, 4);
-    //}
 
     public void dispose() {
         if (null != atlas)
@@ -93,17 +78,6 @@ public class Assets {
         return langBundle.format(key, args);
     }
 
-    public Texture getTexture(String folder, String key) {
-        String fileName = folder + "/" + key + ".png";
-        if (!manager.contains(fileName, Texture.class)) {
-            long t = TimeUtils.millis();
-            manager.load(fileName, Texture.class, ttParam);
-            manager.finishLoadingAsset(fileName);
-            //Gdx.app.error("Assets", String.format(Locale.US, "getTexture(%s/%S) : %d",folder, key, (TimeUtils.millis() - t)));
-        }
-        return manager.get(fileName, Texture.class);
-    }
-
     public BitmapFont getFont(FontSet set) {
         return getFont(set.name, set.size, set.fixedWidth);
     }
@@ -125,8 +99,8 @@ public class Assets {
     }
 
     private BitmapFont getFont(String fontName, int fontSize, boolean fixedWidth) {
-        String fileName = String.format("%s%d.ttf", fontName, fontSize);
-        if (!manager.contains(fileName)) {
+        String fontKey = String.format(Locale.US, "%s%d.ttf", fontName, fontSize);
+        if (!manager.contains(fontKey)) {
             long t = TimeUtils.millis();
             FreetypeFontLoader.FreeTypeFontLoaderParameter param = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
             param.fontFileName = "font/" + fontName + ".ttf";
@@ -134,15 +108,15 @@ public class Assets {
             param.fontParameters.minFilter = Texture.TextureFilter.Linear;
             param.fontParameters.magFilter = Texture.TextureFilter.Linear;
             param.fontParameters.characters += chineseChar + chineseChar2;
-            manager.load(fileName, BitmapFont.class, param);
-            manager.finishLoadingAsset(fileName);
+            manager.load(fontKey, BitmapFont.class, param);
+            manager.finishLoadingAsset(fontKey);
             // fixed size ?! white rabbit 的 1 沒有 fixed width ... 導致浪費效能...
-            //BitmapFont font = manager.get(fileName, BitmapFont.class);
+            //BitmapFont font = manager.get(fontKey, BitmapFont.class);
             //font.setFixedWidthGlyphs(FreeTypeFontGenerator.DEFAULT_CHARS);
             Gdx.app.error("Assets", String.format(Locale.US, "getFont(%S) : %d", fontName, (TimeUtils.millis() - t)));
 
         }
-        BitmapFont font = manager.get(fileName, BitmapFont.class);
+        BitmapFont font = manager.get(fontKey, BitmapFont.class);
         if (fixedWidth)
             font.setFixedWidthGlyphs("0123456789");//0123456789");
         return font;
@@ -172,12 +146,20 @@ public class Assets {
      */
     private TextureAtlas atlas;
 
+    //private Map<String, TextureRegion> regions = new HashMap<>();
+
+    // 在 30 萬次讀取的情況下 findRegion ~= 99 ms , HashMap ~= 20 ms.... 所以沒有必要用 HashMap 存起來...
     public TextureRegion getBlockee(String key) {
         if (null == atlas) {
             manager.load("game.atlas", TextureAtlas.class);
             manager.finishLoadingAsset("game.atlas");
             atlas = manager.get("game.atlas", TextureAtlas.class);
         }
+        //if (!regions.containsKey(key)) {
+        //    regions.put(key, atlas.findRegion("blockee/" + key));
+        //}
+        //return regions.get(key);
+        //Gdx.app.error("Assets", "find blockee : " + key);
         return atlas.findRegion("blockee/" + key);
     }
 
@@ -196,13 +178,14 @@ public class Assets {
             manager.finishLoadingAsset("game.atlas");
             atlas = manager.get("game.atlas", TextureAtlas.class);
         }
-        Gdx.app.error("Assets", "getBackground : " + key);
+        //Gdx.app.error("Assets", "getBackground : " + key);
         return atlas.findRegion("bg/" + key);
     }
 
     private Map<String, NinePatch> ninePatchs = new HashMap<>();
 
     // desktop create Nine Patch = 0 ms.
+    // 20000 次讀取時, createPatch = 365 ms , HashMap = 25 ms....
     public NinePatch getNinePatch(String key) {
         //long t = TimeUtils.millis();
         if (null == atlas) {
@@ -210,12 +193,12 @@ public class Assets {
             manager.finishLoadingAsset("game.atlas");
             atlas = manager.get("game.atlas", TextureAtlas.class);
         }
-        if (!ninePatchs.containsKey(key)) {
-            NinePatch np = atlas.createPatch("9patch/" + key);
-            ninePatchs.put(key, np);
-            Gdx.app.error("Assets", "create9Patch : " + key);
-        }
+        if (!ninePatchs.containsKey(key))
+            //NinePatch np = atlas.createPatch("9patch/" + key);
+            ninePatchs.put(key, atlas.createPatch("9patch/" + key));
+            //Gdx.app.error("Assets", "create9Patch : " + key);
         //Gdx.app.error("Assets", String.format(Locale.US, "getNinePatch(%S) : %d", key, (TimeUtils.millis() - t)));
         return ninePatchs.get(key);
+        //return atlas.createPatch("9patch/" + key);
     }
 }
