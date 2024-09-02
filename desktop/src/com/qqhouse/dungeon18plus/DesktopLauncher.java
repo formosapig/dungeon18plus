@@ -13,6 +13,7 @@ public class DesktopLauncher {
 		//settings.maxWidth = 512;
 		//settings.maxHeight = 512;
 		TexturePacker.processIfModified(/*settings,*/ "assets/image", "assets/", "game");
+		//TexturePacker.process(/*settings,*/ "assets/image", "assets/", "game");
 
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setTitle("Dungeon 18+");

@@ -1,4 +1,4 @@
-package com.qqhouse.dungeon18plus.view;
+package com.qqhouse.dungeon18plus.dialog;
 
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
@@ -6,6 +6,10 @@ import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
+import com.qqhouse.dungeon18plus.view.AssetGroup;
+import com.qqhouse.dungeon18plus.view.TitleBarView2;
+import com.qqhouse.dungeon18plus.view.UniqueSkillButton;
+import com.qqhouse.dungeon18plus.view.VeteranButton;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList1;
 import com.qqhouse.ui.QQListAdapter;

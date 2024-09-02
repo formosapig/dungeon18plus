@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
@@ -14,7 +13,7 @@ import com.qqhouse.dungeon18plus.struct.ActionSlot;
 import com.qqhouse.dungeon18plus.struct.BossKill;
 import com.qqhouse.dungeon18plus.struct.event.Event;
 import com.qqhouse.dungeon18plus.view.ActionShortcutButton;
-import com.qqhouse.dungeon18plus.view.EventInfoView;
+import com.qqhouse.dungeon18plus.dialog.EventInfoView;
 import com.qqhouse.dungeon18plus.view.EventView;
 import com.qqhouse.dungeon18plus.view.HeroView;
 import com.qqhouse.dungeon18plus.view.LootInfoView;
@@ -144,8 +143,6 @@ public class DungeonScreen extends QQScreen {
         //group.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 24 - 64 - Game.Size.WIDGET_MARGIN * 3);
         //group.setPosition(0, 64 + Game.Size.WIDGET_MARGIN * 2 + 24);
         //addChild(group);
-
-
 
         // event listview ...
         QQAnimationList eventList = new QQAnimationList(getViewport(), Game.Size.WIDGET_MARGIN);

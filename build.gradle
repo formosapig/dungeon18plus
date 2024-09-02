@@ -95,6 +95,8 @@ project(":ios") {
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-ios"
         api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+        // gdx pay
+        api "com.badlogicgames.gdxpay:gdx-pay-iosrobovm-apple:$gdxPayVersion"
     }
 }
 
@@ -106,7 +108,7 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-        implementation "com.badlogicgames.gdxpay:gdx-pay-client:$gdxPayVersion"
+        api "com.badlogicgames.gdxpay:gdx-pay-client:$gdxPayVersion"
         // QRCode and draw
         api 'com.google.zxing:core:3.5.3'
         api 'space.earlygrey:shapedrawer:2.3.0'

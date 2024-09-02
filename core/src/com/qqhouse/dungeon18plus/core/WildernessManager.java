@@ -26,10 +26,11 @@ import java.util.TreeMap;
 public class WildernessManager {
 
 	// status define.
-	private static final int INITIAL	   = 0x00000001;	// create class
-	public static final int START		   = 0x00000002;	// press start
-	private static final int BATTLE		   = 0x00000004;	// tick can work.
-    private static final int RESULT		   = 0x00000008;	// after result and summary, should update all
+	private static final int INITIAL	    = 0x00000001;	// create class
+	public static final int START		    = 0x00000002;	// press start
+	private static final int BATTLE		    = 0x00000004;	// tick can work.
+    private static final int RESULT		    = 0x00000008;	// after result and summary, should update all
+	private static final int END            = 0x00000010;   // after result, go to end.
 
 	// update
     private static final int UPDATE_HISTORY = 0x00001000;	// update history.
@@ -41,7 +42,7 @@ public class WildernessManager {
 	
 	
 	// game result
-    private static final int GIANT_WIN	   = 0x00100000;	// giant win, you get nothing.
+    private static final int GIANT_WIN	    = 0x00100000;	// giant win, you get nothing.
     private static final int LEGION_WIN     = 0x00200000;	// legion win, get soul.
     private static final int TIME_UP        = 0x00400000;	// time up, legion lose, you get nothing but giant exp.
 
@@ -475,7 +476,7 @@ public class WildernessManager {
 			if (legion.alive) {
 				if (0 < legion.coolDown)
 					legion.coolDown--;
-				else if (/*legion.action.auto*/true) {
+				else if (legion.action.auto) {
 					// auto use unique skill
 					// battle action
 					addBattleAction(legion);
@@ -706,8 +707,20 @@ public class WildernessManager {
         displayTotalSummary();
 	}
 
+	private ArrayList<CampaignScore> allScore = new ArrayList<>();
+	public String resultKey = "time_up";
+
+	public ArrayList<CampaignScore> getAllScore() {
+		if (0 != (state & GIANT_WIN))
+			resultKey = "lose";
+		else if (0 != (state & LEGION_WIN))
+			resultKey = "win";
+		state = END | UPDATE_ALL;
+		return allScore;
+	}
+
 	private void displayTotalSummary() {
-	    ArrayList<CampaignScore> allScore = new ArrayList<>();
+	    //ArrayList<CampaignScore> allScore = new ArrayList<>();
 	    for (Campaigner legion : legions) {
             allScore.add(new CampaignScore(legion.iconKey, legion.getTotalDamage(), legion.getTotalGuard(), legion.getTotalHeal()));
         }
@@ -857,7 +870,11 @@ public class WildernessManager {
 	public boolean isResult() {
 		return (state & RESULT) != 0;
 	}
-	
+
+	public boolean isEnd() {
+		return (state & END) != 0;
+	}
+
 	public boolean isWin() {
 		return (state & LEGION_WIN) != 0;
 	}

@@ -4,8 +4,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
-import com.qqhouse.dungeon18plus.view.SelectEquipmentView;
-import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQView;
 
 import java.util.ArrayList;

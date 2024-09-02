@@ -15,6 +15,7 @@ import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
+import com.qqhouse.dungeon18plus.struct.GiantRecord;
 import com.qqhouse.dungeon18plus.view.PreviewView3;
 import com.qqhouse.tools.QRGenerator;
 import com.qqhouse.ui.QQImage;
@@ -146,9 +147,12 @@ public class SelectGiantScreen extends QQScreen {
         @Override
         public QQView getView(int index) {
             GiantRace giant = availableGiants.get(index);
+            GiantRecord record = savedGame.getGiantRecord(giant);
             PreviewView3 v = new PreviewView3(assets);
             v.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
             v.reset(giant.iconKey, giant.nameKey, giant.helpKey, giant.alignment.key);
+            if (0 < record.fastWin)
+                v.resetExtra("time", Integer.toString(record.fastWin), Game.Colour.SPEED);
             // update extra value...
             return v;
         }

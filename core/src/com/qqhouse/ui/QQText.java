@@ -18,7 +18,7 @@ public class QQText extends QQView {
     private String truncate = null;
     private boolean wrap = false;
     protected float shiftX, shiftY;
-    private GlyphLayout glyphs = new GlyphLayout();
+    protected GlyphLayout glyphs = new GlyphLayout();
 
     //private float alpha = 1; // 0 ~ 1
 

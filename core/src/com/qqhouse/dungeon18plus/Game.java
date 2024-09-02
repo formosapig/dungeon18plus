@@ -173,6 +173,7 @@ public class Game {
         public static final Color SOUL       = new Color(0xB0A0C0FF);
         public static final Color MASTERY    = new Color(0x80E0FFFF);
         public static final Color SOUL_LEVEL = new Color(0xFFE080FF);
+        public static final Color CALENDAR   = new Color(0xAAAAAAFF);   // kingdom calendar
     }
 
     /*
@@ -185,12 +186,13 @@ public class Game {
 
         public static final Assets.FontSet LEVEL16 = new Assets.FontSet("ConsolaMono-Bold", 16);
         //public static final Assets.FontSet LEVEL16 = new Assets.FontSet("overpass-mono.bold", 15);//ConsolaMono-Bold", 16);
-        public static final Assets.FontSet MASTERY14 = new Assets.FontSet("whitrabt", 14);
-        public static final Assets.FontSet DIGITAL16 = new Assets.FontSet("whitrabt", 16);
+        public static final Assets.FontSet MASTERY14 = new Assets.FontSet("whitrabt", 14, true);
+        public static final Assets.FontSet DIGITAL16 = new Assets.FontSet("whitrabt", 16, true);
         //public static final Assets.FontSet HERO_ABILITY = new Assets.FontSet("Nouveau_IBM", 18);
-        public static final Assets.FontSet HERO_ABILITY = new Assets.FontSet("whitrabt", 18);
-        public static final Assets.FontSet LOOT_INFO = new Assets.FontSet("whitrabt", 18);
-        public static final Assets.FontSet EVENT_COST = new Assets.FontSet("whitrabt", 22);
+        public static final Assets.FontSet HERO_ABILITY = new Assets.FontSet("whitrabt", 18, true);
+        public static final Assets.FontSet LOOT_INFO = HERO_ABILITY;//new Assets.FontSet("whitrabt", 18, true);
+        public static final Assets.FontSet TIME_TICK = HERO_ABILITY;
+        public static final Assets.FontSet EVENT_COST = new Assets.FontSet("whitrabt", 22, true);
 
         // mastery ?
         public static final Assets.FontSet ITEM_COUNT = new Assets.FontSet("overpass-mono.bold", 15);

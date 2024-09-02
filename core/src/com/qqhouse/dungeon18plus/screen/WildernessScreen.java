@@ -1,10 +1,13 @@
 package com.qqhouse.dungeon18plus.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.WildernessManager;
+import com.qqhouse.dungeon18plus.dialog.BattleReportDialog;
+import com.qqhouse.dungeon18plus.dialog.SummaryDialog;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignAction;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignResult;
@@ -19,13 +22,14 @@ import com.qqhouse.ui.QQGrid;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList1;
 import com.qqhouse.ui.QQListAdapter;
+import com.qqhouse.ui.QQPressAdapter;
 import com.qqhouse.ui.QQScreen;
 import com.qqhouse.ui.QQView;
 
 public class WildernessScreen extends QQScreen {
 
     private WildernessManager manager;
-    private PopupScreen callback;
+    private final PopupScreen callback;
     private GiantView giant;
     private QQList1 history;
     private float period;
@@ -51,8 +55,13 @@ public class WildernessScreen extends QQScreen {
         giant = new GiantView(assets);
         giant.reset(manager.giants.get(0));
         giant.setSize(QQView.MATCH_PARENT, 128);
+        giant.setQQPressListener(new QQPressAdapter() {
+            @Override
+            public void onPress(int index) {
+                manager.start();
+            }
+        });
         group.addChild(giant);
-
 
         // list
         history = new QQList1(getViewport(), Game.Size.WIDGET_MARGIN);
@@ -70,20 +79,9 @@ public class WildernessScreen extends QQScreen {
 
             @Override
             public void onPress(int index) {
-                if (0 == index)
-                    manager.start();
-                else if (1 == index) {
-                    manager.start();
-                    while (manager.isBattle()) {
-                        manager.tick();
-                    }
-                    history.updateAll();
-                }
-                //else {
-                //    manager.tick();
-                //    history.updateAll();
-                //    Gdx.app.error("WildernessScreen", "history size = " + manager.battleHistory.size());
-                //}
+                manager.useSkill(index);
+                history.updateAll();
+                history.scrollDown();
             }
 
             @Override
@@ -106,12 +104,30 @@ public class WildernessScreen extends QQScreen {
             if (period >= 0.066f) {
                 period -= 0.066f;
                 manager.tick();
-                //Gdx.app.error("WildernessScreen", "time = " + manager.time);
-                giant.update(manager.giants.get(0));
-                history.updateAll();
-                history.scrollDown();
+                if (manager.isUpdateGiant())
+                    giant.update(manager.giants.get(0));
+                if (manager.isUpdateHistory()) {
+                    history.updateAll();
+                    history.scrollDown();
+                }
+                if (manager.isUpdateLegion())
+                    legionAdapter.refresh();
             }
-        }
+        } /*else if (manager.isResult()) {
+            // disable swipe right.
+            //setSwipeRightCallback(null);
+
+            // call battle report dialog.
+            //BattleReportDialog dialog = new BattleReportDialog(assets, getViewport());
+            //dialog.reset(manager.getAllScore(), manager.resultKey, new QQPressAdapter() {
+            //    @Override
+            //    public void onPress(int index) {
+            //        callback.onPopupScreen();
+            //    }
+            //});
+            //openDialog(dialog);
+
+        }*/
     }
 
     /*
@@ -135,6 +151,14 @@ public class WildernessScreen extends QQScreen {
             v.reset(leg);
             v.setSize(QQView.MATCH_PARENT, 76);
             return v;
+        }
+
+        @Override
+        public void updateView(int index, QQView view) {
+            Legion leg = (Legion) manager.legions.get(index);
+
+            LegionHeroView v = (LegionHeroView) view;
+            v.update(leg);
         }
     };
 
@@ -167,17 +191,20 @@ public class WildernessScreen extends QQScreen {
                 CampaignAction action = (CampaignAction) manager.battleHistory.get(index);
                 convertView = new CampaignActionView(assets);
                 ((CampaignActionView) convertView).reset(action);
+                convertView.setSize(QQView.MATCH_PARENT, 48);
             } else if (TYPE_RESULT == getItemViewType(index)) {
                 CampaignResult result = (CampaignResult) manager.battleHistory.get(index);
                 convertView = new CampaignResultView(assets);
                 ((CampaignResultView) convertView).reset(result);
+                convertView.setSize(QQView.MATCH_PARENT, 40);
             } else {
                 CampaignScore score = (CampaignScore) manager.battleHistory.get(index);
                 convertView = new CampaignScoreView(assets);
                 ((CampaignScoreView) convertView).reset(score);
+                convertView.setSize(QQView.MATCH_PARENT, 40);
             }
             convertView.setPadding(8);
-            convertView.setSize(QQView.MATCH_PARENT, 40);
+            //convertView.setSize(QQView.MATCH_PARENT, 40);
 
             return convertView;
         }

@@ -29,13 +29,12 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
         public void remove(int index) {
             list.remove(index);
         };
-        public void updateAll() {
-            list.updateAll();
-        }
+        public void updateAll() { list.updateAll(); }
+        public void refresh() { list.refresh(); }
 
         public abstract int getSize();
         //public abstract QQView getView(int index);
-        //public abstract void updateView(int index, QQView view);
+        public void updateView(int index, QQView view) {};
         public abstract QQView getView(int index, QQView view);
 
         // callback
@@ -326,6 +325,12 @@ public class QQGrid extends QQView implements QQView.IsParent, QQView.IsTouchabl
             addChild(adapter.getView(i, null));
         }
         onParentSizeChanged(width, height);
+    }
+
+    public void refresh() {
+        for (int i = 0, s = childrenView.size(); i < s; ++i) {
+            adapter.updateView(i, childrenView.get(i));
+        }
     }
 
     /*

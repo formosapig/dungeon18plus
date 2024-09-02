@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.struct.campaign.Legion;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
@@ -40,13 +41,25 @@ public class LegionHeroView extends AssetGroupButton {
         item.setSize(32, 32);
         addChild(item);
 
-        life = new QQProgress(assets.getNinePatchBG("black"), assets.getNinePatchBG("yellow"));
+        //life = new QQProgress(assets.getNinePatchBG("black"), assets.getNinePatchBG("yellow"));
+        life = new QQProgress(assets.getNinePatch("progress_back"), assets.getNinePatch("progress_yellow_primary"), assets.getNinePatch("progress_yellow_secondary"));
         life.setPercent(100);
+        life.setSecondaryProgress(0);
         //life.setSize(MATCH_PARENT, 8);
         //life.setPosition(leftPadding, bottomPadding);
         addChild(life);
 
         setBackground(assets.getBackgroundSet(legion.heroClass.alignment.key));
+
+        // default is not enabled.
+        setEnabled(false);
+    }
+
+    public void update(Legion legion) {
+        life.setPercent(legion.life * 100 / legion.maxLife);
+        life.setSecondaryProgress(legion.nextLife * 100 / legion.maxLife);
+        setEnabled((0 >= legion.coolDown) && !legion.action.auto);
+        //Gdx.app.error("LegionHeroView.java", "legion = " + legion + " CD : " + legion.coolDown);
     }
 
     @Override
@@ -54,7 +67,7 @@ public class LegionHeroView extends AssetGroupButton {
         if (0 >= width || 0 >= height)
             return;
         if (null != life)
-            life.setSize(width - leftPadding - rightPadding, 8);
+            life.setSize(width - leftPadding - rightPadding, 10);
     }
 
     @Override
@@ -63,7 +76,7 @@ public class LegionHeroView extends AssetGroupButton {
             return;
 
         if (null != icon)
-            icon.setPosition((width - 48) / 2, bottomPadding);
+            icon.setPosition(leftPadding/*(width - 48) / 2*/, bottomPadding);
         if (null != item)
             item.setPosition(width - rightPadding - item.getWidth(), bottomPadding);
         if (null != life)

@@ -1,9 +1,12 @@
-package com.qqhouse.dungeon18plus.view;
+package com.qqhouse.dungeon18plus.dialog;
 
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.BossKill;
+import com.qqhouse.dungeon18plus.view.AssetGroup;
+import com.qqhouse.dungeon18plus.view.BossKillView;
+import com.qqhouse.dungeon18plus.view.TitleBarView2;
 import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQButtonEx;
 import com.qqhouse.ui.QQLinear;

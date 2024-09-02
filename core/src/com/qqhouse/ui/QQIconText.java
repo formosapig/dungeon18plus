@@ -16,7 +16,11 @@ public class QQIconText extends QQText {
         icon may be null.
      */
 
-    private static final int innerMargin = 2;
+    private final int innerMargin = 2;
+    private TextureRegion icon;
+    private int iconSize; // w = h (square)
+    private float iconShiftY;
+
     public QQIconText(BitmapFont font) {
         super(font);
     }
@@ -24,46 +28,65 @@ public class QQIconText extends QQText {
     public QQIconText(BitmapFont font, TextureRegion icon) {
         super(font);
         this.icon = icon;
-        //font.setFixedWidthGlyphs("01234567890+-=%");
+        iconSize = icon.getRegionWidth();
     }
 
     public QQIconText(BitmapFont font, NinePatch bg, TextureRegion icon) {
         super(font, bg);
         this.icon = icon;
-        //this.align = Align.right;
+        if (null != icon)
+            iconSize = icon.getRegionWidth();
     }
-
-    private TextureRegion icon;
 
     public void setIcon(TextureRegion icon) {
         this.icon = icon;
+        if (null != icon)
+            iconSize = icon.getRegionWidth();
+    }
+
+    // icon size version
+    public QQIconText(BitmapFont font, TextureRegion icon, int iconSize) {
+        super(font);
+        this.icon = icon;
+        this.iconSize = iconSize;
+    }
+
+    public QQIconText(BitmapFont font, NinePatch bg, TextureRegion icon, int iconSize) {
+        super(font, bg);
+        this.icon = icon;
+        this.iconSize = iconSize;
+    }
+
+    public void setIcon(TextureRegion icon, int iconSize) {
+        this.icon = icon;
+        this.iconSize = iconSize;
     }
 
     @Override
     public void resetWrapWidth() {
-        GlyphLayout glyphs = new GlyphLayout();
+        glyphs = new GlyphLayout();
         glyphs.setText(font, text);
 
-        width = (null != icon ? icon.getRegionWidth() + innerMargin : 0) + glyphs.width;
+        width = (null != icon ? iconSize + innerMargin : 0) + glyphs.width;
     }
 
     @Override
     protected void rearrange() {
-        GlyphLayout glyphs = new GlyphLayout();
+        glyphs = new GlyphLayout();
         glyphs.setText(font, text);
 
         // width
         if (wrapWidth) {
-            width = (null != icon ? icon.getRegionWidth() + innerMargin : 0) + glyphs.width;
+            width = (null != icon ? iconSize + innerMargin : 0) + glyphs.width;
         }
 
         // shift x
         if (Align.isCenterHorizontal(align)) {
-            shiftX = ((null != icon ? icon.getRegionWidth() + innerMargin/*height + 2*/ : 0) + width - glyphs.width) / 2;
+            shiftX = ((null != icon ? (iconSize + innerMargin) : 0) + width - glyphs.width) / 2;
         } else if (Align.isRight(align)) {
             shiftX = width - glyphs.width - rightPadding;
         } else {
-            shiftX = (null != icon ? icon.getRegionWidth() + innerMargin/*height + 2*/ : 0);
+            shiftX = (null != icon ? (iconSize + innerMargin) : 0);
         }
 
         // shift y
@@ -74,40 +97,14 @@ public class QQIconText extends QQText {
         } else {
             shiftY = height;
         }
+
+        iconShiftY = bottomPadding + (height - iconSize) / 2;
     }
 
     @Override
     public void drawForeground(SpriteBatch batch, float originX, float originY) {
         if (null != icon)
-            batch.draw(icon, originX + leftPadding, originY + bottomPadding, icon.getRegionWidth(), icon.getRegionHeight()/*height, height*/);
+            batch.draw(icon, originX + leftPadding, originY + iconShiftY, iconSize, iconSize);
         super.drawForeground(batch, originX, originY);
-    }
-
-    /*
-        chain methods...
-     */
-    public QQIconText color(Color color) {
-        super.setColor(color);
-        return this;
-    }
-
-    public QQIconText align(int align) {
-        super.setAlign(align);
-        return this;
-    }
-
-    public QQIconText size(float width, float height) {
-        super.setSize(width, height);
-        return this;
-    }
-
-    public QQIconText position(float x, float y) {
-        super.setPosition(x, y);
-        return this;
-    }
-
-    public QQIconText attach(IsParent parent) {
-        parent.addChild(this);
-        return this;
     }
 }

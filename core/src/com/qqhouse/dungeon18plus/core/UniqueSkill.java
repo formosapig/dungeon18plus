@@ -75,7 +75,7 @@ public enum UniqueSkill {
 	 * Green Pumpkin
 	 */
 	// 大爆發, 依被傷害的血量無差別攻擊人
-	PAIN_BOMB( "broken_yellow_soul",            0x4FA61DE2, 110, 110, new OpSt(DG_WND,    3,    3, ALL, ALL)),
+	PAIN_BOMB( "item/broken_yellow_soul",            0x4FA61DE2, 110, 110, new OpSt(DG_WND,    3,    3, ALL, ALL)),
 	
 	/*
 	 * Bloody Werewolf 

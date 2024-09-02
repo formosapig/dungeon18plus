@@ -1,10 +1,13 @@
-package com.qqhouse.dungeon18plus.view;
+package com.qqhouse.dungeon18plus.dialog;
 
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.EventType;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.event.Event;
+import com.qqhouse.dungeon18plus.view.AssetGroup;
+import com.qqhouse.dungeon18plus.view.ItemDetailView;
+import com.qqhouse.dungeon18plus.view.PurePreviewView;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQView;
 

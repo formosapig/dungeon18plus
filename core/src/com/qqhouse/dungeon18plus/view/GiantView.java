@@ -7,7 +7,7 @@ import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQProgress;
 
-public class GiantView extends AssetGroup  {
+public class GiantView extends AssetGroupButton  {
 
     private QQImage icon;
     private QQIconText action;
@@ -29,13 +29,15 @@ public class GiantView extends AssetGroup  {
         action.setSize(54, 24);
         addChild(action);
 
-        life = new QQProgress(assets.getNinePatchBG("black"), assets.getNinePatchBG("yellow"));
+        //life = new QQProgress(assets.getNinePatchBG("black"), assets.getNinePatchBG("yellow"));
+        life = new QQProgress(assets.getNinePatch("progress_back"), assets.getNinePatch("progress_yellow_primary"), assets.getNinePatch("progress_yellow_secondary"));
         life.setPercent(100);
-        life.setSize(MATCH_PARENT, 8);
+        life.setSecondaryProgress(0);
+        life.setSize(MATCH_PARENT, 10);
         life.setPosition(leftPadding, bottomPadding);
         addChild(life);
 
-        setBackground(assets.getNinePatchBG(giant.bgKey));
+        setBackground(assets.getBackgroundSet(giant.bgKey));
     }
 
     public void update(Campaigner giant) {
@@ -46,6 +48,7 @@ public class GiantView extends AssetGroup  {
 
         if (null != life) {
             life.setPercent(giant.life * 100 / giant.maxLife);
+            life.setSecondaryProgress(giant.nextLife * 100 / giant.maxLife);
         }
     }
 

@@ -39,8 +39,8 @@ public final class GiantRecord implements Comparable<GiantRecord> {
 	}
 	
 	public void defeat(int time) {
-		if (time < Game.Setting.CAMPAIGN_MAX_TIME && this.fastWin < time) {
-			this.fastWin = time;
+		if (time < Game.Setting.CAMPAIGN_MAX_TIME && fastWin < time) {
+			fastWin = time;
 		}
 	}
 	

@@ -1,3 +1,13 @@
+--------------- 20240901(日) ---------------
+gradle api vs implementation
+api 就是舊的 compile
+implementation 可以防止不適當的引用....
+例如你的 library 裏面寫了 api A , 當你的專案引用了 library 時也可以呼叫 A 的 method.
+但是當你的 library 裏面寫了 implementation A 時, 引用了 library 的專案是無法引用 A 的.
+
+I like to think about an api dependency as public (seen by other modules) while implementation dependency as private (only seen by this module).
+
+
 --------------- 20240830(五) ---------------
 這裏藏著 URLScheme / DeepLink for iOS 的作法參考 https://github.com/robovm/robovm-samples
 要從 robovm 下手...
