@@ -23,7 +23,7 @@ public class ProfileFeatView extends AssetGroup {
 
         this.innerMargin = innerMargin;
 
-        title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
+        title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatch("underline"));
         title.setPadding(8);
         title.setAlign(Align.left);
         title.setText(assets.geti18n("profile_feat"));

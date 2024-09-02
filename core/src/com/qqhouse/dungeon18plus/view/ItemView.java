@@ -28,6 +28,13 @@ public class ItemView extends QQView {
     private QQText rank;
     private QQText count;
 
+    /*
+        status background
+     */
+    private static TextureRegion blessed;
+    private static TextureRegion cursed;
+    private static TextureRegion refined;
+
     public ItemView() {}
 
     public ItemView(TextureRegion icon) {
@@ -40,25 +47,29 @@ public class ItemView extends QQView {
         this.status = status;
     }
 
-    public ItemView(BitmapFont font, TextureRegion bg) {
-        count = new QQText(font, new NinePatch(bg, 4, 4, 4, 4), 0.5f);
+    public ItemView(BitmapFont font, NinePatch bg) {
+        count = new QQText(font, bg, 0.5f);
         count.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
         count.setPosition(0, 0);
         count.setPadding(2);
     }
 
-    public ItemView(BitmapFont font, NinePatch bg) {
-        rank = new QQText(font, bg, 0.5f);
+    // for SoulCount only.
+    ItemView(BitmapFont font, NinePatch bgRank, NinePatch bgCount) {
+        // rank of soul
+        rank = new QQText(font, bgRank, 0.5f);
         rank.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
         rank.setPadding(2);
-        count = new QQText(font, bg, 0.5f);
+        rank.setColor(Game.Colour.SOUL_LEVEL);
+        // count of soul
+        count = new QQText(font, bgCount, 0.5f);
         count.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
         count.setPadding(2);
     }
 
-    public ItemView(TextureRegion icon, BitmapFont font, TextureRegion bg) {
+    public ItemView(TextureRegion icon, BitmapFont font, NinePatch bg) {
         this.icon = icon;
-        count = new QQText(font, new NinePatch(bg, 4, 4, 4, 4), 0.5f);
+        count = new QQText(font, bg, 0.5f);
         count.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
         count.setPosition(0, 0);
         count.setPadding(2);
@@ -86,6 +97,18 @@ public class ItemView extends QQView {
         }
     }
 
+    public void setItem(Assets assets, Item item) {
+        icon = assets.getIcon(item.icon);
+        if (item.isBlessed())
+            status = null == blessed ? blessed = assets.getBackground("blessed") : blessed;
+        else if (item.isCursed())
+            status = null == cursed ? cursed = assets.getBackground("cursed") : cursed;
+        else if (item.isRefined())
+            status = null == refined ? refined = assets.getBackground("refined") : refined;
+        else
+            status = null;
+    }
+
     @Override
     protected void drawForeground(SpriteBatch batch, float originX, float originY) {
         // draw type if exist, then item
@@ -108,13 +131,14 @@ public class ItemView extends QQView {
         Equipment Mastery
      */
     public void setEquipmentMastery(Assets assets, EquipmentMastery em) {
-        setIcon(assets.getIcon(em.equipment.icon));
+        setItem(assets, em.equipment);
+        /*setIcon(assets.getIcon(em.equipment.icon));
         if (em.equipment.isBlessed())
             setStatus(assets.getBackground("blessed"));
         else if (em.equipment.isCursed())
             setStatus(assets.getBackground("cursed"));
         else if (em.equipment.isRefined())
-            setStatus(assets.getBackground("refined"));
+            setStatus(assets.getBackground("refined"));*/
         count.setColor(Game.Colour.MASTERY);
         count.setText(Integer.toString(em.mastery));
         count.setPosition(34 - count.getWidth(), -2);
@@ -123,62 +147,51 @@ public class ItemView extends QQView {
     /*
         Soul Count
      */
-    public void setSoulCount(Assets assets, SoulCount sc) {
-        setIcon(assets.getIcon(sc.soul.iconKey));
-
-        rank.setColor(Game.Colour.SOUL_LEVEL);
-        rank.setText(Integer.toString(sc.soul.rank));
-        rank.setPosition(-2, 34 - rank.getHeight());
-
-        count.setText(Integer.toString(sc.count));
-        count.setPosition(34 - count.getWidth(), -2);
+    public void setSoulCount(SoulCount sc) {
+        //rank.setText(Integer.toString(sc.soul.rank));
+        //rank.setPosition(-2, 34 - rank.getHeight());
+        //count.setText(Integer.toString(sc.count));
+        //count.setPosition(34 - count.getWidth(), -2);
     }
 
-    /*
-        chain method
-     */
-    public ItemView color(Color color) {
-        count.setColor(color);
-        return this;
-    }
-
-    // FIXME QQView 有 generic type function, 所以這邊的要檢查型別?
-    // uses unchecked or unsafe operations
-    public ItemView size(float width, float height) {
-        super.setSize(width, height);
-        return this;
-    }
-
-    public ItemView position(float x, float y) {
-        super.setPosition(x, y);
-        return this;
-    }
-
-    public ItemView attach(IsParent parent) {
-        parent.addChild(this);
-        return this;
-    }
 
     /*
         ItemView creator
      */
     public static ItemView create(Assets assets, Item item) {
-        ItemView iv = new ItemView(assets.getIcon(item.icon));
+        ItemView iv = new ItemView();
+        iv.setItem(assets, item);
+        /*ItemView iv = new ItemView(assets.getIcon(item.icon));
         if (item.isBlessed())
             iv.setStatus(assets.getBackground("blessed"));
         else if (item.isCursed())
             iv.setStatus(assets.getBackground("cursed"));
         else if (item.isRefined())
             iv.setStatus(assets.getBackground("refined"));
+        */
         return iv;
     }
 
     public static ItemView create(Assets assets, Item item, int count) {
-        ItemView iv = new ItemView(assets.getIcon(item.icon), assets.getFont(Game.Font.LEVEL16), assets.getBackground("black"));
+        ItemView iv = new ItemView(assets.getIcon(item.icon), assets.getFont(Game.Font.LEVEL16), assets.getNinePatch("black"));
         return iv;
     }
 
     public static ItemView create() {
         return new ItemView();
     }
+
+    public static ItemView create(Assets assets, SoulCount sc) {
+        ItemView iv = new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatch("black"), assets.getNinePatch("black"));
+        iv.setIcon(assets.getIcon(sc.soul.iconKey));
+
+        iv.rank.setText(Integer.toString(sc.soul.rank));
+        iv.rank.setPosition(-2, 34 - iv.rank.getHeight());
+
+        iv.count.setText(Integer.toString(sc.count));
+        iv.count.setPosition(34 - iv.count.getWidth(), -2);
+
+        return iv;
+    }
+
 }

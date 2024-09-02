@@ -43,7 +43,7 @@ public class CampaignScoreView extends AssetGroup {
         heal.setText(Integer.toString(score.heal));
         addChild(heal);
 
-        setBackground(assets.getNinePatchBG("help"));
+        setBackground(assets.getNinePatch("help"));
     }
 
     @Override

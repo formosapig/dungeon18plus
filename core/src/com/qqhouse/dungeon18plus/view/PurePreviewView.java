@@ -51,7 +51,7 @@ public class PurePreviewView extends AssetGroup {
         help.setText(assets.geti18n(helpKey), true);
 
         // background
-        bgNormal = assets.getNinePatchBG(alignmentKey);
+        bgNormal = assets.getNinePatch(alignmentKey);
     }
 
 

@@ -31,7 +31,7 @@ public class BattleReportView extends AssetGroup {
         super(assets);
         this.viewport = viewport;
         setPadding(8);
-        bgNormal = assets.getNinePatchBG("dialog");
+        bgNormal = assets.getNinePatch("dialog");
 
         group = new QQLinear(Game.Size.WIDGET_MARGIN);
         group.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
@@ -47,7 +47,7 @@ public class BattleReportView extends AssetGroup {
         title1.setSize(QQView.MATCH_PARENT, 32);
         title1.setPadding(4);
         title1.setText(assets.geti18n("battle_report"));
-        title1.setBackground(assets.getNinePatchBG("underline"));
+        title1.setBackground(assets.getNinePatch("underline"));
         group.addChild(title1);
 
         BattleReportBaseView base = new BattleReportBaseView(assets);
@@ -67,7 +67,7 @@ public class BattleReportView extends AssetGroup {
         title2.setSize(QQView.MATCH_PARENT, 32);
         title2.setPadding(4);
         title2.setText(assets.geti18n("war_trophy"));
-        title2.setBackground(assets.getNinePatchBG("underline"));
+        title2.setBackground(assets.getNinePatch("underline"));
         group.addChild(title2);
 
         // button

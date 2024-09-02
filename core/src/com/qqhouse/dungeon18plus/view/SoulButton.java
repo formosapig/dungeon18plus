@@ -15,13 +15,13 @@ public class SoulButton extends AssetGroup {
     private final QQView bg;
     private final QQButtonEx remove;
 
-    public SoulButton(Assets assets) {
+    public SoulButton(Assets assets, SoulCount sc) {
         super(assets);
 
         bg = new QQView();
         addChild(bg);
 
-        soul = new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatchBG("black"));
+        soul = ItemView.create(assets, sc);//new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatch("black"));
         addChild(soul);
 
         upgrade = new VarietyView(assets);
@@ -34,7 +34,7 @@ public class SoulButton extends AssetGroup {
     }
 
     public void update(SoulCount sc) {
-        soul.setSoulCount(assets, sc);
+        //soul.setSoulCount(sc);
         upgrade.update32(sc.soul.getInfluence(sc.count));
     }
 

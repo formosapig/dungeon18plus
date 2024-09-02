@@ -4,9 +4,145 @@ size: 1024, 512
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
+9patch/black
+  rotate: false
+  xy: 400, 336
+  size: 32, 32
+  split: 2, 2, 2, 2
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/chaotic
+  rotate: false
+  xy: 2, 438
+  size: 64, 64
+  split: 2, 2, 2, 2
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+9patch/chaotic_down
+  rotate: false
+  xy: 672, 302
+  size: 32, 32
+  split: 4, 4, 4, 4
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/dialog
+  rotate: false
+  xy: 910, 370
+  size: 32, 32
+  split: 4, 4, 4, 4
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/disable
+  rotate: false
+  xy: 876, 302
+  size: 32, 32
+  split: 4, 4, 4, 4
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/help
+  rotate: false
+  xy: 486, 234
+  size: 32, 32
+  split: 2, 2, 2, 2
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/hero_info
+  rotate: false
+  xy: 520, 268
+  size: 32, 32
+  split: 2, 2, 2, 2
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/lawful
+  rotate: false
+  xy: 134, 438
+  size: 64, 64
+  split: 2, 2, 2, 2
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+9patch/lawful_down
+  rotate: false
+  xy: 690, 268
+  size: 32, 32
+  split: 4, 4, 4, 4
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/level
+  rotate: false
+  xy: 724, 268
+  size: 32, 32
+  split: 2, 2, 2, 2
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/loot_info
+  rotate: false
+  xy: 758, 234
+  size: 32, 32
+  split: 2, 2, 2, 2
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/neutral
+  rotate: false
+  xy: 134, 372
+  size: 64, 64
+  split: 2, 2, 2, 2
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+9patch/neutral_down
+  rotate: false
+  xy: 894, 268
+  size: 32, 32
+  split: 4, 4, 4, 4
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/ordinary
+  rotate: false
+  xy: 68, 240
+  size: 64, 64
+  split: 2, 2, 2, 2
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+9patch/ordinary_down
+  rotate: false
+  xy: 894, 234
+  size: 32, 32
+  split: 4, 4, 4, 4
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 9patch/progress_back
   rotate: false
-  xy: 1014, 490
+  xy: 266, 378
+  size: 8, 8
+  split: 2, 2, 2, 2
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+9patch/progress_cyan_primary
+  rotate: false
+  xy: 332, 444
+  size: 8, 8
+  split: 2, 2, 2, 2
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+9patch/progress_cyan_secondary
+  rotate: false
+  xy: 68, 114
   size: 8, 8
   split: 2, 2, 2, 2
   orig: 8, 8
@@ -14,7 +150,7 @@ repeat: none
   index: -1
 9patch/progress_yellow_primary
   rotate: false
-  xy: 1014, 480
+  xy: 184, 230
   size: 8, 8
   split: 2, 2, 2, 2
   orig: 8, 8
@@ -22,1730 +158,1712 @@ repeat: none
   index: -1
 9patch/progress_yellow_secondary
   rotate: false
-  xy: 1014, 470
+  xy: 134, 180
   size: 8, 8
   split: 2, 2, 2, 2
   orig: 8, 8
   offset: 0, 0
   index: -1
-bg/black
+9patch/special
   rotate: false
-  xy: 2, 434
+  xy: 266, 438
   size: 64, 64
+  split: 2, 2, 2, 2
   orig: 64, 64
+  offset: 0, 0
+  index: -1
+9patch/special_down
+  rotate: false
+  xy: 470, 166
+  size: 32, 32
+  split: 4, 4, 4, 4
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/underline
+  rotate: false
+  xy: 708, 166
+  size: 32, 32
+  split: 2, 2, 0, 2
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/white
+  rotate: false
+  xy: 742, 166
+  size: 32, 32
+  split: 2, 2, 2, 2
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+9patch/zako_level
+  rotate: false
+  xy: 456, 30
+  size: 32, 32
+  split: 2, 2, 2, 2
+  orig: 32, 32
   offset: 0, 0
   index: -1
 bg/blessed
   rotate: false
-  xy: 2, 368
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/chaotic
-  rotate: false
-  xy: 68, 434
-  size: 64, 64
-  orig: 64, 64
+  xy: 468, 302
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
 bg/cursed
   rotate: false
-  xy: 134, 434
-  size: 64, 64
-  orig: 64, 64
+  xy: 842, 370
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
 bg/cyan
   rotate: false
-  xy: 2, 236
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/dialog
-  rotate: false
-  xy: 68, 302
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/help
-  rotate: false
-  xy: 200, 434
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/hero_info
-  rotate: false
-  xy: 2, 170
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/lawful
-  rotate: false
-  xy: 68, 236
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/level
-  rotate: false
-  xy: 266, 434
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/loot_info
-  rotate: false
-  xy: 2, 104
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/neutral
-  rotate: false
-  xy: 68, 170
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/ordinary
-  rotate: false
-  xy: 266, 368
+  xy: 2, 306
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 bg/refined
   rotate: false
-  xy: 68, 104
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/special
-  rotate: false
-  xy: 134, 170
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/underline
-  rotate: false
-  xy: 332, 368
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/white
-  rotate: false
-  xy: 398, 434
-  size: 64, 64
-  orig: 64, 64
+  xy: 622, 200
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
 bg/yellow
   rotate: false
-  xy: 68, 38
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bg/zako_level
-  rotate: false
-  xy: 134, 104
+  xy: 134, 240
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 blockee/arena
   rotate: false
-  xy: 200, 186
+  xy: 200, 322
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/assassin
   rotate: false
-  xy: 266, 252
+  xy: 266, 388
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/barbarian
   rotate: false
-  xy: 332, 318
+  xy: 332, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/berserker
   rotate: false
-  xy: 398, 384
+  xy: 2, 58
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/black_mage
   rotate: false
-  xy: 464, 450
+  xy: 68, 124
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/black_mimic
   rotate: false
-  xy: 134, 54
+  xy: 134, 190
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/black_slime
   rotate: false
-  xy: 200, 136
+  xy: 200, 272
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/blockee_test
   rotate: false
-  xy: 514, 450
+  xy: 382, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/bloody_werewolf
   rotate: false
-  xy: 564, 450
+  xy: 2, 8
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/blue_apprentice_mage
   rotate: false
-  xy: 614, 450
+  xy: 432, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/blue_yeti
   rotate: false
-  xy: 664, 450
+  xy: 482, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/cat_sith
   rotate: false
-  xy: 714, 450
+  xy: 532, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/chomper
   rotate: false
-  xy: 764, 450
+  xy: 582, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/crusader
   rotate: false
-  xy: 814, 450
+  xy: 632, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/cyclops
   rotate: false
-  xy: 864, 450
+  xy: 682, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/demon
   rotate: false
-  xy: 914, 450
+  xy: 732, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/door
   rotate: false
-  xy: 964, 450
+  xy: 782, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/dragoon
   rotate: false
-  xy: 200, 86
+  xy: 832, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/earth_knight
   rotate: false
-  xy: 250, 186
+  xy: 882, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/fairy
   rotate: false
-  xy: 250, 136
+  xy: 932, 454
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/fire_knight
   rotate: false
-  xy: 250, 86
+  xy: 200, 222
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/fire_sorcerer
   rotate: false
-  xy: 316, 252
+  xy: 250, 322
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/golden_arena
   rotate: false
-  xy: 300, 202
+  xy: 250, 272
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/green_apprentice_mage
   rotate: false
-  xy: 300, 152
+  xy: 250, 222
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/green_pumpkin
   rotate: false
-  xy: 300, 102
+  xy: 316, 388
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/griffon
   rotate: false
-  xy: 382, 318
+  xy: 300, 338
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/guard
   rotate: false
-  xy: 366, 268
+  xy: 300, 288
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/ice_sorcerer
   rotate: false
-  xy: 448, 384
+  xy: 300, 238
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/iron_face
   rotate: false
-  xy: 432, 334
+  xy: 366, 404
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/novice
   rotate: false
-  xy: 498, 400
+  xy: 416, 404
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/peddler
   rotate: false
-  xy: 548, 400
+  xy: 466, 404
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/pumpkin
   rotate: false
-  xy: 598, 400
+  xy: 516, 404
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/red_apprentice_mage
   rotate: false
-  xy: 648, 400
+  xy: 566, 404
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/red_slime
   rotate: false
-  xy: 698, 400
+  xy: 616, 404
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/skeleton
   rotate: false
-  xy: 748, 400
+  xy: 666, 404
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/skeleton2
   rotate: false
-  xy: 798, 400
+  xy: 716, 404
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/skeleton_fighter
   rotate: false
-  xy: 848, 400
+  xy: 766, 404
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/skeleton_king
   rotate: false
-  xy: 898, 400
+  xy: 816, 404
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/slime
   rotate: false
-  xy: 948, 400
+  xy: 866, 404
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/squleton
   rotate: false
-  xy: 134, 4
+  xy: 916, 404
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/steel_cyclops
   rotate: false
-  xy: 184, 36
+  xy: 52, 58
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/stone_face
   rotate: false
-  xy: 234, 36
+  xy: 52, 8
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/sword_master
   rotate: false
-  xy: 284, 36
+  xy: 118, 124
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/thief
   rotate: false
-  xy: 350, 202
+  xy: 102, 74
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/thunder_bird
   rotate: false
-  xy: 350, 152
+  xy: 102, 24
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/thunder_sorcerer
   rotate: false
-  xy: 350, 102
+  xy: 184, 172
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/trainee_cleric
   rotate: false
-  xy: 334, 52
+  xy: 234, 172
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/treefolk
   rotate: false
-  xy: 416, 268
+  xy: 168, 122
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/valkyrie
   rotate: false
-  xy: 400, 218
+  xy: 218, 122
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/wailing_wall
   rotate: false
-  xy: 400, 168
+  xy: 152, 72
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/water_knight
   rotate: false
-  xy: 400, 118
+  xy: 202, 72
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/werewolf
   rotate: false
-  xy: 482, 334
+  xy: 152, 22
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/white_mimic
   rotate: false
-  xy: 466, 284
+  xy: 202, 22
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/wind_knight
   rotate: false
-  xy: 532, 350
+  xy: 350, 338
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blockee/yeti
   rotate: false
-  xy: 582, 350
+  xy: 350, 288
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 button/chaotic_down
   rotate: false
-  xy: 2, 302
+  xy: 2, 372
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 button/chaotic_up
   rotate: false
-  xy: 68, 368
+  xy: 68, 438
   size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+9patch/chaotic_up
+  rotate: false
+  xy: 68, 438
+  size: 64, 64
+  split: 4, 4, 4, 4
   orig: 64, 64
   offset: 0, 0
   index: -1
 button/disable
   rotate: false
-  xy: 134, 368
+  xy: 68, 372
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 button/lawful_down
   rotate: false
-  xy: 134, 302
+  xy: 2, 240
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 button/lawful_up
   rotate: false
-  xy: 200, 368
+  xy: 68, 306
   size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+9patch/lawful_up
+  rotate: false
+  xy: 68, 306
+  size: 64, 64
+  split: 4, 4, 4, 4
   orig: 64, 64
   offset: 0, 0
   index: -1
 button/neutral_down
   rotate: false
-  xy: 134, 236
+  xy: 200, 438
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 button/neutral_up
   rotate: false
-  xy: 200, 302
+  xy: 2, 174
   size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+9patch/neutral_up
+  rotate: false
+  xy: 2, 174
+  size: 64, 64
+  split: 4, 4, 4, 4
   orig: 64, 64
   offset: 0, 0
   index: -1
 button/ordinary_down
   rotate: false
-  xy: 332, 434
+  xy: 134, 306
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 button/ordinary_up
   rotate: false
-  xy: 2, 38
+  xy: 200, 372
   size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+9patch/ordinary_up
+  rotate: false
+  xy: 200, 372
+  size: 64, 64
+  split: 4, 4, 4, 4
   orig: 64, 64
   offset: 0, 0
   index: -1
 button/special_down
   rotate: false
-  xy: 200, 236
+  xy: 2, 108
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 button/special_up
   rotate: false
-  xy: 266, 302
+  xy: 68, 174
   size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+9patch/special_up
+  rotate: false
+  xy: 68, 174
+  size: 64, 64
+  split: 4, 4, 4, 4
   orig: 64, 64
   offset: 0, 0
   index: -1
 icon/attack
   rotate: false
-  xy: 37, 4
+  xy: 350, 254
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/black_shield
   rotate: false
-  xy: 286, 2
+  xy: 468, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/black_shoe
   rotate: false
-  xy: 666, 366
+  xy: 468, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/black_sword
   rotate: false
-  xy: 2, 4
+  xy: 982, 470
   size: 33, 32
   orig: 33, 32
   offset: 0, 0
   index: -1
 icon/blue_heart
   rotate: false
-  xy: 802, 366
+  xy: 502, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/cancel
   rotate: false
-  xy: 584, 316
+  xy: 706, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/collapse
   rotate: false
-  xy: 632, 332
+  xy: 706, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/damage
   rotate: false
-  xy: 418, 84
+  xy: 876, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/defense
   rotate: false
-  xy: 452, 98
+  xy: 842, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/expand
   rotate: false
-  xy: 550, 282
+  xy: 910, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/flaticon_cancel
   rotate: false
-  xy: 618, 298
+  xy: 944, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/flaticon_checked
   rotate: false
-  xy: 652, 298
+  xy: 944, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/flaticon_minus
   rotate: false
-  xy: 686, 298
+  xy: 944, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/flaticon_plus
   rotate: false
-  xy: 720, 298
+  xy: 982, 436
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/flaticon_previous
   rotate: false
-  xy: 754, 298
+  xy: 300, 204
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/gray_time
   rotate: false
-  xy: 856, 298
+  xy: 252, 54
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/green_sword
   rotate: false
-  xy: 618, 264
+  xy: 452, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/guard
   rotate: false
-  xy: 652, 264
+  xy: 486, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/left
   rotate: false
-  xy: 402, 16
+  xy: 690, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/life
   rotate: false
-  xy: 618, 230
+  xy: 724, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/lose
   rotate: false
-  xy: 686, 230
+  xy: 792, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/purple_armor
   rotate: false
-  xy: 890, 230
+  xy: 928, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/rank
   rotate: false
-  xy: 436, 16
+  xy: 962, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/resurrection
   rotate: false
-  xy: 552, 180
+  xy: 656, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/right
   rotate: false
-  xy: 518, 146
+  xy: 690, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/speed
   rotate: false
-  xy: 892, 196
+  xy: 504, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/time
   rotate: false
-  xy: 960, 196
+  xy: 640, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/white_shield
   rotate: false
-  xy: 722, 128
+  xy: 912, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/white_shoe
   rotate: false
-  xy: 790, 128
+  xy: 980, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/white_sword
   rotate: false
-  xy: 858, 128
+  xy: 336, 152
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/win
   rotate: false
-  xy: 892, 128
+  xy: 320, 118
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/yellow_shield
   rotate: false
-  xy: 554, 60
+  xy: 456, 132
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/yellow_shoe
   rotate: false
-  xy: 588, 94
+  xy: 388, 30
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon/yellow_sword
   rotate: false
-  xy: 622, 94
+  xy: 456, 98
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon16/attack
   rotate: false
-  xy: 105, 20
+  xy: 102, 6
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/cost_coin
   rotate: false
-  xy: 484, 266
+  xy: 120, 6
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/cost_key
   rotate: false
-  xy: 518, 248
+  xy: 978, 316
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/cost_none
   rotate: false
-  xy: 586, 230
+  xy: 996, 316
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/cost_soul
   rotate: false
-  xy: 484, 146
+  xy: 996, 298
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/cost_star
   rotate: false
-  xy: 554, 128
+  xy: 996, 280
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/damage
   rotate: false
-  xy: 724, 110
+  xy: 996, 262
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/defense
   rotate: false
-  xy: 724, 92
+  xy: 996, 244
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/guard
   rotate: false
-  xy: 742, 110
+  xy: 996, 226
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/life
   rotate: false
-  xy: 724, 74
+  xy: 996, 208
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/rank
   rotate: false
-  xy: 742, 92
+  xy: 370, 168
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/resurrection
   rotate: false
-  xy: 760, 110
+  xy: 490, 80
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/speed
   rotate: false
-  xy: 742, 74
+  xy: 524, 114
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 icon16/time
   rotate: false
-  xy: 760, 92
+  xy: 558, 148
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 item/attack_potion
   rotate: false
-  xy: 71, 4
+  xy: 400, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/black_crystal
   rotate: false
-  xy: 184, 2
+  xy: 434, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/black_potion
   rotate: false
-  xy: 218, 2
+  xy: 400, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/black_ring
   rotate: false
-  xy: 252, 2
+  xy: 434, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/black_shield
   rotate: false
-  xy: 632, 366
+  xy: 434, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/black_soul
   rotate: false
-  xy: 700, 366
+  xy: 502, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/blue_crystal
   rotate: false
-  xy: 734, 366
+  xy: 502, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/blue_gem
   rotate: false
-  xy: 768, 366
+  xy: 536, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/blue_mirror
   rotate: false
-  xy: 836, 366
+  xy: 536, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/blue_potion
   rotate: false
-  xy: 870, 366
+  xy: 570, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/blue_ring
   rotate: false
-  xy: 904, 366
+  xy: 536, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/blue_soul
   rotate: false
-  xy: 938, 366
+  xy: 570, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/broken_black_soul
   rotate: false
-  xy: 972, 366
+  xy: 604, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/broken_blue_soul
   rotate: false
-  xy: 334, 18
+  xy: 570, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/broken_cyan_soul
   rotate: false
-  xy: 384, 68
+  xy: 604, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/broken_green_soul
   rotate: false
-  xy: 450, 234
+  xy: 638, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/broken_purple_soul
   rotate: false
-  xy: 450, 200
+  xy: 604, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/broken_red_soul
   rotate: false
-  xy: 450, 166
+  xy: 638, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/broken_white_soul
   rotate: false
-  xy: 450, 132
+  xy: 672, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/broken_yellow_soul
   rotate: false
-  xy: 516, 300
+  xy: 638, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/buckler
   rotate: false
-  xy: 550, 316
+  xy: 672, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/complete_black_soul
   rotate: false
-  xy: 666, 332
+  xy: 740, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/complete_blue_soul
   rotate: false
-  xy: 700, 332
+  xy: 706, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/complete_cyan_soul
   rotate: false
-  xy: 734, 332
+  xy: 740, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/complete_green_soul
   rotate: false
-  xy: 768, 332
+  xy: 774, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/complete_purple_soul
   rotate: false
-  xy: 802, 332
+  xy: 740, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/complete_red_soul
   rotate: false
-  xy: 836, 332
+  xy: 774, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/complete_white_soul
   rotate: false
-  xy: 870, 332
+  xy: 808, 370
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/complete_yellow_soul
   rotate: false
-  xy: 904, 332
+  xy: 774, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/copper_coin
   rotate: false
-  xy: 938, 332
+  xy: 808, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/cyan_potion
   rotate: false
-  xy: 972, 332
+  xy: 808, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/cyan_soul
   rotate: false
-  xy: 368, 18
+  xy: 842, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/defense_potion
   rotate: false
-  xy: 516, 266
+  xy: 876, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/fire_sword
   rotate: false
-  xy: 584, 282
+  xy: 910, 302
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/golden_coin
   rotate: false
-  xy: 788, 298
+  xy: 268, 138
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/gray_soul
   rotate: false
-  xy: 822, 298
+  xy: 252, 88
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/great_sword
   rotate: false
-  xy: 890, 298
+  xy: 252, 20
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/green_crystal
   rotate: false
-  xy: 924, 298
+  xy: 350, 220
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/green_gem
   rotate: false
-  xy: 958, 298
+  xy: 384, 254
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/green_mirror
   rotate: false
-  xy: 418, 50
+  xy: 384, 220
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/green_potion
   rotate: false
-  xy: 452, 64
+  xy: 418, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/green_ring
   rotate: false
-  xy: 550, 248
+  xy: 418, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/green_soul
   rotate: false
-  xy: 584, 248
+  xy: 452, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/holy_shield
   rotate: false
-  xy: 686, 264
+  xy: 520, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/holy_sword
   rotate: false
-  xy: 720, 264
+  xy: 554, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/ice_sword
   rotate: false
-  xy: 754, 264
+  xy: 554, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/iron_boots
   rotate: false
-  xy: 788, 264
+  xy: 588, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/iron_dagger
   rotate: false
-  xy: 822, 264
+  xy: 588, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/iron_ring
   rotate: false
-  xy: 856, 264
+  xy: 622, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/iron_shield
   rotate: false
-  xy: 890, 264
+  xy: 622, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/iron_sword
   rotate: false
-  xy: 924, 264
+  xy: 656, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/key
   rotate: false
-  xy: 958, 264
+  xy: 656, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/life_potion
   rotate: false
-  xy: 652, 230
+  xy: 758, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/mithril_boots
   rotate: false
-  xy: 720, 230
+  xy: 792, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/mithril_dagger
   rotate: false
-  xy: 754, 230
+  xy: 826, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/mithril_shield
   rotate: false
-  xy: 788, 230
+  xy: 826, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/mithril_staff
   rotate: false
-  xy: 822, 230
+  xy: 860, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/mithril_sword
   rotate: false
-  xy: 856, 230
+  xy: 860, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/purple_potion
   rotate: false
-  xy: 924, 230
+  xy: 928, 234
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/purple_soul
   rotate: false
-  xy: 958, 230
+  xy: 962, 268
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/red_crystal
   rotate: false
-  xy: 484, 232
+  xy: 418, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/red_gem
   rotate: false
-  xy: 484, 198
+  xy: 452, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/red_mirror
   rotate: false
-  xy: 484, 164
+  xy: 486, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/red_potion
   rotate: false
-  xy: 518, 214
+  xy: 520, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/red_ring
   rotate: false
-  xy: 552, 214
+  xy: 554, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/red_soul
   rotate: false
-  xy: 518, 180
+  xy: 588, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/ring_of_attack
   rotate: false
-  xy: 552, 146
+  xy: 724, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/ring_of_defense
   rotate: false
-  xy: 586, 196
+  xy: 758, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/ring_of_goddess
   rotate: false
-  xy: 586, 162
+  xy: 792, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/ring_of_life
   rotate: false
-  xy: 620, 196
+  xy: 826, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/ring_of_speed
   rotate: false
-  xy: 620, 162
+  xy: 860, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/shadow_dagger
   rotate: false
-  xy: 654, 196
+  xy: 894, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/shiny_black_soul
   rotate: false
-  xy: 654, 162
+  xy: 928, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/shiny_blue_soul
   rotate: false
-  xy: 688, 196
+  xy: 962, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/shiny_cyan_soul
   rotate: false
-  xy: 688, 162
+  xy: 286, 104
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/shiny_green_soul
   rotate: false
-  xy: 722, 196
+  xy: 286, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/shiny_purple_soul
   rotate: false
-  xy: 722, 162
+  xy: 286, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/shiny_red_soul
   rotate: false
-  xy: 756, 196
+  xy: 286, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/shiny_white_soul
   rotate: false
-  xy: 756, 162
+  xy: 334, 186
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/shiny_yellow_soul
   rotate: false
-  xy: 790, 196
+  xy: 368, 186
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/silver_coin
   rotate: false
-  xy: 790, 162
+  xy: 978, 402
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/skull_ring
   rotate: false
-  xy: 824, 196
+  xy: 978, 368
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/skull_shield
   rotate: false
-  xy: 824, 162
+  xy: 978, 334
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/skull_sword
   rotate: false
-  xy: 858, 196
+  xy: 402, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/soul
   rotate: false
-  xy: 858, 162
+  xy: 436, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/speed_potion
   rotate: false
-  xy: 892, 162
+  xy: 538, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/star
   rotate: false
-  xy: 926, 196
+  xy: 572, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/thunder_sword
   rotate: false
-  xy: 926, 162
+  xy: 606, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/tower_shield
   rotate: false
-  xy: 960, 162
+  xy: 674, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/white_crystal
   rotate: false
-  xy: 586, 128
+  xy: 776, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/white_gem
   rotate: false
-  xy: 620, 128
+  xy: 810, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/white_potion
   rotate: false
-  xy: 654, 128
+  xy: 844, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/white_ring
   rotate: false
-  xy: 688, 128
+  xy: 878, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/white_shield
   rotate: false
-  xy: 756, 128
+  xy: 946, 166
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/white_soul
   rotate: false
-  xy: 824, 128
+  xy: 302, 152
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/wind_boots
   rotate: false
-  xy: 926, 128
+  xy: 320, 84
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/wind_dagger
   rotate: false
-  xy: 960, 128
+  xy: 320, 50
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/wooden_dagger
   rotate: false
-  xy: 486, 112
+  xy: 320, 16
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/wooden_ring
   rotate: false
-  xy: 486, 78
+  xy: 354, 118
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/wooden_shield
   rotate: false
-  xy: 520, 112
+  xy: 354, 84
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/wooden_staff
   rotate: false
-  xy: 520, 78
+  xy: 354, 50
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/wooden_sword
   rotate: false
-  xy: 486, 44
+  xy: 354, 16
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/yellow_crystal
   rotate: false
-  xy: 520, 44
+  xy: 388, 132
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/yellow_gem
   rotate: false
-  xy: 470, 10
+  xy: 388, 98
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/yellow_mirror
   rotate: false
-  xy: 504, 10
+  xy: 422, 132
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/yellow_potion
   rotate: false
-  xy: 538, 10
+  xy: 388, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/yellow_ring
   rotate: false
-  xy: 554, 94
+  xy: 422, 98
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/yellow_soul
   rotate: false
-  xy: 588, 60
+  xy: 422, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/yggdrasil_dagger
   rotate: false
-  xy: 622, 60
+  xy: 490, 132
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/yggdrasil_ring
   rotate: false
-  xy: 656, 94
+  xy: 422, 30
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/yggdrasil_shield
   rotate: false
-  xy: 656, 60
+  xy: 456, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/yggdrasil_staff
   rotate: false
-  xy: 690, 94
+  xy: 490, 98
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item/yggdrasil_sword
   rotate: false
-  xy: 690, 60
+  xy: 524, 132
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

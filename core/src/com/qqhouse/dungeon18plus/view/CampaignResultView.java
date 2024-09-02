@@ -30,7 +30,7 @@ public class CampaignResultView extends AssetGroup {
                 results[i] = new QQLinear(false, Game.Size.WIDGET_MARGIN);
                 //results[i].setAlign(Align.center);
                 results[i].setPadding(8);
-                results[i].setBackground(assets.getNinePatchBG("loot_info"));
+                results[i].setBackground(assets.getNinePatch("loot_info"));
                 addChild(results[i]);
 
                 // icons...

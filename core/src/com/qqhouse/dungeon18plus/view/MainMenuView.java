@@ -1,7 +1,9 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.ui.QQButton;
 import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQText;
 

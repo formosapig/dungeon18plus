@@ -15,7 +15,7 @@ public class MasteryView extends AssetGroup {
     public MasteryView(Assets assets) {
         super(assets);
 
-        equipment = new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        equipment = new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatch("black"));
         equipment.setSize(32, 32);
         addChild(equipment);
 

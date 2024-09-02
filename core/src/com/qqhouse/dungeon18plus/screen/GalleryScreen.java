@@ -27,7 +27,7 @@ public class GalleryScreen extends QQScreen {
 
         // group of background.
         QQLinear group = new QQLinear(Game.Size.WIDGET_MARGIN);
-        group.setBackground(assets.getNinePatchBG("help"));
+        group.setBackground(assets.getNinePatch("help"));
         group.setSize(Game.Size.WIDTH - 12 - 12, QQView.WRAP_CONTENT);
         group.setPadding(8);
         addChild(group);

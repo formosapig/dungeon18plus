@@ -25,7 +25,7 @@ public class ProfileSoulView extends AssetGroup {
 
         this.innerMargin = innerMargin;
 
-        title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
+        title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatch("underline"));
         title.setPadding(8);
         title.setAlign(Align.left);
         title.setText(assets.geti18n("profile_soul"));
@@ -39,7 +39,7 @@ public class ProfileSoulView extends AssetGroup {
             childrenView.remove(i);
 
         for (SoulCount sc : record.souls) {
-            SoulView sv = new SoulView(assets);
+            SoulView sv = new SoulView(assets, sc);
             sv.setSize(MATCH_PARENT, 48);
             sv.setPadding(8);//4, 4, 8, 8);
             sv.update(sc);
@@ -53,7 +53,7 @@ public class ProfileSoulView extends AssetGroup {
 
         int index = 0;
         for (SoulCount sc : record.souls) {
-            SoulButton sb = new SoulButton(assets);
+            SoulButton sb = new SoulButton(assets, sc);
             sb.setSize(MATCH_PARENT, 48);
             sb.setPadding(8);//4, 4, 8, 8);
             sb.update(sc);
@@ -67,7 +67,7 @@ public class ProfileSoulView extends AssetGroup {
             childrenView.remove(i);
 
         for (SoulCount sc : record.souls) {
-            SoulView sv = new SoulView(assets);
+            SoulView sv = new SoulView(assets, sc);
             sv.setSize(MATCH_PARENT, 48);
             sv.setPadding(8);//4, 4, 8, 8);
             sv.update(sc);

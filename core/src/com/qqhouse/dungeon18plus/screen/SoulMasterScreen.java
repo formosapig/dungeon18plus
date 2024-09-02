@@ -55,14 +55,14 @@ public class SoulMasterScreen extends QQScreen {
         valkyrie.setSize(QQView.MATCH_PARENT, 48);
         //valkyrie.setPosition(0, Game.Size.HEIGHT - 48);
         valkyrie.setPadding(8);
-        valkyrie.setBackground(assets.getNinePatchBG("neutral"));
+        valkyrie.setBackground(assets.getNinePatch("neutral"));
         group.addChild(valkyrie);
 
         // split line...
         QQView line = new QQView();
         line.setSize(QQView.MATCH_PARENT, 4);//Game.Size.WIDTH - Game.Size.WIDGET_MARGIN, 4);
         //line.setPosition(Game.Size.WIDGET_MARGIN / 2, Game.Size.HEIGHT - 48 - 4 - Game.Size.WIDGET_MARGIN);
-        line.setBackground(assets.getNinePatchBG("white"));
+        line.setBackground(assets.getNinePatch("white"));
         group.addChild(line);
 
         // all hero ...
@@ -112,7 +112,7 @@ public class SoulMasterScreen extends QQScreen {
         HeroClassRecord record = savedGame.getHeroClassRecord(heroClassWithSoul.get(index));
         extendSize.update(record);
         soulView.update(record, removeSoul);
-        soulView.setBackground(assets.getNinePatchBG(record.heroClass.alignment.key));
+        soulView.setBackground(assets.getNinePatch(record.heroClass.alignment.key));
     }
 
     private QQPressListener removeSoul = new QQPressAdapter() {
@@ -152,7 +152,7 @@ public class SoulMasterScreen extends QQScreen {
             ProfileTitleView v = new ProfileTitleView(assets);
             v.update(hr.key, hr.key, record.coin);
             v.setPadding(8);
-            v.setBackground(assets.getNinePatchBG(hr.alignment.key));
+            v.setBackground(assets.getNinePatch(hr.alignment.key));
             v.setSize(Game.Size.WIDTH * 0.9f, QQView.WRAP_CONTENT);
             return v;
         }

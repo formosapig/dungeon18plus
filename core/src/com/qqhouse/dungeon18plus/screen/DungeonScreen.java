@@ -202,7 +202,7 @@ public class DungeonScreen extends QQScreen {
         scroll.setSize(Game.Size.WIDTH, Game.Size.HEIGHT - 64 - 64 - Game.Size.WIDGET_MARGIN * 2);
         scroll.setPosition(0, 64 + Game.Size.WIDGET_MARGIN);
         scroll.setPadding(8);
-        scroll.setBackground(assets.getNinePatchBG("help"));
+        scroll.setBackground(assets.getNinePatch("help"));
         scroll.setVisible(false);
         addChild(scroll);
 

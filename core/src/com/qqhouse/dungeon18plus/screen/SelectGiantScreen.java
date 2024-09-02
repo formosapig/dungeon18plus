@@ -61,7 +61,7 @@ public class SelectGiantScreen extends QQScreen {
 
         // group of background.
         QQLinear group = new QQLinear(Game.Size.WIDGET_MARGIN);
-        group.setBackground(assets.getNinePatchBG("help"));
+        group.setBackground(assets.getNinePatch("help"));
         group.setSize(Game.Size.WIDTH - 12 - 12, QQView.WRAP_CONTENT);//Game.Size.HEIGHT * 0.9f);
         group.setPadding(8);
         addChild(group);

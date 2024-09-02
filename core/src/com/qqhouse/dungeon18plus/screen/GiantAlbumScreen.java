@@ -43,14 +43,14 @@ public class GiantAlbumScreen extends QQScreen {
         valkyrie.reset("valkyrie", "valkyrie", null, Game.Colour.RARE, "");
         valkyrie.setSize(QQView.MATCH_PARENT, 48);
         valkyrie.setPadding(8);
-        valkyrie.setBackground(assets.getNinePatchBG("neutral"));
+        valkyrie.setBackground(assets.getNinePatch("neutral"));
         group.addChild(valkyrie);
 
         // split line...
         QQView line = new QQView();
         line.setSize(QQView.MATCH_PARENT, 4);//Game.Size.WIDTH - Game.Size.WIDGET_MARGIN, 4);
         //line.setPosition(Game.Size.WIDGET_MARGIN / 2, Game.Size.HEIGHT - 48 - 4 - Game.Size.WIDGET_MARGIN);
-        line.setBackground(assets.getNinePatchBG("white"));
+        line.setBackground(assets.getNinePatch("white"));
         group.addChild(line);
 
         // all hero ...
@@ -76,7 +76,7 @@ public class GiantAlbumScreen extends QQScreen {
         scroll = new QQScroll(getViewport());
         scroll.setSize(QQView.MATCH_PARENT, QQView.MATCH_PARENT);
         scroll.setPadding(8);
-        scroll.setBackground(assets.getNinePatchBG("help"));
+        scroll.setBackground(assets.getNinePatch("help"));
         group.addChild(scroll);
 
 
@@ -108,7 +108,7 @@ public class GiantAlbumScreen extends QQScreen {
             ProfileTitleView v = new ProfileTitleView(assets);
             v.update(gr.iconKey, gr.nameKey);
             v.setPadding(8);
-            v.setBackground(assets.getNinePatchBG(gr.alignment.key));
+            v.setBackground(assets.getNinePatch(gr.alignment.key));
             v.setSize(Game.Size.WIDTH * 0.9f, QQView.WRAP_CONTENT);
             return v;
         }

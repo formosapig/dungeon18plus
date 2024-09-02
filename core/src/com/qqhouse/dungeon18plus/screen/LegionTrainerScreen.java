@@ -65,7 +65,7 @@ public class LegionTrainerScreen extends QQScreen {
         // split line...
         QQView line = new QQView();
         line.setSize(QQView.MATCH_PARENT, 4);
-        line.setBackground(assets.getNinePatchBG("white"));
+        line.setBackground(assets.getNinePatch("white"));
         group.addChild(line);
 
         // title bar with crusader
@@ -73,13 +73,13 @@ public class LegionTrainerScreen extends QQScreen {
         crusader.reset("crusader", "crusader", null, Game.Colour.COUNT, "");
         crusader.setSize(QQView.MATCH_PARENT, 48);
         crusader.setPadding(8);
-        crusader.setBackground(assets.getNinePatchBG("lawful"));
+        crusader.setBackground(assets.getNinePatch("lawful"));
         group.addChild(crusader);
 
         // split line...
         QQView line2 = new QQView();
         line2.setSize(QQView.MATCH_PARENT, 4);
-        line2.setBackground(assets.getNinePatchBG("white"));
+        line2.setBackground(assets.getNinePatch("white"));
         group.addChild(line2);
 
         // barrack

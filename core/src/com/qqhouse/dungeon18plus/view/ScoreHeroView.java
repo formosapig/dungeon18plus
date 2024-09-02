@@ -41,7 +41,7 @@ public class ScoreHeroView extends AssetGroup {
 
         // level
         if (0 < hero.level) {
-            level = new QQText(assets.getFont(Game.Font.LEVEL16), assets.getNinePatchBG("level"), 0.75f);
+            level = new QQText(assets.getFont(Game.Font.LEVEL16), assets.getNinePatch("level"), 0.75f);
             level.setColor(Game.Colour.RANK);
             level.setPadding(4);
             level.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
@@ -79,7 +79,7 @@ public class ScoreHeroView extends AssetGroup {
         addChild(ability);
 
         //Gdx.app.error("EventView", "event :" + event.type + ",bg : " + event.type.align.key);
-        setBackground(assets.getNinePatchBG(hero.heroClass.alignment.key));
+        setBackground(assets.getNinePatch(hero.heroClass.alignment.key));
     }
 
 }

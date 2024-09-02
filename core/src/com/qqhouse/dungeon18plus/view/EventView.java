@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.dungeon18plus.core.EventType;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.event.BattleEvent;
 import com.qqhouse.dungeon18plus.struct.event.Event;
@@ -37,7 +38,7 @@ public class EventView extends QQButton implements QQView.IsParent {
 
         // level
         if (event.type.isZako()) {
-            level = new QQText(assets.getFont(Game.Font.LEVEL16), new NinePatch(assets.getTexture("background", "zako_level"), 4, 4, 4, 4), 0.75f);
+            level = new QQText(assets.getFont(Game.Font.LEVEL16), assets.getNinePatch("zako_level"), 0.75f);
             level.setColor(Game.Colour.ZAKO_LEVEL);
             level.setPadding(4);
             level.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
@@ -48,7 +49,7 @@ public class EventView extends QQButton implements QQView.IsParent {
 
         // score
         if (event.type.isBoss()) {
-            score = new QQText(assets.getFont(Game.Font.LEVEL16), new NinePatch(assets.getTexture("background", "level"), 4, 4, 4, 4), 0.75f);
+            score = new QQText(assets.getFont(Game.Font.LEVEL16), assets.getNinePatch("level"), 0.75f);
             score.setColor(Game.Colour.RANK);
             score.setPadding(4);
             score.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
@@ -102,7 +103,7 @@ public class EventView extends QQButton implements QQView.IsParent {
         childrenView.add(cost);
 
         // item ...
-        item = new ItemView(assets.getFont(Game.Font.DIGITAL16), assets.getBackground("black"));
+        item = new ItemView(assets.getFont(Game.Font.DIGITAL16), assets.getNinePatch("black"));
         item.setSize(32, 32);
         item.setPosition(Game.Size.WIDTH - 8 - 32, 26);
         item.setColor(Game.Colour.COUNT);
@@ -185,15 +186,15 @@ public class EventView extends QQButton implements QQView.IsParent {
 
         // item ...
         if (event.loot != Item.NONE) {
-            item.setIcon(assets.getIcon(event.loot.icon));
-            if (event.loot.isBlessed())
-                item.setStatus(assets.getBackground("blessed"));
-            else if (event.loot.isCursed())
-                item.setStatus(assets.getBackground("cursed"));
-            else if (event.loot.isRefined())
-                item.setStatus(assets.getBackground("refined"));
-            //else
-            //    item.setStatus(assets.getBackground("refined"));
+            //item.setItem(assets, event.loot);
+            if ((event.type == EventType.DOOR || event.type.isMonster()) && event.loot.isEquipment()) {
+                // unknown item.
+                item.setIcon(assets.getIcon(event.loot.icon));
+                item.setStatus(null);
+            } else {
+                item.setItem(assets, event.loot);
+            }
+
             if (event.lootCount > 1) {
                 item.setText(Integer.toString(event.lootCount));
             } else {

@@ -53,22 +53,22 @@ public class HeroView extends AssetGroupButton {
         addChild(speed);
 
         if (Feat.DARK_PRESENCE.in(hero.feats)) {
-            soul = new ItemView(assets.getIcon("item/soul"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+            soul = new ItemView(assets.getIcon("item/soul"), assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatch("black"));
             soul.setSize(32, 32);
             soul.setColor(Game.Colour.COUNT);
             addChild(soul);
         } else {
-            key = new ItemView(assets.getIcon("item/key"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+            key = new ItemView(assets.getIcon("item/key"), assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatch("black"));
             key.setSize(32, 32);
             key.setColor(Game.Colour.COUNT);
             addChild(key);
 
-            coin = new ItemView(assets.getIcon("item/copper_coin"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+            coin = new ItemView(assets.getIcon("item/copper_coin"), assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatch("black"));
             coin.setSize(32, 32);
             coin.setColor(Game.Colour.COUNT);
             addChild(coin);
 
-            star = new ItemView(assets.getIcon("item/star"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+            star = new ItemView(assets.getIcon("item/star"), assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatch("black"));
             star.setSize(32, 32);
             star.setColor(Game.Colour.COUNT);
             addChild(star);
@@ -76,7 +76,7 @@ public class HeroView extends AssetGroupButton {
 
         if (Feat.EXPERIENCE.in(hero.feats)) {
             // level
-            level = new QQText(assets.getFont(Game.Font.LEVEL16), assets.getNinePatchBG("level"), 0.75f);
+            level = new QQText(assets.getFont(Game.Font.LEVEL16), assets.getNinePatch("level"), 0.75f);
             level.setColor(Game.Colour.RANK);
             level.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
             level.setPadding(4);
@@ -85,7 +85,7 @@ public class HeroView extends AssetGroupButton {
             addChild(level);
 
             // progress bar for exp...
-            exp = new QQProgress(assets.getNinePatchBG("black"), assets.getNinePatchBG("cyan"));
+            exp = new QQProgress(assets.getNinePatch("progress_back"), assets.getNinePatch("progress_cyan_primary"));
             exp.setSize(50, 8);
             exp.setPosition(7, 4);
             addChild(exp);
@@ -119,17 +119,17 @@ public class HeroView extends AssetGroupButton {
         speed.setColor(Game.Colour.SPEED);
         addChild(speed);
 
-        coin = new ItemView(assets.getIcon("item/copper_coin"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        coin = new ItemView(assets.getIcon("item/copper_coin"), assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatch("black"));
         coin.setSize(32, 32);
         coin.setColor(Game.Colour.COUNT);
         addChild(coin);
 
-        star = new ItemView(assets.getIcon("item/star"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        star = new ItemView(assets.getIcon("item/star"), assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatch("black"));
         star.setSize(32, 32);
         star.setColor(Game.Colour.COUNT);
         addChild(star);
 
-        soul = new ItemView(assets.getIcon("item/soul"), assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        soul = new ItemView(assets.getIcon("item/soul"), assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatch("black"));
         soul.setSize(32, 32);
         soul.setPosition(64, 26);
         soul.setColor(Game.Colour.COUNT);

@@ -11,20 +11,22 @@ public class SoulView extends AssetGroup {
     private final ItemView soul;
     private final VarietyView upgrade;
 
-    public SoulView(Assets assets) {
+    public SoulView(Assets assets, SoulCount sc) {
         super(assets);
 
-        soul = new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatchBG("black"));
+        soul = ItemView.create(assets, sc);//new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatch("black"));
+        //soul.setSoulCount(sc);
         addChild(soul);
 
         upgrade = new VarietyView(assets);
+        upgrade.update32(sc.soul.getInfluence(sc.count));
         addChild(upgrade);
     }
 
     public void update(SoulCount sc) {
-        soul.setSoulCount(assets, sc);
+        //soul.setSoulCount(assets, sc);
 
-        upgrade.update32(sc.soul.getInfluence(sc.count));
+        //upgrade.update32(sc.soul.getInfluence(sc.count));
     }
 
     @Override

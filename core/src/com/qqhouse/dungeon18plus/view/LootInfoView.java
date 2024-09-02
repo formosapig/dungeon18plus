@@ -22,7 +22,7 @@ public class LootInfoView extends QQView implements QQView.IsParent {
     public LootInfoView(Assets assets) {
 
         this.assets = assets;
-        bgNormal = new NinePatch(assets.getBackground("loot_info"), 4, 4, 4, 4);
+        bgNormal = assets.getNinePatch("loot_info");
 
         star = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/cost_star"));
         star.setColor(Game.Colour.RARE);

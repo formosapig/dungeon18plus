@@ -49,7 +49,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
         QQLinear group = new QQLinear(Game.Size.WIDGET_MARGIN);
         group.setPadding(8);
         group.setSize(Game.Size.WIDTH - 12 - 12, QQView.WRAP_CONTENT);
-        group.setBackground(assets.getNinePatchBG("help"));
+        group.setBackground(assets.getNinePatch("help"));
         addChild(group);
 
         // title

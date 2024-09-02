@@ -41,13 +41,13 @@ public class EquipmentCatalogScreen extends QQScreen {
         peddler.reset("peddler", "peddler", null, Game.Colour.COUNT, Integer.toString(equipments.size()));
         peddler.setSize(QQView.MATCH_PARENT, 48);
         peddler.setPadding(8);
-        peddler.setBackground(assets.getNinePatchBG("special"));
+        peddler.setBackground(assets.getNinePatch("special"));
         group.addChild(peddler);
 
         // split line...
         QQView line = new QQView();
         line.setSize(QQView.MATCH_PARENT, 4);
-        line.setBackground(assets.getNinePatchBG("white"));
+        line.setBackground(assets.getNinePatch("white"));
         group.addChild(line);
 
         // equipment adapter ....

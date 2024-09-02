@@ -41,14 +41,14 @@ public class MonsterGuideScreen extends QQScreen {
         skeleton.setSize(QQView.MATCH_PARENT, 48);
         //skeleton.setPosition(0, Game.Size.HEIGHT - 48);
         skeleton.setPadding(8);
-        skeleton.setBackground(assets.getNinePatchBG("ordinary"));
+        skeleton.setBackground(assets.getNinePatch("ordinary"));
         group.addChild(skeleton);
 
         // split line...
         QQView line = new QQView();
         line.setSize(QQView.MATCH_PARENT, 4);
         //line.setPosition(0, Game.Size.HEIGHT - 48 - 4 - Game.Size.WIDGET_MARGIN);
-        line.setBackground(assets.getNinePatchBG("white"));
+        line.setBackground(assets.getNinePatch("white"));
         group.addChild(line);
 
         // equipment adapter ....

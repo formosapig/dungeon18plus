@@ -85,7 +85,7 @@ public class ProfileView extends AssetGroup {
 
     // create profile view with HeroClassRecord
     public void update(HeroClassRecord record, SaveGame savedGame) {
-        NinePatch bg = assets.getNinePatchBG(record.heroClass.alignment.key);
+        NinePatch bg = assets.getNinePatch(record.heroClass.alignment.key);
         uniqueSkill.setVisible(false);
 
         if (record.isGameModeAvailable(Game.Mode.DUNGEON) || record.isGameModeAvailable(Game.Mode.COLOSSEUM)) {
@@ -177,7 +177,7 @@ public class ProfileView extends AssetGroup {
 
     // create profile view with HeroClassRecord
     public void update(GiantRecord record, SaveGame savedGame) {
-        NinePatch bg = assets.getNinePatchBG(record.race.alignment.key);
+        NinePatch bg = assets.getNinePatch(record.race.alignment.key);
         restriction.setVisible(false);
         action.setVisible(false);
         feat.setVisible(false);
@@ -216,7 +216,7 @@ public class ProfileView extends AssetGroup {
 
     // create profile view with HeroClassRecord
     public void update(Hero hero, ArrayList<ActionSlot> actions) {
-        NinePatch bg = assets.getNinePatchBG(hero.heroClass.alignment.key);
+        NinePatch bg = assets.getNinePatch(hero.heroClass.alignment.key);
 
         biography.setVisible(false);
         baseAttribute.setVisible(false);

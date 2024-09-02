@@ -50,14 +50,14 @@ public class BarrackScreen extends QQScreen {
         crusader.setSize(Game.Size.WIDTH, 48);
         //crusader.setPosition(0, Game.Size.HEIGHT - 48);
         crusader.setPadding(8);
-        crusader.setBackground(assets.getNinePatchBG("lawful"));
+        crusader.setBackground(assets.getNinePatch("lawful"));
         group.addChild(crusader);
 
         // split line...
         QQView line = new QQView();
         line.setSize(Game.Size.WIDTH - Game.Size.WIDGET_MARGIN, 4);
         //line.setPosition(Game.Size.WIDGET_MARGIN / 2, Game.Size.HEIGHT - 48 - 4 - Game.Size.WIDGET_MARGIN);
-        line.setBackground(assets.getNinePatchBG("white"));
+        line.setBackground(assets.getNinePatch("white"));
         group.addChild(line);
 
         if (null != veteran) {

@@ -49,11 +49,11 @@ public class CampaignActionView extends AssetGroupButton {
         time.setText(Integer.toString(action.time));
         time.setSize(/*QQView.WRAP_CONTENT*/60, 32);
         time.setAlign(Align.right);
-        //time.setBackground(assets.getNinePatchBG("blessed"));//assets.getBackground("blessed"));
+        //time.setBackground(assets.getNinePatch("chaotic_down"));//assets.getNinePatchBG("blessed"));//assets.getBackground("blessed"));
         addChild(time);
 
         // background
-        setBackground(assets.getNinePatchBG(action.bgKey));
+        setBackground(assets.getNinePatch(action.bgKey));
     }
 
     @Override

@@ -26,7 +26,7 @@ public class ProfileUpgradeView extends AssetGroup {
         upgrade.setSize(MATCH_PARENT, 32);
 
 
-        cost = new ItemView(assets.getIcon(act.cost.getIconKey()), assets.getFont(Game.Font.DIGITAL16), assets.getBackground("black"));
+        cost = new ItemView(assets.getIcon(act.cost.getIconKey()), assets.getFont(Game.Font.DIGITAL16), assets.getNinePatch("black"));
         cost.setText(Integer.toString(act.cost.value));
         cost.setSize(32, 32);
         //cost.setPosition(  ,4);

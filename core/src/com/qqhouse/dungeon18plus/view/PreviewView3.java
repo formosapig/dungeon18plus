@@ -49,7 +49,7 @@ public class PreviewView3 extends AssetGroupButton {
     }
 
     public void resetLevel(String strLevel) {
-        level = new QQText(assets.getFont(Game.Font.LEVEL16), assets.getNinePatchBG("level"), 0.75f);
+        level = new QQText(assets.getFont(Game.Font.LEVEL16), assets.getNinePatch("level"), 0.75f);
         level.setColor(Game.Colour.RANK);
         level.setPadding(4);
         level.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);

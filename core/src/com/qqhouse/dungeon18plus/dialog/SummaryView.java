@@ -28,7 +28,7 @@ public class SummaryView extends AssetGroup {
         super(assets);
         this.viewport = viewport;
         setPadding(8);
-        bgNormal = assets.getNinePatchBG("dialog");
+        bgNormal = assets.getNinePatch("dialog");
 
         group = new QQLinear(Game.Size.WIDGET_MARGIN);
         group.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
@@ -47,7 +47,7 @@ public class SummaryView extends AssetGroup {
         fairy.setSize(QQView.MATCH_PARENT, 40);
         fairy.setPadding(4, 4, 4, 8);
         fairy.reset(null, "score", "rank", Game.Colour.RANK, Integer.toString(score));
-        fairy.setBackground(assets.getNinePatchBG("underline"));
+        fairy.setBackground(assets.getNinePatch("underline"));
         group.addChild(fairy);
 
         // list

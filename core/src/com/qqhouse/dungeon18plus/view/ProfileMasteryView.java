@@ -27,7 +27,7 @@ public class ProfileMasteryView extends AssetGroup {
 
         this.innerMargin = innerMargin;
 
-        title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
+        title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatch("underline"));
         title.setPadding(8);
         title.setAlign(Align.left);
         title.setText(assets.geti18n("profile_mastery"));
@@ -37,6 +37,7 @@ public class ProfileMasteryView extends AssetGroup {
         childHeight = 48;
     }
 
+    // update 時能不能回收再利用?
     public void update(HeroClassRecord record) {
         for (int i = childrenView.size() - 1; i > 0; --i)
             childrenView.remove(i);
@@ -46,7 +47,7 @@ public class ProfileMasteryView extends AssetGroup {
             mv.update(em);
             mv.setPadding(8);
             mv.setSize(childWidth, childHeight);
-            mv.setBackground(assets.getNinePatchBG("special"));
+            mv.setBackground(assets.getNinePatch("special"));
             addChild(mv);
         }
     }

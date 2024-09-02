@@ -34,14 +34,14 @@ public class LeaderboardScreen extends QQScreen {
         novice.setSize(Game.Size.WIDTH, 48);
         novice.setPosition(0, Game.Size.HEIGHT - 48);
         novice.setPadding(8);
-        novice.setBackground(assets.getNinePatchBG("ordinary"));
+        novice.setBackground(assets.getNinePatch("ordinary"));
         addChild(novice);
 
         // split line...
         QQView line = new QQView();
         line.setSize(Game.Size.WIDTH - Game.Size.WIDGET_MARGIN, 4);
         line.setPosition(Game.Size.WIDGET_MARGIN / 2, Game.Size.HEIGHT - 48 - 4 - Game.Size.WIDGET_MARGIN);
-        line.setBackground(assets.getNinePatchBG("white"));
+        line.setBackground(assets.getNinePatch("white"));
         addChild(line);
 
         // equipment adapter ....

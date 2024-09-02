@@ -14,7 +14,7 @@ public class AssetDialog extends QQCustomDialog {
         this.assets = assets;
 
         // set background
-        bgNormal = assets.getNinePatchBG("black");
+        bgNormal = assets.getNinePatch("black");
         bgNormal.setColor(new Color(1, 1, 1, 0.66f));
     }
 

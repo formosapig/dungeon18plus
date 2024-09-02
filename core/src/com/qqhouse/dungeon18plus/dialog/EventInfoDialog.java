@@ -13,7 +13,7 @@ public class EventInfoDialog extends AssetDialog {
         setModal(false);
 
         evtInfo = new EventInfoView(assets);
-        evtInfo.setBackground(assets.getNinePatchBG("help"));
+        evtInfo.setBackground(assets.getNinePatch("help"));
         evtInfo.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
         //evtInfo.update(manager.getEvent(index));
 

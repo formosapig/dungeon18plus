@@ -22,7 +22,7 @@ public class ProfileBiographyView extends AssetGroup {
 
         this.innerMargin = innerMargin;
 
-        title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatchBG("underline"));
+        title = new QQText(assets.getFont(Game.Font.NAME20), assets.getNinePatch("underline"));
         title.setPadding(8);
         title.setAlign(Align.left);
         addChild(title);

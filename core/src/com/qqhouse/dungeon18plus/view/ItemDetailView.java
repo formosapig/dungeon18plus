@@ -39,26 +39,29 @@ public class ItemDetailView extends AssetGroup {
         //help =
         addChild(help);
 
-        bgNormal = assets.getNinePatchBG("special");
+        bgNormal = assets.getNinePatch("special");
     }
 
     public void update(@NotNull Item item, boolean isUnknown) {
         //Gdx.app.error("ItemDetailView", "update : " + item);
         // item...
-        icon.setIcon(assets.getIcon(item.icon));
+        //icon.setIcon(assets.getIcon(item.icon));
         if (!isUnknown) {
-            if (item.isBlessed())
+            icon.setItem(assets, item);
+            name.setText(assets.geti18n(item.name));
+            /*if (item.isBlessed())
                 icon.setStatus(assets.getBackground("blessed"));
             else if (item.isCursed())
                 icon.setStatus(assets.getBackground("cursed"));
             else if (item.isRefined())
                 icon.setStatus(assets.getBackground("refined"));
             else
-                icon.setStatus(null);
+                icon.setStatus(null);*/
+        } else {
+            icon.setIcon(assets.getIcon(item.icon));
+            icon.setStatus(null);
+            name.setText(assets.geti18n("unknown"));
         }
-
-        name.setText(assets.geti18n(item.name));
-
         //upgrade.update(item.upgrade);
         if (!isUnknown)
             upgrade.update(item.upgrade);

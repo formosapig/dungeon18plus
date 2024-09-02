@@ -22,7 +22,7 @@ public class ActionView extends AssetGroup {
         upgrade = new VarietyView(assets);
         addChild(upgrade);
 
-        cost = new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getBackground("black"));
+        cost = new ItemView(assets.getFont(Game.Font.ITEM_COUNT), assets.getNinePatch("black"));
         addChild(cost);
     }
 

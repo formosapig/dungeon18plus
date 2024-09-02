@@ -60,18 +60,19 @@ public class VeteranView extends AssetGroup {
         round.setSize(QQView.WRAP_CONTENT, 16);
         addChild(round);
 
-        life = new QQProgress(assets.getNinePatchBG("black"), assets.getNinePatchBG("yellow"));
+        life = new QQProgress(assets.getNinePatch("progress_back"), assets.getNinePatch("progress_yellow_primary"));
         //life.setSize(200, 8);
         life.setPosition(104, 8);
         life.setPercent(veteran.life * 100 / Game.Setting.HERO_MAX_LIFE);
         addChild(life);
 
-        setBackground(assets.getNinePatchBG(veteran.heroClass.alignment.key));
+        setBackground(assets.getNinePatch(veteran.heroClass.alignment.key));
     }
 
     public void updateUniqueSkill(Veteran veteran) {
         //skill.update(veteran.equipment, veteran.mastery, veteran);
-        equip.setIcon(assets.getIcon(veteran.equipment.icon));
+        equip.setItem(assets, veteran.equipment);
+        /*equip.setIcon(assets.getIcon(veteran.equipment.icon));
         if (veteran.equipment.isBlessed())
             equip.setStatus(assets.getBackground("blessed"));
         else if (veteran.equipment.isCursed())
@@ -79,7 +80,7 @@ public class VeteranView extends AssetGroup {
         else if (veteran.equipment.isRefined())
             equip.setStatus(assets.getBackground("refined"));
         else
-            equip.setStatus(null);
+            equip.setStatus(null);*/
 
         // mastery operations
         for (int i = 0; i < oper.length; ++i) {

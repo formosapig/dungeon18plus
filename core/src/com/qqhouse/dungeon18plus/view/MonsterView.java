@@ -26,7 +26,7 @@ public class MonsterView extends AssetGroup /*implements QQView.IsParent*/ {
         icon.setPosition(8, 8);
         addChild(icon);
 
-        level = new QQText(assets.getFont(Game.Font.LEVEL16), new NinePatch(assets.getTexture("background", "zako_level"), 4, 4, 4, 4), 0.75f);
+        level = new QQText(assets.getFont(Game.Font.LEVEL16), assets.getNinePatch("zako_level"), 0.75f);
         level.setColor(Game.Colour.ZAKO_LEVEL);
         level.setPadding(4);
         level.setSize(QQView.WRAP_CONTENT, QQView.WRAP_CONTENT);
@@ -34,7 +34,7 @@ public class MonsterView extends AssetGroup /*implements QQView.IsParent*/ {
         level.setText(Integer.toString(monster.level));
         addChild(level);
 
-        setBackground(assets.getNinePatchBG(monster.type.align.key));
+        setBackground(assets.getNinePatch(monster.type.align.key));
     }
 
     /*

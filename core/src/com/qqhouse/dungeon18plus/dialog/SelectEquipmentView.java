@@ -35,7 +35,7 @@ public class SelectEquipmentView extends AssetGroup {
         super(assets);
         this.viewport = viewport;
         setPadding(8);
-        bgNormal = assets.getNinePatchBG("dialog");
+        bgNormal = assets.getNinePatch("dialog");
 
         group = new QQLinear(Game.Size.WIDGET_MARGIN);
         group.setSize(QQView.MATCH_PARENT, QQView.WRAP_CONTENT);
@@ -51,7 +51,7 @@ public class SelectEquipmentView extends AssetGroup {
         master.reset("sword_master", "colosseum_master");
         master.setSize(QQView.MATCH_PARENT, 48);
         master.setPadding(8);
-        master.setBackground(assets.getNinePatchBG("neutral"));
+        master.setBackground(assets.getNinePatch("neutral"));
         group.addChild(master);
 
         // list
