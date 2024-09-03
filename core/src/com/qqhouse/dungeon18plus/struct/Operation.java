@@ -113,31 +113,6 @@ public class Operation {
 	public static final int DB_DEF = DEBUFF | DEFENSE;
 	public static final int DB_SPD = DEBUFF | SPEED;
 	
-	/*
-	 * special define
-	 */
-	public static final Operation COST_NONE = new Operation(NONE, 0);
-
-	public static final Operation COST_LIFE_99 = new Operation(ASSIST | LIFE, 99);
-	
-	public static final Operation COST_DEFENSE_50_RATE = new Operation(ASSIST | DEFENSE | RATE, 50);
-	
-	public static final Operation COST_STAR_6 = new Operation(ASSIST | STAR, 6);
-	public static final Operation COST_STAR_8 = new Operation(ASSIST | STAR, 8);
-	public static final Operation COST_STAR_9 = new Operation(ASSIST | STAR, 9);
-	public static final Operation COST_STAR_10 = new Operation(ASSIST | STAR, 10);
-	public static final Operation COST_STAR_11 = new Operation(ASSIST | STAR, 11);
-	public static final Operation COST_STAR_12 = new Operation(ASSIST | STAR, 12);
-	public static final Operation COST_STAR_13 = new Operation(ASSIST | STAR, 13);
-	public static final Operation COST_STAR_15 = new Operation(ASSIST | STAR, 15);
-	public static final Operation COST_STAR_18 = new Operation(ASSIST | STAR, 18);
-	
-	public static final Operation COST_SOUL_99 = new Operation(ASSIST | SOUL, 99);
-	
-	public static final Operation COST_RAGE_ALL = new Operation(ASSIST | RAGE | RATE, 100);
-	
-	public static final Operation COST_ONCE = new Operation(ASSIST, 1);
-	
 	public int type;
 	public int value;
 	

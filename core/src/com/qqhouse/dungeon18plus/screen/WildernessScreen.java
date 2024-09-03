@@ -33,6 +33,7 @@ public class WildernessScreen extends QQScreen {
     private GiantView giant;
     private QQList1 history;
     private float period;
+    private final float cdPerSecond = Game.Setting.CAMPAIGN_MAX_TIME / (99 * 1000f); // one campaign finished in 60 sec.
 
     public WildernessScreen(SaveGame savedGame, Viewport viewport, Assets assets, PopupScreen callback) {
         super(savedGame, viewport, assets);
@@ -101,8 +102,8 @@ public class WildernessScreen extends QQScreen {
 
         if (manager.isBattle()) {
             period += delta;
-            if (period >= 0.066f) {
-                period -= 0.066f;
+            if (period >= cdPerSecond) {
+                period -= cdPerSecond;
                 manager.tick();
                 if (manager.isUpdateGiant())
                     giant.update(manager.giants.get(0));
@@ -191,16 +192,19 @@ public class WildernessScreen extends QQScreen {
                 CampaignAction action = (CampaignAction) manager.battleHistory.get(index);
                 convertView = new CampaignActionView(assets);
                 ((CampaignActionView) convertView).reset(action);
+                //convertView.setPadding(8);
                 convertView.setSize(QQView.MATCH_PARENT, 48);
             } else if (TYPE_RESULT == getItemViewType(index)) {
                 CampaignResult result = (CampaignResult) manager.battleHistory.get(index);
                 convertView = new CampaignResultView(assets);
                 ((CampaignResultView) convertView).reset(result);
+                //convertView.setPadding(8);
                 convertView.setSize(QQView.MATCH_PARENT, 40);
             } else {
                 CampaignScore score = (CampaignScore) manager.battleHistory.get(index);
                 convertView = new CampaignScoreView(assets);
                 ((CampaignScoreView) convertView).reset(score);
+                //convertView.setPadding(4, 4, 8, 8);
                 convertView.setSize(QQView.MATCH_PARENT, 40);
             }
             convertView.setPadding(8);

@@ -147,7 +147,7 @@ public class WildernessManager {
 			legion.maxLife = legion.life;
 			legion.nextLife = legion.maxLife;
 			// fast character can use skill fast.
-			legion.coolDown = mRand.nextInt(legion.speed * 10);
+			legion.startCoolDown(mRand.nextInt(legion.speed * 10));
 		}
 		
 		state = BATTLE;
@@ -176,7 +176,7 @@ public class WildernessManager {
 		flushBattleResult();
 		
 		// reset cool down
-		legion.coolDown = legion.action.coolDown;
+		legion.startCoolDown(legion.action.coolDown);
 		
 		return true;
 	}
@@ -193,7 +193,8 @@ public class WildernessManager {
 							target.life -= skillDamage;
 							// record total damage...
 							source.recordTotalDamage(skillDamage);
-							addBattleResult(target.iconKey, Operation.LIFE, -skillDamage);
+							//addBattleResult(target.iconKey, Operation.LIFE, -skillDamage);
+							addBattleResult(target.iconKey, Operation.DAMAGE, skillDamage);
 						}
 					}
 				} else {
@@ -209,7 +210,8 @@ public class WildernessManager {
 							target.life -= resistDamage;
 							// record guard
 							target.recordTotalGuard(resistDamage);
-							addBattleResult(target.iconKey, Operation.LIFE, -resistDamage);
+							//addBattleResult(target.iconKey, Operation.LIFE, -resistDamage);
+							addBattleResult(target.iconKey, Operation.DAMAGE, resistDamage);
 						} else {
 							Campaigner target = findRandomTarget(enemies, true);
 							if (null != target) {
@@ -217,7 +219,8 @@ public class WildernessManager {
 								target.life -= skillDamage;
 								// record total damage
 								source.recordTotalDamage(skillDamage);
-								addBattleResult(target.iconKey, Operation.LIFE, -skillDamage);
+								//addBattleResult(target.iconKey, Operation.LIFE, -skillDamage);
+								addBattleResult(target.iconKey, Operation.DAMAGE, skillDamage);
 							}
 						}
 					}
@@ -409,6 +412,8 @@ public class WildernessManager {
 		if (assist.isQuick()) {
 			changeValue = target.coolDown * assist.value / 100;
 			target.coolDown += changeValue;
+			if (target.maxCoolDown < target.coolDown)
+				target.maxCoolDown = target.coolDown;
 			addBattleResult(target.iconKey, Operation.COOL_DOWN, changeValue);
 			if (0 > target.coolDown)
 				target.coolDown = 0;
@@ -485,7 +490,7 @@ public class WildernessManager {
 					// flush all battle result
 					flushBattleResult();
 					// reset cool down
-					legion.coolDown = legion.action.coolDown;
+					legion.startCoolDown(legion.action.coolDown);
 					// update history
 					state |= UPDATE_HISTORY;
 				}
@@ -722,7 +727,7 @@ public class WildernessManager {
 	private void displayTotalSummary() {
 	    //ArrayList<CampaignScore> allScore = new ArrayList<>();
 	    for (Campaigner legion : legions) {
-            allScore.add(new CampaignScore(legion.iconKey, legion.getTotalDamage(), legion.getTotalGuard(), legion.getTotalHeal()));
+            allScore.add(new CampaignScore(legion.iconKey, ((Legion)legion).lootIconKey ,legion.getTotalDamage(), legion.getTotalGuard(), legion.getTotalHeal()));
         }
 	    Collections.sort(allScore, Collections.reverseOrder());
 	    battleHistory.addAll(allScore);

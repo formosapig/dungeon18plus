@@ -3,13 +3,15 @@ package com.qqhouse.dungeon18plus.struct.campaign;
 
 public class CampaignScore implements Comparable<CampaignScore> {
 
-    public final String icon;
+    public final String iconKey;
+    public final String lootIconKey;
     public final int damage;
     public final int guard;
     public final int heal;
 
-    public CampaignScore(String icon, int damage, int guard, int heal) {
-        this.icon = icon;
+    public CampaignScore(String icon, String lootIconKey, int damage, int guard, int heal) {
+        this.iconKey = icon;
+        this.lootIconKey = lootIconKey;
         this.damage = damage;
         this.guard = guard;
         this.heal = heal;

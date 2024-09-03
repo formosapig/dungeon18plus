@@ -18,7 +18,7 @@ public class BattleReportDetailView extends AssetGroup {
     }
 
     public void reset(CampaignScore score) {
-        icon = new QQImage(assets.getBlockee(score.icon));
+        icon = new QQImage(assets.getBlockee(score.iconKey));
         icon.setSize(32, 32);
         addChild(icon);
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.struct.campaign.Legion;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
+import com.qqhouse.ui.QQFixedProgress;
 import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQProgress;
 
@@ -11,6 +12,7 @@ public class LegionHeroView extends AssetGroupButton {
 
     private QQImage icon;
     private ItemView item;
+    private QQFixedProgress cooldown;
     private QQProgress life;
 
     public LegionHeroView(Assets assets) {
@@ -24,7 +26,7 @@ public class LegionHeroView extends AssetGroupButton {
         addChild(icon);
 
         item = new ItemView();
-        item.setIcon(assets.getIcon(veteran.equipment.icon));
+        item.setItem(assets, veteran.equipment);
         item.setSize(32, 32);
         addChild(item);
 
@@ -49,16 +51,28 @@ public class LegionHeroView extends AssetGroupButton {
         //life.setPosition(leftPadding, bottomPadding);
         addChild(life);
 
+        cooldown = new QQFixedProgress(assets.getFixedProgressParameter("time"));//assets.getProgress(), assets.get..., 3, 3, 26);
+        cooldown.setPercent(100);
+        addChild(cooldown);
+
         setBackground(assets.getBackgroundSet(legion.heroClass.alignment.key));
 
         // default is not enabled.
-        setEnabled(false);
+        //setEnabled(false);
     }
 
     public void update(Legion legion) {
         life.setPercent(legion.life * 100 / legion.maxLife);
         life.setSecondaryProgress(legion.nextLife * 100 / legion.maxLife);
-        setEnabled((0 >= legion.coolDown) && !legion.action.auto);
+        //setEnabled((0 >= legion.coolDown) && !legion.action.auto);
+
+        cooldown.setPercent((legion.maxCoolDown - legion.coolDown) * 100 / legion.maxCoolDown);
+
+        item.setVisible(0 >= legion.coolDown);
+        cooldown.setVisible(0 < legion.coolDown);
+
+        //cooldown.setPercent(100);
+        //item.setCoolDown(50);
         //Gdx.app.error("LegionHeroView.java", "legion = " + legion + " CD : " + legion.coolDown);
     }
 
@@ -68,6 +82,8 @@ public class LegionHeroView extends AssetGroupButton {
             return;
         if (null != life)
             life.setSize(width - leftPadding - rightPadding, 10);
+        if (null != cooldown)
+            cooldown.setSize(8, 32);
     }
 
     @Override
@@ -76,9 +92,11 @@ public class LegionHeroView extends AssetGroupButton {
             return;
 
         if (null != icon)
-            icon.setPosition(leftPadding/*(width - 48) / 2*/, bottomPadding);
+            icon.setPosition(/*leftPadding*/(width - 48) / 2, bottomPadding);
         if (null != item)
             item.setPosition(width - rightPadding - item.getWidth(), bottomPadding);
+        if (null != cooldown)
+            cooldown.setPosition(width - rightPadding - cooldown.getWidth(), bottomPadding);
         if (null != life)
             life.setPosition(leftPadding, bottomPadding + 48 + 4);
 

@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.Gdx;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Soul;
@@ -30,7 +31,7 @@ public class CampaignResultView extends AssetGroup {
                 results[i] = new QQLinear(false, Game.Size.WIDGET_MARGIN);
                 //results[i].setAlign(Align.center);
                 results[i].setPadding(8);
-                results[i].setBackground(assets.getNinePatch("loot_info"));
+                results[i].setBackground(assets.getNinePatch("campaign_left_result"));
                 addChild(results[i]);
 
                 // icons...
@@ -55,6 +56,13 @@ public class CampaignResultView extends AssetGroup {
                         //addChild(values[i]);
                     }
                     break;
+                    case Operation.DAMAGE: {
+                        //Gdx.app.error("CampaignResult", "damage");
+                        values[i] = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/damage"));// + Operation.getIconName(result.type[i])));
+                        values[i].setColor(Game.Colour.DAMAGE);//Operation.getIconColor(result.type[i]));
+                        values[i].setText(Integer.toString(result.value[i]));//result.value[i] > 0 ? ("+" + result.value[i]) : Integer.toString(result.value[i]));
+                        values[i].setSize(QQView.WRAP_CONTENT, 24);
+                    } break;
                     default: {
                         values[i] = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/" + Operation.getIconName(result.type[i])));
                         values[i].setColor(Operation.getIconColor(result.type[i]));

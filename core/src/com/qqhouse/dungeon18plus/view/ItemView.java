@@ -114,9 +114,9 @@ public class ItemView extends QQView {
         // draw type if exist, then item
         if (null != status)
             batch.draw(status, originX, originY, 32, 32);
-        if (null != icon)
+        if (null != icon) {
             batch.draw(icon, originX, originY, 32, 32);
-
+        }
         // draw count if exist
         if (null != rank)
             rank.draw(batch, originX, originY);
@@ -152,6 +152,14 @@ public class ItemView extends QQView {
         //rank.setPosition(-2, 34 - rank.getHeight());
         //count.setText(Integer.toString(sc.count));
         //count.setPosition(34 - count.getWidth(), -2);
+    }
+
+    /*
+        for cool down
+     */
+    public void setCoolDown(int percent) {
+        // default is 32...
+        icon.setRegionWidth(32 * percent / 100);
     }
 
 

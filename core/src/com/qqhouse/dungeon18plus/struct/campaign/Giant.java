@@ -15,9 +15,9 @@ public class Giant extends Campaigner {
 	
 	// decide action...
 	public void decideAction(int time) {
-		this.action = this.race.getAction(time, this.life);
-		if (null != this.action)
-			this.coolDown = this.action.coolDown;
+		action = race.getAction(time, life);
+		if (null != action)
+			startCoolDown(action.coolDown);
 	}
 	
 	

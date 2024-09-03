@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.qqhouse.ui.QQButton;
+import com.qqhouse.ui.QQFixedProgress;
 
 import java.sql.Time;
 import java.util.HashMap;
@@ -43,7 +44,7 @@ public class Assets {
         manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
         // change locale...
-        //Locale.setDefault(Locale.ENGLISH);
+        Locale.setDefault(Locale.ENGLISH);
     }
 
     public void dispose() {
@@ -131,15 +132,34 @@ public class Assets {
         if (!buttonBackgroundSets.containsKey(key)) {
             long t = TimeUtils.millis();
             QQButton.BackgroundSet set = new QQButton.BackgroundSet();
-            set.normal = getNinePatch(key + "_up");//new NinePatch(getButton(key + "_up"), 4, 4, 4, 4);
-            set.pressed = getNinePatch(key + "_down");//new NinePatch(getButton(key + "_down"), 4, 4, 4, 4);
-            set.disable = getNinePatch("disable");//new NinePatch(getButton("disable"), 4, 4, 4, 4);
+            set.normal = getNinePatch(key + "_up");
+            set.pressed = getNinePatch(key + "_down");
+            set.disable = getNinePatch("disable");
             buttonBackgroundSets.put(key, set);
             //Gdx.app.error("Assets", String.format(Locale.US, "getBackgroundSet(%S) : %d", key, (TimeUtils.millis() - t)));
-
         }
         return buttonBackgroundSets.get(key);
     }
+
+    /*
+        fixed progress parameter
+     */
+    public QQFixedProgress.Parameter getFixedProgressParameter(String key) {
+        if ("time".equals(key)) {
+            QQFixedProgress.Parameter parameter = new QQFixedProgress.Parameter();
+            parameter.back = getIcon("progress/time_back");
+            parameter.progress = getIcon("progress/time_progress");
+            parameter.leftGap = 3;
+            parameter.bottomGap = 3;
+            parameter.maxWidth = 26;
+            return parameter;
+        }
+        return null;
+    }
+
+
+
+
 
     /*
         text region series

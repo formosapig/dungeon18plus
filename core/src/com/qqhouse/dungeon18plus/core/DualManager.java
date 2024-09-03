@@ -109,7 +109,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 			legion.maxLife = legion.life;
 			legion.nextLife = legion.maxLife;
 			// fast character can use skill fast.
-			legion.coolDown = mRand.nextInt(legion.speed * 10);
+			legion.startCoolDown(mRand.nextInt(legion.speed * 10));
 			// XXX 0629 send legion data to away.
 			
 		}
@@ -141,7 +141,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		flushBattleResult();
 		
 		// reset cool down
-		legion.coolDown = legion.action.coolDown;
+		legion.startCoolDown(legion.action.coolDown);
 		
 		return true;
 	}
@@ -360,6 +360,8 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		if (assist.isQuick()) {
 			changeValue = target.coolDown * assist.value / 100;
 			target.coolDown += changeValue;
+			if (target.maxCoolDown < target.coolDown)
+				target.maxCoolDown = target.coolDown;
 			addBattleResult(target.iconKey, Operation.COOL_DOWN, changeValue);
 			if (0 > target.coolDown)
 				target.coolDown = 0;
@@ -434,7 +436,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 					// flush all battle result
 					flushBattleResult();
 					// reset cool down
-					legion.coolDown = legion.action.coolDown;
+					legion.startCoolDown(legion.action.coolDown);
 					// update history
 					state |= UPDATE_HISTORY;
 				}

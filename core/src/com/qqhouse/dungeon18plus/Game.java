@@ -174,6 +174,7 @@ public class Game {
         public static final Color MASTERY    = new Color(0x80E0FFFF);
         public static final Color SOUL_LEVEL = new Color(0xFFE080FF);
         public static final Color CALENDAR   = new Color(0xAAAAAAFF);   // kingdom calendar
+        public static final Color CAMPAIGN   = new Color(0x1F2B36FF);   // campaign 荒原藍 (91,122,153)
     }
 
     /*

@@ -20,8 +20,13 @@ public class Campaigner extends Ability {
 	public boolean alive;
 	
 	// action series.
-	public int coolDown;
 	public UniqueSkillData action;
+	public int maxCoolDown;
+	public int coolDown;
+	public void startCoolDown(int coolDown) {
+		this.maxCoolDown = coolDown;
+		this.coolDown = coolDown;
+	}
 
 	// do nothing, just for override.
 	public void recordTotalDamage(int damage) {}

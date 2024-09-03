@@ -1,6 +1,7 @@
 package com.qqhouse.dungeon18plus.struct.campaign;
 
 import com.qqhouse.dungeon18plus.core.HeroClass;
+import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 
 public class Legion extends Campaigner {

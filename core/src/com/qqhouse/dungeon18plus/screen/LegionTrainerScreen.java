@@ -135,9 +135,9 @@ public class LegionTrainerScreen extends QQScreen {
         public QQView getView(int index, QQView view) {
             Veteran vet = legion.get(index);
 
-            LegionHeroView v = (LegionHeroView) view;
-            if (null == v)
-                v = new LegionHeroView(assets);
+            LegionHeroView v = null != view ? (LegionHeroView) view : new LegionHeroView(assets);
+            //if (null == v)
+            //    v = new LegionHeroView(assets);
 
             v.reset(vet);
             v.setSize(QQView.MATCH_PARENT, 64);
