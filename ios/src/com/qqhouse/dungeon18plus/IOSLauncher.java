@@ -3,6 +3,7 @@ package com.qqhouse.dungeon18plus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
+import com.badlogic.gdx.pay.ios.apple.PurchaseManageriOSApple;
 
 import org.robovm.apple.foundation.NSAutoreleasePool;
 import org.robovm.apple.foundation.NSURL;
@@ -20,7 +21,8 @@ public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-
+        Main main = new Main();
+        main.purchaseManager = new PurchaseManageriOSApple();
         //config.statusBarVisible = true;
         return new IOSApplication(new Main(), config);
     }

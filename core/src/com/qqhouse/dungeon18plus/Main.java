@@ -89,16 +89,17 @@ public class Main extends QQGameMachine implements
         //Gdx.app.error("Main.java", "SafeInsetLeft : " + Gdx.graphics.getSafeInsetLeft());
         //Gdx.app.error("Main.java", "SafeInsetRight : " + Gdx.graphics.getSafeInsetRight());
 
+        //Gdx.app.error("Main.java", "before enter initialPurchaseManager()");
         initialPurchaseManager();
     }
 
     private void initialPurchaseManager() {
 
         PurchaseManagerConfig pmc = new PurchaseManagerConfig();
-        pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.PREMIUM.sku));
-        pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.FAIRY.sku));
-        pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.FIRE_KNIGHT.sku));
-        pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.WATER_KNIGHT.sku));
+        //pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.PREMIUM.sku));
+        //pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.FAIRY.sku));
+        //pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.FIRE_KNIGHT.sku));
+        //pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(IAB.WATER_KNIGHT.sku));
 
         //purchaseManager.install(new MyPurchaseObserver(), pmc, true);
     }

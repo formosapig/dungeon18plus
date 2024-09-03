@@ -96,6 +96,7 @@ project(":ios") {
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-ios"
         api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
         // gdx pay
+        api "com.badlogicgames.gdxpay:gdx-pay-client:$gdxPayVersion"
         api "com.badlogicgames.gdxpay:gdx-pay-iosrobovm-apple:$gdxPayVersion"
     }
 }
