@@ -344,12 +344,12 @@ public class SaveGame extends QQSaveGame {
     }
 
     public int veteranLoseLife(int index) {
-        return --mVeteranData.legion.get(index).round;
+        return --mVeteranData.legion.get(index).soul;
     }
 
     public void veteranRestInPeace() {
         for (int i = mVeteranData.legion.size() - 1; i >= 0; --i) {
-            if (0 >= mVeteranData.legion.get(i).round)
+            if (0 >= mVeteranData.legion.get(i).soul)
                 mVeteranData.legion.remove(i);
         }
     }

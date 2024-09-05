@@ -2,7 +2,9 @@ package com.qqhouse.dungeon18plus.struct;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.StringBuilder;
 import com.qqhouse.dungeon18plus.Game;
+import com.qqhouse.ui.QQIconText;
 
 public class Operation2 extends Operation {
 	/*
@@ -123,7 +125,40 @@ public class Operation2 extends Operation {
 		}
 	}
 
-
-
-
+	/*
+		toString ...
+	 */
+	public String getText(Ability base) {
+		StringBuilder builder = new StringBuilder();
+		// attribute
+		if (isDamage()) {
+			builder.append(getDamageDisplay(base));
+		} else if (isAssist()) {
+			if (isTo())
+				builder.append("=");
+			else {
+				if (0 < value)
+					builder.append("+");
+			}
+			builder.append(value);
+			if (isRate())
+				builder.append("%");
+		} else if (isDebuff()) {
+			if (isTo())
+				builder.append("=");
+			else {
+				if (0 < value)
+					builder.append("+");
+			}
+			builder.append(value);
+			if (isRate())
+				builder.append("%");
+		}
+		// target number
+		if (isAll())
+			builder.append("xA");
+		else if (0 < target)
+			builder.append("x").append(target);
+		return builder.toString();
+	}
 }

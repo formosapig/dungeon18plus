@@ -10,7 +10,7 @@ public class Legion extends Campaigner {
 	public int heroFrom;
 	
 	// summary
-	public int round;
+	public int soul;
 	// loot icon
 	public String lootIconKey;
 
@@ -23,6 +23,7 @@ public class Legion extends Campaigner {
 		this.heroClass = old.heroClass;
 		this.copy(old);
 		this.alive = true;
+		this.soul = old.soul;
 		this.totalDamage = 0;
 		this.totalGuard = 0;
 		this.totalHeal = 0;

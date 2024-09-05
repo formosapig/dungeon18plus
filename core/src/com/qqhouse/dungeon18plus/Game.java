@@ -67,20 +67,15 @@ public class Game {
     // debug flag
     public static final class Debug {
         // debug tag
-        public static final String TAG                              = "d18";
+        public static final String TAG                              = "d18p";
         // premium feature.
         public static final boolean PREMIUM                         = true;
         // test enum duplicate.
         public static final boolean TEST_ENUM                       = true;
-        // debug recycler view series
-        public static final boolean RECYCLER_VIEW                   = false;
-        public static final boolean RECYCLER_ADAPTER                = false;
         // test help message
         public static final boolean TEST_HELP                       = false;
         // powerful start mHero
         public static final boolean QUICK_GAME                      = false;
-        // bluetooth function...
-        public static final boolean BLUETOOTH                       = true;
         // test special potion
         public static final boolean SPECIAL_POTION                  = true;
         // create gladiator
@@ -88,7 +83,7 @@ public class Game {
         // calculate collectable equipment
         public static final boolean COLLECTABLE_EQUIPMENT           = true;
         // auto finish campaign in wilderness mode
-        public static final boolean AUTOMAGIC_WILDERNESS_CAMPAIGN   = true;
+        public static final boolean CAMPAIGN_AUTOMATION             = false;
         // fill up random soul
         public static final boolean FILL_UP_RANDOM_SOUL             = true;
         // Log QQView series's trace info
@@ -105,6 +100,7 @@ public class Game {
         public static final int GLOBAL_MAX_DAMAGE                   = 9999;
         public static final int GLOBAL_HERO_MIN_SPEED               = 4;
         // campaign ( Wilderness battle / Dual Battle )
+        public static final int CAMPAIGN_MAX_DAMAGE                 = 99999;
         public static final int CAMPAIGN_MAX_TIME                   = 999;
         /*
          * Hero Define
@@ -115,9 +111,8 @@ public class Game {
         /*
          * Mastery define
          */
-        public static final int MASTERY_NOT_FOUND       = -1;    // can not find mastery data.
-        public static final int SPECIFIC_MASTERY_MAX    = 200;    // mastery max with specific equipment
-        public static final int GENERAL_MASTERY_MAX     = 100;    // mastery max with general equipment
+        public static final int MASTERY_NOT_FOUND       = -1;     // can not find mastery data.
+        public static final int GENERAL_MASTERY_MAX     = 10;    // mastery max with general equipment
     }
 
 
@@ -173,6 +168,7 @@ public class Game {
         public static final Color SOUL       = new Color(0xB0A0C0FF);
         public static final Color MASTERY    = new Color(0x80E0FFFF);
         public static final Color SOUL_LEVEL = new Color(0xFFE080FF);
+        public static final Color TIME       = SPEED;//new Color(0x80E080FF);
         public static final Color CALENDAR   = new Color(0xAAAAAAFF);   // kingdom calendar
         public static final Color CAMPAIGN   = new Color(0x1F2B36FF);   // campaign 荒原藍 (91,122,153)
     }
@@ -192,8 +188,11 @@ public class Game {
         //public static final Assets.FontSet HERO_ABILITY = new Assets.FontSet("Nouveau_IBM", 18);
         public static final Assets.FontSet HERO_ABILITY = new Assets.FontSet("whitrabt", 18, true);
         public static final Assets.FontSet LOOT_INFO = HERO_ABILITY;//new Assets.FontSet("whitrabt", 18, true);
-        public static final Assets.FontSet TIME_TICK = HERO_ABILITY;
         public static final Assets.FontSet EVENT_COST = new Assets.FontSet("whitrabt", 22, true);
+        // campaign
+        public static final Assets.FontSet CAMPAIGN = HERO_ABILITY;
+        public static final Assets.FontSet CAMPAIGN_SMALL = DIGITAL16;
+        public static final Assets.FontSet CAMPAIGN_BIG = EVENT_COST;
 
         // mastery ?
         public static final Assets.FontSet ITEM_COUNT = new Assets.FontSet("overpass-mono.bold", 15);
@@ -312,14 +311,15 @@ public class Game {
 //            Log.e("d18", "data : " + newOne + "/" + new2);
 //    }
 
-        if (TEST_UNIQUE_SKILL_COOL_DOWN) {
+
+        /*if (TEST_UNIQUE_SKILL_COOL_DOWN) {
             for (UniqueSkill us : UniqueSkill.values()) {
                 UniqueSkillData data = us.get(Game.Setting.SPECIFIC_MASTERY_MAX);
                 if (40 >= data.coolDown) {
                     Gdx.app.error("d18", String.format("Unique Skill : %s[%d] -> CD=%d", us.toString(), Game.Setting.SPECIFIC_MASTERY_MAX, data.coolDown));
                 }
             }
-        }
+        }*/
 
         if (Debug.SPECIAL_POTION) {
             //Game.consumeSKU(BillingConstants.SKU_POTION);

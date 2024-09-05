@@ -252,17 +252,17 @@ public class Operation {
 	 */
 	public static String getIconName(int type) {
 		switch (type) {
-			case LIFE: return "life";
-			case ATTACK: return "attack";
-			case DEFENSE: return "defense";
-			case SPEED: return "speed";
-			case RESURRECTION: return "resurrection";
-			case COOL_DOWN: return "time";
-			case GUARD: return "guard";
-			case SOUL: return "cost_soul";
-			case STAR: return "cost_star";
-			case GOLDEN_COIN: return "cost_coin";
-			case DAMAGE: return "damage";
+			case LIFE: return "icon/life";
+			case ATTACK: return "icon/attack";
+			case DEFENSE: return "icon/defense";
+			case SPEED: return "icon/speed";
+			case RESURRECTION: return "icon/resurrection";
+			case COOL_DOWN: return "icon/time";
+			case GUARD: return "icon/guard";
+			case SOUL: return "item/soul";
+			case STAR: return "item/star";
+			case GOLDEN_COIN: return "item/copper_coin";
+			case DAMAGE: return "icon/damage";
 			default :
 				throw new GdxRuntimeException("no such type.");
 		}
@@ -270,16 +270,19 @@ public class Operation {
 
 	public static Color getIconColor(int type) {
 		switch (type) {
-			case LIFE: return Game.Colour.LIFE;
+			case LIFE:
+			case RESURRECTION:
+				return Game.Colour.LIFE;
 			case ATTACK: return Game.Colour.ATTACK;
 			case DEFENSE: return Game.Colour.DEFENSE;
-			case SPEED: return Game.Colour.SPEED;
-			case RESURRECTION: return Game.Colour.LIFE;
-			case COOL_DOWN: return Game.Colour.SPEED;
+			case SPEED:
+			case COOL_DOWN:
+				return Game.Colour.SPEED;
 			case GUARD: return Game.Colour.GUARD;
 			case SOUL: return Game.Colour.SOUL;
-			case STAR: return Game.Colour.RARE;
-			case GOLDEN_COIN: return Game.Colour.RARE;
+			case STAR:
+			case GOLDEN_COIN:
+				return Game.Colour.RARE;
 			case DAMAGE: return Game.Colour.DAMAGE;
 			default :
 				throw new GdxRuntimeException("no such type.");

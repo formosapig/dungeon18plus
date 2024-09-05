@@ -10,7 +10,7 @@ public class EquipmentMastery implements Comparable<EquipmentMastery> {
 		this.equipment = equip;
 		this.mastery = mastery;
 	}
-	
+
 	/*
 	 * Comparable
 	 */

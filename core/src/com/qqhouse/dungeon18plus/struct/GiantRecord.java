@@ -34,16 +34,13 @@ public final class GiantRecord implements Comparable<GiantRecord> {
 	// giant souls
 	public final ArrayList<SoulCount> souls = new ArrayList<>();
 
-	public GiantRecord(GiantRace race) {
-		this.race = race;
-	}
+	public GiantRecord(GiantRace race) { this.race = race; }
 	
 	public void defeat(int time) {
-		if (time < Game.Setting.CAMPAIGN_MAX_TIME && fastWin < time) {
+		if (0 < time && (0 == fastWin || fastWin > time))
 			fastWin = time;
-		}
 	}
-	
+
 	// add experience
 	public void addExperience(int exp) {
 		this.exp += exp;

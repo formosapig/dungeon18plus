@@ -6,7 +6,8 @@ import com.qqhouse.dungeon18plus.struct.Ability;
 
 public class Veteran extends Ability implements /*Parcelable,*/Comparable<Veteran> {
 	public HeroClass heroClass;
-	public int round;
+	// dead in wilderness will make soul -1, remove character forever when soul = 0
+	public int soul;
 	public Item equipment;
 	public int mastery;
 	
@@ -15,7 +16,7 @@ public class Veteran extends Ability implements /*Parcelable,*/Comparable<Vetera
 	public Veteran(ColosseumHero hero) {
 		this.copy(hero);
 		this.heroClass = hero.heroClass;
-		this.round = hero.round;
+		this.soul = hero.round;
 		this.equipment = Item.NONE;
 	}
 	
@@ -25,44 +26,8 @@ public class Veteran extends Ability implements /*Parcelable,*/Comparable<Vetera
 		this.attack = attack;
 		this.defense = defense;
 		this.speed = speed;
-		this.round = round;
+		this.soul = round;
 	}
-
-	/*
-	 * Parcelable
-	 */
-	/*
-	private Veteran(Parcel in) {
-		super(in);
-		this.heroClass = HeroClass.find(in.readInt());
-		this.round = in.readInt();
-		this.equipment = Item.find(in.readInt());
-		this.mastery = in.readInt();
-	}
-	
-	@Override
-	public int describeContents() {
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		super.writeToParcel(dest, flags);
-		dest.writeInt(this.heroClass.code);
-		dest.writeInt(this.round);
-		dest.writeInt(this.equipment.code);
-		dest.writeInt(this.mastery);
-	}
-	
-	public static final Parcelable.Creator<Veteran> CREATOR = new Parcelable.Creator<Veteran>() {
-        public Veteran createFromParcel(Parcel in) {
-            return new Veteran(in); 
-        }
-
-        public Veteran[] newArray(int size) {
-            return new Veteran[size];
-        }
-    };*/
 
     /*
      * comparable
@@ -82,7 +47,7 @@ public class Veteran extends Ability implements /*Parcelable,*/Comparable<Vetera
 		if (comLife != 0)
 			return comLife;
 		// compare soul
-		return another.round - this.round;
+		return another.soul - this.soul;
 	}
 
 }

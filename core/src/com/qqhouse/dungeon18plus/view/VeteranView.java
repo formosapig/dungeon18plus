@@ -1,6 +1,5 @@
 package com.qqhouse.dungeon18plus.view;
 
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.UniqueSkill;
@@ -56,7 +55,7 @@ public class VeteranView extends AssetGroup {
         addChild(coolDown);
 
         round = new QQIconText(assets.getFont(Game.Font.DIGITAL16), assets.getIcon("icon16/cost_soul"));
-        round.setText(Integer.toString(veteran.round));
+        round.setText(Integer.toString(veteran.soul));
         round.setSize(QQView.WRAP_CONTENT, 16);
         addChild(round);
 
@@ -93,31 +92,8 @@ public class VeteranView extends AssetGroup {
         int index = 0;
 
         for (Operation2 op : data.operations) {
-            String opStr = "";
-            if (op.isDamage()) {
-                opStr = Integer.toString(op.getDamageDisplay(veteran));
-                if (op.isAll())
-                    opStr += "xA";
-                else if (1 < op.target)
-                    opStr += "x" + op.target;
-            } else if (op.isAssist()) {
-                opStr = Integer.toString(op.value);
-                if (op.isTo())
-                    opStr = "=" + opStr;
-                else {
-                    if (op.value > 0)
-                        opStr = "+" + opStr;
-                }
-                if (op.isRate())
-                    opStr = opStr + "%";
-                if (op.isAll())
-                    opStr += "xA";
-                else if (0 < op.target)
-                    opStr += "x" + op.target;
-
-            }
-            oper[index].setText(opStr);
             oper[index].setIcon(assets.getIcon("icon16/" + op.getIconName()));
+            oper[index].setText(op.getText(veteran));
             oper[index].setColor(op.getIconColor());
             //oper[index].setSize(QQView.WRAP_CONTENT, 16);
             index++;

@@ -271,10 +271,10 @@ public enum HeroClass {
 		   0,   0,   0);    // key, coin, star
 
 	HeroClass(int code, String key, GameAlignment alignment, Item[] masteryEquipment, Action[] actions, long feat, LootStash stash,
-			int startLife, int startAttack, int startDefense, int startSpeed,
-			int minLifeLimit, int minAttackLimit, int minDefenseLimit, int minSpeedLimit,
-			int maxLifeLimit, int maxAttackLimit, int maxDefenseLimit, int maxSpeedLimit,
-			int startKey, int startCoin, int startStar) {
+			  int startLife, int startAttack, int startDefense, int startSpeed,
+			  int minLifeLimit, int minAttackLimit, int minDefenseLimit, int minSpeedLimit,
+			  int maxLifeLimit, int maxAttackLimit, int maxDefenseLimit, int maxSpeedLimit,
+			  int startKey, int startCoin, int startStar) {
 		this.code = code;
 		this.key = key;
 		this.alignment = alignment;
@@ -335,27 +335,4 @@ public enum HeroClass {
 	public boolean isKnight() {
 		return this == EARTH_KNIGHT || this == FIRE_KNIGHT || this == WATER_KNIGHT || this == WIND_KNIGHT;
 	}
-	
-	//public String getBackgroundRes() {
-	//	if (DARK_PRESENCE.in(this.feat)) {
-	//		return "bg_boss";
-	//	} else if (HOLY_ONE.in(this.feat) || this.isKnight() || this == VALKYRIE) {
-	//		return "bg_fairy";
-	//	} else if (this == PEDDLER)
-	//		return "bg_shop";
-	//	else
-	//		return "bg_brave";
-	//}
-	
-	public String getBackgroundBtn() {
-		if (DARK_PRESENCE.in(this.feat)) {
-			return "btn_boss";
-		} else if (HOLY_ONE.in(this.feat) || this.isKnight() || this == VALKYRIE) {
-			return "btn_fairy";
-		} else if (this == PEDDLER)
-			return "btn_shop";
-		else
-			return "btn_brave";
-	}
-	
 }

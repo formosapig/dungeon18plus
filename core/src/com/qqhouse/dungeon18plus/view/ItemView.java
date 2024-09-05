@@ -13,6 +13,7 @@ import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.dungeon18plus.struct.SoulCount;
+import com.qqhouse.tools.QQTextUtils;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
@@ -88,7 +89,7 @@ public class ItemView extends QQView {
     }
 
     public void setText(String text) {
-        if ("".equals(text)) {
+        if (QQTextUtils.isEmpty(text)) {
             count.setVisible(false);
         } else {
             count.setVisible(true);

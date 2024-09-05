@@ -1,16 +1,19 @@
 package com.qqhouse.dungeon18plus.view;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.Align;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.campaign.Campaigner;
 import com.qqhouse.ui.QQIconText;
 import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQProgress;
+import com.qqhouse.ui.QQView;
 
 public class GiantView extends AssetGroupButton  {
 
     private QQImage icon;
-    private QQIconText action;
+    private QQIconText action, time;
     private QQProgress life;
 
     public GiantView(Assets assets) {
@@ -24,9 +27,9 @@ public class GiantView extends AssetGroupButton  {
         icon.setSize(96, 96);
         addChild(icon);
 
-        action = new QQIconText(assets.getFont(Game.Font.LOOT_INFO));
+        action = new QQIconText(assets.getFont(Game.Font.CAMPAIGN_BIG));
         action.setColor(Game.Colour.SPEED);
-        action.setSize(54, 24);
+        action.setSize(QQView.WRAP_CONTENT, 32);
         addChild(action);
 
         //life = new QQProgress(assets.getNinePatchBG("black"), assets.getNinePatchBG("yellow"));
@@ -37,19 +40,35 @@ public class GiantView extends AssetGroupButton  {
         life.setPosition(leftPadding, bottomPadding);
         addChild(life);
 
+        // time
+        time = new QQIconText(assets.getFont(Game.Font.CAMPAIGN_BIG), assets.getIcon("icon/time"));
+        time.setColor(Game.Colour.TIME);
+        time.setSize(78, 32);
+        time.setAlign(Align.right);
+        time.setVisible(false);
+        addChild(time);
+
         setBackground(assets.getBackgroundSet(giant.bgKey));
     }
 
-    public void update(Campaigner giant) {
+    public void update(Campaigner giant, int currentTime) {
         if (null != action && null != giant.action) {
             action.setIcon(assets.getIcon(giant.action.skill.icon));
             action.setText(Integer.toString(giant.coolDown));
+            action.setVisible(true);
+        } else {
+            action.setVisible(false);
         }
 
         if (null != life) {
             life.setPercent(giant.life * 100 / giant.maxLife);
             life.setSecondaryProgress(giant.nextLife * 100 / giant.maxLife);
         }
+
+        time.setVisible(true);
+        time.setText(Integer.toString(currentTime));
+
+        //Gdx.app.error("GiantView", "time width = " + time.getWidth());
     }
 
 
@@ -63,6 +82,9 @@ public class GiantView extends AssetGroupButton  {
             icon.setPosition((width - 96) / 2, bottomPadding + Game.Size.WIDGET_MARGIN + 8 + Game.Size.WIDGET_MARGIN);
 
         if (null != action)
-            action.setPosition(width - rightPadding - action.getWidth(), height - topPadding - action.getHeight());
+            action.setPosition(leftPadding, height - topPadding - action.getHeight());
+
+        if (null != time)
+            time.setPosition(width - rightPadding - time.getWidth(), height - topPadding - time.getHeight());
     }
 }

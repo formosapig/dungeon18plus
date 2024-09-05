@@ -84,22 +84,13 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 		for (int i = 0, s = equips.size(); i < s; ++i) {
 			EquipmentMastery em = equips.get(i);
 			if (em.equipment == equip) {
-				// can not exceed max
-				if (Game.Setting.SPECIFIC_MASTERY_MAX < mastery)
-					mastery = Game.Setting.SPECIFIC_MASTERY_MAX;
-				if (em.mastery < mastery)
+				if (mastery > em.mastery)
 					em.mastery = mastery;
 				return;
 			}
 		}
-		// not found, check to add
-		for (Item item : heroClass.masteryEquipment) {
-			if (item == equip) {
-				equips.add(new EquipmentMastery(equip, mastery));
-				Collections.sort(equips);
-				return;
-			}
-		}
+		equips.add(new EquipmentMastery(equip, mastery));
+		Collections.sort(equips);
 	}
 
 	// limit series
@@ -125,7 +116,7 @@ public class HeroClassRecord implements Comparable<HeroClassRecord> {
 				return em.mastery;
 			}
 		}
-		return Game.Setting.MASTERY_NOT_FOUND;
+		return 0;//Game.Setting.MASTERY_NOT_FOUND;
 	}
 	
 	public int getSoulCount() {

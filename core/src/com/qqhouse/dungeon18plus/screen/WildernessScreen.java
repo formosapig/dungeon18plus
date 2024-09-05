@@ -1,13 +1,10 @@
 package com.qqhouse.dungeon18plus.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GiantRace;
 import com.qqhouse.dungeon18plus.core.WildernessManager;
-import com.qqhouse.dungeon18plus.dialog.BattleReportDialog;
-import com.qqhouse.dungeon18plus.dialog.SummaryDialog;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignAction;
 import com.qqhouse.dungeon18plus.struct.campaign.CampaignResult;
@@ -32,8 +29,9 @@ public class WildernessScreen extends QQScreen {
     private final PopupScreen callback;
     private GiantView giant;
     private QQList1 history;
+    private boolean campaignStarted;
     private float period;
-    private final float cdPerSecond = Game.Setting.CAMPAIGN_MAX_TIME / (99 * 1000f); // one campaign finished in 60 sec.
+    private float tickPerSecond;
 
     public WildernessScreen(SaveGame savedGame, Viewport viewport, Assets assets, PopupScreen callback) {
         super(savedGame, viewport, assets);
@@ -55,11 +53,30 @@ public class WildernessScreen extends QQScreen {
         // giant 96 x 96 giant ...
         giant = new GiantView(assets);
         giant.reset(manager.giants.get(0));
-        giant.setSize(QQView.MATCH_PARENT, 128);
+        //giant.setSize(QQView.MATCH_PARENT, 128);
         giant.setQQPressListener(new QQPressAdapter() {
             @Override
             public void onPress(int index) {
+                if (!manager.start())
+                    manager.toggle();
+            }
+
+            @Override
+            public void onLongPress(QQView view) {
                 manager.start();
+                if (Game.Debug.CAMPAIGN_AUTOMATION) {
+                    manager.auto();
+                    while (manager.isBattle()) {
+                        manager.tick();
+                    }
+                    giant.update(manager.giants.get(0), manager.time);
+                    history.updateAll();
+                    history.scrollDown();
+                    legionAdapter.refresh();
+                } else {
+                    if (manager.auto())
+                        tickPerSecond = 20f / Game.Setting.CAMPAIGN_MAX_TIME;
+                }
             }
         });
         group.addChild(giant);
@@ -89,6 +106,8 @@ public class WildernessScreen extends QQScreen {
             public void onLongPress(int index) {}
         });
         group.addChild(grid);
+
+        tickPerSecond = 99f / Game.Setting.CAMPAIGN_MAX_TIME;
     }
 
     @Override
@@ -102,11 +121,11 @@ public class WildernessScreen extends QQScreen {
 
         if (manager.isBattle()) {
             period += delta;
-            if (period >= cdPerSecond) {
-                period -= cdPerSecond;
+            if (period >= tickPerSecond) {
+                period -= tickPerSecond;
                 manager.tick();
                 if (manager.isUpdateGiant())
-                    giant.update(manager.giants.get(0));
+                    giant.update(manager.giants.get(0), manager.time);
                 if (manager.isUpdateHistory()) {
                     history.updateAll();
                     history.scrollDown();

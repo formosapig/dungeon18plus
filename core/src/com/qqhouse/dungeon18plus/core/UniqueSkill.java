@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.core;
 
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.Operation2;
 import com.qqhouse.dungeon18plus.struct.campaign.UniqueSkillData;
 
@@ -75,7 +76,7 @@ public enum UniqueSkill {
 	 * Green Pumpkin
 	 */
 	// 大爆發, 依被傷害的血量無差別攻擊人
-	PAIN_BOMB( "item/broken_yellow_soul",            0x4FA61DE2, 110, 110, new OpSt(DG_WND,    3,    3, ALL, ALL)),
+	PAIN_BOMB( "item/broken_yellow_soul",       0x4FA61DE2, 110, 110, new OpSt(DG_WND,    3,    3, ALL, ALL)),
 	
 	/*
 	 * Bloody Werewolf 
@@ -331,7 +332,7 @@ public enum UniqueSkill {
 	 * get Action Data
 	 */
 	public UniqueSkillData get(final int mastery) {
-		int coolDown = coolDownMin + (coolDownMax - coolDownMin) * mastery / 100;
+		int coolDown = coolDownMin + (coolDownMax - coolDownMin) * mastery / Game.Setting.GENERAL_MASTERY_MAX;
 		
 		final int size = operationSets.length;
 		Operation2[] opts = new Operation2[size];
@@ -339,10 +340,10 @@ public enum UniqueSkill {
 		for (int i = 0; i < size; ++i) {
 			opts[i] = new Operation2();
 			opts[i].type = operationSets[i].type;
-			opts[i].value = operationSets[i].valueMin + (operationSets[i].valueMax - operationSets[i].valueMin) * mastery / 100;
+			opts[i].value = operationSets[i].valueMin + (operationSets[i].valueMax - operationSets[i].valueMin) * mastery / Game.Setting.GENERAL_MASTERY_MAX;
 			opts[i].target = (operationSets[i].targetMin == Operation2.ALL)
 					? Operation2.ALL
-					: operationSets[i].targetMin + (operationSets[i].targetMax - operationSets[i].targetMin) * mastery / 100;
+					: operationSets[i].targetMin + (operationSets[i].targetMax - operationSets[i].targetMin) * mastery / Game.Setting.GENERAL_MASTERY_MAX;
 		}
 		
 		// check auto.

@@ -44,11 +44,9 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 	public ArrayList<Campaigner> awayTeam;
 	public ArrayList<Campaigner> homeTeam;
 	public ArrayList<Object> battleHistory;
-	
-	public int time;
-	
-	//public boolean start;
-	
+
+	private int time;
+
 	private CampaignResult store;
 	
 	// XXX 在一個 for 迴圈中,使用 new Random().nextInt(n) 可能會一直取到同樣的值,因為
@@ -61,8 +59,8 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		awayTeam = new ArrayList<>();
 
 		// initial time
-		time = Game.Setting.CAMPAIGN_MAX_TIME;
-		
+		time = 0;
+
 		// initial home team (read legion data only)
 		homeTeam = new ArrayList<>();
 		GuardInfo legionGuard = new GuardInfo();
@@ -382,10 +380,10 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		
 		// reset update state
 		state &= CLEAR_UPDATE;
-		
-		time--;
-		
-		if (0 >= time) {
+
+		time++;
+
+		if (time >= Game.Setting.CAMPAIGN_MAX_TIME) {
 			timeUp();
 			state = RESULT_UPDATE | TIME_UP;
 			return;
@@ -543,7 +541,7 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 		timeUp.skillIconKey = "";
 		timeUp.infoKey = "time_up";
 		timeUp.bgKey = "lawful";
-		timeUp.time = 0;
+		timeUp.time = time;
 		battleHistory.add(timeUp);
 		
 		for (Campaigner ir : awayTeam) {
@@ -707,8 +705,8 @@ public class DualManager /*implements ILegionAdapterDataSource, IBattleHistoryDa
 	private void addBattleAction(Campaigner source) {
 		CampaignAction ba = new CampaignAction();
 		ba.iconKey = source.iconKey;
-		ba.bgKey = source.bgKey;
 		ba.skillIconKey = source.action.skill.icon;
+		ba.bgKey = source.bgKey;
 		ba.time = time;
 		battleHistory.add(ba);
 	}

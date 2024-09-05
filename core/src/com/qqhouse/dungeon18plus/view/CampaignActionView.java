@@ -9,8 +9,6 @@ import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQText;
 import com.qqhouse.ui.QQView;
 
-import java.util.Locale;
-
 public class CampaignActionView extends AssetGroupButton {
 
     private QQImage icon, skill;
@@ -44,8 +42,8 @@ public class CampaignActionView extends AssetGroupButton {
         }
 
         // time
-        time = new QQIconText(assets.getFont(Game.Font.TIME_TICK), assets.getIcon("icon/gray_time"), 24);
-        time.setColor(Game.Colour.CALENDAR);
+        time = new QQIconText(assets.getFont(Game.Font.CAMPAIGN), assets.getIcon("icon/time"), 24);
+        time.setColor(Game.Colour.TIME);
         time.setText(Integer.toString(action.time));
         time.setSize(/*QQView.WRAP_CONTENT*/60, 32);
         time.setAlign(Align.right);

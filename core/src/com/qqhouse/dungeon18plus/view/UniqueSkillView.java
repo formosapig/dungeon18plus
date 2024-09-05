@@ -37,32 +37,8 @@ public class UniqueSkillView extends AssetGroup {
         int index = 0;
 
             for (Operation2 op : data.operations) {
-                String opStr = "";
-                if (op.isDamage()) {
-                    opStr = Integer.toString(op.getDamageDisplay(base));
-                    if (op.isAll())
-                        opStr += "xA";
-                    else if (1 < op.target)
-                        opStr += "x" + op.target;
-                } else if (op.isAssist()) {
-                    opStr = Integer.toString(op.value);
-                    if (op.isTo())
-                        opStr = "=" + opStr;
-                    else {
-                        if (op.value > 0)
-                            opStr = "+" + opStr;
-                    }
-                    if (op.isRate())
-                        opStr = opStr + "%";
-                    if (op.isAll())
-                        opStr += "xA";
-                    else if (0 < op.target)
-                        opStr += "x" + op.target;
-
-                }
-
                 itOps[index] = new QQIconText(assets.getFont(Game.Font.LOOT_INFO), assets.getIcon("icon16/" + op.getIconName()));
-                itOps[index].setText(opStr);
+                itOps[index].setText(op.getText(base));
                 itOps[index].setColor(op.getIconColor());
                 addChild(itOps[index]);
                 index++;

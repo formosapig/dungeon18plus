@@ -308,14 +308,6 @@ class GameManager<H extends Hero> /*implements HeroActionAdapter.ActionSlotSourc
         return mActionSlots.get(position);
     }
 
-    public String getActionSlotBGRes(int position) {
-        final ActionSlot slot = mActionSlots.get(position);
-        if (slot.action.type == Action.Type.POTION)
-            return "btn_shop";
-        else
-            return mHero.heroClass.getBackgroundBtn();
-    }
-
     public boolean isActionSlotEnable(int position) {
         return canDoAction(mActionSlots.get(position));
     }

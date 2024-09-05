@@ -1,16 +1,8 @@
 package com.qqhouse.dungeon18plus.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.GiantRace;
@@ -18,7 +10,6 @@ import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.struct.GiantRecord;
 import com.qqhouse.dungeon18plus.view.PreviewView3;
 import com.qqhouse.tools.QRGenerator;
-import com.qqhouse.ui.QQImage;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQList1;
 import com.qqhouse.ui.QQListAdapter;
@@ -29,15 +20,7 @@ import com.qqhouse.ui.QQView;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
-
-import javax.imageio.ImageIO;
 
 public class SelectGiantScreen extends QQScreen {
 

@@ -4,6 +4,6 @@ public class CampaignAction {
 	public String iconKey;
 	public String skillIconKey;
 	public String infoKey;
-	public int time;
 	public String bgKey;
+	public int time;
 }

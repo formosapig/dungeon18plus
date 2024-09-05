@@ -58,7 +58,7 @@ class VeteranData_1_6_2 extends QQSaveGame.DataPart {
         buffer.putInt(veteran.speed);
         buffer.putInt(0); // isMagic ...
         // other
-		buffer.putInt(veteran.round);
+		buffer.putInt(veteran.soul);
 		buffer.putInt(veteran.equipment.code);
 		buffer.putInt(veteran.mastery);
     }
@@ -93,7 +93,7 @@ class VeteranData_1_6_2 extends QQSaveGame.DataPart {
         veteran.speed = buffer.getInt();
         buffer.getInt(); // isMagic ...
         // other
-		veteran.round = buffer.getInt();
+		veteran.soul = buffer.getInt();
 		veteran.equipment = Item.find(buffer.getInt());
 		veteran.mastery = buffer.getInt();
 		return veteran;
