@@ -46,7 +46,7 @@ public class QQButton extends QQView implements QQView.IsTouchable {
                 longPressCounter = 0;
                 pressed = false;
                 if (null != clickListener)
-                    clickListener.onLongPress(this);
+                    clickListener.onLongPress(index);
             }
 
         }

@@ -151,8 +151,9 @@ Portal 開啟後會得到一幅 QRCode , 這可以去別的世界拜訪.
 角色                  得到的東西
 Sword Master         精靈魔法劍
 Valkyrie             巨獸的消息
-Crusader             別的隊伍, 可以對戰
+Crusader             別的隊伍, 可以對戰 (戰勝後取得 wind dagger +1, giant sword +1, tower shield +1
 Peddler              一些特別的裝備
+Fairy                精靈裝備 ...
 
 Novice               排行榜
 Barbarian

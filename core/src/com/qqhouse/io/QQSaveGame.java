@@ -29,11 +29,16 @@ public abstract class QQSaveGame {
         newGame();
     }
 
+    public void reset() {
+        mData.clear();
+        prepareData();
+        newGame();
+    }
+
+
     protected abstract void prepareData();
     protected abstract void newGame();
     protected abstract void afterLoad();
-
-
 
     public final void load() {
 		try {

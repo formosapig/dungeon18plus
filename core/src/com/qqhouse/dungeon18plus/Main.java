@@ -67,7 +67,8 @@ public class Main extends QQGameMachine implements
 
     @Override
     public void create() {
-        Game.checkAllEnum();
+        //Game.checkAllEnum();
+        //Game.checkUniqueSkill();
         //Gdx.app.error("Main", "Main.create()");
         initial(Game.Size.WIDTH, Game.Size.HEIGHT);
 

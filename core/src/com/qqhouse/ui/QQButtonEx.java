@@ -1,5 +1,6 @@
 package com.qqhouse.ui;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,10 +16,18 @@ public class QQButtonEx extends QQButton implements QQView.IsParent {
         super(backgroundSet);
     }
 
-    public void setText(BitmapFont font, String text) {
-        if (null == this.text) {
-            this.text = new QQText(font);
-            this.text.setText(text);
+    public void setText(BitmapFont font, String info) {
+        if (null == text) {
+            text = new QQText(font);
+            text.setText(info);
+        }
+    }
+
+    public void setText(BitmapFont font, Color color, String info) {
+        if (null == text) {
+            text = new QQText(font);
+            text.setColor(color);
+            text.setText(info);
         }
     }
 

@@ -14,6 +14,8 @@ import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.core.Item;
 import com.qqhouse.dungeon18plus.core.Soul;
 import com.qqhouse.dungeon18plus.core.UniqueSkill;
+import com.qqhouse.dungeon18plus.struct.Ability;
+import com.qqhouse.dungeon18plus.struct.Operation2;
 import com.qqhouse.dungeon18plus.struct.campaign.UniqueSkillData;
 
 public class Game {
@@ -41,8 +43,6 @@ public class Game {
         public static final int BLOCKEE_SIZE = 48; // 48 x 48
     }
 
-    // version name ?
-    public static final String VER = "2.0.0";
     public static final String SAVE_FILE = "d18p2";
 
     // game mode, used in HeroClassRecord.flag
@@ -90,6 +90,10 @@ public class Game {
         public static final boolean TRACE                           = true;
         // all giant.
         public static final boolean TEST_ALL_GIANT                  = true;
+        // call summary dialog
+        public static final boolean CALL_SUMMARY_DIALOG             = true;
+        // call Equipment Select Dailog
+        public static final boolean CALL_SELECT_EQUIPMENT_DIALOG    = true;
     }
 
     /*
@@ -189,6 +193,10 @@ public class Game {
         public static final Assets.FontSet HERO_ABILITY = new Assets.FontSet("whitrabt", 18, true);
         public static final Assets.FontSet LOOT_INFO = HERO_ABILITY;//new Assets.FontSet("whitrabt", 18, true);
         public static final Assets.FontSet EVENT_COST = new Assets.FontSet("whitrabt", 22, true);
+
+        // version tag
+        public static final Assets.FontSet VERSION_TAG = EVENT_COST;
+
         // campaign
         public static final Assets.FontSet CAMPAIGN = HERO_ABILITY;
         public static final Assets.FontSet CAMPAIGN_SMALL = DIGITAL16;
@@ -419,6 +427,25 @@ public class Game {
             throw new RuntimeException("code setting fail.");
 
     }
+
+    public static void checkUniqueSkill() {
+        Gdx.app.error("D18", "check unique skill");
+        Ability base = new Ability(3000, 300, 300, 1, 300, 4);
+        for (UniqueSkill us : UniqueSkill.values()) {
+            final int lv = new Random().nextInt(20) + 1;
+            UniqueSkillData data = us.get(lv);
+            String opStr = "";
+            for (Operation2 op : data.operations)
+                opStr += op.getType() + ":" + op.getText(base) + "/";
+            Gdx.app.error("D18", String.format(Locale.US, "%16s L%2d CD(%3d) -> %s", us, lv, data.coolDown, opStr));
+            //data = us.get(20);
+            //opStr = "";
+            //for (Operation2 op : data.operations)
+            //    opStr += op.getText(base) + "/";
+            //Gdx.app.error("D18", String.format(Locale.US, "Unique Skill : %s[20] CD : %d -> %s", us, data.coolDown, opStr));
+        }
+    }
+
 
     // sku ....
     public static void consumeSKU(String sku) {

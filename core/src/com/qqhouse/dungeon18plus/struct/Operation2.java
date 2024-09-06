@@ -128,6 +128,26 @@ public class Operation2 extends Operation {
 	/*
 		toString ...
 	 */
+	public String getType() {
+		if (isDamage())
+			return "DMG";
+		if (isLife())
+			return "LIF";
+		if (isAttack())
+			return "ATK";
+		if (isDefense())
+			return "DEF";
+		if (isSpeed())
+			return "SPD";
+		if (isGuard())
+			return "GRD";
+		if (isQuick())
+			return "QUK";
+		if (isResurrection())
+			return "RER";
+		return "x";
+	}
+
 	public String getText(Ability base) {
 		StringBuilder builder = new StringBuilder();
 		// attribute
@@ -157,7 +177,7 @@ public class Operation2 extends Operation {
 		// target number
 		if (isAll())
 			builder.append("xA");
-		else if (0 < target)
+		else if (0 < target && (!isDamage() || 1 != target))
 			builder.append("x").append(target);
 		return builder.toString();
 	}

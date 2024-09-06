@@ -1,5 +1,6 @@
 package com.qqhouse.dungeon18plus.core;
 
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.struct.Ability;
 import com.qqhouse.dungeon18plus.struct.campaign.UniqueSkillData;
 
@@ -98,11 +99,11 @@ public enum GiantRace {
 		public UniqueSkillData getAction(int time, int life) {
 			// HEAL_25
 			if (life <= this.attr.life / 2 )
-				return UniqueSkill.HEAL_25.get(100);
+				return UniqueSkill.HEAL_25.get(Game.Setting.GENERAL_MASTERY_MAX);
 			
 			// BLACK_MUD
 			if (time >= 500)
-				return UniqueSkill.BLACK_MUD.get(100);
+				return UniqueSkill.BLACK_MUD.get(Game.Setting.GENERAL_MASTERY_MAX);
 			
 			return null;
 		}
@@ -131,15 +132,15 @@ public enum GiantRace {
 		public UniqueSkillData getAction(int time, int life) {
 			// QUICK_10
 			if (99 == time)
-				return UniqueSkill.QUICK_10.get(100);
+				return UniqueSkill.QUICK_10.get(Game.Setting.GENERAL_MASTERY_MAX);
 			
 			// ANGRY
 			if (life < attr.life * 0.3 && ((time % 67) == 0))
-				return UniqueSkill.ANGRY.get(100);
+				return UniqueSkill.ANGRY.get(Game.Setting.GENERAL_MASTERY_MAX);
 
 			// HEAVY_STRIKE
 			if (((time % 25) == 0) && 25 > new Random().nextInt(100))
-				return UniqueSkill.HEAVY_STRIKE.get(100);
+				return UniqueSkill.HEAVY_STRIKE.get(Game.Setting.GENERAL_MASTERY_MAX);
 			
 			return null;
 		}
@@ -168,11 +169,11 @@ public enum GiantRace {
 			if (0 == time % 165) {
 				final int seed = new Random().nextInt(3);
 				if (0 == seed)
-					return UniqueSkill.ATTACK_UP.get(100);
+					return UniqueSkill.ATTACK_UP.get(Game.Setting.GENERAL_MASTERY_MAX);
 				else if (1 == seed)
-					return UniqueSkill.DEFENSE_UP.get(100);
+					return UniqueSkill.DEFENSE_UP.get(Game.Setting.GENERAL_MASTERY_MAX);
 				else
-					return UniqueSkill.SPEED_UP.get(100);
+					return UniqueSkill.SPEED_UP.get(Game.Setting.GENERAL_MASTERY_MAX);
 			}
 			
 			return null;
@@ -193,7 +194,7 @@ public enum GiantRace {
 		@Override
 		public UniqueSkillData getAction(int time, int life) {
 			if (250 == time)
-				return UniqueSkill.PAIN_BOMB.get(100);
+				return UniqueSkill.PAIN_BOMB.get(Game.Setting.GENERAL_MASTERY_MAX);
 			
 			return null;
 		}
@@ -218,11 +219,11 @@ public enum GiantRace {
 			final int seed = new Random().nextInt(100);
 			
 			if (50 > seed)
-				return UniqueSkill.CLAW.get(100);
+				return UniqueSkill.CLAW.get(Game.Setting.GENERAL_MASTERY_MAX);
 			else if (75 > seed)
-				return UniqueSkill.POWER_CLAW.get(100);
+				return UniqueSkill.POWER_CLAW.get(Game.Setting.GENERAL_MASTERY_MAX);
 			else
-				return UniqueSkill.LEECH_CLAW.get(100);
+				return UniqueSkill.LEECH_CLAW.get(Game.Setting.GENERAL_MASTERY_MAX);
 		}
 	},
 
@@ -243,7 +244,7 @@ public enum GiantRace {
 		@Override
 		public UniqueSkillData getAction(int time, int life) {
 			if (time % 175 == 0)
-				return UniqueSkill.SNOWDRIFT.get(100);
+				return UniqueSkill.SNOWDRIFT.get(Game.Setting.GENERAL_MASTERY_MAX);
 			return null;
 		}
 	},
@@ -267,16 +268,16 @@ public enum GiantRace {
 			
 			if (life < attr.life / 2)
 				return mRand.nextBoolean()
-					? UniqueSkill.THUNDER_BALL.get(100)
-					: UniqueSkill.CHAIN_LIGHTNING.get(100);
+					? UniqueSkill.THUNDER_BALL.get(Game.Setting.GENERAL_MASTERY_MAX)
+					: UniqueSkill.CHAIN_LIGHTNING.get(Game.Setting.GENERAL_MASTERY_MAX);
 			
 			final int seed = mRand.nextInt(100);
 			if (5 > seed)
-				return UniqueSkill.SPIRAL_FEATHER.get(100);
+				return UniqueSkill.SPIRAL_FEATHER.get(Game.Setting.GENERAL_MASTERY_MAX);
 			else if (10 > seed)
-				return UniqueSkill.SONIC_ATTACK.get(100);
+				return UniqueSkill.SONIC_ATTACK.get(Game.Setting.GENERAL_MASTERY_MAX);
 			else
-				return UniqueSkill.SPEAR_OF_WIND.get(100);
+				return UniqueSkill.SPEAR_OF_WIND.get(Game.Setting.GENERAL_MASTERY_MAX);
 		}
 	},
 
@@ -301,11 +302,11 @@ public enum GiantRace {
 			final int seed = new Random().nextInt(100);
 			
 			if (4 > seed)
-				return UniqueSkill.GAZE.get(100);
+				return UniqueSkill.GAZE.get(Game.Setting.GENERAL_MASTERY_MAX);
 			else if (52 > seed)
-				return UniqueSkill.STOMP.get(100);
+				return UniqueSkill.STOMP.get(Game.Setting.GENERAL_MASTERY_MAX);
 			else
-				return UniqueSkill.BASH.get(100);
+				return UniqueSkill.BASH.get(Game.Setting.GENERAL_MASTERY_MAX);
 		}
 	},
 		
@@ -330,22 +331,22 @@ public enum GiantRace {
 		@Override
 		public UniqueSkillData getAction(int time, int life) {
 			if (life < attr.life / 10)
-				return UniqueSkill.HEAL_100.get(100);
+				return UniqueSkill.HEAL_100.get(Game.Setting.GENERAL_MASTERY_MAX);
 			
 			final Random mRand = new Random();
 			
 			if (0 == (time % 200) && 5 > mRand.nextInt(100))
-				return UniqueSkill.BUBBLE.get(100);
+				return UniqueSkill.BUBBLE.get(Game.Setting.GENERAL_MASTERY_MAX);
 			
 			if (0 == (time % 110)) {
 				final int seed = mRand.nextInt(3);
 				
 				if (0 == seed)
-					return UniqueSkill.ATTACK_DOWN.get(100);
+					return UniqueSkill.ATTACK_DOWN.get(Game.Setting.GENERAL_MASTERY_MAX);
 				else if (1 == seed)
-					return UniqueSkill.DEFENSE_DOWN.get(100);
+					return UniqueSkill.DEFENSE_DOWN.get(Game.Setting.GENERAL_MASTERY_MAX);
 				else
-					return UniqueSkill.SPEED_DOWN.get(100);
+					return UniqueSkill.SPEED_DOWN.get(Game.Setting.GENERAL_MASTERY_MAX);
 			}
 			
 			return null;
@@ -366,7 +367,7 @@ public enum GiantRace {
 	{
 		@Override
 		public UniqueSkillData getAction(int time, int life) {
-			return UniqueSkill.SWALLOW.get(100);
+			return UniqueSkill.SWALLOW.get(Game.Setting.GENERAL_MASTERY_MAX);
 		}
 	};
 	

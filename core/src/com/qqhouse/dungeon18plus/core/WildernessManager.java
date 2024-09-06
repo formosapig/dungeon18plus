@@ -28,7 +28,6 @@
 
         // status define.
         private static final int INITIAL	    = 0x00000001;	// create class
-        public static final int START		    = 0x00000002;	// press start
         private static final int BATTLE		    = 0x00000004;	// tick can work.
         private static final int PAUSE			= 0x00000008;   // pause campaign
         private static final int RESULT		    = 0x00000010;	// after result and summary, should update all

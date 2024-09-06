@@ -9,6 +9,7 @@ import com.qqhouse.dungeon18plus.Assets;
 import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.gamedata.SaveGame;
 import com.qqhouse.dungeon18plus.view.MainMenuView;
+import com.qqhouse.ui.QQButtonEx;
 import com.qqhouse.ui.QQLinear;
 import com.qqhouse.ui.QQPressListener;
 import com.qqhouse.ui.QQScreen;
@@ -70,6 +71,13 @@ public class TitleScreen extends QQScreen {
         group.addChild(gallery);
 
         group.setPosition((Game.Size.WIDTH - group.getWidth()) / 2, (Game.Size.HEIGHT - group.getHeight()) / 2);
+
+        // iap and version button...
+        QQButtonEx version = new QQButtonEx(assets.getBackgroundSet("lawful"));
+        version.setText(assets.getFont(Game.Font.VERSION_TAG), assets.geti18n("version_tag"));
+        version.setSize(100, 40);
+        version.setPosition(Game.Size.WIDTH - version.getWidth() - 8, 8);
+        addChild(version);
     }
 
     private final QQPressListener clickListener = new QQPressListener() {
@@ -79,13 +87,20 @@ public class TitleScreen extends QQScreen {
         }
 
         @Override
-        public void onLongPress(QQView view) {
-            String[] data = {"black","chaotic","chaotic_down","chaotic_up","dialog","disable","help","hero_info","lawful","lawful_down","lawful_up","level","loot_info","neutral","neutral_down","neutral_up","ordinary","ordinary_down","ordinary_up","progress_back","progress_cyan_primary","progress_cyan_secondary","progress_yellow_primary","progress_yellow_secondary","special","special_down","special_up","underline","white","zako_level"};
-            long t = TimeUtils.millis();
-            for (int i = 0; i < 20000; ++i)
-                for (String key : data)
-                    assets.getNinePatch(key);
-            Gdx.app.error("TitleScreen", "total time : " + (TimeUtils.millis() - t));
+        public void onLongPress(int gameMode) {
+            switch (gameMode) {
+                case Game.Mode.DUNGEON: {
+                    // clear all save data.
+                    savedGame.reset();
+                } break;
+            }
+            //Gdx.app.error("TitleScreen", "view = " + gameMode);
+            //String[] data = {"black","chaotic","chaotic_down","chaotic_up","dialog","disable","help","hero_info","lawful","lawful_down","lawful_up","level","loot_info","neutral","neutral_down","neutral_up","ordinary","ordinary_down","ordinary_up","progress_back","progress_cyan_primary","progress_cyan_secondary","progress_yellow_primary","progress_yellow_secondary","special","special_down","special_up","underline","white","zako_level"};
+            //long t = TimeUtils.millis();
+            //for (int i = 0; i < 20000; ++i)
+            //    for (String key : data)
+            //        assets.getNinePatch(key);
+            //Gdx.app.error("TitleScreen", "total time : " + (TimeUtils.millis() - t));
         }
     };
 

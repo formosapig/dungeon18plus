@@ -94,7 +94,7 @@ public class SelectHeroScreen extends QQScreen implements QQPressListener {
     }
 
     @Override
-    public void onLongPress(QQView view) {
+    public void onLongPress(int code) {
 
     }
 

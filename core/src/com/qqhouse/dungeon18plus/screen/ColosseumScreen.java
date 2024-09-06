@@ -105,6 +105,13 @@ public class ColosseumScreen extends QQScreen {
                 if (scroll.isVisible())
                     profile.update(manager.getHero(), manager.getActionSlots());
             }
+            @Override
+            public void onLongPress(int index) {
+                if (Game.Debug.CALL_SELECT_EQUIPMENT_DIALOG) {
+                    manager.debugFillBackpack();
+                    endGame(true);
+                }
+            }
         });
         addChild(heroView);
 
@@ -178,7 +185,6 @@ public class ColosseumScreen extends QQScreen {
                         manager.doAction(index);
                         update();
                     }
-                    debug();
                 }
             }, i);
             actionViews.add(action);
@@ -205,11 +211,6 @@ public class ColosseumScreen extends QQScreen {
         for (int i = 0, s = actionViews.size(); i < s; ++i) {
             actionViews.get(i).update(manager.getActionSlot(i), manager.canDoAction(i));
         }
-    }
-
-    private void debug() {
-        manager.debugFillBackpack();
-        endGame(true);
     }
 
     private void endGame(boolean isWin) {

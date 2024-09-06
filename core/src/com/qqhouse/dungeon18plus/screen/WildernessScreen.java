@@ -62,7 +62,7 @@ public class WildernessScreen extends QQScreen {
             }
 
             @Override
-            public void onLongPress(QQView view) {
+            public void onLongPress(int index) {
                 manager.start();
                 if (Game.Debug.CAMPAIGN_AUTOMATION) {
                     manager.auto();

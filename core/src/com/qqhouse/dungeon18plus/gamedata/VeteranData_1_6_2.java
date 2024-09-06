@@ -2,6 +2,7 @@ package com.qqhouse.dungeon18plus.gamedata;
 
 import com.qqhouse.dungeon18plus.core.HeroClass;
 import com.qqhouse.dungeon18plus.core.Item;
+import com.qqhouse.dungeon18plus.core.MasteryManager;
 import com.qqhouse.dungeon18plus.struct.hero.Veteran;
 import com.qqhouse.io.QQSaveGame;
 
@@ -16,39 +17,39 @@ import java.util.ArrayList;
  */
 class VeteranData_1_6_2 extends QQSaveGame.DataPart {
 
-	final ArrayList<Veteran> barrack;
-	final ArrayList<Veteran> legion;
-	
-	VeteranData_1_6_2() {
-		super(0xAD30D702);
-		barrack = new ArrayList<>();
-		legion = new ArrayList<>();
-	}
-	
-	@Override
-	public byte[] write() {
-		ByteBuffer buffer = ByteBuffer.allocate(1024 * 8);	// 32 x 32
-		// write barrack data
-		int size = barrack.size();
-		buffer.putInt(size);
-		for (Veteran hero : barrack) {
-		    writeVeteran(buffer, hero);
-        }
-		// write legion data
-		size = legion.size();
-		buffer.putInt(size);
-		for (Veteran hero : legion) {
+    final ArrayList<Veteran> barrack;
+    final ArrayList<Veteran> legion;
+
+    VeteranData_1_6_2() {
+        super(0xAD30D702);
+        barrack = new ArrayList<>();
+        legion = new ArrayList<>();
+    }
+
+    @Override
+    public byte[] write() {
+        ByteBuffer buffer = ByteBuffer.allocate(1024 * 8);	// 32 x 32
+        // write barrack data
+        int size = barrack.size();
+        buffer.putInt(size);
+        for (Veteran hero : barrack) {
             writeVeteran(buffer, hero);
         }
-		buffer.flip();
-		byte[] b = new byte[buffer.limit()];
-		buffer.get(b);
-		return b;
-	}
+        // write legion data
+        size = legion.size();
+        buffer.putInt(size);
+        for (Veteran hero : legion) {
+            writeVeteran(buffer, hero);
+        }
+        buffer.flip();
+        byte[] b = new byte[buffer.limit()];
+        buffer.get(b);
+        return b;
+    }
 
-	private void writeVeteran(ByteBuffer buffer, Veteran veteran) {
+    private void writeVeteran(ByteBuffer buffer, Veteran veteran) {
         // hero class
-	    buffer.putInt(veteran.heroClass.code);
+        buffer.putInt(veteran.heroClass.code);
         // abillity
         buffer.putInt(veteran.life);
         buffer.putInt(veteran.attack);
@@ -58,30 +59,30 @@ class VeteranData_1_6_2 extends QQSaveGame.DataPart {
         buffer.putInt(veteran.speed);
         buffer.putInt(0); // isMagic ...
         // other
-		buffer.putInt(veteran.soul);
-		buffer.putInt(veteran.equipment.code);
-		buffer.putInt(veteran.mastery);
+        buffer.putInt(veteran.soul);
+        buffer.putInt(veteran.equipment.code);
+        buffer.putInt(veteran.mastery);
     }
 
-	@Override
-	public void read(byte[] data) {
-		ByteBuffer buffer = ByteBuffer.wrap(data);
-		// read barrack data.
-		barrack.clear();
-		int size = buffer.getInt();
-		for (int s = 0; s < size; ++s) {
+    @Override
+    public void read(byte[] data) {
+        ByteBuffer buffer = ByteBuffer.wrap(data);
+        // read barrack data.
+        barrack.clear();
+        int size = buffer.getInt();
+        for (int s = 0; s < size; ++s) {
             barrack.add(readVeteran(buffer));
         }
-		// read legion data.
-		legion.clear();
-		size = buffer.getInt();
-		for (int s = 0; s < size; ++s) {
+        // read legion data.
+        legion.clear();
+        size = buffer.getInt();
+        for (int s = 0; s < size; ++s) {
             legion.add(readVeteran(buffer));
         }
-	}
+    }
 
-	private Veteran readVeteran(ByteBuffer buffer) {
-	    Veteran veteran = new Veteran();
+    private Veteran readVeteran(ByteBuffer buffer) {
+        Veteran veteran = new Veteran();
         // hero class
         veteran.heroClass = HeroClass.find(buffer.getInt());
         // ability
@@ -93,10 +94,28 @@ class VeteranData_1_6_2 extends QQSaveGame.DataPart {
         veteran.speed = buffer.getInt();
         buffer.getInt(); // isMagic ...
         // other
-		veteran.soul = buffer.getInt();
-		veteran.equipment = Item.find(buffer.getInt());
-		veteran.mastery = buffer.getInt();
-		return veteran;
+        veteran.soul = buffer.getInt();
+        veteran.equipment = Item.find(buffer.getInt());
+        veteran.mastery = buffer.getInt();
+        return veteran;
     }
-	
+
+	/*@Override
+	public void afterRead() {
+		for (Veteran v : barrack) {
+			// check mastery
+			final int mastery = MasteryManager.getMastery(v.heroClass, v.equipment);
+			if (v.mastery > mastery)
+				v.mastery = mastery;
+		}
+		for (Veteran v : legion) {
+			// check mastery
+			final int mastery = MasteryManager.getMastery(v.heroClass, v.equipment);
+			if (v.mastery > mastery)
+				v.mastery = mastery;
+		}
+
+
+	}*/
+
 }

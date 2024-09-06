@@ -1,10 +1,15 @@
 package com.qqhouse.dungeon18plus.gamedata;
 
+import com.qqhouse.dungeon18plus.Game;
 import com.qqhouse.dungeon18plus.core.Item;
+import com.qqhouse.dungeon18plus.struct.EquipmentMastery;
 import com.qqhouse.io.QQSaveGame;
+
+import org.intellij.lang.annotations.JdkConstants;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /*
  * size : 51 loot x 4 byte = 204 bytes.
@@ -36,4 +41,11 @@ class EquipmentData_1_6_1 extends QQSaveGame.DataPart {
 			equipments.add(Item.find(buffer.getInt()));
 	}
 
+	//@Override
+	//public void afterRead() {
+	//	equipments.clear();
+	//	for (Item item : Item.values())
+	//		if (item.isEquipment() && item.isNotSpecial() && item.isNotPremium() && item.isForSale())
+	//			equipments.add(item);
+	//}
 }

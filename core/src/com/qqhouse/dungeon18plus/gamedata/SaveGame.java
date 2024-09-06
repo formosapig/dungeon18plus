@@ -27,7 +27,6 @@ public class SaveGame extends QQSaveGame {
     private HelpData_1_6_2 mHelpData;
     private SpecialItemData_1_6_3 mSpecialItemData;
 
-
     public SaveGame(String fileName) {
         super(fileName);
     }

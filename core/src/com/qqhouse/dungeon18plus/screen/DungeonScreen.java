@@ -130,6 +130,29 @@ public class DungeonScreen extends QQScreen {
                 if (scroll.isVisible())
                     profile.update(manager.getHero(), manager.getActionSlots());
             }
+            @Override
+            public void onLongPress(int index) {
+                if (Game.Debug.CALL_SUMMARY_DIALOG) {
+                    //Gdx.app.error("DungeonScreen", "event table = .....");
+                    //for (int i = 0; i < manager.getEventCount(); ++i) {
+                    //    Gdx.app.error("DungeonScreen", String.format("Event %2d = %s", i, manager.getEvent(i).toString()));
+                    //}
+                    //manager.test();
+                    //manager.test2();
+
+                    manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 120, 99));
+                    manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 110, 80));
+                    manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 100, 3));
+                    manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 90, 5));
+                    manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 80, 19));
+                    manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 70, 29));
+                    manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 60, 39));
+                    manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 50, 49));
+                    manager.killList.add(new BossKill(EventType.BLACK_SLIME, 111, 199));
+                    manager.killList.add(new BossKill(EventType.DEMON, 999, 1));
+                    endGame(false);
+                }
+            }
         });
         addChild(heroView);
 
@@ -231,7 +254,6 @@ public class DungeonScreen extends QQScreen {
                         manager.doAction(index);
                         update();
                     }
-                    debug();
                 }
             }, i);
             actionViews.add(action);
@@ -242,27 +264,6 @@ public class DungeonScreen extends QQScreen {
         eventInfoDialog = new EventInfoDialog(assets);
 
         update();
-    }
-
-    private void debug() {
-        //Gdx.app.error("DungeonScreen", "event table = .....");
-        //for (int i = 0; i < manager.getEventCount(); ++i) {
-        //    Gdx.app.error("DungeonScreen", String.format("Event %2d = %s", i, manager.getEvent(i).toString()));
-        //}
-        //manager.test();
-        //manager.test2();
-
-        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 120, 99));
-        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 110, 80));
-        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 100, 3));
-        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 90, 5));
-        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 80, 19));
-        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 70, 29));
-        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 60, 39));
-        manager.killList.add(new BossKill(EventType.COLOSSEUM_MASTER, 50, 49));
-        manager.killList.add(new BossKill(EventType.BLACK_SLIME, 111, 199));
-        manager.killList.add(new BossKill(EventType.DEMON, 999, 1));
-        endGame(false);
     }
 
     private void update() {

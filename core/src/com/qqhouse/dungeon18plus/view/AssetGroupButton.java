@@ -40,7 +40,7 @@ public class AssetGroupButton extends AssetGroup implements QQView.IsTouchable {
                 longPressCounter = 0;
                 pressed = false;
                 if (null != pressListener) {
-                    pressListener.onLongPress(this);
+                    pressListener.onLongPress(pressIndex);
                 }
             }
 
