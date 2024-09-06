@@ -42,7 +42,7 @@ public class EventInfoView extends AssetGroup {
         item.setVisible(event.loot != Item.NONE);
         if (Item.NONE != event.loot ) {
  //           if (event.type == EventType.DOOR || event.type.isMonster())
-            item.update(event.loot, (event.type == EventType.DOOR || event.type.isMonster()) && event.loot.isEquipment());
+            item.update(event.loot, false);//(event.type == EventType.DOOR || event.type.isMonster()) && event.loot.isEquipment());
         }
         preview.update(event.getIcon(), event.type.name, event.type.help, event.type.align.key);
 

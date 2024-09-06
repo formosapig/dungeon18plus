@@ -69,7 +69,7 @@ public class Game {
         // debug tag
         public static final String TAG                              = "d18p";
         // premium feature.
-        public static final boolean PREMIUM                         = true;
+        public static final boolean PREMIUM                         = false;
         // test enum duplicate.
         public static final boolean TEST_ENUM                       = true;
         // test help message

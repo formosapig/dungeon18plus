@@ -186,14 +186,7 @@ public class EventView extends QQButton implements QQView.IsParent {
 
         // item ...
         if (event.loot != Item.NONE) {
-            //item.setItem(assets, event.loot);
-            if ((event.type == EventType.DOOR || event.type.isMonster()) && event.loot.isEquipment()) {
-                // unknown item.
-                item.setIcon(assets.getIcon(event.loot.icon));
-                item.setStatus(null);
-            } else {
-                item.setItem(assets, event.loot);
-            }
+            item.setItem(assets, event.loot);
 
             if (event.lootCount > 1) {
                 item.setText(Integer.toString(event.lootCount));
